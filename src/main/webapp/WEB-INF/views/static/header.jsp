@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
 <!-- ======= Header ======= -->
 	<header id="header" class="header fixed-top d-flex align-items-center">
 

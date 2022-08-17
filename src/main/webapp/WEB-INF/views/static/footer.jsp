@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
 <!-- ======= Footer ======= -->
 <footer id="footer" class="footer">
 	<div class="copyright">
