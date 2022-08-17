@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <div>
 	<form>
-		<p>미 승인 발주 현황</p>
+		<p>미 승인 발주 현황 깨지냐</p>
 		<input type="date" name="beforeDate"> <input type="date"
 			name="afterDate" id='currnetDate'> <select
 			name="searchOption">
