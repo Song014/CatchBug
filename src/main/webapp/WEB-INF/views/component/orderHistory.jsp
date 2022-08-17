@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
 <div>
 	<form>
 		<p>미 승인 발주 현황</p>
