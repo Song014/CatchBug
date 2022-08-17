@@ -7,10 +7,14 @@
 1. [web.xml]()에 인코딩 필터 추가
 2. lombok 추가 롬복 안될시 메이븐 디펜던시에서 lombok.jar 경로 복사후 실행해서 직접 설치
 3. 부트스트랩 assets 추가
-ㄴ
+
 
 ### 경로
 
 src/webapp/resource : 정적 파일 경로(html,css,js,img)
 src/webapp/WEB-INF/views/static : header,aside,footer
 src/webapp/WEB-INF/views/component : content 영역
+
+### 에러
+
+1. [부트스트랩 assets의 js 파일들 x 표시 뜰 경우](https://needneo.tistory.com/108) : `src/main/webapp/resources/assets/vendor/**/*.js` 경로 추가하기
