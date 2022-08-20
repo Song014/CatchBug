@@ -58,5 +58,29 @@ public class ViewController {
 		return "factory/orderHistory";
 	}
 
+	@RequestMapping("/master.do")
+	public String MasterPage() {
+		System.out.println("matser.do");
+		return "main";
+	}
+	@RequestMapping("/user.do")
+	public String UserPage() {
+		return "index";
+	}
+
+	@RequestMapping("/factory_StorckList.do")
+	public String FactorySotckList() {
+		return "factory/factory_StockList";
+	}
+
+	@RequestMapping("/main_StorckList.do")
+	public String mainSotckList() {
+		return "factory/main_StockList";
+	}
+
+	@RequestMapping("/main_ProductRegister.do")
+	public String mainProductRegister() {
+		return "factory/main_ProductRegister";
+	}
 
 }
