@@ -6,8 +6,9 @@
     * [관리자 네비게이션 수정](src/main/webapp/WEB-INF/views/mainInclude/sidebar_master.jsp)
 
 2. jsp파일 각 해당하는 폴더에 추가
- * board : 가맹점관련(src/main/webapp/WEB-INF/views/board/)
+ * board : 게시판관련(src/main/webapp/WEB-INF/views/board/)
  * factory : 관리자관련(src/main/webapp/WEB-INF/views/factory/)
+ * franc : 가맹점 관련
  * mainInclude : 관리자관련(src/main/webapp/WEB-INF/views/mainInclude/)
 
 

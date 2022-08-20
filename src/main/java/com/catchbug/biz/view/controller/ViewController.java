@@ -32,7 +32,7 @@ public class ViewController {
 	}
 	@RequestMapping("/francOrder.do")
 	public String FrancOrder() {
-		return "board/francOrder";
+		return "franc/francOrder";
 	}
 	
 	@RequestMapping("/factory_Order_History.do")
@@ -40,9 +40,9 @@ public class ViewController {
 		return "factory/factory_Order_History";
 	}
 	
-	@RequestMapping("/fancOrderHistory.do")
+	@RequestMapping("/francOrderHistory.do")
 	public String FancOrderHistory() {
-		return "factory/fanc_Order_History";
+		return "franc/fanc_Order_History";
 	}
 	
 	@RequestMapping("/factoryOrder.do")
