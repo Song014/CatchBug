@@ -1,4 +1,8 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page session="false"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,13 +10,12 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>CatchBug</title>
+<title>Dashboard - NiceAdmin Bootstrap Template</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 
 <!-- Favicons -->
 <link href="assets/img/favicon.png" rel="icon">
@@ -45,14 +48,36 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-
 </head>
 
 <body>
 
-	<%@ include file="../static/header.jsp"%>
+	<!-- ======= Header ======= -->
+
+	<jsp:include page="../mainInclude/header.jsp"></jsp:include>
+
+	<!-- End Header -->
 
 
+
+
+	<!-- ======= Sidebar ======= -->
+
+	<%-- <c:set var="user" value="${user }"/>
+	 
+	 <c:when test="${user.level != 2}">
+	 	<jsp:include page="sidebar(master).jsp"></jsp:include>
+	 </c:when> --%>
+
+	<%-- 	 <c:otherwise> --%>
+	<jsp:include page="../mainInclude/sidebar_master.jsp"></jsp:include>
+
+	<%--  		<jsp:include page="sidebar_master.jsp"></jsp:include> --%>
+	<%-- 	 </c:otherwise> --%>
+
+	<!-- End Sidebar -->
+	<!-- End Header -->
+	<!-- End Sidebar -->
 	<!-- main start -->
 	<main id="main" class="main">
 	<div class="pagetitle">
@@ -137,7 +162,7 @@
 										<td><button type="button"
 												class="btn btn-primary btn-sm addBucket">추가</button></td>
 									</tr>
-									
+
 								</tbody>
 							</table>
 							<!-- 가져온거 -->
@@ -176,7 +201,7 @@
 	</main>
 	<!-- End #main -->
 
-	<%@ include file="../static/footer.jsp"%>
+	
 	<div class="modal fade" id="modalProduct" tabindex="-1">
 		<div class="modal-dialog modal-dialog-scrollable">
 			<div class="modal-content">
@@ -194,10 +219,10 @@
 									<i class="bx bx-won">가격 적어주세요</i>
 								</div>
 							</div>
-							<table class="table" tex>
+							<table class="table">
 								<thead>
 									<tr>
-										<th scope=" col" style="width: 20%;">상품코드</th>
+										<th scope="col" style="width: 20%;">상품코드</th>
 										<th scope="col" style="width: 52%;">품목명</th>
 										<th scope="col" style="width: 13%;">수량</th>
 										<th scope="col" style="width: 15%;">가격</th>
@@ -308,6 +333,35 @@
 					 $tr.remove();
 			    });
 			</script>
+	<!-- End #main -->
+
+	<!-- ======= Footer ======= -->
+
+	<jsp:include page="../mainInclude/footer.jsp"></jsp:include>
+
+	<!-- End Footer -->
+
+	<a href="#"
+		class="back-to-top d-flex align-items-center justify-content-center"><i
+		class="bi bi-arrow-up-short"></i></a>
+
+	<!-- Vendor JS Files -->
+	<script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+	<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="assets/vendor/chart.js/chart.min.js"></script>
+	<script src="assets/vendor/echarts/echarts.min.js"></script>
+	<script src="assets/vendor/quill/quill.min.js"></script>
+	<script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+	<script src="assets/vendor/tinymce/tinymce.min.js"></script>
+	<script src="assets/vendor/php-email-form/validate.js"></script>
+
+	<!-- Template Main JS File -->
+	<script src="assets/js/main.js"></script>
+
+	<!-- 날짜 검색시 오늘로 셋팅해주는 스크립트-->
+	<script>document.getElementById('inputSearchDate').valueAsDate = new Date();</script>
+
+
 </body>
 
 </html>

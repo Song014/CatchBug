@@ -65,7 +65,7 @@
 	 </c:when> --%>
 	 
 <%-- 	 <c:otherwise> --%>
- 		<jsp:include page="mainInclude/sidebar_user.jsp"></jsp:include>
+ 		<jsp:include page="mainInclude/sidebar_master.jsp"></jsp:include>
  		
 <%--  		<jsp:include page="sidebar_master.jsp"></jsp:include> --%>
 <%-- 	 </c:otherwise> --%>

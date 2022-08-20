@@ -1,3 +1,8 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page session="false"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +10,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>CatchBug</title>
+<title>Dashboard - NiceAdmin Bootstrap Template</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -44,31 +49,88 @@
 
 <body>
 
-	<%@ include file="static/header.jsp"%>
+	<!-- ======= Header ======= -->
 
+	<jsp:include page="../mainInclude/header.jsp"></jsp:include>
+
+	<!-- End Header -->
+
+
+
+
+	<!-- ======= Sidebar ======= -->
+
+	<%-- <c:set var="user" value="${user }"/>
+	 
+	 <c:when test="${user.level != 2}">
+	 	<jsp:include page="sidebar(master).jsp"></jsp:include>
+	 </c:when> --%>
+
+	<%-- 	 <c:otherwise> --%>
+	<jsp:include page="../mainInclude/sidebar_user.jsp"></jsp:include>
+
+	<%--  		<jsp:include page="sidebar_master.jsp"></jsp:include> --%>
+	<%-- 	 </c:otherwise> --%>
+
+	<!-- End Sidebar -->
 
 	<main id="main" class="main">
-		<div class="pagetitle">
-			<h1>Dashboard</h1>
-			<nav>
-				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="index.html">Home</a></li>
-					<li class="breadcrumb-item active">Dashboard</li>
-				</ol>
-			</nav>
+
+	<div class="pagetitle">
+		<h1 style="text-align: center;">자유게시판</h1>
+		<table class="table table-bordered">
+			<thead>
+				<tr class="table-primary">
+					<th scope="col">#</th>
+					<th scope="col">이름</th>
+					<th scope="col">제목</th>
+					<th scope="col">조회수</th>
+					<th scope="col">작성일</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th class="col-lg-1" scope="row">1</th>
+					<td class="col-lg-2">관리자</td>
+					<td class="col-lg-6"><a href="#">여기에 본문이동 이벤트 넣어주세요</a></td>
+					<td class="col-lg-1">28</td>
+					<td class="col-lg-2">2016-05-25</td>
+				</tr>
+			</tbody>
+			<tbody>
+				<tr>
+					<th colspan="5">
+
+						<ul class="pagination justify-content-center">
+							<li class="page-item"><a class="page-link" href="#"
+								tabindex="-1" aria-disabled="true">Previous</a></li>
+							<li class="page-item"><a class="page-link" href="#">1</a></li>
+							<li class="page-item active" aria-current="page"><a
+								class="page-link" href="#">2</a></li>
+							<li class="page-item"><a class="page-link" href="#">3</a></li>
+							<li class="page-item"><a class="page-link" href="#">Next</a></li>
+						</ul>
+
+					</th>
+				</tr>
+			</tbody>
+		</table>
+		<div style="text-align: right;">
+			<button type="button" class="btn btn-primary col-lg-1">
+				<i class="bi bi-pencil">글쓰기</i>
+			</button>
 		</div>
-		<!-- End Page Title -->
-	
-		<section class="section dashboard">
-			<div class="row">
-				<%@ include file="component/orderHistory.jsp"%>
-			</div>
-		</section>
+	</div>
+	</section>
 
 	</main>
 	<!-- End #main -->
 
-	<%@ include file="static/footer.jsp"%>
+<!-- ======= Footer ======= -->
+  
+  <jsp:include page="../mainInclude/footer.jsp"></jsp:include>
+  
+<!-- End Footer -->
 
 	<a href="#"
 		class="back-to-top d-flex align-items-center justify-content-center"><i

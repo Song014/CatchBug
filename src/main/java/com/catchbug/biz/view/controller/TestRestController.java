@@ -1,4 +1,4 @@
-package com.catchbug.biz;
+package com.catchbug.biz.view.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -7,15 +7,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.catchbug.biz.dto.ProductVO;
 
 @RestController
-public class HomeRestController {
+public class TestRestController {
 
 	
 	@GetMapping("/test.do")
 	public ProductVO home(@RequestParam("category")String category) {
-		System.out.println("rest");
 		ProductVO vo = null;
-		
-		
 		if(category.equals("카테고리1")) {
 			vo = new ProductVO();
 			vo.setProduct_no(220801);
