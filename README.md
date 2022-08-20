@@ -1,6 +1,6 @@
 # CatchBug 물류관리 웹 개발 프로젝트
 
-## 메인 브랜치에 푸쉬하시면 안돼여!!!!!!!!!!!!!!!!!
+
 
 ### 설정
 
@@ -24,3 +24,12 @@
 `<%@ page contentType="text/html; charset=UTF-8" %>` 추가해주셔야 한글 안깨져요
 
 
+# 각자 만들어온 프론트 내용 추가 하는 방법
+1. 네비게이션 a태그 수정 적용 안된것들은 클릭해보시면 #해당내용으로 해놨습니다
+    * [가맹점 네비게이션 수정](src/main/webapp/WEB-INF/views/mainInclude/sidebar_user.jsp)
+    * [관리자 네비게이션 수정](src/main/webapp/WEB-INF/views/mainInclude/sidebar_master.jsp)
+
+2. jsp파일 각 해당하는 폴더에 추가
+ * board : 가맹점관련(src/main/webapp/WEB-INF/views/board/)
+ * factory : 관리자관련(src/main/webapp/WEB-INF/views/factory/)
+ * mainInclude : 관리자관련(src/main/webapp/WEB-INF/views/mainInclude/)
