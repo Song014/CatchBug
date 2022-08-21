@@ -100,9 +100,15 @@
 						<div class="list-group" style="padding-top: 30px">
 							<button type="button"
 								class="list-group-item list-group-item-action active getCategory"
-								aria-current="true">카테고리1</button>
+								aria-current="true">CPU</button>
 							<button type="button"
-								class="list-group-item list-group-item-action getCategory">카테고리2</button>
+								class="list-group-item list-group-item-action getCategory">VGA</button>
+							<button type="button"
+								class="list-group-item list-group-item-action getCategory">RAM(구현x)</button>
+							<button type="button"
+								class="list-group-item list-group-item-action getCategory">POWER(구현x)</button>
+							<button type="button"
+								class="list-group-item list-group-item-action getCategory">MAINBOARD(구현x)</button>
 						</div>
 
 					</div>
@@ -128,7 +134,8 @@
 											<option value="remarks">등록일자</option>
 										</select> <input type="text" name="input" placeholder="검색어를 입력해 주세요.">
 										<!-- <input type="button" name="inputBtn" value="검색"> -->
-										 <input type="submit" class="btn btn-sm btn-primary dataTable-input" value="검색" />
+										<input type="submit"
+											class="btn btn-sm btn-primary dataTable-input" value="검색" />
 									</form>
 								</div>
 							</div>
@@ -199,7 +206,7 @@
 	</main>
 	<!-- End #main -->
 
-	
+
 	<div class="modal fade" id="modalProduct" tabindex="-1">
 		<div class="modal-dialog modal-dialog-scrollable">
 			<div class="modal-content">
