@@ -76,41 +76,50 @@
 	<!-- End Header -->
 
 	<!-- ======= Sidebar ======= -->
-
-
-	<main id="main" class="main">
+<main id="main" class="main">
 
 	<div class="pagetitle">
-		<h1 style="text-align: center;">질문을 올리면 답장을 드립니다.</h1>
-		<table class="table table-bordered">
+		<h1 style="text-align: center;">질문 게시판</h1>
+		<table class="table table-bordered" style="text-align: center">
 			<thead>
-				<tr class="table-primary">
-					<th scope="col">#</th>
-					<th scope="col">이름</th>
-					<th scope="col">제목</th>
-					<th scope="col">조회수</th>
-					<th scope="col">작성일</th>
+				<tr class="table-primary" >
+					<th scope="col" style="width: 5%;">#</th>
+					<th scope="col" style="width: 8%;">탭</th>
+					<th scope="col" style="width: 10%;">이름</th>
+					<th scope="col" style="width: 57%;">제목</th>
+					<th scope="col" style="width: 5%;">조회수</th>
+					<th scope="col" style="width: 15%;">작성일</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<th class="col-lg-1" scope="row">1</th>
-					<td class="col-lg-2">관리자</td>
-					<td class="col-lg-6"><a href="#">여기에 본문이동 이벤트 넣어주세요</a></td>
-					<td class="col-lg-1">28</td>
-					<td class="col-lg-2">2016-05-25</td>
+					<th scope="row">1</th>
+					<td>주문</td>
+					<td>관리자</td>
+					<td><a href="#">여기에 본문이동 이벤트 넣어주세요</a></td>
+					<td>28</td>
+					<td>2016-05-25</td>
 				</tr>
 			</tbody>
 			<tbody>
 				<tr>
-					<th colspan="5" style="text-align: center;"><span>여기에는
-							12345678910 이들어갈거에요</span></th>
+					<th colspan="6">
+						<ul class="pagination justify-content-center">
+							<li class="page-item"><a class="page-link" href="#"
+								tabindex="-1" aria-disabled="true">Previous</a></li>
+							<li class="page-item"><a class="page-link" href="#">1</a></li>
+							<li class="page-item active" aria-current="page"><a
+								class="page-link" href="#">2</a></li>
+							<li class="page-item"><a class="page-link" href="#">3</a></li>
+							<li class="page-item"><a class="page-link" href="#">Next</a></li>
+						</ul>
+					</th>
 				</tr>
 			</tbody>
 		</table>
 		<div style="text-align: right;">
 			<button type="button" class="btn btn-primary col-lg-1"
-				onClick="location.href='QnA_Board_Write.do'">
+				onClick="location.href='QnABoard.do'">
 				<i class="bi bi-pencil">글쓰기</i>
 			</button>
 		</div>
@@ -118,6 +127,8 @@
 	</section>
 
 	</main>
+
+	
 	<!-- End #main -->
 
 <!-- ======= Footer ======= -->

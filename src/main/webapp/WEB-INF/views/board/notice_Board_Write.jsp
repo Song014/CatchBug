@@ -108,19 +108,7 @@
 			</div>
 			<form>
 				<div class="row mb-3">
-					<div class="col-sm-2">
-						<div class="mb-3">
-							<select class="form-select" id="floatingSelect">
-								<option selected="">탭</option>
-								<option value="1">주문</option>
-								<option value="2">상품</option>
-								<option value="3">배송</option>
-								<option value="4">회원</option>
-								<option value="5">사이트</option>
-							</select>
-						</div>
-					</div>
-					<div class="col-sm-10">
+					<div class="col-sm-12">
 						<input type="text" class="form-control" placeholder="제목">
 					</div>
 				</div>
@@ -130,12 +118,6 @@
 						placeholder="Message" required=""></textarea>
 				</div>
 
-
-				<div class="form-check">
-					<input class="form-check-input" type="checkbox" value=""
-						id="invalidCheck2" required=""> <label
-						class="form-check-label" for="invalidCheck2"> 비공개 </label>
-				</div>
 				<div class="mb-3 text-center">
 					<button type="submit" class="btn btn-primary">글쓰기</button>
 					<button type="reset" class="btn btn-secondary">취소</button>
