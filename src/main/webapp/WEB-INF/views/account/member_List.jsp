@@ -16,8 +16,10 @@
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	
-<script   src="https://code.jquery.com/jquery-3.6.0.min.js"   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="   crossorigin="anonymous"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous"></script>
 
 <!-- Favicons -->
 <link href="assets/img/favicon.png" rel="icon">
@@ -77,130 +79,179 @@
 	<%--  		<jsp:include page="sidebar_master.jsp"></jsp:include> --%>
 	<%-- 	 </c:otherwise> --%>
 
-	<!-- End Sidebar -->
-	<!-- End Header -->
-	<!-- End Sidebar -->
 	<!-- main start -->
+	1
 
-    <main id="main" class="main">
-    <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">| 전체 가맹점 리스트</h5>
-          <div class="search" align="right">
-							<form>
-								<select
-									name="searchOption">
-									<option value="orderNumber" selected="selected">사업자등록번호</option>
-									<option value="content">대표자</option>
-									<option value="remarks">법인명</option>
-								</select> <input type="text" name="input" placeholder="검색어를 입력해 주세요.">
-								<!-- <input type="button" name="inputBtn" value="검색"> -->
-								<button>검색</button>
-							</form>
-						</div>
+	<main id="main" class="main">
+	<div class="card">
+		<div class="card-body">
+			<h5 class="card-title">| 전체 가맹점 리스트</h5>
+			<div class="search" align="right">
+				<form>
+					<select name="searchOption">
+						<option value="orderNumber" selected="selected">사업자등록번호</option>
+						<option value="content">대표자</option>
+						<option value="remarks">법인명</option>
+					</select> <input type="text" name="input" placeholder="검색어를 입력해 주세요.">
+					<!-- <input type="button" name="inputBtn" value="검색"> -->
+					<button>검색</button>
+				</form>
+			</div>
 
-          <!-- Table with hoverable rows -->
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">법인명</th>
-                <th scope="col">대표자</th>
-                <th scope="col">사업자 등록 번호</th>
-                <th scope="col">연락처</th>
-                <th scope="col">사업장 주소지</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>원효컴퓨터</td>
-                <td>이 범희</td>
-                <td>216-34-52362</td>
-                <td>010-4235-1231</td>
-                <td>서울시 용산구 원효로</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>안산컴퓨터</td>
-                <td>김현민</td>
-                <td>231-52-62362</td>
-                <td>010-2314-2342</td>
-                <td>경기도 안산시</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>은평컴퓨터</td>
-                <td>송기석</td>
-                <td>235-12-12512</td>
-                <td>010-2342-5236</td>
-                <td>서울시 은평구</td>
-              </tr>
-              <tr>
-                <th scope="row">4</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <th scope="row">5</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <th scope="row">6</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <th scope="row">7</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <th scope="row">8</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <th scope="row">9</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <th scope="row">10</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-            </tbody>
-          </table>
-          <!-- End Table with hoverable rows -->
 
-        </div>
-      </div>
-    </main>
+
+			<!-- Table with hoverable rows -->
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">법인명</th>
+						<th scope="col">대표자</th>
+						<th scope="col">사업자 등록 번호</th>
+						<th scope="col">연락처</th>
+						<th scope="col">사업장 주소지</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row">1</th>
+						<td><a class="primary" data-bs-toggle="modal"
+							data-bs-target="#modal-biz">원효컴퓨터</a></td>
+
+
+						<td>이 범희</td>
+						<td>216-34-52362</td>
+						<td>010-4235-1231</td>
+						<td>서울시 용산구 원효로</td>
+					</tr>
+					<tr>
+						<th scope="row">2</th>
+						<td>안산컴퓨터</td>
+						<td>김현민</td>
+						<td>231-52-62362</td>
+						<td>010-2314-2342</td>
+						<td>경기도 안산시</td>
+					</tr>
+					<tr>
+						<th scope="row">3</th>
+						<td>은평컴퓨터</td>
+						<td>송기석</td>
+						<td>235-12-12512</td>
+						<td>010-2342-5236</td>
+						<td>서울시 은평구</td>
+					</tr>
+					<tr>
+						<th scope="row">4</th>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<th scope="row">5</th>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<th scope="row">6</th>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<th scope="row">7</th>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<th scope="row">8</th>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<th scope="row">9</th>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<th scope="row">10</th>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+			<!-- End Table with hoverable rows -->
+
+		</div>
+	</div>
+	</main>
 
 	<!-- End #main -->
+	<!-- 모달부 -->
+	<div class="modal fade" id="modal-biz" tabindex="-1">
+		<div class="modal-dialog modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">사업자 상세보기</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="card">
+						<div class="card-body">
+							<table class="table">
+								<tr>
+									<th>사업자명</th>
+									<td>원효컴퓨터</td>
+								</tr>
+								<tr>
+									<th>대표자</th>
+									<td>이범희</td>
+								</tr>
+								<tr>
+									<th>가입일</th>
+									<td>2022.01.01</td>
+								</tr>
+								<tr>
+									<th>사업자등록번호</th>
+									<td>110-123-45678</td>
+								</tr>
+								<tr>
+									<th>사업장주소지</th>
+									<td>영등포</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 모달끝 -->
+
+
 
 	<!-- ======= Footer ======= -->
 
@@ -226,7 +277,9 @@
 	<script src="assets/js/main.js"></script>
 
 	<!-- 날짜 검색시 오늘로 셋팅해주는 스크립트-->
-	<script>document.getElementById('inputSearchDate').valueAsDate = new Date();</script>
+	<script>
+		document.getElementById('inputSearchDate').valueAsDate = new Date();
+	</script>
 
 
 </body>
