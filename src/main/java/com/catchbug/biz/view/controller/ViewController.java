@@ -133,5 +133,46 @@ public class ViewController {
 	public String ProductRegister() {
 		return "item/productRegister";
 	}
+	
+	
+	@RequestMapping("/sign_up.do")
+	public String signUp() {
+		return "account/sign_up";
+	}
+	
+	@RequestMapping("/login_page.do")
+	public String loginPage() {
+		return "account/login_page";
+	}
+	
+	@RequestMapping("/logout.do")
+	public String loginOut() {
+		return "account/login_page";
+	}
+	
+	@RequestMapping("/find_id.do")
+	public String findId() {
+		return "account/find_id";
+	}
+	
+	@RequestMapping("/find_pw.do")
+	public String findPw() {
+		return "account/find_pw";
+	}
+	
+	@RequestMapping("/member_List.do")
+	public String memberList() {
+		return "account/member_List";
+	}
+	
+	@RequestMapping("/company_Intro.do")
+	public String companyIntro() {
+		return "account/company_Intro";
+	}
+	
+	@RequestMapping("/howto_way.do")
+	public String howtoWay() {
+		return "account/howto_way";
+	}
 
 }

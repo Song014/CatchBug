@@ -25,12 +25,12 @@
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="#CATCBUG">
+            <a href="company_Intro.do">
               <i class="bi bi-circle"></i><span>CATCBUG</span>
             </a>
           </li>
           <li>
-            <a href="#찾아오시는길">
+            <a href="howto_way.do">
               <i class="bi bi-circle"></i><span>찾아오시는 길</span>
             </a>
           </li>
@@ -100,7 +100,7 @@
 
 <!-- ======= 회원가입 ======= -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#회원가입">
+        <a class="nav-link collapsed" href="sign_up.do">
           <i class="bi bi-card-list"></i>
           <span>회원가입</span>
         </a>
@@ -109,7 +109,7 @@
 
 <!-- ======= 로그인 ======= -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#Login">
+        <a class="nav-link collapsed" href="login_page.do">
           <i class="bi bi-box-arrow-in-right"></i>
           <span>Login</span>
         </a>
