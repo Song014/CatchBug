@@ -1,10 +1,33 @@
 package com.catchbug.biz.view.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class ViewController {
+	
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String home(Model model) {
+
+		return "index";
+	}
+	@RequestMapping(value = "/admin", method = RequestMethod.GET)
+	public String admin(Model model) {
+
+		return "main";
+	}
+	
+	@RequestMapping("/master.do")
+	public String MasterPage() {
+		System.out.println("matser.do");
+		return "main";
+	}
+	@RequestMapping("/user.do")
+	public String UserPage() {
+		return "index";
+	}
 	
 	@RequestMapping("/notice_Board.do")
 	public String NoticeBoard() {
@@ -80,15 +103,6 @@ public class ViewController {
 		return "factory/factory_franc_WaitList";
 	}
 
-	@RequestMapping("/master.do")
-	public String MasterPage() {
-		System.out.println("matser.do");
-		return "main";
-	}
-	@RequestMapping("/user.do")
-	public String UserPage() {
-		return "index";
-	}
 
 	@RequestMapping("/factory_StorckList.do")
 	public String FactorySotckList() {
