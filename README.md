@@ -8,7 +8,7 @@
 2. jsp파일 각 해당하는 폴더에 추가
  * board : 게시판관련(src/main/webapp/WEB-INF/views/board/)
  * factory : 관리자관련(src/main/webapp/WEB-INF/views/factory/)
- * franc : 가맹점 관련
+ * franc : 가맹점 관련(src/main/webapp/WEB-INF/views/franc/)
  * mainInclude : 관리자관련(src/main/webapp/WEB-INF/views/mainInclude/)
 
 ## 각자 만드신 기능들은 나중에 dev 브랜치에 병합 하면 되서 일단 자기 브랜치에!.
