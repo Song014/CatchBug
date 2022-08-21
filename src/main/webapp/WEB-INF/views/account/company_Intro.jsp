@@ -16,8 +16,10 @@
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	
-<script   src="https://code.jquery.com/jquery-3.6.0.min.js"   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="   crossorigin="anonymous"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous"></script>
 
 <!-- Favicons -->
 <link href="assets/img/favicon.png" rel="icon">
@@ -82,9 +84,68 @@
 	<!-- End Sidebar -->
 	<!-- main start -->
 
-    <main id="main" class="main">
-		<h1>회사 소개란 작성중입니다.</h1>
-    </main>
+	<main id="main" class="main">
+
+	<div class="container">
+
+		<div class="container">
+			<div class="row justify-content-center">
+				<div
+					class="col-12 d-flex flex-column align-items-center justify-content-center">
+
+					<div class="d-flex justify-content-center py-4">
+						<a href="index.html" class="logo d-flex align-items-center w-auto">
+							<img src="assets/img/logo.png" alt=""> <span
+							class="d-none d-lg-block">Catch Bug</span>
+						</a>
+					</div>
+					<!-- End Logo -->
+					<div class="card col-12">
+
+						<div class="card-body">
+
+							<div class="pt-4 pb-2">
+								<h3 class="card-title text-center">| 고객 여러분의 성원에 보답하는
+									물류기업으로 성장하겠습니다.</h3>
+							</div>
+
+							<div class="card col-7" style="float: left; margin-left:80px;">
+								<img src="http://placeimg.com/250/250/arch/grayscale" />
+							</div>
+
+							<div style="float: right; margin-top:200px; margin-right:20px;">
+
+								<h3>
+									<p>캐치버그 물류센터의 기업정신</p>
+								</h3>
+								<p>고객의 주문에 대한 서비스를 제공하기 위하여</p>
+								<p>재고를 보관하며, 하역과 보관, 포장, 유통가공,</p>
+								<p>배송 등의 기능을 수행하는 물류 거점 시설입니다.</p>
+							</div>
+
+
+							<br>
+
+
+						</div>
+
+					</div>
+					<div style="text-align: center;">
+						<div class="col-12">
+							<p class="small mb-0">
+								아직 회원이 아니신가요?<a href="sign_up.do"> 회원가입 하기</a>
+							</p>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	</main>
+
+
+
 
 	<!-- End #main -->
 
@@ -112,7 +173,9 @@
 	<script src="assets/js/main.js"></script>
 
 	<!-- 날짜 검색시 오늘로 셋팅해주는 스크립트-->
-	<script>document.getElementById('inputSearchDate').valueAsDate = new Date();</script>
+	<script>
+		document.getElementById('inputSearchDate').valueAsDate = new Date();
+	</script>
 
 
 </body>

@@ -115,10 +115,10 @@
               <tr>
                 <th scope="row">1</th>
                 <td>원효컴퓨터</td>
-                <td>이 범희</td>
+                <td>이범희</td>
                 <td>216-34-52362</td>
                 <td>010-4235-1231</td>
-                <td>서울시 용산구 원효로</td>
+                <td>서울시 용산구</td>
               </tr>
               <tr>
                 <th scope="row">2</th>
