@@ -57,6 +57,18 @@ public class ViewController {
 	public String orderHistory() {
 		return "factory/orderHistory";
 	}
+	
+	@RequestMapping("/orderList.do")
+	public String orderList() {
+		
+		return "franc/franc_OrderList";
+	}
+	
+	@RequestMapping("/factory_franc_WaitList.do")
+	public String franc_WaitList() {
+		
+		return "factory/factory_franc_WaitList";
+	}
 
 
 }
