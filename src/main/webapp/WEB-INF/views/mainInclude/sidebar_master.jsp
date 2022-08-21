@@ -32,12 +32,12 @@
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="#CATCBUG">
+            <a href="company_Intro.do">
               <i class="bi bi-circle"></i><span>CATCBUG</span>
             </a>
           </li>
           <li>
-            <a href="#찾아오시는">
+            <a href="howto_way.do">
               <i class="bi bi-circle"></i><span>찾아오시는 길</span>
             </a>
           </li>
@@ -52,7 +52,7 @@
         </a>
         <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="#전체가맹점리스트">
+            <a href="member_List.do">
               <i class="bi bi-circle"></i><span>전체 가맹점 리스트</span>
             </a>
           </li>
@@ -98,7 +98,7 @@
             </a>
           </li>
           <li>
-            <a href="#본사발주내역">
+            <a href="factory_Order_History.do">
               <i class="bi bi-circle"></i><span>본사 발주 내역</span>
             </a>
           </li>
@@ -144,7 +144,7 @@
 	
 <!-- ======= 로그아웃 ======= -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-login.html">
+        <a class="nav-link collapsed" href="login_page.do">
           <i class="bi bi-box-arrow-in-right"></i>
           <span>로그아웃</span>
         </a>
