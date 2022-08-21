@@ -73,61 +73,81 @@
 	<%-- 	 </c:otherwise> --%>
 
 	<!-- End Sidebar -->
+	<!-- End Header -->
+
+	<!-- ======= Sidebar ======= -->
+
+	<%-- <c:set var="user" value="${user }"/>
+	 
+	 <c:when test="${user.level != 2}">
+	 	<jsp:include page="sidebar(master).jsp"></jsp:include>
+	 </c:when> --%>
+
+	<%-- 	 <c:otherwise> --%>
+	<jsp:include page="../mainInclude/sidebar_user.jsp"></jsp:include>
+
+	<%--  		<jsp:include page="sidebar_master.jsp"></jsp:include> --%>
+	<%-- 	 </c:otherwise> --%>
+
+	<!-- End Sidebar -->
 
 	<main id="main" class="main">
 
-	<div class="pagetitle">
-		<h1 style="text-align: center;">자유게시판</h1>
-		<table class="table table-bordered">
-			<thead>
-				<tr class="table-primary">
-					<th scope="col">#</th>
-					<th scope="col">이름</th>
-					<th scope="col">제목</th>
-					<th scope="col">조회수</th>
-					<th scope="col">작성일</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<th class="col-lg-1" scope="row">1</th>
-					<td class="col-lg-2">관리자</td>
-					<td class="col-lg-6"><a href="#">여기에 본문이동 이벤트 넣어주세요</a></td>
-					<td class="col-lg-1">28</td>
-					<td class="col-lg-2">2016-05-25</td>
-				</tr>
-			</tbody>
-			<tbody>
-				<tr>
-					<th colspan="5">
+	<div class="card">
+		<div class="card-body">
+			<div class="pagetitle">
+				<br>
+				<h1>자유 게시판</h1>
+				<nav>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="index.html">게시판</a></li>
+						<li class="breadcrumb-item">자유게시판</li>
+						<li class="breadcrumb-item active">글쓰기</li>
+					</ol>
+				</nav>
+			</div>
+			<form>
+				<div class="row mb-3">
+					<div class="col-sm-2">
+						<div class="mb-3">
+							<select class="form-select" id="floatingSelect">
+								<option selected="">탭</option>
+								<option value="1">주문</option>
+								<option value="2">상품</option>
+								<option value="3">배송</option>
+								<option value="4">회원</option>
+								<option value="5">사이트</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" placeholder="제목">
+					</div>
+				</div>
 
-						<ul class="pagination justify-content-center">
-							<li class="page-item"><a class="page-link" href="#"
-								tabindex="-1" aria-disabled="true">Previous</a></li>
-							<li class="page-item"><a class="page-link" href="#">1</a></li>
-							<li class="page-item active" aria-current="page"><a
-								class="page-link" href="#">2</a></li>
-							<li class="page-item"><a class="page-link" href="#">3</a></li>
-							<li class="page-item"><a class="page-link" href="#">Next</a></li>
-						</ul>
+				<div class="col-md-12">
+					<textarea class="form-control" name="message" rows="6"
+						placeholder="Message" required=""></textarea>
+				</div>
 
-					</th>
-				</tr>
-			</tbody>
-		</table>
-		<div style="text-align: right;">
-			<button type="button" class="btn btn-primary col-lg-1"
-				onClick="location.href='free_Board_Write.do'">
-				<i class="bi bi-pencil">글쓰기</i>
-			</button>
+
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" value=""
+						id="invalidCheck2" required=""> <label
+						class="form-check-label" for="invalidCheck2"> 비공개 </label>
+				</div>
+				<div class="mb-3 text-center">
+					<button type="submit" class="btn btn-primary">글쓰기</button>
+					<button type="reset" class="btn btn-secondary">취소</button>
+				</div>
+			</form>
 		</div>
 	</div>
-	</section>
 
 	</main>
 	<!-- End #main -->
 
-<!-- ======= Footer ======= -->
+	<!-- ======= Footer ======= -->
   
   <jsp:include page="../mainInclude/footer.jsp"></jsp:include>
   

@@ -21,9 +21,19 @@ public class ViewController {
 		return "board/freeBoard";
 	}
 	
+	@RequestMapping("/free_Board_Write.do")
+	public String FreeBoardWrite() {
+		return "board/free_Board_Write";
+	}
+	
 	@RequestMapping("/QnABoard.do")
 	public String QnABoard() {
 		return "board/QnABoard";
+	}
+	
+	@RequestMapping("/QnA_Board_Write.do")
+	public String QnABoardWrite() {
+		return "board/QnA_Board_Write";
 	}
 	
 	@RequestMapping("/FAQBoard.do")

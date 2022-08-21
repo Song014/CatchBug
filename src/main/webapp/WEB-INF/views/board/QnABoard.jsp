@@ -109,7 +109,8 @@
 			</tbody>
 		</table>
 		<div style="text-align: right;">
-			<button type="button" class="btn btn-primary col-lg-1">
+			<button type="button" class="btn btn-primary col-lg-1"
+				onClick="location.href='QnA_Board_Write.do'">
 				<i class="bi bi-pencil">글쓰기</i>
 			</button>
 		</div>

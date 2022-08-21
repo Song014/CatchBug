@@ -97,11 +97,11 @@
 		<div class="card-body">
 			<div class="pagetitle">
 				<br>
-				<h1>질문 게시판</h1>
+				<h1>공지사항</h1>
 				<nav>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="index.html">게시판</a></li>
-						<li class="breadcrumb-item">질문게시판</li>
+						<li class="breadcrumb-item">공지사항</li>
 						<li class="breadcrumb-item active">글쓰기</li>
 					</ol>
 				</nav>
