@@ -98,7 +98,7 @@
             </a>
           </li>
           <li>
-            <a href="#본사발주내역">
+            <a href="factory_Order_History.do">
               <i class="bi bi-circle"></i><span>본사 발주 내역</span>
             </a>
           </li>
