@@ -78,29 +78,28 @@
 
 	<div class="pagetitle">
 		<h1 style="text-align: center;">자유게시판</h1>
-		<table class="table table-bordered">
+		<table class="table table-bordered" style="text-align: center">
 			<thead>
-				<tr class="table-primary">
-					<th scope="col">#</th>
-					<th scope="col">이름</th>
-					<th scope="col">제목</th>
-					<th scope="col">조회수</th>
-					<th scope="col">작성일</th>
+				<tr class="table-primary" >
+					<th scope="col" style="width: 5%;">#</th>
+					<th scope="col" style="width: 10%;">이름</th>
+					<th scope="col" style="width: 65%;">제목</th>
+					<th scope="col" style="width: 5%;">조회수</th>
+					<th scope="col" style="width: 15%;">작성일</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<th class="col-lg-1" scope="row">1</th>
-					<td class="col-lg-2">관리자</td>
-					<td class="col-lg-6"><a href="#">여기에 본문이동 이벤트 넣어주세요</a></td>
-					<td class="col-lg-1">28</td>
-					<td class="col-lg-2">2016-05-25</td>
+					<th scope="row">1</th>
+					<td>관리자</td>
+					<td><a href="#">여기에 본문이동 이벤트 넣어주세요</a></td>
+					<td>28</td>
+					<td>2016-05-25</td>
 				</tr>
 			</tbody>
 			<tbody>
 				<tr>
-					<th colspan="5">
-
+					<th colspan="6">
 						<ul class="pagination justify-content-center">
 							<li class="page-item"><a class="page-link" href="#"
 								tabindex="-1" aria-disabled="true">Previous</a></li>
@@ -110,13 +109,13 @@
 							<li class="page-item"><a class="page-link" href="#">3</a></li>
 							<li class="page-item"><a class="page-link" href="#">Next</a></li>
 						</ul>
-
 					</th>
 				</tr>
 			</tbody>
 		</table>
 		<div style="text-align: right;">
-			<button type="button" class="btn btn-primary col-lg-1">
+			<button type="button" class="btn btn-primary col-lg-1"
+				onClick="location.href='free_Board_Write.do'">
 				<i class="bi bi-pencil">글쓰기</i>
 			</button>
 		</div>
@@ -126,11 +125,11 @@
 	</main>
 	<!-- End #main -->
 
-<!-- ======= Footer ======= -->
-  
-  <jsp:include page="../mainInclude/footer.jsp"></jsp:include>
-  
-<!-- End Footer -->
+	<!-- ======= Footer ======= -->
+
+	<jsp:include page="../mainInclude/footer.jsp"></jsp:include>
+
+	<!-- End Footer -->
 
 	<a href="#"
 		class="back-to-top d-flex align-items-center justify-content-center"><i

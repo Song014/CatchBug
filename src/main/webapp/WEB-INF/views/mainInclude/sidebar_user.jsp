@@ -46,34 +46,24 @@
         </a>
         <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
+            <a href="stockList.do">
+              <i class="bi bi-circle"></i><span>상품 리스트</span>
+            </a>
+          </li>
+          <li>
             <a href="francOrder.do">
               <i class="bi bi-circle"></i>
 	 			<span>발주서 작성</span>
             </a>
           </li>
           <li>
-            <a href="orderList.do">
+            <a href="francOrderHistory.do">
               <i class="bi bi-circle"></i><span>발주 내역</span>
             </a>
           </li>
         </ul>
       </li>
 <!-- ======= 가맹점 관리 끝 ======= -->
-
-<!-- ======= 재고 관리 ======= -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#재고 관리">
-          <i class="bi bi-layout-text-window-reverse"></i><span>재고 관리</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="#상품리스트">
-              <i class="bi bi-circle"></i><span>상품 리스트</span>
-            </a>
-          </li>
-        </ul>
-      </li>
-<!-- ======= 재고 관리 끝 ======= -->
 
 
 <!-- ======= 게시판 ======= -->

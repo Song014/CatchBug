@@ -21,9 +21,19 @@ public class ViewController {
 		return "board/freeBoard";
 	}
 	
+	@RequestMapping("/free_Board_Write.do")
+	public String FreeBoardWrite() {
+		return "board/free_Board_Write";
+	}
+	
 	@RequestMapping("/QnABoard.do")
 	public String QnABoard() {
 		return "board/QnABoard";
+	}
+	
+	@RequestMapping("/QnA_Board_Write.do")
+	public String QnABoardWrite() {
+		return "board/QnA_Board_Write";
 	}
 	
 	@RequestMapping("/FAQBoard.do")
@@ -42,7 +52,7 @@ public class ViewController {
 	
 	@RequestMapping("/francOrderHistory.do")
 	public String FancOrderHistory() {
-		return "franc/fanc_Order_History";
+		return "franc/franc_Order_History";
 	}
 	
 	@RequestMapping("/factoryOrder.do")
@@ -58,5 +68,44 @@ public class ViewController {
 		return "factory/orderHistory";
 	}
 
+	@RequestMapping("/master.do")
+	public String MasterPage() {
+		System.out.println("matser.do");
+		return "main";
+	}
+	@RequestMapping("/user.do")
+	public String UserPage() {
+		return "index";
+	}
+
+	@RequestMapping("/factory_StorckList.do")
+	public String FactorySotckList() {
+		return "factory/factory_StockList";
+	}
+
+	@RequestMapping("/main_StorckList.do")
+	public String mainSotckList() {
+		return "factory/main_StockList";
+	}
+
+	@RequestMapping("/main_ProductRegister.do")
+	public String mainProductRegister() {
+		return "factory/main_ProductRegister";
+	}
+	
+	@RequestMapping("/stockList.do")
+	public String StockList() {
+		return "item/stockList";
+	}
+	
+	@RequestMapping("/factoryStockList.do")
+	public String FactoryStockList() {
+		return "factory/factory_StockList";
+	}
+	
+	@RequestMapping("/productRegister.do")
+	public String ProductRegister() {
+		return "item/productRegister";
+	}
 
 }

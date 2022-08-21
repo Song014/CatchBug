@@ -79,7 +79,8 @@
 	<!-- main start -->
 	<main>
 		<div>
-			<h1>내용 들어갈곳</h1>		
+			<h1>내용 들어갈곳</h1>	
+			<a href="user.do">가맹점페이지</a>	
 		</div>
     </main>
 <!-- End Main -->

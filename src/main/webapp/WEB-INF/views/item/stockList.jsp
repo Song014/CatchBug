@@ -73,69 +73,113 @@
 	<%-- 	 </c:otherwise> --%>
 
 	<!-- End Sidebar -->
-	<!-- End Header -->
 
-	<!-- ======= Sidebar ======= -->
-<main id="main" class="main">
 
+	<!-- ======= Main ======= -->
+	<!-- main start -->
+	<main id="main" class="main">
 	<div class="pagetitle">
-		<h1 style="text-align: center;">질문 게시판</h1>
-		<table class="table table-bordered" style="text-align: center">
+		<h1>상품 리스트</h1>
+		<nav>
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+				<li class="breadcrumb-item">재고관리</li>
+				<li class="breadcrumb-item active">상품 리스트</li>
+			</ol>
+		</nav>
+	</div>
+	<div class="dataTable-top">
+
+		<div class="dataTable-search">
+			<input class="dataTable-input" placeholder="Search..." type="text">
+		</div>
+	</div>
+	<div class="dataTable-container">
+		<table class="table table-hover">
 			<thead>
-				<tr class="table-primary" >
-					<th scope="col" style="width: 5%;">#</th>
-					<th scope="col" style="width: 8%;">탭</th>
-					<th scope="col" style="width: 10%;">이름</th>
-					<th scope="col" style="width: 57%;">제목</th>
-					<th scope="col" style="width: 5%;">조회수</th>
-					<th scope="col" style="width: 15%;">작성일</th>
+				<tr>
+					<th scope="col" data-sortable="" style="width: 5%;"><a
+						href="#" class="dataTable-sorter">NO.</a></th>
+					<th scope="col" data-sortable="" style="width: 12%;"><a
+						href="#" class="dataTable-sorter">상품 번호</a></th>
+					<th scope="col" data-sortable="" style="width: 20%;"><a
+						href="#" class="dataTable-sorter">브랜드 / 제조사</a></th>
+					<th scope="col" data-sortable="" style="width: 30%;"><a
+						href="#" class="dataTable-sorter">상품명</a></th>
+					<th scope="col" data-sortable="" style="width: 16%;"><a
+						href="#" class="dataTable-sorter">전체 수량</a></th>
+					<th scope="col" data-sortable="" style="width: 16%;"><a
+						href="#" class="dataTable-sorter">개당 가격</a></th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
 					<th scope="row">1</th>
-					<td>주문</td>
-					<td>관리자</td>
-					<td><a href="#">여기에 본문이동 이벤트 넣어주세요</a></td>
-					<td>28</td>
-					<td>2016-05-25</td>
+					<td>15-27363</td>
+					<td>AMD</td>
+					<td><a href="franc_Detail.html">라이젠5 4세대 5600x</a></td>
+					<td>15</td>
+					<td>300,000</td>
 				</tr>
-			</tbody>
-			<tbody>
 				<tr>
-					<th colspan="6">
-						<ul class="pagination justify-content-center">
-							<li class="page-item"><a class="page-link" href="#"
-								tabindex="-1" aria-disabled="true">Previous</a></li>
-							<li class="page-item"><a class="page-link" href="#">1</a></li>
-							<li class="page-item active" aria-current="page"><a
-								class="page-link" href="#">2</a></li>
-							<li class="page-item"><a class="page-link" href="#">3</a></li>
-							<li class="page-item"><a class="page-link" href="#">Next</a></li>
-						</ul>
-					</th>
+					<th scope="row">2</th>
+					<td>15-27363</td>
+					<td>AMD</td>
+					<td><a href="franc_Detail.html">라이젠5 4세대 5600x</a></td>
+					<td>15</td>
+					<td>300,000</td>
+				</tr>
+				<tr>
+					<th scope="row">3</th>
+					<td>15-27363</td>
+					<td>AMD</td>
+					<td><a href="franc_Detail.html">라이젠5 4세대 5600x</a></td>
+					<td>15</td>
+					<td>300,000</td>
+				</tr>
+				<tr>
+					<th scope="row">4</th>
+					<td>15-27363</td>
+					<td>AMD</td>
+					<td><a href="franc_Detail.html">라이젠5 4세대 5600x</a></td>
+					<td>15</td>
+					<td>300,000</td>
+				</tr>
+				<tr>
+					<th scope="row">5</th>
+					<td>15-27363</td>
+					<td>AMD</td>
+					<td><a href="franc_Detail.html">라이젠5 4세대 5600x</a></td>
+					<td>15</td>
+					<td>300,000</td>
+				</tr>
+				<tr>
+					<th scope="row">6</th>
+					<td>15-27363</td>
+					<td>AMD</td>
+					<td><a href="franc_Detail.html">라이젠5 4세대 5600x</a></td>
+					<td>15</td>
+					<td>300,000</td>
+				</tr>
+				<tr>
+					<th scope="row">7</th>
+					<td>15-27363</td>
+					<td>AMD</td>
+					<td><a href="franc_Detail.html">라이젠5 4세대 5600x</a></td>
+					<td>15</td>
+					<td>300,000</td>
 				</tr>
 			</tbody>
 		</table>
-		<div style="text-align: right;">
-			<button type="button" class="btn btn-primary col-lg-1"
-				onClick="location.href='QnABoard.do'">
-				<i class="bi bi-pencil">글쓰기</i>
-			</button>
-		</div>
 	</div>
-	</section>
 
 	</main>
-
 	
-	<!-- End #main -->
+	<!-- ======= Footer ======= -->
 
-<!-- ======= Footer ======= -->
-  
-  <jsp:include page="../mainInclude/footer.jsp"></jsp:include>
-  
-<!-- End Footer -->
+	<jsp:include page="../mainInclude/footer.jsp"></jsp:include>
+
+	<!-- End Footer -->
 
 	<a href="#"
 		class="back-to-top d-flex align-items-center justify-content-center"><i
@@ -153,6 +197,12 @@
 
 	<!-- Template Main JS File -->
 	<script src="assets/js/main.js"></script>
+
+	<!-- 날짜 검색시 오늘로 셋팅해주는 스크립트-->
+	<script>
+		document.getElementById('inputSearchDate').valueAsDate = new Date();
+	</script>
+
 
 </body>
 

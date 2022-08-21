@@ -120,7 +120,7 @@
 		</table>
 		<div style="text-align: right;">
 			<button type="button" class="btn btn-primary col-lg-1"
-				onclick="notice_Board_Write.do">
+				onClick="location.href='notice_Board_Write.do'">
 				<i class="bi bi-pencil">글쓰기</i>
 			</button>
 		</div>
