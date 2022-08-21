@@ -76,8 +76,6 @@
 	<%-- 	 </c:otherwise> --%>
 
 	<!-- End Sidebar -->
-	<!-- End Header -->
-	<!-- End Sidebar -->
 	<!-- main start -->
 	<main id="main" class="main">
 	<div class="pagetitle">
@@ -130,7 +128,7 @@
 											<option value="remarks">등록일자</option>
 										</select> <input type="text" name="input" placeholder="검색어를 입력해 주세요.">
 										<!-- <input type="button" name="inputBtn" value="검색"> -->
-										<button>검색</button>
+										 <input type="submit" class="btn btn-sm btn-primary dataTable-input" value="검색" />
 									</form>
 								</div>
 							</div>

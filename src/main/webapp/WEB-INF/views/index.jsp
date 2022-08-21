@@ -88,7 +88,7 @@
 		<main>
 		<div>
 			<h1>
-				내용 들어갈곳 <a href="master.do">관리자페이지</a>
+				내용 들어갈곳 <a href="admin">관리자페이지</a>
 			</h1>
 		</div>
 		</main>

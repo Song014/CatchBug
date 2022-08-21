@@ -42,7 +42,7 @@ public class ViewController {
 	
 	@RequestMapping("/francOrderHistory.do")
 	public String FancOrderHistory() {
-		return "franc/fanc_Order_History";
+		return "franc/franc_Order_History";
 	}
 	
 	@RequestMapping("/factoryOrder.do")
@@ -81,6 +81,21 @@ public class ViewController {
 	@RequestMapping("/main_ProductRegister.do")
 	public String mainProductRegister() {
 		return "factory/main_ProductRegister";
+	}
+	
+	@RequestMapping("/stockList.do")
+	public String StockList() {
+		return "item/stockList";
+	}
+	
+	@RequestMapping("/factoryStockList.do")
+	public String FactoryStockList() {
+		return "factory/factory_StockList";
+	}
+	
+	@RequestMapping("/productRegister.do")
+	public String ProductRegister() {
+		return "item/productRegister";
 	}
 
 }

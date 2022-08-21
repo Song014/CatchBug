@@ -52,7 +52,7 @@
             </a>
           </li>
           <li>
-            <a href="orderList.do">
+            <a href="francOrderHistory.do">
               <i class="bi bi-circle"></i><span>발주 내역</span>
             </a>
           </li>
@@ -67,7 +67,7 @@
         </a>
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="#상품리스트">
+            <a href="stockList.do">
               <i class="bi bi-circle"></i><span>상품 리스트</span>
             </a>
           </li>

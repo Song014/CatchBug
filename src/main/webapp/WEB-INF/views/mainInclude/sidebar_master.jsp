@@ -83,12 +83,12 @@
         </a>
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="#상품리스트">
+            <a href="stockList.do">
               <i class="bi bi-circle"></i><span>상품 리스트</span>
             </a>
           </li>
           <li>
-            <a href="#본사재고현황">
+            <a href="factoryStockList.do">
               <i class="bi bi-circle"></i><span>본사 재고현황</span>
             </a>
           </li>
@@ -103,7 +103,7 @@
             </a>
           </li>
           <li>
-            <a href="#상품등록">
+            <a href="productRegister.do">
               <i class="bi bi-circle"></i><span>상품 등록</span>
             </a>
           </li>
