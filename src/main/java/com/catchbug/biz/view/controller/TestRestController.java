@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.catchbug.biz.vo.ProductVO;
 
+import lombok.Setter;
+
 @RestController
 public class TestRestController {
 
