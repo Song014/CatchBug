@@ -31,37 +31,37 @@ public class ViewController {
 	/* 게시판 */
 	@RequestMapping("/notice_Board.do")
 	public String NoticeBoard() {
-		return "board/notice_Board";
+		return "board/notice_board";
 	}
 	
 	@RequestMapping("/notice_Board_Write.do")
 	public String NoticeBoardWrite() {
-		return "board/notice_Board_Write";
+		return "board/notice_board_write";
 	}
 	
 	@RequestMapping("/freeBoard.do")
 	public String FreeBoard() {
-		return "board/freeBoard";
+		return "board/free_board";
 	}
 	
 	@RequestMapping("/free_Board_Write.do")
 	public String FreeBoardWrite() {
-		return "board/free_Board_Write";
+		return "board/free_board_write";
 	}
 	
 	@RequestMapping("/QnABoard.do")
 	public String QnABoard() {
-		return "board/QnABoard";
+		return "board/qna_board";
 	}
 	
 	@RequestMapping("/QnA_Board_Write.do")
 	public String QnABoardWrite() {
-		return "board/QnA_Board_Write";
+		return "board/qna_board_write";
 	}
 	
 	@RequestMapping("/FAQBoard.do")
 	public String FAQBoard() {
-		return "board/FAQBoard";
+		return "board/faq_board";
 	}
 	
 	/* 계정 */
@@ -94,7 +94,7 @@ public class ViewController {
 	/* 회사소개 */
 	@RequestMapping("/company_Intro.do")
 	public String companyIntro() {
-		return "company/company_Intro";
+		return "company/company_intro";
 	}
 	
 	@RequestMapping("/howto_way.do")

@@ -41,7 +41,7 @@ public class AdminController {
 	// 상품 리스트
 	@RequestMapping("/stockList.do")
 	public String StockList() {
-		return "admin/stockList";
+		return "admin/stock_list";
 	}
 	// 본사 재고현황
 	@RequestMapping("/factoryStockList.do")
