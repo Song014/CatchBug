@@ -1,4 +1,4 @@
-package com.catchbug.biz.dto;
+package com.catchbug.biz.vo;
 
 import lombok.Data;
 

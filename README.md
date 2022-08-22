@@ -6,10 +6,18 @@
     * [관리자 네비게이션 수정](src/main/webapp/WEB-INF/views/mainInclude/sidebar_master.jsp)
 
 2. jsp파일 각 해당하는 폴더에 추가
- * board : 게시판관련(src/main/webapp/WEB-INF/views/board/)
- * factory : 관리자관련(src/main/webapp/WEB-INF/views/factory/)
- * franc : 가맹점 관련(src/main/webapp/WEB-INF/views/franc/)
- * mainInclude : 관리자관련(src/main/webapp/WEB-INF/views/mainInclude/)
+ * company : 
+ 회사소개 (src/main/webapp/WEB-INF/views/company/)
+ * account : 
+ 회원 관련 (src/main/webapp/WEB-INF/views/account/)
+ * board : 
+ 게시판관련(src/main/webapp/WEB-INF/views/board/)
+ * factory : 
+ 관리자관련(src/main/webapp/WEB-INF/views/factory/)
+ * franc : 
+ 가맹점 관련(src/main/webapp/WEB-INF/views/franc/)
+ * mainInclude : 
+ 정적 페이지 header,footer 관련(src/main/webapp/WEB-INF/views/mainInclude/)
 
 ## 각자 만드신 기능들은 나중에 dev 브랜치에 병합 하면 되서 일단 자기 브랜치에!.
 

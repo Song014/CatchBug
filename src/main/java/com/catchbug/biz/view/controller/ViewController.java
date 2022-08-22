@@ -13,11 +13,7 @@ public class ViewController {
 
 		return "index";
 	}
-	@RequestMapping(value = "/admin", method = RequestMethod.GET)
-	public String admin(Model model) {
-
-		return "main";
-	}
+	
 	
 	@RequestMapping("/master.do")
 	public String MasterPage() {
@@ -26,9 +22,13 @@ public class ViewController {
 	}
 	@RequestMapping("/user.do")
 	public String UserPage() {
+		
+		
 		return "index";
 	}
 	
+	
+	/* 게시판 */
 	@RequestMapping("/notice_Board.do")
 	public String NoticeBoard() {
 		return "board/notice_Board";
@@ -63,78 +63,8 @@ public class ViewController {
 	public String FAQBoard() {
 		return "board/FAQBoard";
 	}
-	@RequestMapping("/francOrder.do")
-	public String FrancOrder() {
-		return "franc/francOrder";
-	}
 	
-	@RequestMapping("/factory_Order_History.do")
-	public String FactoryOrderHistory() {
-		return "factory/factory_Order_History";
-	}
-	
-	@RequestMapping("/francOrderHistory.do")
-	public String FancOrderHistory() {
-		return "franc/franc_Order_History";
-	}
-	
-	@RequestMapping("/factoryOrder.do")
-	public String factoryOrder() {
-		return "factory/factoryOrder";
-	}
-	@RequestMapping("/unOrderHistory.do")
-	public String unOrderHistory() {
-		return "factory/unOrderHistory";
-	}
-	@RequestMapping("/orderHistory.do")
-	public String orderHistory() {
-		return "factory/orderHistory";
-	}
-	
-	@RequestMapping("/orderList.do")
-	public String orderList() {
-		
-		return "franc/franc_OrderList";
-	}
-	
-	@RequestMapping("/factory_franc_WaitList.do")
-	public String franc_WaitList() {
-		
-		return "factory/factory_franc_WaitList";
-	}
-
-
-	@RequestMapping("/factory_StorckList.do")
-	public String FactorySotckList() {
-		return "factory/factory_StockList";
-	}
-
-	@RequestMapping("/main_StorckList.do")
-	public String mainSotckList() {
-		return "factory/main_StockList";
-	}
-
-	@RequestMapping("/main_ProductRegister.do")
-	public String mainProductRegister() {
-		return "factory/main_ProductRegister";
-	}
-	
-	@RequestMapping("/stockList.do")
-	public String StockList() {
-		return "item/stockList";
-	}
-	
-	@RequestMapping("/factoryStockList.do")
-	public String FactoryStockList() {
-		return "factory/factory_StockList";
-	}
-	
-	@RequestMapping("/productRegister.do")
-	public String ProductRegister() {
-		return "item/productRegister";
-	}
-	
-	
+	/* 계정 */
 	@RequestMapping("/sign_up.do")
 	public String signUp() {
 		return "account/sign_up";
@@ -160,11 +90,8 @@ public class ViewController {
 		return "account/find_pw";
 	}
 	
-	@RequestMapping("/member_List.do")
-	public String memberList() {
-		return "account/member_List";
-	}
 	
+	/* 회사소개 */
 	@RequestMapping("/company_Intro.do")
 	public String companyIntro() {
 		return "company/company_Intro";
