@@ -13,7 +13,7 @@ public class TestRestController {
 	@GetMapping("/test.do")
 	public ProductVO home(@RequestParam("category")String category) {
 		ProductVO vo = null;
-		if(category.equals("카테고리1")) {
+		if(category.equals("CPU")) {
 			vo = new ProductVO();
 			vo.setProduct_no(220801);
 			vo.setCategory_no2(1);
@@ -23,7 +23,7 @@ public class TestRestController {
 			vo.setImage("이미지");
 			vo.setAdd_day(20220822);
 			System.out.println(vo);
-		} else if(category.equals("카테고리2")){
+		} else if(category.equals("VGA")){
 			vo = new ProductVO();
 			vo.setProduct_no(220731);
 			vo.setCategory_no2(2);
