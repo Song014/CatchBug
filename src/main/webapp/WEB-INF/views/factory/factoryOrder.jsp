@@ -102,9 +102,15 @@
 						<div class="list-group" style="padding-top: 30px">
 							<button type="button"
 								class="list-group-item list-group-item-action active getCategory"
-								aria-current="true">카테고리1</button>
+								aria-current="true">CPU</button>
 							<button type="button"
-								class="list-group-item list-group-item-action getCategory">카테고리2</button>
+								class="list-group-item list-group-item-action getCategory">VGA</button>
+							<button type="button"
+								class="list-group-item list-group-item-action getCategory">RAM(구현x)</button>
+							<button type="button"
+								class="list-group-item list-group-item-action getCategory">POWER(구현x)</button>
+							<button type="button"
+								class="list-group-item list-group-item-action getCategory">MAINBOARD(구현x)</button>
 						</div>
 
 					</div>
