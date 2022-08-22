@@ -167,12 +167,12 @@ public class ViewController {
 	
 	@RequestMapping("/company_Intro.do")
 	public String companyIntro() {
-		return "account/company_Intro";
+		return "company/company_Intro";
 	}
 	
 	@RequestMapping("/howto_way.do")
 	public String howtoWay() {
-		return "account/howto_way";
+		return "company/howto_way";
 	}
 
 }
