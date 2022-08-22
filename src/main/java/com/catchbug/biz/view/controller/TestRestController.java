@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.catchbug.biz.dto.ProductVO;
+import com.catchbug.biz.vo.ProductVO;
 
 @RestController
 public class TestRestController {
