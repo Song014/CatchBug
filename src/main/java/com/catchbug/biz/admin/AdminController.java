@@ -1,5 +1,6 @@
 package com.catchbug.biz.admin;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class AdminController {
 	
-//	@Autowired
-//	private AdminService adminService;
+	@Autowired
+	private AdminService adminService;
 	
 	
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
@@ -46,7 +47,31 @@ public class AdminController {
 		return "admin/un_order_history";
 	}
 	
-	/* 재고 관리 stock 패키지로 이동 */
-	
+	/* 재고 관리 */
+	// 상품 리스트
+	@RequestMapping("/stockList.do")
+	public String StockList() {
+		return "admin/stock_list";
+	}
+	// 본사 재고현황
+	@RequestMapping("/factoryStockList.do")
+	public String FactoryStockList() {
+		return "admin/factory_stock_list";
+	}
+	// 본사 발주서 작성
+	@RequestMapping("/factoryOrder.do")
+	public String factoryOrder() {
+		return "admin/factory_order";
+	}
+	// 본사 발주 내역
+	@RequestMapping("/factory_Order_History.do")
+	public String FactoryOrderHistory() {
+		return "admin/factory_order_history";
+	}
+	// 상품 등록
+	@RequestMapping("/productRegister.do")
+	public String ProductRegister() {
+		return "admin/product_register";
+	}
 	
 }

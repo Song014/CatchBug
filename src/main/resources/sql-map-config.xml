@@ -5,10 +5,10 @@
 <configuration>
 	
 	<typeAliases>
-		<typeAlias alias="product" type="com.catchbug.biz.vo.ProductVO"/>    	
+    	<!-- <typeAlias alias="board" type="com.springbook.biz.board.BoardVO"/> -->
     </typeAliases>
     
 	<mappers>
-		<mapper resource="mybatis/mappings/stockMapper.xml"/>
+		<!-- <mapper resource="mappings/board-mapping.xml"/> -->
 	</mappers>
 </configuration>
