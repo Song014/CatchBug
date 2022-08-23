@@ -154,20 +154,21 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>1</td>
+									<c:forEach var="list" items="${product }">
+										<tr>
+										<td>${list.product_no }</td>
 										<th scope="row"><a href="#"><img
 												src="https://via.placeholder.com/60" alt=""></a></th>
-										<td>상품1</td>
+										<td>${list.product_name }</td>
 										<td><a class="primary" data-bs-toggle="modal"
 											data-bs-target="#modalProduct">상품 모달띄우기 </a></td>
-										<td>등록일1</td>
+										<td>${list.add_day }</td>
 										<td>재고량1</td>
-										<td>9999</td>
+										<td>${list.price }</td>
 										<td><button type="button"
 												class="btn btn-primary btn-sm addBucket">추가</button></td>
-									</tr>
-
+										</tr>
+									</c:forEach>
 								</tbody>
 							</table>
 							<!-- 가져온거 -->
