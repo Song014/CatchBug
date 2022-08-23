@@ -1,14 +1,10 @@
 package com.catchbug.biz.admin;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import com.catchbug.biz.vo.MemberVO;
 
 @Controller
 public class AdminController {
@@ -37,11 +33,12 @@ public class AdminController {
 	// 가입승인 대기목록
 	@RequestMapping("/factory_franc_wait_list.do")
 	public String franc_WaitList(Model model) {
-		System.out.println("컨트롤러");
-		List<MemberVO> member_list = adminService.getMemberList();
-		
-		model.addAttribute("list", member_list);
-		System.out.println(member_list);
+		/*
+		 * System.out.println("컨트롤러"); List<MemberVO> member_list =
+		 * adminService.getMemberList();
+		 * 
+		 * model.addAttribute("list", member_list); System.out.println(member_list);
+		 */
 		return "admin/factory_franc_wait_list";
 	}
 	// 미출고 주문 현황

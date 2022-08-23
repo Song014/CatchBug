@@ -11,8 +11,9 @@ import com.catchbug.biz.vo.MemberVO;
 @Repository
 public class AdminDAO {	
 	
-	@Autowired
-	private JdbcTemplate jdbcTemplate;
+	/*
+	 * @Autowired private JdbcTemplate jdbcTemplate;
+	 */
 	
 	
 	private final String getmember_list = "select * from member";
