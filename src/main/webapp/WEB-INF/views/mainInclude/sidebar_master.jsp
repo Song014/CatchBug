@@ -62,7 +62,7 @@
             </a>
           </li>
           <li>
-            <a href="factory_franc_WaitList.do">
+            <a href="factory_franc_wait_list.do">
               <i class="bi bi-circle"></i><span>가입승인 대기 목록</span>
             </a>
           </li>
