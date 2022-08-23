@@ -13,10 +13,12 @@ public class FrancController {
 //		return "franc/stockList";
 //	}
 	// 발주서 작성
-	@RequestMapping("/francOrder.do")
-	public String FrancOrder() {
-		return "franc/franc_order";
-	}
+	/*
+	 * @RequestMapping("/francOrder.do") public String FrancOrder() {
+	 * 
+	 * 
+	 * return "franc/franc_order"; }
+	 */
 	// 발주 내역
 	@RequestMapping("/francOrderHistory.do")
 	public String FancOrderHistory() {
