@@ -124,12 +124,12 @@
                             <th scope="col" data-sortable="" ><a href="#" class="dataTable-sorter">승인 여부</a></th>
                         </tr>
                     </thead>    
-                   <%-- <c:forEach var="" items=""> --%>
+                   <c:forEach var="list" items="${list }">
                     <tbody>
 	                   <tr>
-	                        <td>1</td>
+	                        <td>${list.id }</td>
 	                        <td>늑대와 여우 컴퓨터</td>
-	                        <td>고길동</td>
+	                        <td>1</td>
 	                        <td>서울</td>
 	                        <td>123-12-12345</td>
 	                        <td>22.08.19</td>
@@ -137,7 +137,7 @@
 	                        <td></td>
 	                    </tr>
                     </tbody>
-                    <%-- </c:forEach> --%>
+                    </c:forEach> 
                 </table>
                 </div>
              </div>
