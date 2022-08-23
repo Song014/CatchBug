@@ -25,7 +25,7 @@
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="company_Intro.do">
+            <a href="company_intro.do">
               <i class="bi bi-circle"></i><span>CATCBUG</span>
             </a>
           </li>

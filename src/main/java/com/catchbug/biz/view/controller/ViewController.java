@@ -92,7 +92,7 @@ public class ViewController {
 	
 	
 	/* 회사소개 */
-	@RequestMapping("/company_Intro.do")
+	@RequestMapping("/company_intro.do")
 	public String companyIntro() {
 		return "company/company_intro";
 	}
