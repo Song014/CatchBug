@@ -19,7 +19,7 @@ public class AdminController {
 		return "main";
 	}
 	
-	/* 가맹점 관리 */
+	/* 가맹점 관리  */
 	// 전체 가맹리스트
 	@RequestMapping("/member_List.do")
 	public String memberList() {
