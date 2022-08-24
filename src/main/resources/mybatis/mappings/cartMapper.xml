@@ -4,8 +4,11 @@
 
 <mapper namespace="CartMapper">
 
-	<insert id="inserCart" parameterType="cart">
-		insert into cart VALUES(CART_SEQ.nextval,'thdrltjr',101,1,50);
+	<insert id="insertCart" >
+		insert into cart (cart_no,id,product_no) VALUES((SELECT NVL(MAX(cart_no),0) + 1 FROM cart),#{category_no},#{product_no})
 	</insert>
-
+	
+	<delete id="deleteCart" parameterType="product">
+		delete from cart where product_no=#{product_no}
+	</delete>
 </mapper>
