@@ -99,37 +99,53 @@
 				<div class="row">
 					<!-- 카테고리  -->
 					<div class="col-lg-2">
-						<div class="accordion" id="accordionExample">
-							<c:forEach varStatus="status" begin="1" end="3" >
+						<c:forEach var="main_category" items="${main_category }"
+							varStatus="status">
+							<div class="accordion" id="accordionExample">
+								<!-- ToDo 대분류 1,2,3, 일때 해당하는 카테고리 이름 -->
+
 								<div class="accordion-item">
 									<h2 class="accordion-header" id="headingOne">
 										<button class="accordion-button collapsed" type="button"
 											data-bs-toggle="collapse" data-bs-target="#collapseOne"
 											aria-expanded="false" aria-controls="collapseOne">
-											<c:forEach var="category" items="${category }">
-											<c:if test="${category.maincategory eq '1'">
-											${category.main_name }
-											</c:if>
-											</c:forEach>
-											</button>
+											${main_category }</button>
 									</h2>
-									<div id="collapseOne" class="accordion-collapse collapse"
-										aria-labelledby="headingOne"
-										data-bs-parent="#accordionExample" style="">
+									<c:forEach var="categoryList" items="${categoryList }">
+										<div id="collapseOne" class="accordion-collapse collapse"
+											aria-labelledby="headingOne"
+											data-bs-parent="#accordionExample" style="">
+											<!-- ToDo 대분류 1 , 2 , 3 에 해당하는 서브카테고리 이름 -->
+											<div class="accordion-body" style="padding: 1px">
 
-										<div class="accordion-body" style="padding: 1px">
-											<div class="list-group">
-												<button type="button"
-													class="list-group-item list-group-item-action getCategory"></button>
+												<c:if test="${categoryList.main_category eq 1 }">
+													<div class="list-group">
+														<button type="button"
+															class="list-group-item list-group-item-action getCategory">${categoryList.sub_name }</button>
+													</div>
+												</c:if>
+
 											</div>
 										</div>
+										<div id="collapseTwo" class="accordion-collapse collapse"
+											aria-labelledby="headingOne"
+											data-bs-parent="#accordionExample" style="">
+											<!-- ToDo 대분류 1 , 2 , 3 에 해당하는 서브카테고리 이름 -->
+											<div class="accordion-body" style="padding: 1px">
 
-									</div>
+												<c:if test="${categoryList.main_category eq 2 }">
+													<div class="list-group">
+														<button type="button"
+															class="list-group-item list-group-item-action getCategory">${categoryList.sub_name }</button>
+													</div>
+												</c:if>
+
+											</div>
+										</div>
+									</c:forEach>
 								</div>
-							</c:forEach>
-						</div>
-
-
+							</div>
+						</c:forEach>
 					</div>
 					<div class="col-lg-10">
 						<!-- 카테고리 선택창 -->
@@ -193,7 +209,7 @@
 						</div>
 						<!-- 장바구니 -->
 						<div>
-							<form action="">
+							<form name="testForm">
 								<table class="table" id="bucket">
 									<thead>
 										<tr>
@@ -237,9 +253,9 @@
 				<div class="modal-body">
 					<div class="card">
 						<div class="card-body">
-							<div class="card-title">
-								<h5 style="text-align: right;">총 주문금액</h5>
-								<div style="text-align: right;">
+							<div class="card-title" style="text-align: right;">
+								<h5>총 주문금액</h5>
+								<div>
 									<i class="bx bx-won">가격 적어주세요</i>
 								</div>
 							</div>
@@ -280,7 +296,7 @@
 					console.log(value);
 					$.ajax({
 						type : "GET", //요청 메소드 방식
-						url : "test.do?category="+value,
+						url : "orderAjax.do?category="+value,
 						dataType : "json", //서버가 요청 URL을 통해서 응답하는 내용의 타입
 						success : function(result) {
 							$("#category tbody tr").remove();
@@ -315,6 +331,7 @@
 				let trArr = new Array();
 				
 				$("#category").on("click",".addBucket",function() {
+					var queryString = $("form[name=testForm]").serialize()
 					
 					const $tr = $(this).parent().parent();
 					const $td = $tr.children();
@@ -335,6 +352,41 @@
 						<td><button type="button" class="btn btn-primary btn-sm delBucket">삭제</button></td>
 					</tr>
 					`;
+					
+					$.ajax({
+						type : "GET", //요청 메소드 방식
+						url : "orderAjax.do,
+						data : queryString,
+						dataType : "json", //서버가 요청 URL을 통해서 응답하는 내용의 타입
+						success : function(result) {
+							$("#category tbody tr").remove();
+							//서버의 응답데이터가 클라이언트에게 도착하면 자동으로 실행되는함수(콜백)
+							//result - 응답데이터
+							
+							const str =`
+							<tr>
+								<td>1</td>
+								<th scope="row"><a href="#"><img
+										src="https://via.placeholder.com/60" alt=""></a></th>
+								<td>`+result.product_no+`</td>
+								<td><a class="primary" data-bs-toggle="modal"
+									data-bs-target="#modalProduct">`+result.product_name+`</a></td>
+								<td>`+result.add_day+`</td>
+								<td>재고량1</td>
+								<td>`+result.price+`</td>
+								<td><button type="button"
+										class="btn btn-primary btn-sm addBucket">추가</button></td>
+							</tr>
+							`;
+							
+							$("#category tbody").append(str);
+							console.log("ajax 성공");
+						},
+						error : function(a, b, c) {
+							//통신 실패시 발생하는 함수(콜백)
+							console.log("실패" + a, b, c);
+						}
+					});
 					
 					console.log(trArr.indexOf(no))
 					if(trArr.indexOf(no)!=-1){

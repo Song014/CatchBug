@@ -93,7 +93,7 @@
             </a>
           </li>
           <li>
-            <a href="factoryOrder.do?category=CPU">
+            <a href="factoryOrder.do">
               <i class="bi bi-circle"></i><span>본사 발주서 작성</span>
             </a>
           </li>
