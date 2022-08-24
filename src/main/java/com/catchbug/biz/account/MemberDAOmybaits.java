@@ -1,22 +1,22 @@
-package com.catchbug.biz.account.impl;
+package com.catchbug.biz.account;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.catchbug.biz.vo.AccountVO;
+import com.catchbug.biz.vo.MemberVO;
 
 
 @Repository
-public class AccountDAOmybaits {
+public class MemberDAOmybaits {
 
 	@Autowired
-	private SqlSessionTemplate accountMybatis;
+	private SqlSessionTemplate memberMybatis;
 	
-	//글 등록
-	   public void insertAccount(AccountVO vo){
-		   System.out.println("===> mybatis로 insertAccount 실행");
-		   accountMybatis.insert("AccountDAO.insertAccount",vo);
+	//회원가입 등록
+	   public void insertMember(MemberVO vo){
+		   System.out.println("===> mybatis로 insertMemeber 실행");
+		   memberMybatis.insert("MemberDAO.insertMember",vo);
 		   //DAO도 다 수정해야댐
 	   }
 }

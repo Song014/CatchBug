@@ -6,28 +6,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.catchbug.biz.vo.AccountService;
-import com.catchbug.biz.vo.AccountVO;
+import com.catchbug.biz.vo.MemberVO;
 
 @Controller
-@SessionAttributes("account")
-public class AccountController {
+@SessionAttributes("member")
+public class MemberController {
 
 	@Autowired
-	private AccountService accountService;
+	private MemberService accountService;
 	
 	@RequestMapping(value="/sign_up.do", method=RequestMethod.GET)
-	public String signUp() {
-		System.out.println("account/sign_up //get");
+	public String MemebersignUp() {
+		System.out.println("account/sign_up //회원가입 페이지에서  get방식  ");
 		return "account/sign_up";
 	}
 	
 	@RequestMapping(value="/sign_up.do", method=RequestMethod.POST)
-	public String insertAccount(AccountVO vo) {
-		System.out.println("account/sign_up //post");
-		accountService.insertAccount(vo);
+	public String insertMember(MemberVO vo) {
+		System.out.println("account/sign_up //회원가입 폼에서 post방식 ");
+		accountService.insertMember(vo);
 		
 		return "account/login_page";
+		
+		
+		
 	}
 	
 }

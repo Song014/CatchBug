@@ -1,11 +1,11 @@
-package com.catchbug.biz.account.impl;
+package com.catchbug.biz.account;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import com.catchbug.biz.vo.AccountVO;
+import com.catchbug.biz.vo.MemberVO;
 
 //@Repository
-public class AccountDAO {
+public class MemberDAO {
 
 //	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -26,7 +26,7 @@ public class AccountDAO {
 	   private final String BOARD_CNT = "update board set cnt = cnt+1 "
 	   		+ "where seq = ?";
 	   
-	   public void insertAccount(AccountVO vo) {
+	   public void insertAccount(MemberVO vo) {
 		   System.out.println("==> Spring Jdbc로 insertAccount()");
 		   jdbcTemplate.update(Insert_Account,vo.getId(),vo.getPass(),vo.getBusiness_no(),vo.getBusiness_name(),
 				   vo.getCeo(),vo.getContact(),vo.getEmail(),vo.getBusiness_address(),vo.getRegdate(),vo.getLevel1());
