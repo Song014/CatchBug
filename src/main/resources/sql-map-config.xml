@@ -3,12 +3,13 @@
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
-	
+
 	<typeAliases>
-    	<!-- <typeAlias alias="board" type="com.springbook.biz.board.BoardVO"/> -->
-    </typeAliases>
-    
+		<typeAlias alias="product"
+			type="com.catchbug.biz.vo.MainCategoryVO" />
+	</typeAliases>
+
 	<mappers>
-		<!-- <mapper resource="mappings/board-mapping.xml"/> -->
+		<mapper resource="mybatis/mappings/product-mapping.xml" />
 	</mappers>
 </configuration>
