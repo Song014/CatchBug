@@ -4,8 +4,8 @@
 
 <mapper namespace="StockMapper">
 
-<select id="getList" resultType="product">
-	select * from product
+<select id="getProductList" resultType="product">
+	select * from product order by add_day desc
 </select>
 
 </mapper>
