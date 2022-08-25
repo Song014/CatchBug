@@ -5,7 +5,19 @@
 <mapper namespace="AdminMapper">
 
 <select id="getList" resultType="member">
-	select * from member where level1=3
+	select 
+		* 
+	from 
+		member 
+	where 
+		level1=3
 </select>
 
+<update id="memberLevelUpdate" parameterType="member" >
+	update member set level1 = 2 where id = #{id,jdbcType=VARCHAR}
+</update>
+
+<delete id="memberrefuse">
+	delete from member where id = #{id}
+</delete>
 </mapper>

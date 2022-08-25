@@ -1,24 +1,32 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
+
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 
-<!-- ======= Header ======= -->
+<!-- cdn -->
 
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
-<!-- Logo -->
+<!-- cdn end -->
+	<!-- ======= Header ======= -->
+	
+	
+	 <!-- Logo -->
+	 
+	<header id="header" class="header fixed-top d-flex align-items-center">
 
-<header id="header" class="header fixed-top d-flex align-items-center">
-
-	<div class="d-flex align-items-center justify-content-between">
-		<a href="/" class="logo d-flex align-items-center">
-			<div class="icon" style="width: 50px;">
-				<i class="bi bi-bug" style="zoom: 2.0;"> </i>
-			</div> <span class="d-none d-lg-block">CATCHBUG</span>
-		</a> <i class="bi bi-list toggle-sidebar-btn"></i>
-	</div>
-
-	<!-- End Logo -->
-
+      <div class="d-flex align-items-center justify-content-between">
+			<a href="/" class="logo d-flex align-items-center"> 
+			<div class="icon" style="width:50px;"> 
+			<i class="bi bi-bug" style="zoom:2.0;">
+			</i>
+			</div>
+			<span class="d-none d-lg-block">CATCHBUG</span>
+			</a> <i class="bi bi-list toggle-sidebar-btn"></i>
+		</div>
+      
+    <!-- End Logo -->
+      
 
 	<!-- messages -->
 
