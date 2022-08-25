@@ -33,40 +33,24 @@ public class AdminController {
 	// 가입승인 대기목록
 	@RequestMapping("/factory_franc_wait_list.do")
 	public String franc_WaitList(Model model) {
-		/*
-		 * System.out.println("컨트롤러"); List<MemberVO> member_list =
-		 * adminService.getMemberList();
-		 * 
-		 * model.addAttribute("list", member_list); System.out.println(member_list);
-		 */
+		 System.out.println("컨트롤러"); 
+		  List<MemberVO> member_list = adminService.getMemberList();
+		  model.addAttribute("list", member_list); 
+
 		return "admin/factory_franc_wait_list";
 	}
+	
+	// 가입 승인 처리
+		@RequestMapping("")
+		public String franc_Member_Approval(MemberVO vo) {
+
+			return "admin/factory_franc_wait_list";
+		}
+
 	// 미출고 주문 현황
 	@RequestMapping("/unOrderHistory.do")
 	public String unOrderHistory() {
 		return "admin/un_order_history";
-	}
-	
-	/* 재고 관리 */
-	// 상품 리스트
-	@RequestMapping("/stockList.do")
-	public String StockList() {
-		return "admin/stock_list";
-	}
-	// 본사 재고현황
-	@RequestMapping("/factoryStockList.do")
-	public String FactoryStockList() {
-		return "admin/factory_stock_list";
-	}
-	// 본사 발주서 작성
-	@RequestMapping("/factoryOrder.do")
-	public String factoryOrder() {
-		return "admin/factory_order";
-	}
-	// 본사 발주 내역
-	@RequestMapping("/factory_Order_History.do")
-	public String FactoryOrderHistory() {
-		return "admin/factory_order_history";
 	}
 	
 	
