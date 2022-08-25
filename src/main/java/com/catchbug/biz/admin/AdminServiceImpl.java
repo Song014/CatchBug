@@ -10,7 +10,7 @@ import com.catchbug.biz.vo.MemberVO;
 @Service("adminService")
 public class AdminServiceImpl implements AdminService {
 
-	
+	@Autowired
 	private AdminDAO adminDAO;
 	
 	@Override
@@ -30,5 +30,8 @@ public class AdminServiceImpl implements AdminService {
 		System.out.println("가입 반려 서비스 회원아이디 : " + vo.getId());
 		adminDAO.memberrefuse(vo);
 	}
+	
+	
+	
 
 }
