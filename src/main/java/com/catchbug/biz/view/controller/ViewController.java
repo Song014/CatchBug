@@ -65,15 +65,15 @@ public class ViewController {
 	}
 	
 	/* 계정 */
-	@RequestMapping("/sign_up.do")
-	public String signUp() {
-		return "account/sign_up";
-	}
-	
-	@RequestMapping("/login_page.do")
-	public String loginPage() {
-		return "account/login_page";
-	}
+//	@RequestMapping("/sign_up.do")
+//	public String signUp() {
+//		return "account/sign_up";
+//	}
+//	
+//	@RequestMapping("/login_page.do")
+//	public String loginPage() {
+//		return "account/login_page";
+//	}
 	
 	@RequestMapping("/logout.do")
 	public String loginOut() {

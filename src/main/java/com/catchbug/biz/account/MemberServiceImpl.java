@@ -1,5 +1,7 @@
 package com.catchbug.biz.account;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,13 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void insertMember(MemberVO vo) {
 		MemberDAO.insertMember(vo);
+	}
+
+
+	@Override
+	public List<MemberVO> getMember(MemberVO vo) {
+		return MemberDAO.getMember(vo);
+		 
 	}
 
 }

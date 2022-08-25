@@ -1,5 +1,7 @@
 package com.catchbug.biz.account;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -7,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.catchbug.biz.vo.MemberVO;
 
 
-@Repository
+@Repository("memberDAO")
 public class MemberDAOmybaits {
 
 	@Autowired
@@ -19,6 +21,12 @@ public class MemberDAOmybaits {
 		   memberMybatis.insert("MemberDAO.insertMember",vo);
 		   //DAO도 다 수정해야댐
 	   }
+	   //로그인 전 회원정보 검색
+	   public List<MemberVO> getMember(MemberVO vo) {
+		   System.out.println("===> mybatis로 getMemeber 실행");
+		   return memberMybatis.selectList("MemberDAO.getMember",vo);
+		   
+	   }  
 }
 //	   //글 수정
 //	   public void updateBoard(AccountVO vo) { 

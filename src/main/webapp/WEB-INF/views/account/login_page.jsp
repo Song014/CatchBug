@@ -112,29 +112,29 @@
                     </div> -->
                   </div>
 
-
-                  <form class="row g-3 needs-validation" novalidate>
+					<!-- 로그인 폼 시작 -->
+                  <form class="row g-3 needs-validation" action="login_page.do" method="post">
 
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">ID</label>
                       <div class="input-group has-validation">
-                        <input type="text" name="username" class="form-control" id="yourUsername" required>
+                        <input type="text" name="id" class="form-control" id="yourUsername"<%--  value="${memberVO.id}" --%> required>
                         <div class="invalid-feedback">Please enter your username.</div>
                       </div>
                     </div>
 
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">Password</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
+                      <input type="password" name="pass" class="form-control" id="yourPassword" <%-- value="${memberVO.pass}" --%> required>
                       <div class="invalid-feedback">Please enter your password!</div>
                     </div>
 
-                    <div class="col-12">
+                    <!-- <div class="col-12">
                       <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
                         <label class="form-check-label" for="rememberMe">Remember me</label>
                       </div>
-                    </div>
+                    </div> -->
                     <div class="col-12">
                       <button class="btn btn-primary w-100" type="submit">Login</button>
                     </div>

@@ -22,9 +22,15 @@
 			<!-- #{  } 는 vo객체에 자동 setter 주입 -->
 	</insert>
 	
-	<!-- <select id="getBoard" resultType="board">
+	<select id="getMember" resultType="member" parameterType="String">
+		select * from member where id=#{id} and pass=#{pass}
+	</select>
+	
+	<!--
+	 <select id="getBoard" resultType="board">
 		select * from board where seq=#{seq}  vo객체에 setter 자동주입
 	</select>
+	
 	
 	<update id="updateBoard" parameterType="board">
 		update board set title=#{title},content=#{content}, where seq=#{seq} 
