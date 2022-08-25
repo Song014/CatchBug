@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MemberDAO">
+
+		<!--  <resultMap type="board" id="boardResult">
+			<id property="seq" column="SEQ"></id>
+			<result property="title" column="TITLE"/>
+		</resultMap> -->
+	
+	<insert id="insertMember" >
+		<!-- <selectKey keyProperty="seq" resultType="int" order="BEFORE">
+			select board_seq.nextval as seq from dual;
+		</selectKey>
+		insert into board(seq,title,writer,content)
+		values(#{seq},#{title},#{writer},#{content}) -->
+		
+		insert into member(id,pass,business_no,business_name,ceo,contact,email,business_address)
+			values(#{id},#{pass},#{business_no},#{business_name},#{ceo},#{contact},#{email},#{business_address})
+			<!-- values('1','2','3','4','5','6','7','8') -->
+			<!-- #{  } 는 vo객체에 자동 setter 주입 -->
+	</insert>
+	
+	<!-- <select id="getBoard" resultType="board">
+		select * from board where seq=#{seq}  vo객체에 setter 자동주입
+	</select>
+	
+	<update id="updateBoard" parameterType="board">
+		update board set title=#{title},content=#{content}, where seq=#{seq} 
+	</update>
+	
+	
+	<delete id="deleteBoard">
+		delete from board where seq=#{seq}
+	</delete>
+	
+	<select id="getBoardList" resultType="board"> -->
+		
+		<!-- select * from board
+		where title like '%'||#{searchKeyword||'%'
+		order by seq desc
+		 -->
+		
+	<!-- 	select * from board
+		where 1 = 1
+		
+		<if test="searchCondition"=="TITLE">
+			and title like '%'||#{searchKeyword}||'%'
+		</if>
+		<if test="searchCondition"=="CONTENT">
+			and title like '%'||#{searchKeyword}||'%'
+		</if>
+		order by seq desc
+		
+		
+		
+	</select> -->
+	
+	
+</mapper>

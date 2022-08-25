@@ -3,13 +3,15 @@
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
-
+	
 	<typeAliases>
-		<typeAlias alias="product"
-			type="com.catchbug.biz.vo.MainCategoryVO" />
-	</typeAliases>
-
+		<typeAlias alias="product" type="com.catchbug.biz.vo.ProductVO"/>    	
+		<typeAlias alias="member" type="com.catchbug.biz.vo.MemberVO"/>   	
+    </typeAliases>
+    
 	<mappers>
-		<mapper resource="mybatis/mappings/product-mapping.xml" />
+		<mapper resource="mybatis/mappings/stockMapper.xml"/>
+		<mapper resource="mybatis/mappings/adminMapper.xml"/>
+		<mapper resource="mybatis/mappings/memberMapping.xml"/>
 	</mappers>
 </configuration>
