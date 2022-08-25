@@ -104,6 +104,7 @@ local.properties
 *.tar.gz
 *.rar
 
+src/main/resources/mybatis/*.properties
 src/main/webapp/WEB-INF/lib/*
 !src/main/webapp/WEB-INF/lib/*.jar
 

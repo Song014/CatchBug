@@ -60,35 +60,14 @@
 
 	<!-- ======= Sidebar ======= -->
 
-	<%-- <c:set var="user" value="${user }"/>
-	 
-	 <c:when test="${user.level != 2}">
-	 	<jsp:include page="sidebar(master).jsp"></jsp:include>
-	 </c:when> --%>
-
-	<%-- 	 <c:otherwise> --%>
-	<jsp:include page="../mainInclude/sidebar_user.jsp"></jsp:include>
-
-	<%--  		<jsp:include page="sidebar_master.jsp"></jsp:include> --%>
-	<%-- 	 </c:otherwise> --%>
+	<jsp:include page="../mainInclude/sidebar.jsp"></jsp:include>
 
 	<!-- End Sidebar -->
 	<!-- End Header -->
 
 	<!-- ======= Sidebar ======= -->
 
-	<%-- <c:set var="user" value="${user }"/>
-	 
-	 <c:when test="${user.level != 2}">
-	 	<jsp:include page="sidebar(master).jsp"></jsp:include>
-	 </c:when> --%>
-
-	<%-- 	 <c:otherwise> --%>
-	<jsp:include page="../mainInclude/sidebar_user.jsp"></jsp:include>
-
-	<%--  		<jsp:include page="sidebar_master.jsp"></jsp:include> --%>
-	<%-- 	 </c:otherwise> --%>
-
+	<jsp:include page="../mainInclude/sidebar.jsp"></jsp:include>
 	<!-- End Sidebar -->
 
 	<main id="main" class="main">
@@ -148,10 +127,10 @@
 	<!-- End #main -->
 
 	<!-- ======= Footer ======= -->
-  
-  <jsp:include page="../mainInclude/footer.jsp"></jsp:include>
-  
-<!-- End Footer -->
+
+	<jsp:include page="../mainInclude/footer.jsp"></jsp:include>
+
+	<!-- End Footer -->
 
 	<a href="#"
 		class="back-to-top d-flex align-items-center justify-content-center"><i

@@ -57,10 +57,4 @@ public class StockController {
 	public String FactoryOrderHistory() {
 		return "admin/factory_order_history";
 	}
-
-	// 상품 등록
-	@RequestMapping("/productRegister.do")
-	public String ProductRegister() {
-		return "admin/product_register";
-	}
 }

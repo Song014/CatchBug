@@ -1,21 +1,29 @@
 package com.catchbug.biz.vo;
 
-import java.util.Date;
+
+import java.sql.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 import lombok.Data;
 
 @Data
 public class MemberVO {
 
-	String id;
-	String pass;
-	String business_no;
-	String business_name;
-	String ceo;
-	String contact;
-	String email;
-	String business_address;
-	Date regdate;
-	int level1;
+
+	
+	private String id; // 아이디
+	private String pass; // 비밀번호
+	private String business_no; // 사업자 등록번호
+	private String business_name; // 법인명
+	private String ceo; // 대표자
+	private String contact; // 연락처
+	private String email; // 이메일
+	private String business_address; // 사업장 주소지
+	@DateTimeFormat(pattern ="yy/mm/dd")
+	private Date regdate; // 가입일 
+	private int level1; // 등급
+
 	
 }

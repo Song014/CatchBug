@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Product">
+
+	
+	<select id="mainCategory" resultType="com.catchbug.biz.vo.MainCategoryVO">
+		SELECT *
+		FROM main_category
+	</select>
+	
+	<select id="subCategory" resultType="com.catchbug.biz.vo.SubCategoryVO">
+		SELECT *
+		FROM sub_category
+	</select>
+	
+	<insert id="insertProduct" parameterType="com.catchbug.biz.vo.ProductVO">
+		INSERT INTO product
+		values(#{product_no},#{sub_category},#{product_name},#{price},sysdate,#{product_img},#{brand},#{uuid})
+	</insert>
+	
+	<insert id="insertImg" parameterType="com.catchbug.biz.vo.ImgVO">
+		INSERT INTO img
+		values(#{product_no}, #{fileName}, #{uploadPath}, #{uuid})
+	</insert>
+
+</mapper>
