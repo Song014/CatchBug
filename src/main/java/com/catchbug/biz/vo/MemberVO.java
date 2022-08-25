@@ -1,5 +1,7 @@
 package com.catchbug.biz.vo;
 
+import java.util.Date;
+
 import lombok.Data;
 
 @Data
@@ -13,7 +15,7 @@ public class MemberVO {
 	String contact;
 	String email;
 	String business_address;
-	String regdate;
+	Date regdate;
 	int level1;
 	
 }

@@ -20,4 +20,16 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.getMemberList();
 	}
 
+	@Override
+	public void memberLevelUpdate(MemberVO vo) {
+		System.out.println("가입 승인 서비스 회원아이디 : " + vo.getId());
+		adminDAO.memberLevelUpdate(vo);
+	}
+
+	@Override
+	public void memberrefuse(MemberVO vo) {
+		System.out.println("가입 반려 서비스 회원아이디 : " + vo.getId());
+		adminDAO.memberrefuse(vo);
+	}
+
 }
