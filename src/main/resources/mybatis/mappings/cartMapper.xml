@@ -5,7 +5,7 @@
 <mapper namespace="CartMapper">
 
 	<insert id="insertCart" >
-		insert into cart (cart_no,id,product_no) VALUES((SELECT NVL(MAX(cart_no),0) + 1 FROM cart),#{category_no},#{product_no})
+		insert into cart (cart_no,id,product_no) VALUES((SELECT NVL(MAX(cart_no),0) + 1 FROM cart),#{sub_category},#{product_no})
 	</insert>
 	
 	<delete id="deleteCart" parameterType="product">

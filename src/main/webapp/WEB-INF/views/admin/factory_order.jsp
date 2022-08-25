@@ -151,8 +151,7 @@
 										</form>
 									</div>
 								</div>
-								<!-- 가져온거 -->
-
+								<!-- 상품 리스트 -->
 								<table class="table table-borderless top-selling" id="category">
 									<thead>
 										<tr>
@@ -184,8 +183,7 @@
 										</c:forEach>
 									</tbody>
 								</table>
-
-								<!-- 가져온거 -->
+								<!-- 상품 리스트 -->
 							</div>
 							<!-- 장바구니 -->
 							<div>
@@ -221,7 +219,7 @@
 	</main>
 	<!-- End #main -->
 
-
+		<!-- 모달창 -->
 	<div class="modal fade" id="modalProduct" tabindex="-1">
 		<div class="modal-dialog modal-dialog-scrollable">
 			<div class="modal-content">
@@ -292,7 +290,7 @@
 										<td><a class="primary" data-bs-toggle="modal"
 											data-bs-target="#modalProduct">`+result.product_name+`</a></td>
 										<td>`+result.add_day+`</td>
-										<td>재고량1</td>
+										<td>재고량나올곳</td>
 										<td>`+result.price+`</td>
 										<td><button type="button"
 												class="btn btn-primary btn-sm addBucket">추가</button></td>
@@ -323,7 +321,7 @@
 					const no = $td.eq(2).text();
 					const name = $td.eq(3).text();
 					const quantity = $td.eq(4).text();
-					const price = $td.eq(5).text();
+					const price = $td.eq(6).text();
 					
 					const str =`
 					<tr>
@@ -364,7 +362,7 @@
 					 const $td = $tr.children();
 					 const no = $td.eq(1).text();
 					 if(trArr.indexOf(no)!=-1){
-						 trArr.pop();
+						 trArr.splice(no,1);
 						 $.ajax({
 								type : "GET", //요청 메소드 방식
 								url : "orderDeleteAjax.do?product_no="+no,

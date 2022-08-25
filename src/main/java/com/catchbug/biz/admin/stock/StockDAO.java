@@ -21,7 +21,7 @@ public class StockDAO {
 		System.out.println("insertCart 처리");
 		
 		// 아이디 는 세션
-		vo.setCategory_no(2);
+		vo.setSub_category(2);
 		mybatis.insert("CartMapper.insertCart", vo);
 	} 
 
