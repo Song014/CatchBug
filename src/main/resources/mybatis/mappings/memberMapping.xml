@@ -22,7 +22,7 @@
 			<!-- #{  } 는 vo객체에 자동 setter 주입 -->
 	</insert>
 	
-	<select id="getMember" resultType="member" parameterType="String">
+	<select id="getMember" resultType="member" parameterType="member">
 		select * from member where id=#{id} and pass=#{pass}
 	</select>
 	

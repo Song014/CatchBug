@@ -10,6 +10,6 @@ public interface MemberService {
 		void insertMember(MemberVO vo);
 		
 	//로그인
-		List<MemberVO> getMember(MemberVO vo);
+		MemberVO getMember(MemberVO vo);
 
 }

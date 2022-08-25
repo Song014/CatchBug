@@ -41,35 +41,39 @@ public class MemberController {
 
 		return "account/login_page";
 	}
+	
+	@RequestMapping(value = "/logout.do", method = RequestMethod.GET)
+	public String logout(HttpSession session) {
+		session.invalidate();
+		
+		return "account/login_page";
+	}
 
 	@RequestMapping(value = "/login_page.do", method = RequestMethod.POST)
-	public String MemberLogin(MemberVO vo, MemberDAOmybaits memberDAO,HttpSession session) {
+	public String MemberLogin(MemberVO vo,HttpSession session) {
 		System.out.println("account/login_page //로그인 페이지에서  post방식 ");
-		List<MemberVO> member = memberService.getMember(vo);
-		
+		MemberVO member = memberService.getMember(vo);
+		System.out.println("123"+member);
 		
 //		Iterator mem = member.iterator();
 //		while(mem.hasNext()) {
 //			System.out.println(mem.next());
 //		}
- 		
+ 		/*
 		for(MemberVO i: member) {
 			System.out.println(i);
 			System.out.println(i.getId());
 			System.out.println(vo.getId());
-			
-			if(i.getId() != null) {
-				System.out.println("환영합니다"+i.getId()+"님 어서오세요. 등급은 "+i.getLevel1()+"입니다");
+			*/
+			if(member != null) {
+				
 				session.setAttribute("memberId", member);
-				return "account/login_page";
-		}
-		}
-		return "";
-		
-		
-		
-		
-		
+				return "redirect:/";
+				
+			}
+		/* } */
+
+		return "account/login_page";
 	}
 }
 //			List<MemberVO> memberList = 

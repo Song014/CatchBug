@@ -56,26 +56,16 @@
 
 
 
-<!-- ======= Sidebar ======= --> 
-	 
-	 <%-- <c:set var="user" value="${user }"/>
-	 
-	 <c:when test="${user.level != 2}">
-	 	<jsp:include page="sidebar(master).jsp"></jsp:include>
-	 </c:when> --%>
-	 
-<%-- 	 <c:otherwise> --%>
- 		<jsp:include page="../mainInclude/sidebar_master.jsp"></jsp:include>
- 		
-<%--  		<jsp:include page="sidebar_master.jsp"></jsp:include> --%>
-<%-- 	 </c:otherwise> --%>
-	 
-<!-- End Sidebar -->
+<!-- ======= Sidebar ======= -->
+
+
+	<jsp:include page="../mainInclude/sidebar.jsp"></jsp:include>
 
 
 
-	
-<!-- ======= Main ======= --> 
+
+
+	<!-- ======= Main ======= --> 
 	<!-- main start -->
 	<main id="main" class="main">
 

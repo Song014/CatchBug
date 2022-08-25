@@ -22,9 +22,11 @@ public class MemberDAOmybaits {
 		   //DAO도 다 수정해야댐
 	   }
 	   //로그인 전 회원정보 검색
-	   public List<MemberVO> getMember(MemberVO vo) {
+	   public MemberVO getMember(MemberVO vo) {
 		   System.out.println("===> mybatis로 getMemeber 실행");
-		   return memberMybatis.selectList("MemberDAO.getMember",vo);
+		/* return memberMybatis.selectList("MemberDAO.getMember",vo); */
+		   System.out.println(vo);
+		   return memberMybatis.selectOne("MemberDAO.getMember",vo);
 		   
 	   }  
 }
