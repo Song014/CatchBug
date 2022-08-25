@@ -6,11 +6,13 @@
 	
 	<typeAliases>
 		<typeAlias alias="product" type="com.catchbug.biz.vo.ProductVO"/>    	
-		<typeAlias alias="member" type="com.catchbug.biz.vo.MemberVO"/>    	
+		<typeAlias alias="member" type="com.catchbug.biz.vo.MemberVO"/>   	
     </typeAliases>
     
 	<mappers>
 		<mapper resource="mybatis/mappings/stockMapper.xml"/>
 		<mapper resource="mybatis/mappings/adminMapper.xml"/>
+		<mapper resource="mybatis/mappings/memberMapping.xml"/>
+		<mapper resource="mybatis/mappings/productMapping.xml"/>
 	</mappers>
 </configuration>

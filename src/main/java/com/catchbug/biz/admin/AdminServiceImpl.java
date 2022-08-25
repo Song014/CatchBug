@@ -11,7 +11,6 @@ import com.catchbug.biz.vo.MemberVO;
 public class AdminServiceImpl implements AdminService {
 
 	
-	@Autowired
 	private AdminDAO adminDAO;
 	
 	@Override

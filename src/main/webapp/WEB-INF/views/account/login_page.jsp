@@ -67,7 +67,7 @@
 
 	<%-- <c:set var="user" value="${user }"/>
 	 
-	 <c:when test="${user.level != 2}">
+	 <c:when test="${user.level1 != 2}">
 	 	<jsp:include page="sidebar(master).jsp"></jsp:include>
 	 </c:when> --%>
 
@@ -103,13 +103,13 @@
                   <div class="pt-4 pb-2">
                     <h5 class="card-title text-center pb-0 fs-4">Catch Bug Login</h5>
                     <br>
-                    <div class="checkbox" style="text-align: right;">
+                    <!-- <div class="checkbox" style="text-align: right;">
                       <label>
                         <input type="radio" name="mode" value="admin"> 관리자
                         &nbsp;&nbsp;
                         <input type="radio" name="mode" value="member" checked> 일반회원
                       </label>
-                    </div>
+                    </div> -->
                   </div>
 
 

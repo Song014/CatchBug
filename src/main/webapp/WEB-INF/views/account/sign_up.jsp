@@ -2,6 +2,7 @@
 <%@ page session="false"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -107,56 +108,67 @@
                     <p class="text-center small" style="color: red;">* 항목은 필수로 작성해야 합니다.</p>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate>
+						<!-- 회원가입 폼 시작 -->
+                  <form class="row g-3 needs-validation" action="sign_up.do" method="post" >
                   
                   	<div class="col-12">
-                      <label for="yourName" class="form-label">* Your Id</label>
-                      <input type="text" name="id" class="form-control" id="yourId" required>
+                      <label for="yourName" class="form-label">* 아이디</label>
+                      <input type="text" name="id" class="form-control" id="yourId" placeholder="catchbug쨩" autofocus>
                       <div class="invalid-feedback">Please, enter your Id!</div>
                     </div>
                     
                     <div class="col-12">
-                      <label for="yourName" class="form-label">* Your Password</label>
-                      <input type="password" name="pass" class="form-control" id="yourPassword" required>
+                    
+                    
+                      <label for="yourName" class="form-label">* 비밀번호</label>
+                      <input type="password" name="pass" class="form-control" id="yourPassword"  required>
                       <div class="invalid-feedback">Please, enter your Password!</div>
                     </div>
                     
-                    <div class="col-12">
+                    <!-- <div class="col-12">
                       <label for="yourName" class="form-label">* Your Password Check</label>
                       <input type="password" name="passchk" class="form-control" id="yourPasswordchk" required>
                       <div class="invalid-feedback">Please, Do your Password Check!</div>
-                    </div>
+                    </div> -->
                   
                   <div class="col-12">
-                      <label for="yourName" class="form-label">* Your Business Number</label>
-                      <input type="text" name="business_no" class="form-control" id="yourBusinessno" required>
+                      <label for="yourName" class="form-label">* 사업자 등록번호</label>
+                      <input type="text" name="business_no" class="form-control" id="yourBusinessno" placeholder="123-45-00000"  required>
+                      <div class="invalid-feedback">Please, enter your Business Number!</div>
+                    </div>
+                    
+                    <div class="col-12">
+                      <label for="yourName" class="form-label">* 사업자명</label>
+                      <input type="text" name="business_name" class="form-control" id="yourBusinessname" placeholder="123-45-00000"  required>
                       <div class="invalid-feedback">Please, enter your Business Number!</div>
                     </div>
                   
                     <div class="col-12">
-                      <label for="yourName" class="form-label">* Your Name</label>
-                      <input type="text" name="ceo" class="form-control" id="yourName" required>
+                      <label for="yourName" class="form-label">* 대표자</label>
+                      <input type="text" name="ceo" class="form-control" id="yourCeo" placeholder="대표자명"  required>
                       <div class="invalid-feedback">Please, enter your name!</div>
                     </div>
                     
                     <div class="col-12">
-                      <label for="yourName" class="form-label">* Your Contact</label>
-                      <input type="text" name="contact" class="form-control" id="yourContact" required>
+                      <label for="yourName" class="form-label">* 연락처</label>
+                      <input type="text" name="contact" class="form-control" id="yourContact" placeholder="010-0000-0000" required>
                       <div class="invalid-feedback">Please, enter your name!</div>
                     </div>
                     
                     <div class="col-12">
-                      <label for="yourName" class="form-label">* Business Address</label>
-                      <input type="text" name="business_address" class="form-control" id="yourContact" required>
-                      <div class="invalid-feedback">Please, enter your Business Address!</div>
+                      <label for="yourName" class="form-label">* email</label>
+                      <input type="text" name="email" class="form-control" id="yourEmail" placeholder="peace@naver.com" required>
+                      <div class="invalid-feedback">Please, enter your name!</div>
                     </div>
+                    
+                  
                     
                     
 
-                    <div class="col-12">
-                      <label for="yourEmail" class="form-label">* Your Email</label>
+                    <!-- <div class="col-12">
+                      <label for="yourEmail" class="form-label">* 이메일</label>
                       <div class="input-group has-validation">
-                        <input type="text" name="emailid" class="form-control" id="yourUsername" required>
+                        <input type="text" name="emailid" class="form-control" id="yourUsername" placeholder="email"required>
                         <span class="input-group-text" id="inputGroupPrepend">@</span>
                         <input type="text" name="emaildomain" class="form-control" id="yourUsername" required>
                         <select	class="select" title="이메일 도메인 주소 선택"	onclick="setEmailDomain(this.value);return false;">
@@ -171,7 +183,23 @@
 							</select>
                         <div class="invalid-feedback">Please enter a valid Email address!</div>
                       </div>
+                    </div> -->
+                    
+                      <div class="col-12">
+                      <label for="yourName" class="form-label">* 사업장 주소지</label>
+                      <input type="text" name="business_address" class="form-control" id="yourbusiness_address" placeholder="도로명 + 상세주소" required>
+                      <div class="invalid-feedback">Please, enter your Business Address!</div>
                     </div>
+                    
+                    <!-- <div class="col-12">
+                      <label for="yourName" class="form-label"></label>
+                      <input type="hidden" name="regdate" class="form-control" id="yourregdate" required>
+                    </div>
+                    
+                     <div class="col-12">
+                      <label for="yourName" class="form-label"></label>
+                      <input type="hidden" name="level1" class="form-control" id="yourlevel1" required>
+                    </div>  -->
 
                     <div class="col-12">
                       <div class="form-check">
