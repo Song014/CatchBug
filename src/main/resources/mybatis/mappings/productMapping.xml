@@ -15,7 +15,7 @@
 		FROM sub_category
 	</select>
 	
-	<insert id="insertProduct" parameterType="product">
+	<insert id="insertProduct" parameterType="com.catchbug.biz.vo.ProductVO">
 		INSERT INTO product
 		values(#{product_no},#{sub_category},#{product_name},#{price},sysdate,#{product_img},#{brand},#{uuid})
 	</insert>
