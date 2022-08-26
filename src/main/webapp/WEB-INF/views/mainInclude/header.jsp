@@ -12,22 +12,31 @@
 
 
 <!-- ======= Header ======= -->
+=======
+>>>>>>> d24ae394f56ad68c6f2fd2ce7cafb4f8c9e20882
 
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
-<!-- Logo -->
+<!-- cdn end -->
+	<!-- ======= Header ======= -->
+	
+	
+	 <!-- Logo -->
+	 
+	<header id="header" class="header fixed-top d-flex align-items-center">
 
-<header id="header" class="header fixed-top d-flex align-items-center">
-
-	<div class="d-flex align-items-center justify-content-between">
-		<a href="/" class="logo d-flex align-items-center">
-			<div class="icon" style="width: 50px;">
-				<i class="bi bi-bug" style="zoom: 2.0;"> </i>
-			</div> <span class="d-none d-lg-block">CATCHBUG</span>
-		</a> <i class="bi bi-list toggle-sidebar-btn"></i>
-	</div>
-
-	<!-- End Logo -->
-
+      <div class="d-flex align-items-center justify-content-between">
+			<a href="/" class="logo d-flex align-items-center"> 
+			<div class="icon" style="width:50px;"> 
+			<i class="bi bi-bug" style="zoom:2.0;">
+			</i>
+			</div>
+			<span class="d-none d-lg-block">CATCHBUG</span>
+			</a> <i class="bi bi-list toggle-sidebar-btn"></i>
+		</div>
+      
+    <!-- End Logo -->
+      
 
 
 	<!-- messages -->

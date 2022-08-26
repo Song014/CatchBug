@@ -8,4 +8,6 @@ import com.catchbug.biz.vo.MemberVO;
 public interface AdminService {
 
 	public List<MemberVO> getMemberList();
+	public void memberLevelUpdate(MemberVO vo);
+	public void memberrefuse(MemberVO vo);
 }
