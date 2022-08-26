@@ -62,9 +62,6 @@
 
 	<jsp:include page="../mainInclude/sidebar.jsp"></jsp:include>
 
-	<!-- End Sidebar -->
-	<!-- End Header -->
-
 	<!-- ======= Sidebar ======= -->
 
 	<main id="main" class="main">

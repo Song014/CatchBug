@@ -5,14 +5,19 @@
 <configuration>
 	
 	<typeAliases>
+		<typeAlias alias="product" type="com.catchbug.biz.vo.ProductVO"/>
+		<typeAlias alias="member" type="com.catchbug.biz.vo.MemberVO"/>    	
 		<typeAlias alias="product" type="com.catchbug.biz.vo.ProductVO"/>    	
 		<typeAlias alias="member" type="com.catchbug.biz.vo.MemberVO"/>   	
+		<typeAlias alias="category" type="com.catchbug.biz.vo.CategoryVO"/>
+		<typeAlias alias="cart" type="com.catchbug.biz.vo.CartVO"/>
     </typeAliases>
-    
 	<mappers>
 		<mapper resource="mybatis/mappings/stockMapper.xml"/>
+		<mapper resource="mybatis/mappings/categoryMapper.xml"/>
 		<mapper resource="mybatis/mappings/adminMapper.xml"/>
 		<mapper resource="mybatis/mappings/memberMapping.xml"/>
 		<mapper resource="mybatis/mappings/productMapping.xml"/>
+		<mapper resource="mybatis/mappings/cartMapper.xml"/>
 	</mappers>
 </configuration>
