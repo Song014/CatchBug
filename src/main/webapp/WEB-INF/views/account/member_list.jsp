@@ -70,128 +70,78 @@
 	<jsp:include page="../mainInclude/sidebar.jsp"></jsp:include>
 
 	<!-- main start -->
-	1
 
+	<!-- main start -->
 	<main id="main" class="main">
-	<div class="card">
-		<div class="card-body">
-			<h5 class="card-title">| 전체 가맹점 리스트</h5>
-			<div class="search" align="right">
-				<form>
-					<select name="searchOption">
-						<option value="orderNumber" selected="selected">사업자등록번호</option>
-						<option value="content">대표자</option>
-						<option value="remarks">법인명</option>
-					</select> <input type="text" name="input" placeholder="검색어를 입력해 주세요.">
-					<!-- <input type="button" name="inputBtn" value="검색"> -->
-					<button>검색</button>
-				</form>
+	<div class="pagetitle">
+		<h1>가맹점 리스트</h1>
+		<nav>
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item">가맹점관리</li>
+				<li class="breadcrumb-item active">가맹점 리스트</li>
+			</ol>
+		</nav>
+	</div>
+	<!-- End Page Title -->
+
+	<section class="section dashboard">
+		<div class="row">
+			<div class="card">
+				<div class="card-body">
+					<div align="right" class="dataTable-top">
+						<div class="dataTable-search">
+							<form>
+								<input type="text" name="input" placeholder="검색어를 입력해 주세요.">
+								<!-- <input type="button" name="inputBtn" value="검색"> -->
+								<button>검색</button>
+							</form>
+						</div>
+					</div>
+					<div class="dataTable-container">
+						<!--                 <form action="/member_approval.do" id="Form"> -->
+						<table class="table datatable dataTable-table ">
+							<thead>
+								<tr>
+									<th scope="col" data-sortable=""><a href="#" class="dataTable-sorter">#</a></th>
+									<th scope="col" data-sortable=""><a href="#" class="dataTable-sorter">사업자명</a></th>
+									<th scope="col" data-sortable=""><a href="#" class="dataTable-sorter">대표자명</a></th>
+									<th scope="col" data-sortable=""><a href="#" class="dataTable-sorter">주소</a></th>
+									<th scope="col" data-sortable=""><a href="#" class="dataTable-sorter">사업자 등록번호</a></th>
+									<th scope="col" data-sortable=""><a href="#" class="dataTable-sorter">가입신청일</a></th>
+								</tr>
+							</thead>
+							<c:forEach var="list" items="${list }">
+								<tbody>
+									<tr>
+										<td>${list.id }</td>
+										<td><a class="primary" data-bs-toggle="modal"
+											data-bs-target="#modal-biz">${list.business_name }</a></td>
+										<td>${list.ceo }</td>
+										<td>${list.business_address }</td>
+										<td>${list.business_no }</td>
+										<td>${list.regdate }</td>
+									</tr>
+								</tbody>
+							</c:forEach>
+						</table>
+						<!--                 </form> -->
+					</div>
+				</div>
 			</div>
 
+			<script type="text/javascript">
+				
+			<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+				//오늘 날짜
+				document.getElementById('currnetDate').value = new Date()
+						.toISOString().slice(0, 10);
+			</script>
 
+		</div>
+	</section>
+	</main>
+	<!-- End Main -->
 
-			<!-- Table with hoverable rows -->
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">법인명</th>
-                <th scope="col">대표자</th>
-                <th scope="col">사업자 등록 번호</th>
-                <th scope="col">연락처</th>
-                <th scope="col">사업장 주소지</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>원효컴퓨터</td>
-                <td>이범희</td>
-                <td>216-34-52362</td>
-                <td>010-4235-1231</td>
-                <td>서울시 용산구</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>안산컴퓨터</td>
-                <td>김현민</td>
-                <td>231-52-62362</td>
-                <td>010-2314-2342</td>
-                <td>경기도 안산시</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>은평컴퓨터</td>
-                <td>송기석</td>
-                <td>235-12-12512</td>
-                <td>010-2342-5236</td>
-                <td>서울시 은평구</td>
-              </tr>
-              <tr>
-                <th scope="row">4</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <th scope="row">5</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <th scope="row">6</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <th scope="row">7</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <th scope="row">8</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <th scope="row">9</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <th scope="row">10</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-            </tbody>
-          </table>
-          <!-- End Table with hoverable rows -->
-
-        </div>
-      </div>
-    </main>
-
-	<!-- End #main -->
 	<!-- 모달부 -->
 	<div class="modal fade" id="modal-biz" tabindex="-1">
 		<div class="modal-dialog modal-dialog-scrollable">
@@ -207,11 +157,11 @@
 							<table class="table">
 								<tr>
 									<th>사업자명</th>
-									<td>원효컴퓨터</td>
+									<td> ${oneinfo.id}</td>
 								</tr>
 								<tr>
 									<th>대표자</th>
-									<td>이범희</td>
+									<td> ${oneinfo.ceo}</td>
 								</tr>
 								<tr>
 									<th>가입일</th>
