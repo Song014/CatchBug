@@ -89,19 +89,36 @@
 				<div class="row">
 					<!-- 카테고리  -->
 					<div class="col-lg-2">
-						<div class="list-group" style="padding-top: 30px">
-							<button type="button"
-								class="list-group-item list-group-item-action active getCategory"
-								aria-current="true">CPU</button>
-							<button type="button"
-								class="list-group-item list-group-item-action getCategory">VGA</button>
-							<button type="button"
-								class="list-group-item list-group-item-action getCategory">RAM(구현x)</button>
-							<button type="button"
-								class="list-group-item list-group-item-action getCategory">POWER(구현x)</button>
-							<button type="button"
-								class="list-group-item list-group-item-action getCategory">MAINBOARD(구현x)</button>
+						<div class="accordion" id="accordionExample">
+							<c:forEach varStatus="status" begin="1" end="3" >
+								<div class="accordion-item">
+									<h2 class="accordion-header" id="headingOne">
+										<button class="accordion-button collapsed" type="button"
+											data-bs-toggle="collapse" data-bs-target="#collapseOne"
+											aria-expanded="false" aria-controls="collapseOne">
+											<c:forEach var="category" items="${category }">
+											<c:if test="${category.maincategory eq '1'">
+											${category.main_name }
+											</c:if>
+											</c:forEach>
+											</button>
+									</h2>
+									<div id="collapseOne" class="accordion-collapse collapse"
+										aria-labelledby="headingOne"
+										data-bs-parent="#accordionExample" style="">
+
+										<div class="accordion-body" style="padding: 1px">
+											<div class="list-group">
+												<button type="button"
+													class="list-group-item list-group-item-action getCategory"></button>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</c:forEach>
 						</div>
+
 
 					</div>
 					<div class="col-lg-10">
@@ -147,17 +164,17 @@
 								<tbody>
 									<c:forEach var="list" items="${product }">
 										<tr>
-										<td>${list.product_no }</td>
-										<th scope="row"><a href="#"><img
-												src="https://via.placeholder.com/60" alt=""></a></th>
-										<td>${list.product_name }</td>
-										<td><a class="primary" data-bs-toggle="modal"
-											data-bs-target="#modalProduct">상품 모달띄우기 </a></td>
-										<td>${list.add_day }</td>
-										<td>재고량1</td>
-										<td>${list.price }</td>
-										<td><button type="button"
-												class="btn btn-primary btn-sm addBucket">추가</button></td>
+											<td>${list.product_no }</td>
+											<th scope="row"><a href="#"><img
+													src="https://via.placeholder.com/60" alt=""></a></th>
+											<td>${list.product_name }</td>
+											<td><a class="primary" data-bs-toggle="modal"
+												data-bs-target="#modalProduct">상품 모달띄우기 </a></td>
+											<td>${list.add_day }</td>
+											<td>재고량1</td>
+											<td>${list.price }</td>
+											<td><button type="button"
+													class="btn btn-primary btn-sm addBucket">추가</button></td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -198,7 +215,7 @@
 	</main>
 	<!-- End #main -->
 
-	
+
 	<div class="modal fade" id="modalProduct" tabindex="-1">
 		<div class="modal-dialog modal-dialog-scrollable">
 			<div class="modal-content">

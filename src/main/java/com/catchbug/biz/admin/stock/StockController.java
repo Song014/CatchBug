@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.catchbug.biz.vo.CategoryVO;
 import com.catchbug.biz.vo.ProductVO;
 
 @Controller
@@ -30,8 +31,16 @@ public class StockController {
 	// 본사 발주서 작성
 	@RequestMapping("/factoryOrder.do")
 	public String factoryOrder(Model model) {
+			
+		// 처음 들어갔을때 카테고리 불러오기
+		List<CategoryVO> categoryList = ss.getCategoryList();
+		for(CategoryVO list: categoryList) {
+			System.out.println(list);
+		}
+		model.addAttribute("category",categoryList);
 		
-		List<ProductVO> productList = ss.getList();
+		// 기본 상품 데이터 출력 등록순?
+		List<ProductVO> productList = ss.getProductList();
 		for(ProductVO list: productList) {
 			System.out.println(list);
 		}
@@ -43,7 +52,7 @@ public class StockController {
 	// 임시
 	@RequestMapping("/francOrder.do")
 	public String FrancOrder(Model model) {
-		List<ProductVO> productList = ss.getList();
+		List<ProductVO> productList = ss.getProductList();
 		for(ProductVO list: productList) {
 			System.out.println(list);
 		}
