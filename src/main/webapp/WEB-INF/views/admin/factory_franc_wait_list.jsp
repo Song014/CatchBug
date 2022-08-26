@@ -69,15 +69,6 @@
 <!-- End Sidebar -->
 
 
-	<%-- 	 <c:otherwise> --%>
-	<jsp:include page="../mainInclude/sidebar_master.jsp"></jsp:include>
-	<%-- 	 </c:otherwise> --%>
-
-	<!-- End Sidebar -->
-
-
-
-
 
 
 	<!-- ======= Main ======= -->
