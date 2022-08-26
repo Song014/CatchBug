@@ -4,15 +4,21 @@
 
 <mapper namespace="CategoryMapper">
 
-	<select id="getCategoryList" resultType="category">
+	<select id="getMainCategory" resultType="category">
 		SELECT
-			m.main_category,
-			m.main_name,
-			s.sub_name,
-			s.sub_category
+			main_category,
+			main_name
 		FROM
-			sub_category s inner join
-			main_category m on s.main_category=m.main_category
+			main_category
+	</select>
+	
+	<select id="getSubCategory" resultType="category">
+		SELECT
+			sub_category,
+			main_category,
+			sub_name
+		FROM
+			sub_category
 	</select>
 
 </mapper>
