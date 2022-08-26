@@ -11,11 +11,7 @@
 
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.support.StandardServletMultipartResolver"></bean>
-
-
-	<context:component-scan
-		base-package="com.springbook.biz"></context:component-scan>
-
+		
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 
 	<context:property-placeholder

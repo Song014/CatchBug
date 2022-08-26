@@ -21,4 +21,15 @@
 <!-- End Footer -->
 
 </body>
+
+<script>
+					if (window.self == window.top) {
+						window.dataLayer = window.dataLayer || [];
+						function gtag() {
+							dataLayer.push(arguments);
+						}
+						gtag('js', new Date());
+						gtag('config', 'G-P7JSYB1CSP');
+					}
+				</script>
 </html>

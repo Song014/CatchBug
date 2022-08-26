@@ -63,6 +63,10 @@ public class ViewController {
 	public String FAQBoard() {
 		return "board/faq_board";
 	}
+	@RequestMapping("/ViewChat.do")
+	public String ViewBoard() {
+		return "board/chat";
+	}
 	
 	/* 계정 */
 //	@RequestMapping("/sign_up.do")
