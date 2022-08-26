@@ -4,11 +4,19 @@
 
 <mapper namespace="CartMapper">
 
+	<select id="selectAllCart">
+		
+	</select>
+
 	<insert id="insertCart" >
 		insert into cart (cart_no,id,product_no) VALUES((SELECT NVL(MAX(cart_no),0) + 1 FROM cart),#{id},#{product_no})
 	</insert>
 	
-	<delete id="deleteCart" parameterType="product">
-		delete from cart where product_no=#{product_no}
+	<update id="updateCart" parameterType="cart">
+		update cart set purchase_amount=#{purchase_amount}  where id=#{id}  and product_no=#{product_no}
+	</update>
+	
+	<delete id="deleteCart" >
+		delete from cart where product_no=#{product_no} and id=#{id}
 	</delete>
 </mapper>

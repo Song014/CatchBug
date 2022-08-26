@@ -16,14 +16,15 @@ public class CartDAO {
 	// c
 	public void insertCart(CartVO vo) {
 		System.out.println("insertCart 처리");
-		
-		// 아이디 는 세션
-		System.out.println(vo);
 		mybatis.insert("CartMapper.insertCart", vo);
 	} 
 	// r
 	
 	// u 
+	public void updateCart(CartVO vo) {
+		System.out.println("updateCart 처리");
+		mybatis.update("CartMapper.updateCart",vo);
+	}
 	
 	// d
 	
@@ -31,4 +32,6 @@ public class CartDAO {
 		System.out.println("deleteCart 처리");
 		mybatis.delete("CartMapper.deleteCart",vo);
 	}
+
+	
 }

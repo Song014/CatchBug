@@ -167,25 +167,25 @@
 								</thead>
 							</table>
 							<div style="height: 250px; overflow: scroll;">
-							<table class="table  top-selling" id="category">
-								<tbody>
-									<c:forEach var="list" items="${product }" varStatus="status">
-										<tr>
-											<td>${status.count }</td>
-											<th scope="row"><a href="#"><img
-													src="https://via.placeholder.com/60" alt=""></a></th>
-											<td>${list.product_no }</td>
-											<td><a class="primary" data-bs-toggle="modal"
-												data-bs-target="#modalProduct">상품 모달띄우기 </a></td>
-											<td>${list.add_day }</td>
-											<td>재고량1</td>
-											<td>${list.price }</td>
-											<td><button type="button"
-													class="btn btn-primary btn-sm addBucket">추가</button></td>
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
+								<table class="table  top-selling" id="category">
+									<tbody>
+										<c:forEach var="list" items="${product }" varStatus="status">
+											<tr>
+												<td>${status.count }</td>
+												<th scope="row"><a href="#"><img
+														src="https://via.placeholder.com/60" alt=""></a></th>
+												<td>${list.product_no }</td>
+												<td><a class="primary" data-bs-toggle="modal"
+													data-bs-target="#modalProduct">상품 모달띄우기 </a></td>
+												<td>${list.add_day }</td>
+												<td>10</td>
+												<td>${list.price }</td>
+												<td><button type="button"
+														class="btn btn-primary btn-sm addBucket">추가</button></td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
 							</div>
 							<!-- 상품 리스트 -->
 						</div>
@@ -204,17 +204,17 @@
 									</tr>
 								</thead>
 							</table>
-							<form name="testForm">
-							<div style="height: 250px; overflow: scroll;">
-								<table class="table" id="bucket">
-									<tbody>
+							<form action="submitOrder.do">
+								<div style="height: 250px; overflow: scroll;">
+									<table class="table" id="bucket">
+										<tbody>
 
-									</tbody>
-								</table>
-								
-							</div>
-							<div class="d-grid gap-2 mt-3">
-									<button class="btn btn-primary" type="button">주문하기</button>
+										</tbody>
+									</table>
+
+								</div>
+								<div class="d-grid gap-2 mt-3">
+									<input class="btn btn-primary" type="submit">주문하기</input>
 								</div>
 							</form>
 						</div>
@@ -291,6 +291,7 @@
 						success : function(result) {
 							$("#category tbody tr").remove(); // 기존 존재하는 테이블 삭제
 							result.forEach(function(result) {
+								
 								const str =`
 									<tr>
 										<td>1</td>
@@ -300,7 +301,7 @@
 										<td><a class="primary" data-bs-toggle="modal"
 											data-bs-target="#modalProduct">`+result.product_name+`</a></td>
 										<td>`+result.add_day+`</td>
-										<td>재고량나올곳</td>
+										<td>10</td>
 										<td>`+result.price+`</td>
 										<td><button type="button"
 												class="btn btn-primary btn-sm addBucket">추가</button></td>
@@ -330,16 +331,17 @@
 					
 					const no = $td.eq(2).text();
 					const name = $td.eq(3).text();
-					const quantity = $td.eq(4).text();
+					const quantity = $td.eq(5).text();
+					
 					const price = $td.eq(6).text();
 					
 					const str =`
 					<tr>
 						<td><input type="checkbox" name="checkBox"></td>
-						<td><input type="hidden" value=`+no+` >`+no+`</td>
+						<td><input type="hidden" name="product_no" value=`+no+` >`+no+`</td>
 						<td><input type="hidden" value=`+name+`><a class="primary" data-bs-toggle="modal" data-bs-target="#modalProduct">`+name+`</a></td>
-						<td><input type="number" value="1"></td>
-						<td><input type="hidden" value=`+price+`>`+price+`</td>
+						<td><input type="number" name="purchase_amount" value="1" min="1" max=`+quantity+` style="width:50px;"><button type="button" class="updateBtn">변경</button></td>
+						<td><input type="hidden"  value=`+price+`>`+price+`</td>
 						<td><button type="button" class="btn btn-primary btn-sm delBucket">삭제</button></td>
 					</tr>
 					`;
@@ -349,14 +351,16 @@
 					if(trArr.indexOf(no)!=-1){
 						alert(no+"과 같은 상품이 있습니다")
 					} else {
-						trArr.push(no);
-						$("#bucket tbody").append(str);
 						$.ajax({
 							type : "GET", //요청 메소드 방식
 							url : "orderInsertAjax.do?product_no="+no,
 							dataType : "text", //서버가 요청 URL을 통해서 응답하는 내용의 타입
 							success : function(result) {
-								console.log(result+" 성공");
+								if(result=="ok"){
+									console.log(result);
+									trArr.push(no);
+									$("#bucket tbody").append(str);
+								}
 							},
 							error : function(a, b, c) {
 								//통신 실패시 발생하는 함수(콜백)
@@ -365,24 +369,48 @@
 						});
 					}
 				})
+				console.log(trArr);
 				
+				$("#bucket").on("click",".updateBtn",function(){
+					const no = $(this).parent().parent().children().eq(1).text();
+					const amount = $(this).parent().find('input[type=number]').val();
+					console.log(amount);
+					 $.ajax({
+							type : "POST", //요청 메소드 방식
+							url : "updateCartAjax.do",
+							data : {"purchase_amount":amount,"product_no":no},
+							dataType : "text", //서버가 요청 URL을 통해서 응답하는 내용의 타입
+							success : function(result) {
+								
+								
+							},
+							error : function(a, b, c) {
+								//통신 실패시 발생하는 함수(콜백)
+								console.log("실패" + a, b, c);
+							}
+						});
+				})
 				
 				 $("#bucket").on("click", ".delBucket", function() {
 					 const $tr = $(this).parent().parent();
 					 const $td = $tr.children();
 					 const no = $td.eq(1).text();
 					 if(trArr.indexOf(no)!=-1){
-						 trArr.splice(no,1);
 						 $.ajax({
-								type : "GET", //요청 메소드 방식
-								url : "orderDeleteAjax.do?product_no="+no,
+								type : "POST", //요청 메소드 방식
+								url : "orderDeleteAjax.do",
+								data : {"product_no":no},
 								dataType : "text", //서버가 요청 URL을 통해서 응답하는 내용의 타입
 								success : function(result) {
-									console.log(result+" 성공");
+									if(result =="ok"){
+										console.log(no);
+										console.log(result);
+										trArr.splice(trArr.indexOf(no),1);
+									} 
 								},
-								error : function(a, b, c) {
+								error : function(e) {
 									//통신 실패시 발생하는 함수(콜백)
-									console.log("실패" + a, b, c);
+									console.log("실패" + e);
 								}
 							});
 						}

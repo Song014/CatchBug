@@ -9,4 +9,6 @@ public interface CartService {
 
 	void deleteCart(CartVO vo);
 
+	void updateCart(CartVO vo);
+
 }

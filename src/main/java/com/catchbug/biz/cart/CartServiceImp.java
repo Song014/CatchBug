@@ -14,7 +14,7 @@ public class CartServiceImp implements CartService {
 
 	@Override
 	public void insertCart(CartVO vo) {
-		System.out.println("service "+vo);
+		
 		
 		dao.insertCart(vo);
 	}
@@ -22,6 +22,12 @@ public class CartServiceImp implements CartService {
 	@Override
 	public void deleteCart(CartVO vo) {
 		dao.deleteCart(vo);
+	}
+
+	@Override
+	public void updateCart(CartVO vo) {
+		System.out.println(vo);
+		dao.updateCart(vo);
 	}
 
 }
