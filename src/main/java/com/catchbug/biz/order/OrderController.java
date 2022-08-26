@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,6 +42,7 @@ public class OrderController {
 		model.addAttribute("subCategory", ps.getSubCategory());
 		// 첫 요청 상품 데이터 최근 등록순
 		vo.setSub_category(0);
+
 		List<ProductVO> productList = ps.getProductList(vo);
 		model.addAttribute("product", productList);
 

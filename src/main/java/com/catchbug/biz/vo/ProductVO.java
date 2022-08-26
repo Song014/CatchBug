@@ -18,7 +18,6 @@ public class ProductVO {
 	private String product_img;
 	private String brand;
 	
-	@DateTimeFormat(pattern ="yyyy-mm-dd")
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private Date add_day;
 	private String uuid;
