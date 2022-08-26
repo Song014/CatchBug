@@ -66,26 +66,31 @@
 
 
 	<!-- ======= Sidebar ======= -->
+	''
+	
+	
+	
+	<%-- <c:choose>
+	 <c:when test="${memberlevel==1}">
 
-	<%-- <c:set var="user" value="${user }"/>
-	 
-	 <c:when test="${user.level != 2}">
-	 	<jsp:include page="sidebar(master).jsp"></jsp:include>
-	 </c:when> --%>
-
-	<%-- 	 <c:otherwise> --%>
-	<jsp:include page="../mainInclude/sidebar_master.jsp"></jsp:include>
-
-	<%--  		<jsp:include page="sidebar_master.jsp"></jsp:include> --%>
-	<%-- 	 </c:otherwise> --%>
-
+	 </c:when> 
+	  <c:when test="${memberlevel==2}">
+	 	<jsp:include page="../mainInclude/sidebar_user.jsp"></jsp:include>
+	 </c:when> 
+	 <c:when test="${memberlevel==3}">
+	 	<jsp:include page="../mainInclude/sidebar_user.jsp"></jsp:include>
+	 </c:when> 
+	 	  
+	</c:choose>  --%>
+	
+	 	<jsp:include page="../mainInclude/sidebar_master.jsp"></jsp:include>
 	<!-- main start -->
-	1
+	
 
 	<main id="main" class="main">
 	<div class="card">
 		<div class="card-body">
-			<h5 class="card-title">| 전체 가맹점 리스트</h5>
+			<h5 class="card-title">| 전체 가맹점 리스트  </h5>
 			<div class="search" align="right">
 				<form>
 					<select name="searchOption">

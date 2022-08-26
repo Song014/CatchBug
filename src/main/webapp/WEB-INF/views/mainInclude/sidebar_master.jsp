@@ -141,6 +141,14 @@
         </ul>
       </li>
 <!-- ======= 게시판 끝 ======= -->
+<!-- ======= 마이페이지 ======= -->
+ <li class="nav-item">
+        <a class="nav-link collapsed" href="mypage.do">
+          <i class="bi bi-box-arrow-in-right"></i>
+          <span>MyPage</span>
+        </a>
+      </li>
+<!-- ======= 마이페이지 끝 ======= -->
 	
 <!-- ======= 로그아웃 ======= -->
       <li class="nav-item">
