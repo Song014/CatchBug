@@ -17,28 +17,6 @@ public class StockDAO {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 
-	public void insertCart(ProductVO vo) {
-		System.out.println("insertCart 처리");
-		
-		// 아이디 는 세션
-		vo.setSub_category(2);
-		mybatis.insert("CartMapper.insertCart", vo);
-	} 
-
-	public List<ProductVO> getProductList(CategoryVO vo) {
-		System.out.println("getProductList 처리");
-		
-		// 하위 카테고리 번호가 0이면 전체 리스트 최신순 
-		if(vo.getSub_category()==0) {
-			return mybatis.selectList("StockMapper.getProductList");
-		} else {
-			return mybatis.selectList("StockMapper.getProductListC", vo);
-		}
-		
-		
-	}
-
-
 	public List<CategoryVO> getMainCategory() {
 
 		return  mybatis.selectList("CategoryMapper.getMainCategory");
@@ -49,9 +27,6 @@ public class StockDAO {
 		return mybatis.selectList("CategoryMapper.getSubCategory");
 	}
 
-	public void deleteCart(ProductVO vo) {
-		System.out.println("deleteCart 처리");
-		mybatis.delete("CartMapper.deleteCart",vo);
-	}
+	
 
 }

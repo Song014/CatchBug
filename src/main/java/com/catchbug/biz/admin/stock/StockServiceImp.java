@@ -16,10 +16,6 @@ public class StockServiceImp implements StockService {
 	@Autowired
 	private StockDAO dao;
 	
-	@Override
-	public List<ProductVO> getProductList(CategoryVO vo) {
-		return dao.getProductList(vo);
-	}
 
 	@Override
 	public List<CategoryVO> getMainCategory(){
@@ -31,15 +27,7 @@ public class StockServiceImp implements StockService {
 		return dao.getSubCategory();
 	}
 
-	@Override
-	public void insertCart(ProductVO vo) {
-		dao.insertCart(vo);
-	}
-
-	@Override
-	public void deleteCart(ProductVO vo) {
-		dao.deleteCart(vo);
-	}
+	
 
 	
 

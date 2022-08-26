@@ -9,15 +9,7 @@ import com.catchbug.biz.vo.ProductVO;
 
 public interface StockService {
 
-	List<ProductVO> getProductList(CategoryVO vo);
-
 	List<CategoryVO> getMainCategory();
 
 	List<CategoryVO> getSubCategory();
-	
-	void insertCart(ProductVO vo);
-
-	void deleteCart(ProductVO vo);
-
-	
 }

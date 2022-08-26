@@ -70,156 +70,166 @@
 	<!-- End Sidebar -->
 	<!-- main start -->
 	<main id="main" class="main">
-		<div class="pagetitle">
-			<h1>발주서 작성</h1>
-			<nav>
-				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="/">Home</a></li>
-					<li class="breadcrumb-item active">발주서 작성</li>
-				</ol>
-			</nav>
-		</div>
-		<!-- End Page Title -->
+	<div class="pagetitle">
+		<h1>발주서 작성</h1>
+		<nav>
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="/">Home</a></li>
+				<li class="breadcrumb-item active">발주서 작성</li>
+			</ol>
+		</nav>
+	</div>
+	<!-- End Page Title -->
 
-		<section class="section dashboard">
+	<section class="section dashboard">
 
 
-			<div class="card">
-				<div class="card-body">
-					<div class="row">
-						<!-- 카테고리  -->
-						<div class="col-lg-2">
-							<c:forEach var="m" items="${mainCategory }" varStatus="status">
-								<div class="accordion" id="accordionExample">
-									<!-- ToDo 대분류 1,2,3, 일때 해당하는 카테고리 이름 -->
+		<div class="card">
+			<div class="card-body">
+				<div class="row">
+					<!-- 카테고리  -->
+					<div class="col-lg-2">
+						<c:forEach var="m" items="${mainCategory }" varStatus="status">
+							<div class="accordion" id="accordionExample">
+								<!-- ToDo 대분류 1,2,3, 일때 해당하는 카테고리 이름 -->
 
-									<div class="accordion-item">
-										<h2 class="accordion-header" id="headingOne">
-											<button class="accordion-button collapsed" type="button"
-												data-bs-toggle="collapse"
-												data-bs-target="#collapse${status.count }"
-												aria-expanded="false"
-												aria-controls="collapse${status.count }">
-												${m.main_name}</button>
-										</h2>
-										<div id="collapse${status.count }"
-											class="accordion-collapse collapse"
-											aria-labelledby="headingOne"
-											data-bs-parent="#accordionExample" style="">
-											<!-- ToDo 대분류 1 , 2 , 3 에 해당하는 서브카테고리 이름 -->
-											<div class="accordion-body" style="padding: 1px">
-												<c:forEach var="s" items="${subCategory}">
-													<c:if test="${m.main_category eq s.main_category}">
-														<div class="list-group">
-															<input type="hidden" class="subCategoryNo"
-																value="${s.sub_category }">
-															<button type="button"
-																class="list-group-item list-group-item-action getCategory">
-																${s.sub_name }</button>
-														</div>
-													</c:if>
-												</c:forEach>
-											</div>
+								<div class="accordion-item">
+									<h2 class="accordion-header" id="headingOne">
+										<button class="accordion-button collapsed" type="button"
+											data-bs-toggle="collapse"
+											data-bs-target="#collapse${status.count }"
+											aria-expanded="false"
+											aria-controls="collapse${status.count }">
+											${m.main_name}</button>
+									</h2>
+									<div id="collapse${status.count }"
+										class="accordion-collapse collapse"
+										aria-labelledby="headingOne"
+										data-bs-parent="#accordionExample" style="">
+										<!-- ToDo 대분류 1 , 2 , 3 에 해당하는 서브카테고리 이름 -->
+										<div class="accordion-body" style="padding: 1px">
+											<c:forEach var="s" items="${subCategory}">
+												<c:if test="${m.main_category eq s.main_category}">
+													<div class="list-group">
+														<input type="hidden" class="subCategoryNo"
+															value="${s.sub_category }">
+														<button type="button"
+															class="list-group-item list-group-item-action getCategory">
+															${s.sub_name }</button>
+													</div>
+												</c:if>
+											</c:forEach>
 										</div>
 									</div>
 								</div>
-							</c:forEach>
-						</div>
-						<div class="col-lg-10">
-							<!-- 카테고리 선택창 -->
-							<div>
-								<div align="right" class="dataTable-top">
-									<div class="dataTable-dropdown">
-										<label><select class="dataTable-selector"><option
-													value="5">5</option>
-												<option value="10" selected="">10</option>
-												<option value="15">15</option>
-												<option value="20">20</option>
-												<option value="25">25</option></select> entries per page</label>
-									</div>
-									<div class="dataTable-search">
-										<form>
-											<input type="date" name="beforeDate"> <input
-												type="date" name="afterDate" id='currnetDate'> <select
-												name="searchOption">
-												<option value="orderNumber" selected="selected">상품번호</option>
-												<option value="content">상품명</option>
-												<option value="remarks">등록일자</option>
-											</select> <input type="text" name="input" placeholder="검색어를 입력해 주세요.">
-											<!-- <input type="button" name="inputBtn" value="검색"> -->
-											<button>검색</button>
-										</form>
-									</div>
+							</div>
+						</c:forEach>
+					</div>
+					<div class="col-lg-10">
+						<!-- 카테고리 선택창 -->
+						<div>
+							<div align="right" class="dataTable-top">
+								<div class="dataTable-dropdown">
+									<label><select class="dataTable-selector"><option
+												value="5">5</option>
+											<option value="10" selected="">10</option>
+											<option value="15">15</option>
+											<option value="20">20</option>
+											<option value="25">25</option></select> entries per page</label>
 								</div>
-								<!-- 상품 리스트 -->
-								<table class="table table-borderless top-selling" id="category">
-									<thead>
+								<div class="dataTable-search">
+									<form>
+										<input type="date" name="beforeDate"> <input
+											type="date" name="afterDate" id='currnetDate'> <select
+											name="searchOption">
+											<option value="orderNumber" selected="selected">상품번호</option>
+											<option value="content">상품명</option>
+											<option value="remarks">등록일자</option>
+										</select> <input type="text" name="input" placeholder="검색어를 입력해 주세요.">
+										<!-- <input type="button" name="inputBtn" value="검색"> -->
+										<button>검색</button>
+									</form>
+								</div>
+							</div>
+							<!-- 상품 리스트 -->
+							<table class="table  top-selling">
+								<thead>
+									<tr>
+										<th scope="col">번호</th>
+										<th scope="col">이미지</th>
+										<th scope="col">상품 번호</th>
+										<th scope="col">상품 명</th>
+										<th scope="col">등록 일자</th>
+										<th scope="col">전체 수량</th>
+										<th scope="col">개당 가격</th>
+										<th scope="col"></th>
+									</tr>
+								</thead>
+							</table>
+							<div style="height: 250px; overflow: scroll;">
+							<table class="table  top-selling" id="category">
+								<tbody>
+									<c:forEach var="list" items="${product }" varStatus="status">
 										<tr>
-											<th scope="col">번호</th>
-											<th scope="col">이미지</th>
-											<th scope="col">상품 번호</th>
-											<th scope="col">상품 명</th>
-											<th scope="col">등록 일자</th>
-											<th scope="col">전체 수량</th>
-											<th scope="col">개당 가격</th>
-											<th scope="col"></th>
+											<td>${status.count }</td>
+											<th scope="row"><a href="#"><img
+													src="https://via.placeholder.com/60" alt=""></a></th>
+											<td>${list.product_no }</td>
+											<td><a class="primary" data-bs-toggle="modal"
+												data-bs-target="#modalProduct">상품 모달띄우기 </a></td>
+											<td>${list.add_day }</td>
+											<td>재고량1</td>
+											<td>${list.price }</td>
+											<td><button type="button"
+													class="btn btn-primary btn-sm addBucket">추가</button></td>
 										</tr>
-									</thead>
+									</c:forEach>
+								</tbody>
+							</table>
+							</div>
+							<!-- 상품 리스트 -->
+						</div>
+						<!-- 장바구니 -->
+						<div>
+
+							<table class="table">
+								<thead>
+									<tr>
+										<th></th>
+										<th>상품 번호</th>
+										<th>상품 명</th>
+										<th>구매 수량</th>
+										<th>개당 가격</th>
+										<th>버튼</th>
+									</tr>
+								</thead>
+							</table>
+							<form name="testForm">
+							<div style="height: 250px; overflow: scroll;">
+								<table class="table" id="bucket">
 									<tbody>
-										<c:forEach var="list" items="${product }" varStatus="status">
-											<tr>
-												<td>${status.count }</td>
-												<th scope="row"><a href="#"><img
-														src="https://via.placeholder.com/60" alt=""></a></th>
-												<td>${list.product_no }</td>
-												<td><a class="primary" data-bs-toggle="modal"
-													data-bs-target="#modalProduct">상품 모달띄우기 </a></td>
-												<td>${list.add_day }</td>
-												<td>재고량1</td>
-												<td>${list.price }</td>
-												<td><button type="button"
-														class="btn btn-primary btn-sm addBucket">추가</button></td>
-											</tr>
-										</c:forEach>
+
 									</tbody>
 								</table>
-								<!-- 상품 리스트 -->
+								
 							</div>
-							<!-- 장바구니 -->
-							<div>
-								<form name="testForm">
-									<table class="table" id="bucket">
-										<thead>
-											<tr>
-												<th></th>
-												<th>상품 번호</th>
-												<th>상품 명</th>
-												<th>구매 수량</th>
-												<th>개당 가격</th>
-												<th>버튼</th>
-											</tr>
-										</thead>
-										<tbody>
-
-										</tbody>
-									</table>
-									<div class="d-grid gap-2 mt-3">
-										<button class="btn btn-primary" type="button">주문하기</button>
-									</div>
-								</form>
-							</div>
+							<div class="d-grid gap-2 mt-3">
+									<button class="btn btn-primary" type="button">주문하기</button>
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>
-
-
 			</div>
-		</section>
+
+
+		</div>
+	</section>
 
 	</main>
 	<!-- End #main -->
 
-		<!-- 모달창 -->
+	<!-- 모달창 -->
 	<div class="modal fade" id="modalProduct" tabindex="-1">
 		<div class="modal-dialog modal-dialog-scrollable">
 			<div class="modal-content">

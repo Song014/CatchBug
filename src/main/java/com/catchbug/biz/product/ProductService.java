@@ -2,6 +2,7 @@ package com.catchbug.biz.product;
 
 import java.util.List;
 
+import com.catchbug.biz.vo.CategoryVO;
 import com.catchbug.biz.vo.ImgVO;
 import com.catchbug.biz.vo.MainCategoryVO;
 import com.catchbug.biz.vo.ProductVO;
@@ -16,4 +17,6 @@ public interface ProductService {
 	public void insertProduct(ProductVO vo);
 	
 	public void insertImg(ImgVO vo);
+	
+	List<ProductVO> getProductList(CategoryVO vo);
 }

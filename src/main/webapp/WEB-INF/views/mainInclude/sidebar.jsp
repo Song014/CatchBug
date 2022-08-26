@@ -18,11 +18,11 @@
 
 				<!-- ======= 회사소개 ======= -->
 				<li class="nav-item"><a class="nav-link collapsed"
-					data-bs-target="#components-nav" data-bs-toggle="collapse"
+					data-bs-target="#company_intro" data-bs-toggle="collapse"
 					href="#회사소개"> <i class="bi bi-menu-button-wide"></i><span>회사소개</span><i
 						class="bi bi-chevron-down ms-auto"></i>
 				</a>
-					<ul id="components-nav" class="nav-content collapse "
+					<ul id="company_intro" class="nav-content collapse "
 						data-bs-parent="#sidebar-nav">
 						<li><a href="company_intro.do"> <i class="bi bi-circle"></i><span>CATCBUG</span>
 						</a></li>

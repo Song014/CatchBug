@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.catchbug.biz.vo.CategoryVO;
 import com.catchbug.biz.vo.ImgVO;
 import com.catchbug.biz.vo.MainCategoryVO;
 import com.catchbug.biz.vo.ProductVO;
@@ -38,6 +39,12 @@ public class ProductServiceImpl implements ProductService {
 	public void insertImg(ImgVO vo) {
 		pDao.insertImg(vo);
 		
+	}
+
+	@Override
+	public List<ProductVO> getProductList(CategoryVO vo) {
+
+		return pDao.selectListProduct(vo);
 	}
 
 
