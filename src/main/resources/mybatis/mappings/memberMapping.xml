@@ -16,14 +16,18 @@
 		insert into board(seq,title,writer,content)
 		values(#{seq},#{title},#{writer},#{content}) -->
 		
-		insert into member(id,pass,business_no,business_name,ceo,contact,email,business_address)
-			values(#{id},#{pass},#{business_no},#{business_name},#{ceo},#{contact},#{email},#{business_address})
+<!-- 		insert into member(id,pass,business_no,business_name,ceo,contact,email,business_address) -->
+<!-- 			values(#{id},#{pass},#{business_no},#{business_name},#{ceo},#{contact},#{email},#{business_address}) -->
 			<!-- values('1','2','3','4','5','6','7','8') -->
 			<!-- #{  } 는 vo객체에 자동 setter 주입 -->
 	</insert>
 	
 	<select id="getMember" resultType="member" parameterType="member">
 		select * from member where id=#{id} and pass=#{pass}
+	</select>
+	
+	<select id="getMemberList" resultType="member">
+		select * from member
 	</select>
 	
 	<!--

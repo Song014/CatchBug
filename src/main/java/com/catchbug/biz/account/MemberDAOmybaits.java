@@ -8,27 +8,32 @@ import org.springframework.stereotype.Repository;
 
 import com.catchbug.biz.vo.MemberVO;
 
-
 @Repository("memberDAO")
 public class MemberDAOmybaits {
 
 	@Autowired
 	private SqlSessionTemplate memberMybatis;
-	
-	//회원가입 등록
-	   public void insertMember(MemberVO vo){
-		   System.out.println("===> mybatis로 insertMemeber 실행");
-		   memberMybatis.insert("MemberDAO.insertMember",vo);
-		   //DAO도 다 수정해야댐
-	   }
-	   //로그인 전 회원정보 검색
-	   public MemberVO getMember(MemberVO vo) {
-		   System.out.println("===> mybatis로 getMemeber 실행");
+
+	// 회원가입 등록
+	public void insertMember(MemberVO vo) {
+		System.out.println("===> mybatis로 insertMemeber 실행");
+		memberMybatis.insert("MemberDAO.insertMember", vo);
+		// DAO도 다 수정해야댐
+	}
+
+	// 로그인 전 회원정보 검색
+	public MemberVO getMember(MemberVO vo) {
+		System.out.println("===> mybatis로 getMemeber 실행");
 		/* return memberMybatis.selectList("MemberDAO.getMember",vo); */
-		   System.out.println(vo);
-		   return memberMybatis.selectOne("MemberDAO.getMember",vo);
-		   
-	   }  
+		System.out.println(vo);
+		return memberMybatis.selectOne("MemberDAO.getMember", vo);
+	}
+
+	// 전체 회원 조회
+	public List<MemberVO> getMemberList(MemberVO vo) {
+		System.out.println("====> mybatis로 getMemberList 실행");
+		return memberMybatis.selectList("MemberDAO.getMemberList", vo);
+	}
 }
 //	   //글 수정
 //	   public void updateBoard(AccountVO vo) { 
@@ -58,9 +63,5 @@ public class MemberDAOmybaits {
 //		  
 //		   return accountMybatis.selectList("AccountDAO.getBoard",vo);
 //		   //DAO도 다 수정해야댐
-		
-		
-		  
-		      
-//	   }
 
+//	   }

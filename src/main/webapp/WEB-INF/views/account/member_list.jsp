@@ -1,5 +1,4 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -91,105 +90,36 @@
 
 
 			<!-- Table with hoverable rows -->
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">법인명</th>
-                <th scope="col">대표자</th>
-                <th scope="col">사업자 등록 번호</th>
-                <th scope="col">연락처</th>
-                <th scope="col">사업장 주소지</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>원효컴퓨터</td>
-                <td>이범희</td>
-                <td>216-34-52362</td>
-                <td>010-4235-1231</td>
-                <td>서울시 용산구</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>안산컴퓨터</td>
-                <td>김현민</td>
-                <td>231-52-62362</td>
-                <td>010-2314-2342</td>
-                <td>경기도 안산시</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>은평컴퓨터</td>
-                <td>송기석</td>
-                <td>235-12-12512</td>
-                <td>010-2342-5236</td>
-                <td>서울시 은평구</td>
-              </tr>
-              <tr>
-                <th scope="row">4</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <th scope="row">5</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <th scope="row">6</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <th scope="row">7</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <th scope="row">8</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <th scope="row">9</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <th scope="row">10</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-            </tbody>
-          </table>
-          <!-- End Table with hoverable rows -->
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">법인명</th>
+						<th scope="col">대표자</th>
+						<th scope="col">사업자 등록 번호</th>
+						<th scope="col">연락처</th>
+						<th scope="col">사업장 주소지</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="member" items="${list}" varStatus="status">
+						<tr>
+							<th scope="row">${status.count}</th>
+							<td>${member.business_name}</td>
+							<td>${member.ceo}</td>
+							<td>${member.business_no}</td>
+							<td>${member.business_address}</td>
+							<td>서울시 용산구</td>
+						</tr>
+					</c:forEach>
 
-        </div>
-      </div>
-    </main>
+				</tbody>
+			</table>
+			<!-- End Table with hoverable rows -->
+
+		</div>
+	</div>
+	</main>
 
 	<!-- End #main -->
 	<!-- 모달부 -->

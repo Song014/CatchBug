@@ -30,11 +30,11 @@ public class AdminController {
 	}
 	
 	/* 가맹점 관리 */
-	// 전체 가맹리스트
-	@RequestMapping("/member_List.do")
-	public String memberList() {
-		return "account/member_list";
-	}
+//	// 전체 가맹리스트
+//	@RequestMapping("/member_List.do")
+//	public String memberList() {
+//		return "account/member_list";
+//	}
 	// 가맹점 주문내역
 	@RequestMapping("/orderHistory.do")
 	public String orderHistory() {
