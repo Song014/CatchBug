@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.catchbug.biz.vo.CartVO;
 import com.catchbug.biz.vo.CategoryVO;
 import com.catchbug.biz.vo.ProductVO;
 
@@ -24,6 +25,12 @@ public class StockServiceImp implements StockService {
 	public List<CategoryVO> getCategoryList() {
 		
 		return dao.getCategoryList();
+	}
+
+	@Override
+	public void insertCart(CartVO vo) {
+		
+		dao.insertCart(vo);
 	}
 
 }

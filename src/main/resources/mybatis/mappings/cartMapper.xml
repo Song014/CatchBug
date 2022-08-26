@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CartMapper">
+
+	<insert id="inserCart" parameterType="cart">
+		insert into cart VALUES(CART_SEQ.nextval,'thdrltjr',101,1,50);
+	</insert>
+
+</mapper>
