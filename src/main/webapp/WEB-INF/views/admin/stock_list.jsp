@@ -1,5 +1,4 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -10,7 +9,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>Dashboard - NiceAdmin Bootstrap Template</title>
+<title>전체 상품 조회페이지</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -82,21 +81,23 @@
 		</div>
 	</div>
 	<div class="dataTable-container">
-		<table class="table table-hover">
+		<table class="table table-hover"  style="text-align: center">
 			<thead>
 				<tr>
 					<th scope="col" data-sortable="" style="width: 5%;"><a
 						href="#" class="dataTable-sorter">NO.</a></th>
 					<th scope="col" data-sortable="" style="width: 12%;"><a
-						href="#" class="dataTable-sorter">상품 번호</a></th>
-					<th scope="col" data-sortable="" style="width: 20%;"><a
+						href="#" class="dataTable-sorter">상품번호</a></th>
+					<th scope="col" data-sortable="" style="width: 12%;"><a
 						href="#" class="dataTable-sorter">브랜드 / 제조사</a></th>
-					<th scope="col" data-sortable="" style="width: 30%;"><a
+					<th scope="col" data-sortable="" style="width: 44%;"><a
 						href="#" class="dataTable-sorter">상품명</a></th>
-					<th scope="col" data-sortable="" style="width: 16%;"><a
-						href="#" class="dataTable-sorter">전체 수량</a></th>
+					<th scope="col" data-sortable="" style="width: 10%;"><a
+						href="#" class="dataTable-sorter">재고 수량</a></th>
 					<th scope="col" data-sortable="" style="width: 16%;"><a
 						href="#" class="dataTable-sorter">개당 가격</a></th>
+					<th scope="col" data-sortable="" style="width: 16%;"><a
+						href="#" class="dataTable-sorter">등록 날짜</a></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -104,64 +105,17 @@
 					<th scope="row">1</th>
 					<td>15-27363</td>
 					<td>AMD</td>
-					<td><a href="franc_Detail.html">라이젠5 4세대 5600x</a></td>
+					<td><a href="#">라이젠5 4세대 5600x</a></td>
 					<td>15</td>
 					<td>300,000</td>
-				</tr>
-				<tr>
-					<th scope="row">2</th>
-					<td>15-27363</td>
-					<td>AMD</td>
-					<td><a href="franc_Detail.html">라이젠5 4세대 5600x</a></td>
-					<td>15</td>
-					<td>300,000</td>
-				</tr>
-				<tr>
-					<th scope="row">3</th>
-					<td>15-27363</td>
-					<td>AMD</td>
-					<td><a href="franc_Detail.html">라이젠5 4세대 5600x</a></td>
-					<td>15</td>
-					<td>300,000</td>
-				</tr>
-				<tr>
-					<th scope="row">4</th>
-					<td>15-27363</td>
-					<td>AMD</td>
-					<td><a href="franc_Detail.html">라이젠5 4세대 5600x</a></td>
-					<td>15</td>
-					<td>300,000</td>
-				</tr>
-				<tr>
-					<th scope="row">5</th>
-					<td>15-27363</td>
-					<td>AMD</td>
-					<td><a href="franc_Detail.html">라이젠5 4세대 5600x</a></td>
-					<td>15</td>
-					<td>300,000</td>
-				</tr>
-				<tr>
-					<th scope="row">6</th>
-					<td>15-27363</td>
-					<td>AMD</td>
-					<td><a href="franc_Detail.html">라이젠5 4세대 5600x</a></td>
-					<td>15</td>
-					<td>300,000</td>
-				</tr>
-				<tr>
-					<th scope="row">7</th>
-					<td>15-27363</td>
-					<td>AMD</td>
-					<td><a href="franc_Detail.html">라이젠5 4세대 5600x</a></td>
-					<td>15</td>
-					<td>300,000</td>
+					<td>22/08/01</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
 
 	</main>
-	
+
 	<!-- ======= Footer ======= -->
 
 	<jsp:include page="../mainInclude/footer.jsp"></jsp:include>

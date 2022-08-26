@@ -70,135 +70,156 @@
 	<!-- End Sidebar -->
 	<!-- main start -->
 	<main id="main" class="main">
-	<div class="pagetitle">
-		<h1>발주서 작성</h1>
-		<nav>
-			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a href="/">Home</a></li>
-				<li class="breadcrumb-item active">발주서 작성</li>
-			</ol>
-		</nav>
-	</div>
-	<!-- End Page Title -->
+		<div class="pagetitle">
+			<h1>발주서 작성</h1>
+			<nav>
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="/">Home</a></li>
+					<li class="breadcrumb-item active">발주서 작성</li>
+				</ol>
+			</nav>
+		</div>
+		<!-- End Page Title -->
 
-	<section class="section dashboard">
+		<section class="section dashboard">
 
 
-		<div class="card">
-			<div class="card-body">
-				<div class="row">
-					<!-- 카테고리  -->
-					<div class="col-lg-2">
-						<div class="list-group" style="padding-top: 30px">
-							<button type="button"
-								class="list-group-item list-group-item-action active getCategory"
-								aria-current="true">CPU</button>
-							<button type="button"
-								class="list-group-item list-group-item-action getCategory">VGA</button>
-							<button type="button"
-								class="list-group-item list-group-item-action getCategory">RAM(구현x)</button>
-							<button type="button"
-								class="list-group-item list-group-item-action getCategory">POWER(구현x)</button>
-							<button type="button"
-								class="list-group-item list-group-item-action getCategory">MAINBOARD(구현x)</button>
-						</div>
+			<div class="card">
+				<div class="card-body">
+					<div class="row">
+						<!-- 카테고리  -->
+						<div class="col-lg-2">
+							<c:forEach var="m" items="${mainCategory }" varStatus="status">
+								<div class="accordion" id="accordionExample">
+									<!-- ToDo 대분류 1,2,3, 일때 해당하는 카테고리 이름 -->
 
-					</div>
-					<div class="col-lg-10">
-						<!-- 카테고리 선택창 -->
-						<div>
-							<div align="right" class="dataTable-top">
-								<div class="dataTable-dropdown">
-									<label><select class="dataTable-selector"><option
-												value="5">5</option>
-											<option value="10" selected="">10</option>
-											<option value="15">15</option>
-											<option value="20">20</option>
-											<option value="25">25</option></select> entries per page</label>
+									<div class="accordion-item">
+										<h2 class="accordion-header" id="headingOne">
+											<button class="accordion-button collapsed" type="button"
+												data-bs-toggle="collapse"
+												data-bs-target="#collapse${status.count }"
+												aria-expanded="false"
+												aria-controls="collapse${status.count }">
+												${m.main_name}</button>
+										</h2>
+										<div id="collapse${status.count }"
+											class="accordion-collapse collapse"
+											aria-labelledby="headingOne"
+											data-bs-parent="#accordionExample" style="">
+											<!-- ToDo 대분류 1 , 2 , 3 에 해당하는 서브카테고리 이름 -->
+											<div class="accordion-body" style="padding: 1px">
+												<c:forEach var="s" items="${subCategory}">
+													<c:if test="${m.main_category eq s.main_category}">
+														<div class="list-group">
+															<input type="hidden" class="subCategoryNo"
+																value="${s.sub_category }">
+															<button type="button"
+																class="list-group-item list-group-item-action getCategory">
+																${s.sub_name }</button>
+														</div>
+													</c:if>
+												</c:forEach>
+											</div>
+										</div>
+									</div>
 								</div>
-								<div class="dataTable-search">
-									<form>
-										<input type="date" name="beforeDate"> <input
-											type="date" name="afterDate" id='currnetDate'> <select
-											name="searchOption">
-											<option value="orderNumber" selected="selected">상품번호</option>
-											<option value="content">상품명</option>
-											<option value="remarks">등록일자</option>
-										</select> <input type="text" name="input" placeholder="검색어를 입력해 주세요.">
-										<!-- <input type="button" name="inputBtn" value="검색"> -->
-										<button>검색</button>
-									</form>
-								</div>
-							</div>
-							<!-- 가져온거 -->
-							<table class="table table-borderless top-selling" id="category">
-								<thead>
-									<tr>
-										<th scope="col">번호</th>
-										<th scope="col">이미지</th>
-										<th scope="col">상품 번호</th>
-										<th scope="col">상품 명</th>
-										<th scope="col">등록 일자</th>
-										<th scope="col">전체 수량</th>
-										<th scope="col">개당 가격</th>
-										<th scope="col"></th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach var="list" items="${product }">
-										<tr>
-										<td>${list.product_no }</td>
-										<th scope="row"><a href="#"><img
-												src="https://via.placeholder.com/60" alt=""></a></th>
-										<td>${list.product_name }</td>
-										<td><a class="primary" data-bs-toggle="modal"
-											data-bs-target="#modalProduct">상품 모달띄우기 </a></td>
-										<td>${list.add_day }</td>
-										<td>재고량1</td>
-										<td>${list.price }</td>
-										<td><button type="button"
-												class="btn btn-primary btn-sm addBucket">추가</button></td>
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
-							<!-- 가져온거 -->
+							</c:forEach>
 						</div>
-						<!-- 장바구니 -->
-						<div>
-							<form action="">
-								<table class="table" id="bucket">
+						<div class="col-lg-10">
+							<!-- 카테고리 선택창 -->
+							<div>
+								<div align="right" class="dataTable-top">
+									<div class="dataTable-dropdown">
+										<label><select class="dataTable-selector"><option
+													value="5">5</option>
+												<option value="10" selected="">10</option>
+												<option value="15">15</option>
+												<option value="20">20</option>
+												<option value="25">25</option></select> entries per page</label>
+									</div>
+									<div class="dataTable-search">
+										<form>
+											<input type="date" name="beforeDate"> <input
+												type="date" name="afterDate" id='currnetDate'> <select
+												name="searchOption">
+												<option value="orderNumber" selected="selected">상품번호</option>
+												<option value="content">상품명</option>
+												<option value="remarks">등록일자</option>
+											</select> <input type="text" name="input" placeholder="검색어를 입력해 주세요.">
+											<!-- <input type="button" name="inputBtn" value="검색"> -->
+											<button>검색</button>
+										</form>
+									</div>
+								</div>
+								<!-- 상품 리스트 -->
+								<table class="table table-borderless top-selling" id="category">
 									<thead>
 										<tr>
-											<th></th>
-											<th>상품 번호</th>
-											<th>상품 명</th>
-											<th>구매 수량</th>
-											<th>개당 가격</th>
-											<th>버튼</th>
+											<th scope="col">번호</th>
+											<th scope="col">이미지</th>
+											<th scope="col">상품 번호</th>
+											<th scope="col">상품 명</th>
+											<th scope="col">등록 일자</th>
+											<th scope="col">전체 수량</th>
+											<th scope="col">개당 가격</th>
+											<th scope="col"></th>
 										</tr>
 									</thead>
 									<tbody>
-
+										<c:forEach var="list" items="${product }" varStatus="status">
+											<tr>
+												<td>${status.count }</td>
+												<th scope="row"><a href="#"><img
+														src="https://via.placeholder.com/60" alt=""></a></th>
+												<td>${list.product_no }</td>
+												<td><a class="primary" data-bs-toggle="modal"
+													data-bs-target="#modalProduct">상품 모달띄우기 </a></td>
+												<td>${list.add_day }</td>
+												<td>재고량1</td>
+												<td>${list.price }</td>
+												<td><button type="button"
+														class="btn btn-primary btn-sm addBucket">추가</button></td>
+											</tr>
+										</c:forEach>
 									</tbody>
 								</table>
-								<div class="d-grid gap-2 mt-3">
-									<button class="btn btn-primary" type="button">주문하기</button>
-								</div>
-							</form>
+								<!-- 상품 리스트 -->
+							</div>
+							<!-- 장바구니 -->
+							<div>
+								<form name="testForm">
+									<table class="table" id="bucket">
+										<thead>
+											<tr>
+												<th></th>
+												<th>상품 번호</th>
+												<th>상품 명</th>
+												<th>구매 수량</th>
+												<th>개당 가격</th>
+												<th>버튼</th>
+											</tr>
+										</thead>
+										<tbody>
+
+										</tbody>
+									</table>
+									<div class="d-grid gap-2 mt-3">
+										<button class="btn btn-primary" type="button">주문하기</button>
+									</div>
+								</form>
+							</div>
 						</div>
 					</div>
 				</div>
+
+
 			</div>
-
-
-		</div>
-	</section>
+		</section>
 
 	</main>
 	<!-- End #main -->
 
-	
+		<!-- 모달창 -->
 	<div class="modal fade" id="modalProduct" tabindex="-1">
 		<div class="modal-dialog modal-dialog-scrollable">
 			<div class="modal-content">
@@ -210,9 +231,9 @@
 				<div class="modal-body">
 					<div class="card">
 						<div class="card-body">
-							<div class="card-title">
-								<h5 style="text-align: right;">총 주문금액</h5>
-								<div style="text-align: right;">
+							<div class="card-title" style="text-align: right;">
+								<h5>총 주문금액</h5>
+								<div>
 									<i class="bx bx-won">가격 적어주세요</i>
 								</div>
 							</div>
@@ -246,37 +267,39 @@
 		</div>
 	</div>
 	<script type="text/javascript">
+				let trArr = new Array();
+				// 하위 카테고리 클릭시 해당하는 품목 비동기 처리
 				$(".getCategory").on("click", function(e) {
 					e.preventDefault();
 					
-					const value = $(this).text();
-					console.log(value);
+					const no = $(this).parent().find(".subCategoryNo").val();
+					
 					$.ajax({
 						type : "GET", //요청 메소드 방식
-						url : "test.do?category="+value,
+						url : "orderAjax.do?sub_category="+no,
 						dataType : "json", //서버가 요청 URL을 통해서 응답하는 내용의 타입
 						success : function(result) {
-							$("#category tbody tr").remove();
-							//서버의 응답데이터가 클라이언트에게 도착하면 자동으로 실행되는함수(콜백)
-							//result - 응답데이터
+							$("#category tbody tr").remove(); // 기존 존재하는 테이블 삭제
+							result.forEach(function(result) {
+								const str =`
+									<tr>
+										<td>1</td>
+										<th scope="row"><a href="#"><img
+												src="https://via.placeholder.com/60" alt=""></a></th>
+										<td>`+result.product_no+`</td>
+										<td><a class="primary" data-bs-toggle="modal"
+											data-bs-target="#modalProduct">`+result.product_name+`</a></td>
+										<td>`+result.add_day+`</td>
+										<td>재고량나올곳</td>
+										<td>`+result.price+`</td>
+										<td><button type="button"
+												class="btn btn-primary btn-sm addBucket">추가</button></td>
+									</tr>
+									`;
+									
+									$("#category tbody").append(str);
+							});
 							
-							const str =`
-							<tr>
-								<td>1</td>
-								<th scope="row"><a href="#"><img
-										src="https://via.placeholder.com/60" alt=""></a></th>
-								<td>`+result.product_no+`</td>
-								<td><a class="primary" data-bs-toggle="modal"
-									data-bs-target="#modalProduct">`+result.product_name+`</a></td>
-								<td>`+result.add_day+`</td>
-								<td>재고량1</td>
-								<td>`+result.price+`</td>
-								<td><button type="button"
-										class="btn btn-primary btn-sm addBucket">추가</button></td>
-							</tr>
-							`;
-							
-							$("#category tbody").append(str);
 							console.log("ajax 성공");
 						},
 						error : function(a, b, c) {
@@ -285,18 +308,20 @@
 						}
 					});
 				})
-				let trArr = new Array();
+				
 				
 				$("#category").on("click",".addBucket",function() {
+					
 					
 					const $tr = $(this).parent().parent();
 					const $td = $tr.children();
 					console.log("클릭한 Row의 모든 데이터 : " + $tr.text());
-
+					
+					
 					const no = $td.eq(2).text();
 					const name = $td.eq(3).text();
 					const quantity = $td.eq(4).text();
-					const price = $td.eq(5).text();
+					const price = $td.eq(6).text();
 					
 					const str =`
 					<tr>
@@ -309,14 +334,26 @@
 					</tr>
 					`;
 					
-					console.log(trArr.indexOf(no))
+					
+					
 					if(trArr.indexOf(no)!=-1){
 						alert(no+"과 같은 상품이 있습니다")
 					} else {
 						trArr.push(no);
 						$("#bucket tbody").append(str);
+						$.ajax({
+							type : "GET", //요청 메소드 방식
+							url : "orderInsertAjax.do?product_no="+no,
+							dataType : "text", //서버가 요청 URL을 통해서 응답하는 내용의 타입
+							success : function(result) {
+								console.log(result+" 성공");
+							},
+							error : function(a, b, c) {
+								//통신 실패시 발생하는 함수(콜백)
+								console.log("실패" + a, b, c);
+							}
+						});
 					}
-					
 				})
 				
 				
@@ -325,7 +362,19 @@
 					 const $td = $tr.children();
 					 const no = $td.eq(1).text();
 					 if(trArr.indexOf(no)!=-1){
-						 trArr.pop();
+						 trArr.splice(no,1);
+						 $.ajax({
+								type : "GET", //요청 메소드 방식
+								url : "orderDeleteAjax.do?product_no="+no,
+								dataType : "text", //서버가 요청 URL을 통해서 응답하는 내용의 타입
+								success : function(result) {
+									console.log(result+" 성공");
+								},
+								error : function(a, b, c) {
+									//통신 실패시 발생하는 함수(콜백)
+									console.log("실패" + a, b, c);
+								}
+							});
 						}
 					 $tr.remove();
 			    });
