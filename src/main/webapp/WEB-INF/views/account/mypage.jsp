@@ -203,13 +203,22 @@
 											</div>
 										</div>
 									</div>
-									<div class="row mb-3">
-										<label for="fullName" class="col-md-4 col-lg-3 col-form-label">아이디</label>
+									
+									  <div class="row mb-3">
 										<div class="col-md-8 col-lg-9">
-											<input name="id" type="text" class="form-control"
+											<input name="id" type="hidden" class="form-control"
 												id="id" value="${memberId}">
 										</div>
-									</div>
+									</div> 
+									<div class="row mb-3">
+										<div class="col-md-8 col-lg-9">
+											<input name="pass" type="hidden" class="form-control"
+												id="pass" value="${memberPass}">
+										</div>
+									</div> 
+									
+								
+								
 									<div class="row mb-3">
 										<label for="about" class="col-md-4 col-lg-3 col-form-label">사업자 등록번호</label>
 										<div class="col-md-8 col-lg-9">

@@ -11,5 +11,8 @@ public interface MemberService {
 		
 	//로그인
 		List<MemberVO> getMember(MemberVO vo);
+		
+	//마이페이지 정보수정
+		void updateMypage(MemberVO vo);
 
 }

@@ -26,6 +26,9 @@
 		select * from member where id=#{id} and pass=#{pass}
 	</select>
 	
+	<update id="updateMypage">
+		update member set business_no=#{business_no}, business_name=#{business_name}, ceo=#{ceo}, contact=#{contact}, email=#{email}, business_address= #{business_address}  where id=#{id} 
+	</update>
 	<!--
 	 <select id="getBoard" resultType="board">
 		select * from board where seq=#{seq}  vo객체에 setter 자동주입

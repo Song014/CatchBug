@@ -44,48 +44,56 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/login_page.do", method = RequestMethod.POST)
-	public ModelAndView MemberLogin(MemberVO vo, MemberDAOmybaits memberDAO,ModelAndView mav,HttpSession session) {
+	public ModelAndView MemberLogin(MemberVO vo, MemberDAOmybaits memberDAO, ModelAndView mav, HttpSession session) {
 		System.out.println("account/login_page //로그인 페이지에서  post방식 ");
 		List<MemberVO> member = memberService.getMember(vo);
-		
-		
+
 //		Iterator mem = member.iterator();
 //		while(mem.hasNext()) {
 //			System.out.println(mem.next());
 //		}
- 		
-		for(MemberVO i: member) {
+
+		for (MemberVO i : member) {
 			System.out.println(i);
 			System.out.println(i.getId());
 			System.out.println(vo.getId());
-			
-			if(i.getId() != null) {
-				if(i.getLevel1()==1) {
-				System.out.println("환영합니다"+i.getId()+"님 어서오세요. 등급은 "+i.getLevel1()+"입니다");
-				
-				session.setAttribute("member", i);
-				session.setAttribute("memberId",i.getId());
-				session.setAttribute("memberPass",i.getPass());
-				session.setAttribute("memberBusiness_no",i.getBusiness_no());
-				session.setAttribute("memberBusiness_name",i.getBusiness_name());
-				session.setAttribute("memberCeo",i.getCeo());
-				session.setAttribute("memberContact",i.getContact());
-				session.setAttribute("memberEmail",i.getEmail());
-				session.setAttribute("memberBusiness_address",i.getBusiness_address());
-				session.setAttribute("memberJoin_day",i.getRegdate());
-				session.setAttribute("memberLevel",i.getLevel1());
-				mav.addObject("member", member);
-				mav.setViewName("account/mypage");
-				}else if(i.getLevel1()==2) {
-					System.out.println("환영합니다"+i.getId()+"님 어서오세요. 등급은 "+i.getLevel1()+"입니다");
-					session.setAttribute("memberId",i.getId());
+
+			if (i.getId() != null) {
+				if (i.getLevel1() == 1) {
+					System.out.println("환영합니다" + i.getId() + "님 어서오세요. 등급은 " + i.getLevel1() + "입니다");
+
+					session.setAttribute("member", i);
+					session.setAttribute("memberId", i.getId());
+					session.setAttribute("memberPass", i.getPass());
+					session.setAttribute("memberBusiness_no", i.getBusiness_no());
+					session.setAttribute("memberBusiness_name", i.getBusiness_name());
+					session.setAttribute("memberCeo", i.getCeo());
+					session.setAttribute("memberContact", i.getContact());
+					session.setAttribute("memberEmail", i.getEmail());
+					session.setAttribute("memberBusiness_address", i.getBusiness_address());
+					session.setAttribute("memberJoin_day", i.getRegdate());
 					session.setAttribute("memberLevel", i.getLevel1());
 					mav.addObject("member", member);
 					mav.setViewName("account/mypage");
-						
-				}else if(i.getLevel1()==3) {
-					System.out.println("환영합니다"+i.getId()+"님 어서오세요. 등급은 "+i.getLevel1()+"입니다");
-					session.setAttribute("memberId",i.getId());
+				} else if (i.getLevel1() == 2) {
+					System.out.println("환영합니다" + i.getId() + "님 어서오세요. 등급은 " + i.getLevel1() + "입니다");
+					session.setAttribute("member", i);
+					session.setAttribute("memberId", i.getId());
+					session.setAttribute("memberPass", i.getPass());
+					session.setAttribute("memberBusiness_no", i.getBusiness_no());
+					session.setAttribute("memberBusiness_name", i.getBusiness_name());
+					session.setAttribute("memberCeo", i.getCeo());
+					session.setAttribute("memberContact", i.getContact());
+					session.setAttribute("memberEmail", i.getEmail());
+					session.setAttribute("memberBusiness_address", i.getBusiness_address());
+					session.setAttribute("memberJoin_day", i.getRegdate());
+					session.setAttribute("memberLevel", i.getLevel1());
+					mav.addObject("member", member);
+					mav.setViewName("account/mypage");
+
+				} else if (i.getLevel1() == 3) {
+					System.out.println("환영합니다" + i.getId() + "님 어서오세요. 등급은 " + i.getLevel1() + "입니다");
+					session.setAttribute("memberId", i.getId());
 					session.setAttribute("memberLevel", i.getLevel1());
 					mav.addObject("member", member);
 					mav.setViewName("account/mypage");
@@ -94,53 +102,51 @@ public class MemberController {
 		}
 		return mav;
 	}
-	//로그인끝
-	
-	// 마이페이지
-		@RequestMapping(value = "/mypage.do", method = RequestMethod.GET)
-		public String Mypage() {
-			System.out.println("account/mypage //마이 페이지에서  get방식  ");
+	// 로그인끝
 
-			return "account/mypage";
-		}
-		//mypage / 마이페이지 수정
-		@RequestMapping(value="/mypage.do",method=RequestMethod.POST)
-		public ModelAndView MypageOverview(MemberVO vo, MemberDAOmybaits memberDAO,ModelAndView mav,HttpSession session){
-			System.out.println("mypage / 마이페이지 수정 ");
-			List<MemberVO> member = memberService.getMember(vo);
-			ModelAndView mav1 = new ModelAndView();
-			
-			for(MemberVO i: member) {
-				System.out.println(i);
-				System.out.println(i.getId());
-				System.out.println(vo.getId());
-				
-				if(i.getId() != null) {
-					if(i.getLevel1()==1) {
-					System.out.println("환영합니다"+i.getId()+"님 어서오세요. 등급은 "+i.getLevel1()+"입니다");
-					System.out.println("어서오세용~");
-					
-					session.setAttribute("memberId",i.getId());
-					session.setAttribute("memberPass",i.getPass());
-					session.setAttribute("memberBusiness_no",i.getBusiness_no());
-					session.setAttribute("memberBusiness_name",i.getBusiness_name());
-					session.setAttribute("memberCeo",i.getCeo());
-					session.setAttribute("memberContact",i.getContact());
-					session.setAttribute("memberEmail",i.getEmail());
-					session.setAttribute("memberBusiness_address",i.getBusiness_address());
-					session.setAttribute("memberJoin_day",i.getRegdate());
-					session.setAttribute("memberLevel",i.getLevel1());
-					
+	// 마이페이지
+	@RequestMapping(value = "/mypage.do", method = RequestMethod.GET)
+	public String Mypage() {
+		System.out.println("account/mypage //마이 페이지에서  get방식  ");
+
+		return "account/mypage";
+	}
+
+	// mypage / 마이페이지 수정
+	@RequestMapping(value = "/mypage.do", method = RequestMethod.POST)
+	public ModelAndView MypageOverview(MemberVO vo, MemberDAOmybaits memberDAO, ModelAndView mav, HttpSession session) {
+		System.out.println("mypage / 마이페이지 수정 ");
+		memberService.updateMypage(vo);
+
+		List<MemberVO> member = memberService.getMember(vo);
+
+		for (MemberVO i : member) {
+			System.out.println(i);
+			System.out.println(i.getId());
+			System.out.println(vo.getId());
+
+			if (i.getId() != null) {
+					System.out.println("환영합니다" + i.getId() + "님 어서오세요. 등급은 " + i.getLevel1() + "입니다");
+
+					session.setAttribute("member", i);
+					session.setAttribute("memberId", i.getId());
+					session.setAttribute("memberPass", i.getPass());
+					session.setAttribute("memberBusiness_no", i.getBusiness_no());
+					session.setAttribute("memberBusiness_name", i.getBusiness_name());
+					session.setAttribute("memberCeo", i.getCeo());
+					session.setAttribute("memberContact", i.getContact());
+					session.setAttribute("memberEmail", i.getEmail());
+					session.setAttribute("memberBusiness_address", i.getBusiness_address());
+					session.setAttribute("memberJoin_day", i.getRegdate());
+					session.setAttribute("memberLevel", i.getLevel1());
+					mav.addObject("member", member);
 					mav.setViewName("account/mypage");
-					}
+					
 				}
 			}
-			
-			return mav1;
-			
-			
+		return mav;
 		}
-}
+	}
 
 //if(user != null) {
 //mav.setViewName("redirect:getBoardList.do"); // url이 /getBoardList.do로 바로 가집니다. 

@@ -27,4 +27,10 @@ public class MemberServiceImpl implements MemberService {
 		 
 	}
 
+
+	@Override
+	public void updateMypage(MemberVO vo) {
+		MemberDAO.updateMypage(vo);
+	}
+
 }
