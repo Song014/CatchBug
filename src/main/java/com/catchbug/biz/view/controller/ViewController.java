@@ -27,47 +27,6 @@ public class ViewController {
 		return "index";
 	}
 	
-	
-	/* 게시판 */
-	@RequestMapping("/notice_Board.do")
-	public String NoticeBoard() {
-		return "board/notice_board";
-	}
-	
-	@RequestMapping("/notice_Board_Write.do")
-	public String NoticeBoardWrite() {
-		return "board/notice_board_write";
-	}
-	
-	@RequestMapping("/freeBoard.do")
-	public String FreeBoard() {
-		return "board/free_board";
-	}
-	
-	@RequestMapping("/free_Board_Write.do")
-	public String FreeBoardWrite() {
-		return "board/free_board_write";
-	}
-	
-	@RequestMapping("/QnABoard.do")
-	public String QnABoard() {
-		return "board/qna_board";
-	}
-	
-	@RequestMapping("/QnA_Board_Write.do")
-	public String QnABoardWrite() {
-		return "board/qna_board_write";
-	}
-	
-	@RequestMapping("/FAQBoard.do")
-	public String FAQBoard() {
-		return "board/faq_board";
-	}
-	@RequestMapping("/ViewChat.do")
-	public String ViewBoard() {
-		return "board/chat";
-	}
-	
 	/* 계정 */
 //	@RequestMapping("/sign_up.do")
 //	public String signUp() {

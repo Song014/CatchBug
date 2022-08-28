@@ -1,4 +1,4 @@
-package com.catchbug.biz.chat;
+package com.catchbug.biz.board.chat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +8,6 @@ import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-
-import lombok.extern.log4j.Log4j;
 
 @Component
 public class ChatHandler extends TextWebSocketHandler{
