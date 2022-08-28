@@ -14,11 +14,11 @@
 	<!-- 웹소켓 사용을 위한 핸들러 및 빈등록 -->
 	<websocket:handlers>
 		<websocket:mapping handler="chattingHandler"
-			path="/chat" />
+			path="/chatting" />
 		<websocket:sockjs></websocket:sockjs>
 	</websocket:handlers>
 	<beans:bean id="chattingHandler"
-		class="com.catchbug.biz.board.chat.ChatHandler" />
+		class="com.catchbug.biz.chat.ChatHandler" />
 
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />

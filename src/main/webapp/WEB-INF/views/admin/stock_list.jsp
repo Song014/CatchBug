@@ -63,286 +63,58 @@
 
 	<!-- ======= Main ======= -->
 	<!-- main start -->
-	
 	<main id="main" class="main">
-		<div class="pagetitle">
-			<h1>전체 상품리스트</h1>
-			<nav>
-				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="/">재고 관리</a></li>
-					<li class="breadcrumb-item active">상품리스트</li>
-				</ol>
-			</nav>
-		</div>
-			<section class="section dashboard">
-			<div class="card">
-				<div class="card-body">
-					<div class="row">
-						<!-- 카테고리  -->
-						<div class="col-lg-2">
-							<c:forEach var="m" items="${mainCategory }" varStatus="status">
-								<div class="accordion" id="accordionExample">
-									<!-- ToDo 대분류 1,2,3, 일때 해당하는 카테고리 이름 -->
+	<div class="pagetitle">
+		<h1>상품 리스트</h1>
+		<nav>
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+				<li class="breadcrumb-item">재고관리</li>
+				<li class="breadcrumb-item active">상품 리스트</li>
+			</ol>
+		</nav>
+	</div>
+	<div class="dataTable-top">
 
-									<div class="accordion-item">
-										<h2 class="accordion-header" id="headingOne">
-											<button class="accordion-button collapsed" type="button"
-												data-bs-toggle="collapse"
-												data-bs-target="#collapse${status.count }"
-												aria-expanded="false"
-												aria-controls="collapse${status.count }">
-												${m.main_name}</button>
-										</h2>
-										<div id="collapse${status.count }"
-											class="accordion-collapse collapse"
-											aria-labelledby="headingOne"
-											data-bs-parent="#accordionExample" style="">
-											<!-- ToDo 대분류 1 , 2 , 3 에 해당하는 서브카테고리 이름 -->
-											<div class="accordion-body" style="padding: 1px">
-												<c:forEach var="s" items="${subCategory}">
-													<c:if test="${m.main_category eq s.main_category}">
-														<div class="list-group">
-															<input type="hidden" class="subCategoryNo"
-																value="${s.sub_category }">
-															<button type="button"
-																class="list-group-item list-group-item-action getCategory">
-																${s.sub_name }</button>
-														</div>
-													</c:if>
-												</c:forEach>
-											</div>
-										</div>
-									</div>
-								</div>
-							</c:forEach>
-						</div>
-						<div class="col-lg-10">
-							<!-- 카테고리 선택창 -->
-							<div>
-								<div align="right" class="dataTable-top">
-									<div class="dataTable-dropdown">
-										<label><select class="dataTable-selector"><option
-													value="5">5</option>
-												<option value="10" selected="">10</option>
-												<option value="15">15</option>
-												<option value="20">20</option>
-												<option value="25">25</option></select> entries per page</label>
-									</div>
-									<div class="dataTable-search">
-										<form>
-											<input type="date" name="beforeDate"> <input
-												type="date" name="afterDate" id='currnetDate'> <select
-												name="searchOption">
-												<option value="orderNumber" selected="selected">상품번호</option>
-												<option value="content">상품명</option>
-												<option value="remarks">등록일자</option>
-											</select> <input type="text" name="input" placeholder="검색어를 입력해 주세요.">
-											<!-- <input type="button" name="inputBtn" value="검색"> -->
-											<button>검색</button>
-										</form>
-									</div>
-								</div>
-								<!-- 상품 리스트 -->
-								<table class="table table-borderless top-selling" id="category">
-									<thead>
-										<tr>
-											<th scope="col">번호</th>
-											<th scope="col">이미지</th>
-											<th scope="col">상품 번호</th>
-											<th scope="col">상품 명</th>
-											<th scope="col">재고 수량</th>
-											<th scope="col">개당 가격</th>
-											<th scope="col">등록일</th>
-										</tr>
-									</thead>
-									<tbody>
-										<c:forEach var="list" items="${product }" varStatus="status">
-											<tr>
-												<td>${status.count }</td>
-												<th scope="row"><a href="#"><img
-														src="https://via.placeholder.com/60" alt=""></a></th>
-												<td>${list.product_no }</td>
-												<td><a class="primary" data-bs-toggle="modal"
-													data-bs-target="#modalProduct">상품 모달띄우기 </a></td>
-												<td>재고량1</td>
-												<td>${list.price }</td>
-												<td>${list.add_day }</td>
-											</tr>
-										</c:forEach>
-									</tbody>
-								</table>
-								<!-- 상품 리스트 -->
-							</div>
-						</div>
-					</div>
-				</div>
-
-
-			</div>
-		</section>
-
-	</main>
-	<!-- End #main -->
-
-		<!-- 모달창 -->
-	<div class="modal fade" id="modalProduct" tabindex="-1">
-		<div class="modal-dialog modal-dialog-scrollable">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">주문번호 : 123456789</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"
-						aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<div class="card">
-						<div class="card-body">
-							<div class="card-title" style="text-align: right;">
-								<h5>총 주문금액</h5>
-								<div>
-									<i class="bx bx-won">가격 적어주세요</i>
-								</div>
-							</div>
-							<table class="table">
-								<thead>
-									<tr>
-										<th scope="col" style="width: 20%;">상품코드</th>
-										<th scope="col" style="width: 52%;">품목명</th>
-										<th scope="col" style="width: 13%;">수량</th>
-										<th scope="col" style="width: 15%;">가격</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<th scope="row">00001</th>
-										<td>무선 마우스 GB110</td>
-										<td>5</td>
-										<td>10000123123</td>
-									</tr>
-
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-bs-dismiss="modal">Close</button>
-				</div>
-			</div>
+		<div class="dataTable-search">
+			<input class="dataTable-input" placeholder="Search..." type="text">
 		</div>
 	</div>
-	<script type="text/javascript">
-				let trArr = new Array();
-				// 하위 카테고리 클릭시 해당하는 품목 비동기 처리
-				$(".getCategory").on("click", function(e) {
-					e.preventDefault();
-					
-					const no = $(this).parent().find(".subCategoryNo").val();
-					
-					$.ajax({
-						type : "GET", //요청 메소드 방식
-						url : "orderAjax.do?sub_category="+no,
-						dataType : "json", //서버가 요청 URL을 통해서 응답하는 내용의 타입
-						success : function(result) {
-							$("#category tbody tr").remove(); // 기존 존재하는 테이블 삭제
-							result.forEach(function(result) {
-								const str =`
-									<tr>
-										<td>1</td>
-										<th scope="row"><a href="#"><img
-												src="https://via.placeholder.com/60" alt=""></a></th>
-										<td>`+result.product_no+`</td>
-										<td><a class="primary" data-bs-toggle="modal"
-											data-bs-target="#modalProduct">`+result.product_name+`</a></td>
-										<td>재고량나올곳</td>
-										<td>`+result.price+`</td>
-										<td>`+result.add_day+`</td>
-									</tr>
-									`;
-									
-									$("#category tbody").append(str);
-							});
-							
-							console.log("ajax 성공");
-						},
-						error : function(a, b, c) {
-							//통신 실패시 발생하는 함수(콜백)
-							console.log("실패" + a, b, c);
-						}
-					});
-				})
-				
-				
-				$("#category").on("click",".addBucket",function() {
-					
-					
-					const $tr = $(this).parent().parent();
-					const $td = $tr.children();
-					console.log("클릭한 Row의 모든 데이터 : " + $tr.text());
-					
-					
-					const no = $td.eq(2).text();
-					const name = $td.eq(3).text();
-					const quantity = $td.eq(4).text();
-					const price = $td.eq(6).text();
-					
-					const str =`
-					<tr>
-						<td><input type="checkbox" name="checkBox"></td>
-						<td><input type="hidden" value=`+no+` >`+no+`</td>
-						<td><input type="hidden" value=`+name+`><a class="primary" data-bs-toggle="modal" data-bs-target="#modalProduct">`+name+`</a></td>
-						<td><input type="number" value="1"></td>
-						<td><input type="hidden" value=`+price+`>`+price+`</td>
-						<td><button type="button" class="btn btn-primary btn-sm delBucket">삭제</button></td>
-					</tr>
-					`;
-					
-					
-					
-					if(trArr.indexOf(no)!=-1){
-						alert(no+"과 같은 상품이 있습니다")
-					} else {
-						trArr.push(no);
-						$("#bucket tbody").append(str);
-						$.ajax({
-							type : "GET", //요청 메소드 방식
-							url : "orderInsertAjax.do?product_no="+no,
-							dataType : "text", //서버가 요청 URL을 통해서 응답하는 내용의 타입
-							success : function(result) {
-								console.log(result+" 성공");
-							},
-							error : function(a, b, c) {
-								//통신 실패시 발생하는 함수(콜백)
-								console.log("실패" + a, b, c);
-							}
-						});
-					}
-				})
-				
-				
-				 $("#bucket").on("click", ".delBucket", function() {
-					 const $tr = $(this).parent().parent();
-					 const $td = $tr.children();
-					 const no = $td.eq(1).text();
-					 if(trArr.indexOf(no)!=-1){
-						 trArr.splice(no,1);
-						 $.ajax({
-								type : "GET", //요청 메소드 방식
-								url : "orderDeleteAjax.do?product_no="+no,
-								dataType : "text", //서버가 요청 URL을 통해서 응답하는 내용의 타입
-								success : function(result) {
-									console.log(result+" 성공");
-								},
-								error : function(a, b, c) {
-									//통신 실패시 발생하는 함수(콜백)
-									console.log("실패" + a, b, c);
-								}
-							});
-						}
-					 $tr.remove();
-			    });
-			</script>
-	<!-- End #main -->
+	<div class="dataTable-container">
+		<table class="table table-hover"  style="text-align: center">
+			<thead>
+				<tr>
+					<th scope="col" data-sortable="" style="width: 5%;"><a
+						href="#" class="dataTable-sorter">NO.</a></th>
+					<th scope="col" data-sortable="" style="width: 12%;"><a
+						href="#" class="dataTable-sorter">상품번호</a></th>
+					<th scope="col" data-sortable="" style="width: 12%;"><a
+						href="#" class="dataTable-sorter">브랜드 / 제조사</a></th>
+					<th scope="col" data-sortable="" style="width: 44%;"><a
+						href="#" class="dataTable-sorter">상품명</a></th>
+					<th scope="col" data-sortable="" style="width: 10%;"><a
+						href="#" class="dataTable-sorter">재고 수량</a></th>
+					<th scope="col" data-sortable="" style="width: 16%;"><a
+						href="#" class="dataTable-sorter">개당 가격</a></th>
+					<th scope="col" data-sortable="" style="width: 16%;"><a
+						href="#" class="dataTable-sorter">등록 날짜</a></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row">1</th>
+					<td>15-27363</td>
+					<td>AMD</td>
+					<td><a href="#">라이젠5 4세대 5600x</a></td>
+					<td>15</td>
+					<td>300,000</td>
+					<td>22/08/01</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	</main>
 
 	<!-- ======= Footer ======= -->
 

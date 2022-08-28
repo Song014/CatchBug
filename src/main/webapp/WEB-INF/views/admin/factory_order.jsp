@@ -174,7 +174,7 @@
 												<td>${list.product_no }</td>
 												<td><a class="primary" data-bs-toggle="modal"
 													data-bs-target="#modalProduct">상품 모달띄우기 </a></td>
-												<td><fmt:formatDate value="${list.add_day }" pattern="yyyy-MM-dd"/></td>
+												<td>${list.add_day }</td>
 												<td>재고량1</td>
 												<td>${list.price }</td>
 												<td><button type="button"
