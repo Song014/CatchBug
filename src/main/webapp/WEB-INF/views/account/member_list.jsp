@@ -70,9 +70,8 @@
 	<jsp:include page="../mainInclude/sidebar.jsp"></jsp:include>
 
 	<!-- main start -->
-
 	<!-- main start -->
-	<main id="main" class="main">
+	<main id="main" class="main"> 
 	<div class="pagetitle">
 		<h1>가맹점 리스트</h1>
 		<nav>
@@ -88,55 +87,30 @@
 		<div class="row">
 			<div class="card">
 				<div class="card-body">
-					<div align="right" class="dataTable-top">
-						<div class="dataTable-search">
-							<form>
-								<input type="text" name="input" placeholder="검색어를 입력해 주세요.">
-								<!-- <input type="button" name="inputBtn" value="검색"> -->
-								<button>검색</button>
-							</form>
-						</div>
+					<h5 class="card-title">| 전체 가맹점 리스트</h5>
+					<div class="search" align="right">
+						<form>
+							<select name="searchOption">
+								<option value="orderNumber" selected="selected">사업자등록번호</option>
+								<option value="content">대표자</option>
+								<option value="remarks">법인명</option>
+							</select> <input type="text" name="input" placeholder="검색어를 입력해 주세요.">
+							<!-- <input type="button" name="inputBtn" value="검색"> -->
+							<button>검색</button>
+						</form>
+
 					</div>
-					<div class="dataTable-container">
-						<!--                 <form action="/member_approval.do" id="Form"> -->
-						<table class="table datatable dataTable-table ">
-							<thead>
-								<tr>
-									<th scope="col" data-sortable=""><a href="#" class="dataTable-sorter">#</a></th>
-									<th scope="col" data-sortable=""><a href="#" class="dataTable-sorter">사업자명</a></th>
-									<th scope="col" data-sortable=""><a href="#" class="dataTable-sorter">대표자명</a></th>
-									<th scope="col" data-sortable=""><a href="#" class="dataTable-sorter">주소</a></th>
-									<th scope="col" data-sortable=""><a href="#" class="dataTable-sorter">사업자 등록번호</a></th>
-									<th scope="col" data-sortable=""><a href="#" class="dataTable-sorter">가입신청일</a></th>
-								</tr>
-							</thead>
-							<c:forEach var="list" items="${list }">
-								<tbody>
-									<tr>
-										<td>${list.id }</td>
-										<td><a class="primary" data-bs-toggle="modal"
-											data-bs-target="#modal-biz">${list.business_name }</a></td>
-										<td>${list.ceo }</td>
-										<td>${list.business_address }</td>
-										<td>${list.business_no }</td>
-										<td>${list.regdate }</td>
-									</tr>
-								</tbody>
-							</c:forEach>
-						</table>
-						<!--                 </form> -->
-					</div>
+
+					<script type="text/javascript">
+						
+					<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+						//오늘 날짜
+						document.getElementById('currnetDate').value = new Date()
+								.toISOString().slice(0, 10);
+					</script>
+
 				</div>
 			</div>
-
-			<script type="text/javascript">
-				
-			<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-				//오늘 날짜
-				document.getElementById('currnetDate').value = new Date()
-						.toISOString().slice(0, 10);
-			</script>
-
 		</div>
 	</section>
 	</main>
@@ -157,11 +131,11 @@
 							<table class="table">
 								<tr>
 									<th>사업자명</th>
-									<td> ${oneinfo.id}</td>
+									<td>${oneinfo.id}</td>
 								</tr>
 								<tr>
 									<th>대표자</th>
-									<td> ${oneinfo.ceo}</td>
+									<td>${oneinfo.ceo}</td>
 								</tr>
 								<tr>
 									<th>가입일</th>

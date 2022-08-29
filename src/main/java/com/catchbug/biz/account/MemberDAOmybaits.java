@@ -1,7 +1,5 @@
 package com.catchbug.biz.account;
 
-import java.util.List;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -24,18 +22,24 @@ public class MemberDAOmybaits {
 	   //로그인 전 회원정보 검색
 	   public MemberVO getMember(MemberVO vo) {
 		   System.out.println("===> mybatis로 getMemeber 실행");
-		/* return memberMybatis.selectList("MemberDAO.getMember",vo); */
-		   System.out.println(vo);
+
 		   return memberMybatis.selectOne("MemberDAO.getMember",vo);
 		   
-	   }  
-}
-//	   //글 수정
-//	   public void updateBoard(AccountVO vo) { 
-//		   System.out.println("===> mybatis로 updateAccount 실행");
-//		   accountMybatis.insert("AccountDAO.updateAccount", vo);
-//		   //DAO도 다 수정해야댐
-//	   }
+	   }
+	   //마이페이지 수정
+	   public void updateMypage(MemberVO vo) {
+		   System.out.println("===> mybatis로  updateMypage실행");
+		   memberMybatis.update("MemberDAO.updateMypage", vo);
+	   }
+		   //마이페이지 이미지수정
+		public void updateImg(MemberVO vo) {
+			System.out.println("==> mybatis로 updateImg실행");
+			memberMybatis.update("MemberDAO.updateImg",vo);
+		}
+		   
+	}  
+
+
 //	   
 //	   //글 삭제
 //	   public void deleteBoard(AccountVO vo) {

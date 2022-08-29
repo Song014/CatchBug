@@ -21,9 +21,22 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public MemberVO getMember(MemberVO vo) {
-		System.out.println("DAO"+vo);
+
 		return MemberDAO.getMember(vo);
 		 
+	}
+
+
+	@Override
+	public void updateMypage(MemberVO vo) {
+		MemberDAO.updateMypage(vo);
+	}
+
+
+	@Override
+	public void updateImg(MemberVO vo) {
+		MemberDAO.updateImg(vo);
+		
 	}
 
 }
