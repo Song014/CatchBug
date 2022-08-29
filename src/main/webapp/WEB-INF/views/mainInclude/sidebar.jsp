@@ -4,7 +4,7 @@
 		<!-- 채팅관련 스크립트 -->
 		<!-- 채팅관련 스크립트 종료 -->
 		<c:choose>
-			<c:when test="${memberId.level1 eq 1 }">
+			<c:when test="${member.level1 eq 1 }">
 				<!-- 관리자 -->
 				<!-- ======= Sidebar ======= -->
 				<aside id="sidebar" class="sidebar">

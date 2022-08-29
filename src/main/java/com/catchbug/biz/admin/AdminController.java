@@ -20,9 +20,6 @@ public class AdminController {
 	@Autowired
 	private AdminService AdminService;
 	
-	
-	
-	
 	//메인 페이지
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public String admin(Model model) {
@@ -32,21 +29,23 @@ public class AdminController {
 	/* 가맹점 관리 */
 	// 전체 가맹리스트
 	@RequestMapping("/member_List.do")
-	public String memberList() {
+	public String memberList(Model model, MemberVO vo) {
+		
+		System.out.println("컨트롤러"); 
+		  List<MemberVO> member_list = AdminService.getMemberList();
+		  
+		  model.addAttribute("list", member_list);
+		
 		return "account/member_list";
 	}
-	// 가맹점 주문내역
-	@RequestMapping("/orderHistory.do")
-	public String orderHistory() {
-		return "admin/order_history";
-	}
+	
 	// 가입승인 대기목록
 	@RequestMapping("/factory_franc_wait_list.do")
 	public String franc_WaitList(MemberVO vo, Model model) {
 		
 		  System.out.println("컨트롤러"); 
 		  
-		  List<MemberVO> member_list = AdminService.getMemberList();
+		  List<MemberVO> member_list = AdminService.getMemberWaitList();
 		  model.addAttribute("list", member_list); 
 		 
 		return "admin/factory_franc_wait_list";
@@ -71,6 +70,12 @@ public class AdminController {
 		
 		return "redirect:factory_franc_wait_list.do";
 	}
+	
+	// 가맹점 주문내역
+		@RequestMapping("/orderHistory.do")
+		public String orderHistory() {
+			return "admin/order_history";
+		}
 	
 
 	@RequestMapping("/franc_wait_list.do")
