@@ -41,9 +41,9 @@ public class ProductDAO {
 	public List<ProductVO> selectListProduct(CategoryVO vo) {
 		// 하위 카테고리 번호가 0이면 전체 리스트 최신순 
 		if(vo.getSub_category()==0) {
-			return mybatis.selectList("StockMapper.getProductList");
+			return mybatis.selectList("Product.getProductList");
 		} else {
-			return mybatis.selectList("StockMapper.getProductListC", vo);
+			return mybatis.selectList("Product.getProductListC", vo);
 		}
 	}
 	

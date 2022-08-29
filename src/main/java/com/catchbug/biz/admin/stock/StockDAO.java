@@ -6,10 +6,9 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.catchbug.biz.vo.CartVO;
 import com.catchbug.biz.vo.CategoryVO;
-import com.catchbug.biz.vo.MemberVO;
-import com.catchbug.biz.vo.ProductVO;
+
+
 
 @Repository
 public class StockDAO {

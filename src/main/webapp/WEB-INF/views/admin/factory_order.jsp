@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -177,7 +177,8 @@
 												<td>${list.product_no }</td>
 												<td><a class="primary" data-bs-toggle="modal"
 													data-bs-target="#modalProduct">상품 모달띄우기 </a></td>
-												<td>${list.add_day }</td>
+												<td><fmt:formatDate value="${list.add_day }"
+														pattern="yyyy-MM-dd" /></td>
 												<td>10</td>
 												<td>${list.price }</td>
 												<td><button type="button"
@@ -190,34 +191,41 @@
 							<!-- 상품 리스트 -->
 						</div>
 						<!-- 장바구니 -->
-						<div>
 
-							<table class="table">
-								<thead>
+						<table class="table">
+							<thead>
+								<tr>
+									<th></th>
+									<th>상품 번호</th>
+									<th>상품 명</th>
+									<th>구매 수량</th>
+									<th>개당 가격</th>
+									<th>버튼</th>
+								</tr>
+							</thead>
+						</table>
+						<form action="submitOrder.do">
+							<div style="height: 250px; overflow: scroll;">
+								<table class="table" id="bucket">
+									<tbody>
+									<c:forEach var="list" items="${cartList }">
 									<tr>
-										<th></th>
-										<th>상품 번호</th>
-										<th>상품 명</th>
-										<th>구매 수량</th>
-										<th>개당 가격</th>
-										<th>버튼</th>
+										<td><input type="checkbox" name="checkBox"></td>
+										<td><input type="hidden" name="product_no" value=${list.product_no } >${list.product_no }</td>
+										<td><input type="hidden" value=${list.product_name }><a class="primary" data-bs-toggle="modal" data-bs-target="#modalProduct">${list.product_name }</a></td>
+										<td><input type="number" name="purchase_amount" value=${list.purchase_amount } min="1" max=`+quantity+` style="width:50px;"><button type="button" class="updateBtn">변경</button></td>
+										<td><input type="hidden"  value=${list.price }>${list.price }</td>
+										<td><button type="button" class="btn btn-primary btn-sm delBucket">삭제</button></td>
 									</tr>
-								</thead>
-							</table>
-							<form action="submitOrder.do">
-								<div style="height: 250px; overflow: scroll;">
-									<table class="table" id="bucket">
-										<tbody>
+									</c:forEach>
+									</tbody>
+								</table>
+							</div>
+							<div class="d-grid gap-2 mt-3">
+								<input class="btn btn-primary" type="submit" value="주문하기"></input>
+							</div>
+						</form>
 
-										</tbody>
-									</table>
-
-								</div>
-								<div class="d-grid gap-2 mt-3">
-									<input class="btn btn-primary" type="submit">주문하기</input>
-								</div>
-							</form>
-						</div>
 					</div>
 				</div>
 			</div>
@@ -286,7 +294,7 @@
 					
 					$.ajax({
 						type : "GET", //요청 메소드 방식
-						url : "orderAjax.do?sub_category="+no,
+						url : "getProductAjax.do?sub_category="+no,
 						dataType : "json", //서버가 요청 URL을 통해서 응답하는 내용의 타입
 						success : function(result) {
 							$("#category tbody tr").remove(); // 기존 존재하는 테이블 삭제
@@ -346,20 +354,16 @@
 					</tr>
 					`;
 					
-					
-					
-					if(trArr.indexOf(no)!=-1){
-						alert(no+"과 같은 상품이 있습니다")
-					} else {
-						$.ajax({
+					$.ajax({
 							type : "GET", //요청 메소드 방식
-							url : "orderInsertAjax.do?product_no="+no,
+							url : "insertCartAjax.do?product_no="+no,
 							dataType : "text", //서버가 요청 URL을 통해서 응답하는 내용의 타입
 							success : function(result) {
 								if(result=="ok"){
 									console.log(result);
-									trArr.push(no);
 									$("#bucket tbody").append(str);
+								} else if(result=="false"){
+									alert("이미 추가된 상품입니다.")
 								}
 							},
 							error : function(a, b, c) {
@@ -367,7 +371,12 @@
 								console.log("실패" + a, b, c);
 							}
 						});
-					}
+					
+					/* if(trArr.indexOf(no)!=-1){
+						alert(no+"과 같은 상품이 있습니다")
+					} else {
+						
+					} */
 				})
 				console.log(trArr);
 				
@@ -381,8 +390,6 @@
 							data : {"purchase_amount":amount,"product_no":no},
 							dataType : "text", //서버가 요청 URL을 통해서 응답하는 내용의 타입
 							success : function(result) {
-								
-								
 							},
 							error : function(a, b, c) {
 								//통신 실패시 발생하는 함수(콜백)
@@ -395,26 +402,25 @@
 					 const $tr = $(this).parent().parent();
 					 const $td = $tr.children();
 					 const no = $td.eq(1).text();
-					 if(trArr.indexOf(no)!=-1){
-						 $.ajax({
-								type : "POST", //요청 메소드 방식
-								url : "orderDeleteAjax.do",
-								data : {"product_no":no},
-								dataType : "text", //서버가 요청 URL을 통해서 응답하는 내용의 타입
-								success : function(result) {
-									if(result =="ok"){
-										console.log(no);
-										console.log(result);
-										trArr.splice(trArr.indexOf(no),1);
-									} 
-								},
-								error : function(e) {
-									//통신 실패시 발생하는 함수(콜백)
-									console.log("실패" + e);
-								}
-							});
-						}
-					 $tr.remove();
+					 
+					 $.ajax({
+							type : "POST", //요청 메소드 방식
+							url : "deleteCartAjax.do",
+							data : {"product_no":no},
+							dataType : "text", //서버가 요청 URL을 통해서 응답하는 내용의 타입
+							success : function(result) {
+								if(result =="ok"){
+									$tr.remove();
+								} else {
+									alert("다시시도해주세요");
+								} 
+							},
+							error : function(e) {
+								//통신 실패시 발생하는 함수(콜백)
+								console.log("실패" + e);
+							}
+						});
+					 
 			    });
 			</script>
 	<!-- End #main -->

@@ -4,25 +4,37 @@
 
 <mapper namespace="Product">
 
-	
-	<select id="mainCategory" resultType="com.catchbug.biz.vo.MainCategoryVO">
+
+	<select id="mainCategory"
+		resultType="com.catchbug.biz.vo.MainCategoryVO">
 		SELECT *
 		FROM main_category
 	</select>
-	
-	<select id="subCategory" resultType="com.catchbug.biz.vo.SubCategoryVO">
+
+	<select id="subCategory"
+		resultType="com.catchbug.biz.vo.SubCategoryVO">
 		SELECT *
 		FROM sub_category
 	</select>
-	
-	<insert id="insertProduct" parameterType="com.catchbug.biz.vo.ProductVO">
+
+	<insert id="insertProduct"
+		parameterType="com.catchbug.biz.vo.ProductVO">
 		INSERT INTO product
 		values(#{product_no},#{sub_category},#{product_name},#{price},sysdate,#{product_img},#{brand},#{uuid})
 	</insert>
-	
+
 	<insert id="insertImg" parameterType="com.catchbug.biz.vo.ImgVO">
 		INSERT INTO img
 		values(#{product_no}, #{fileName}, #{uploadPath}, #{uuid})
 	</insert>
+
+	<select id="getProductList" resultType="product">
+		select * from product order by add_day desc
+	</select>
+
+	<select id="getProductListC" parameterType="category"
+		resultType="product">
+		select * from product where sub_category=#{sub_category}
+	</select>
 
 </mapper>

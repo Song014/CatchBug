@@ -4,8 +4,8 @@
 
 <mapper namespace="CartMapper">
 
-	<select id="selectAllCart">
-		
+	<select id="selectListCart" parameterType="member" resultType="cart">
+		select c.product_no,p.product_name,c.purchase_amount,p.price from cart c LEFT OUTER JOIN product p on c.product_no=p.product_no where id=#{id}
 	</select>
 
 	<insert id="insertCart" >

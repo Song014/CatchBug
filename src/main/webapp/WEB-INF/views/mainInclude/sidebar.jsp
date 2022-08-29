@@ -70,7 +70,7 @@
 						<li><a href="factoryStockList.do"> <i
 								class="bi bi-circle"></i><span>본사 재고현황</span>
 						</a></li>
-						<li><a href="factoryOrder.do?category=CPU"> <i
+						<li><a href="factoryOrder.do"> <i
 								class="bi bi-circle"></i><span>본사 발주서 작성</span>
 						</a></li>
 						<li><a href="factory_Order_History.do"> <i

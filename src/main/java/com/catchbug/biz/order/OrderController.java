@@ -5,7 +5,6 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,9 +32,12 @@ public class OrderController {
 	 */
 	// 본사 발주서 작성
 	@RequestMapping("/factoryOrder.do")
-	public String factoryOrder(Model model, CategoryVO vo) {
+	public String factoryOrder(Model model, CategoryVO vo, HttpSession session) {
 
 		// 처음 들어갔을때 카테고리 불러오기
+		MemberVO member = (MemberVO) session.getAttribute("memberId");
+		List<CartVO> cartList = cs.getCart(member);
+		model.addAttribute("cartList", cartList);
 
 		// 카테고리
 		model.addAttribute("mainCategory", ps.getMainCategory());
@@ -48,22 +50,29 @@ public class OrderController {
 
 		return "admin/factory_order";
 	}
-	
+
 	// 주문하기 눌렀을때
 	@RequestMapping(value = "/submitOrder.do")
-	public String submitOrder(CartVO vo) {
-		
-		// 장바구니번호 -> 주문서로 보내서 주문서 생성
-		
+	public String submitOrder(CartVO vo, HttpSession session, Model model) {
+
+		/*
+		 * ok cart테이블의 정보를 활용해서 폼을 만들어줌
+		 * 
+		 */
+		MemberVO member = (MemberVO) session.getAttribute("memberId");
+		List<CartVO> cartList = cs.getCart(member);
+		model.addAttribute("cartList", cartList);
+
 		// 결제창으로 이동
-		
-		
+
 		// 결제창 리턴?
-		return"order_result";
+		return "admin/order_result";
 	}
 
+	/* 비동기 처리 */
+
 	// 하위 카테고리 클릭시 상품 비동기처리
-	@RequestMapping("/orderAjax.do")
+	@RequestMapping("/getProductAjax.do")
 	@ResponseBody
 	public List<ProductVO> orderAjax(CategoryVO vo) {
 
@@ -71,39 +80,40 @@ public class OrderController {
 	}
 
 	// 상품 추가시 디비 삽입
-	@RequestMapping("/orderInsertAjax.do")
+	@RequestMapping("/insertCartAjax.do")
 	@ResponseBody
 	public String orderInsertAjax(CartVO vo, HttpSession session) {
 
 		MemberVO member = (MemberVO) session.getAttribute("memberId");
 		vo.setId(member.getId());
 
-		cs.insertCart(vo);
-		return "ok";
+		;
+		String sys = cs.insertCart(vo);
+		System.out.println(sys);
+		return sys;
 	}
 
 	@RequestMapping(value = "/updateCartAjax.do", method = RequestMethod.POST)
 	@ResponseBody
 	public void updateCart(CartVO vo, HttpSession session) {
 
-		
 		MemberVO member = (MemberVO) session.getAttribute("memberId");
 		vo.setId(member.getId());
-		System.out.println(vo+"=====");
-		
+		System.out.println(vo + "=====");
+
 		cs.updateCart(vo);
 
 	}
 
 	// 상품 삭제시 디비 삭제
-	@RequestMapping(value = "/orderDeleteAjax.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/deleteCartAjax.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String orderDeleteAjax(CartVO vo, HttpSession session) {
 
 		// 아이디값은 세션에서 받아오기
 		MemberVO member = (MemberVO) session.getAttribute("memberId");
 		vo.setId(member.getId());
-		
+
 		cs.deleteCart(vo);
 		return "ok";
 	}
