@@ -55,10 +55,10 @@ public class MemberController {
 
 	// 로그아웃 코
 	@RequestMapping(value = "/logout.do", method = RequestMethod.GET)
-	public String logout(HttpSession session) {
+	public ModelAndView logout(HttpSession session,ModelAndView mav) {
 		session.invalidate();
-
-		return "account/login_page";
+		mav.setViewName("redirect:login_page.do");
+		return mav;
 	}
 
 	@RequestMapping(value = "/login_page.do", method = RequestMethod.POST)
