@@ -27,12 +27,19 @@ public class MemberDAOmybaits {
 		   return memberMybatis.selectList("MemberDAO.getMember",vo);
 		   
 	   }
+	   //마이페이지 수정
 	   public void updateMypage(MemberVO vo) {
 		   System.out.println("===> mybatis로  updateMypage실행");
 		   memberMybatis.update("MemberDAO.updateMypage", vo);
-		
+	   }
+		   //마이페이지 이미지수정
+		public void updateImg(MemberVO vo) {
+			System.out.println("==> mybatis로 updateImg실행");
+			memberMybatis.update("MemberDAO.updateImg",vo);
+		}
+		   
 	}  
-}
+
 
 //	   
 //	   //글 삭제

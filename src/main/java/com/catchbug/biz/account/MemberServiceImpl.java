@@ -33,4 +33,11 @@ public class MemberServiceImpl implements MemberService {
 		MemberDAO.updateMypage(vo);
 	}
 
+
+	@Override
+	public void updateImg(MemberVO vo) {
+		MemberDAO.updateImg(vo);
+		
+	}
+
 }

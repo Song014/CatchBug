@@ -60,17 +60,20 @@
 
 	<!-- ======= Sidebar ======= -->
 
-	<%-- <c:set var="user" value="${user }"/>
+
+	 <c:choose>
+	 <c:when test="${memberLevel==1}">
+	 	<jsp:include page="../mainInclude/sidebar_master.jsp"></jsp:include>
+	 </c:when> 
 	 
-	 <c:when test="${user.level != 2}">
-	 	<jsp:include page="sidebar(master).jsp"></jsp:include>
-	 </c:when> --%>
-
-	<%-- 	 <c:otherwise> --%>
-	<jsp:include page="../mainInclude/sidebar_user.jsp"></jsp:include>
-
-	<%--  		<jsp:include page="sidebar_master.jsp"></jsp:include> --%>
-	<%-- 	 </c:otherwise> --%>
+	  <c:when test="${memberLevel==2}">
+	 	<jsp:include page="../mainInclude/sidebar_user.jsp"></jsp:include>
+	 </c:when> 
+	 <c:when test="${memberLevel==3}">
+	 	<jsp:include page="../mainInclude/sidebar_user.jsp"></jsp:include>
+	 </c:when> 
+	 	 
+	</c:choose>
 
 	<!-- End Sidebar -->
 

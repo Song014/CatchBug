@@ -1,19 +1,23 @@
 
 package com.catchbug.biz.account;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.catchbug.biz.vo.MemberVO;
 
-@Controller
+@RestController
 public class MemberController {
 
 	@Autowired
@@ -21,26 +25,32 @@ public class MemberController {
 
 	// 회원가입 시작
 	@RequestMapping(value = "/sign_up.do", method = RequestMethod.GET)
-	public String MemeberSignUp() {
+	public ModelAndView MemeberSignUp() {
 		System.out.println("account/sign_up //회원가입 페이지에서  get방식  ");
-		return "account/sign_up";
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("account/sign_up");
+		return mav;
 	}
 
 	@RequestMapping(value = "/sign_up.do", method = RequestMethod.POST)
-	public String InsertMember(MemberVO vo) {
+	public ModelAndView InsertMember(MemberVO vo) {
 		System.out.println("account/sign_up //회원가입 폼에서 post방식 ");
+		
 		memberService.insertMember(vo);
-
-		return "account/login_page";
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("account/login_page");
+		return mav;
 	}
 	// 회원가입 끝
 
 	// 로그인 시작
 	@RequestMapping(value = "/login_page.do", method = RequestMethod.GET)
-	public String MemeberLoginReady() {
+	public ModelAndView MemeberLoginReady() {
 		System.out.println("account/login_page //로그인 페이지에서  get방식  ");
 
-		return "account/login_page";
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("account/login_page");
+		return mav;
 	}
 
 	@RequestMapping(value = "/login_page.do", method = RequestMethod.POST)
@@ -106,21 +116,25 @@ public class MemberController {
 
 	// 마이페이지
 	@RequestMapping(value = "/mypage.do", method = RequestMethod.GET)
-	public String Mypage() {
+	public ModelAndView Mypage() {
 		System.out.println("account/mypage //마이 페이지에서  get방식  ");
-
-		return "account/mypage";
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("account/mypage");
+		return mav;
 	}
 
 	// mypage / 마이페이지 수정
-	@RequestMapping(value = "/mypage.do", method = RequestMethod.POST)
-	public ModelAndView MypageOverview(MemberVO vo, MemberDAOmybaits memberDAO, ModelAndView mav, HttpSession session) {
+	//여러 페이지를 할떈 value="/mypage.do/:id" 이런식으로 rest를 쓰면 해결할수있다.
+	@RequestMapping(value = "/mypage.do/{page}", method = RequestMethod.POST)
+	public ModelAndView MypageOverview(@PathVariable("page") String page, MemberVO vo, MemberDAOmybaits memberDAO, ModelAndView mav, HttpSession session) throws IllegalStateException, IOException {
 		System.out.println("mypage / 마이페이지 수정 ");
 		memberService.updateMypage(vo);
-
 		List<MemberVO> member = memberService.getMember(vo);
 
-		for (MemberVO i : member) {
+		MultipartFile uploadImgFile = vo.getUploadImgFile();
+		
+		
+			for (MemberVO i : member) {
 			System.out.println(i);
 			System.out.println(i.getId());
 			System.out.println(vo.getId());
@@ -140,19 +154,25 @@ public class MemberController {
 					session.setAttribute("memberJoin_day", i.getRegdate());
 					session.setAttribute("memberLevel", i.getLevel1());
 					mav.addObject("member", member);
-					mav.setViewName("account/mypage");
+					
 					
 				}
 			}
-		return mav;
+		if(page=="1") {
+			memberService.updateImg(vo);
+			if(!uploadImgFile.isEmpty()) {
+				String fileName = uploadImgFile.getOriginalFilename();
+				uploadImgFile.transferTo(new File("C:\\work\\STS-bundle\\workspace\\CatchBug6\\src\\main\\webapp\\resources\\assets\\img"+fileName));
+				
+			mav.setViewName("account/mypage");
+		}else if(page=="2") {
+			mav.setViewName("account/mypage");
+		}else if(page=="3") {
+			mav.setViewName("account/mypage");
 		}
+		
+		}
+		return mav;
+	
 	}
-
-//if(user != null) {
-//mav.setViewName("redirect:getBoardList.do"); // url이 /getBoardList.do로 바로 가집니다. 
-//									//redirect : viewResolver를 무시하고 싶을때
-//}else {
-//mav.setViewName("redirect:login.jsp"); //url이 바로 /login.jsp로 가집니다.
-//}
-
-// 로그인 끝
+}

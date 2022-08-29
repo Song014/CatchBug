@@ -22,12 +22,17 @@
 			<!-- #{  } 는 vo객체에 자동 setter 주입 -->
 	</insert>
 	
+	
 	<select id="getMember" resultType="member" parameterType="String">
 		select * from member where id=#{id} and pass=#{pass}
 	</select>
 	
 	<update id="updateMypage">
 		update member set business_no=#{business_no}, business_name=#{business_name}, ceo=#{ceo}, contact=#{contact}, email=#{email}, business_address= #{business_address}  where id=#{id} 
+	</update>
+	
+	<update id="insertImg">
+		update member set uploadImgFile=#{updateImgFile}  where id=#{id}
 	</update>
 	<!--
 	 <select id="getBoard" resultType="board">

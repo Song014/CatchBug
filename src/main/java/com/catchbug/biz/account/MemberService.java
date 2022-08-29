@@ -14,5 +14,7 @@ public interface MemberService {
 		
 	//마이페이지 정보수정
 		void updateMypage(MemberVO vo);
-
+		
+	//마이페이지 이미지 수정
+		void updateImg(MemberVO vo);
 }

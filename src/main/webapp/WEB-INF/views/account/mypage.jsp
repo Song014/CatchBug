@@ -109,10 +109,10 @@
 				<div class="card">
 					<div
 						class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-						<img src="assets/img/profile-img.jpg" alt="Profile"
+						<img src="assets/img/mapleStory.jpg" alt="Profile"
 							class="rounded-circle">
-						<h2>Kevin 꺼억</h2>
-						<h3>프로 꺼억전문가</h3>
+						<h2>메이플스토리</h2>
+						<h3>10년째 메인모델</h3>
 						<div class="social-links mt-2">
 							<a href="#" class="twitter"><i class="bi bi-twitter"></i></a> <a
 								href="#" class="facebook"><i class="bi bi-facebook"></i></a> <a
@@ -141,7 +141,7 @@
 									data-bs-target="#profile-settings" aria-selected="false"
 									tabindex="-1" role="tab">Settings</button>
 							</li> -->
-							<li class="nav-item" role="presentation">
+							 <li class="nav-item" role="presentation">
 								<button class="nav-link" data-bs-toggle="tab"
 									data-bs-target="#profile-change-password" aria-selected="false"
 									tabindex="-1" role="tab">비밀번호 변경</button>
@@ -150,8 +150,34 @@
 						<div class="tab-content pt-2">
 							<div class="tab-pane fade show active profile-overview"
 								id="profile-overview" role="tabpanel">
-								<h5 class="card-title">About</h5>
-								<p class="small fst-italic">꺼억3세</p>
+		<!-- 자기소개 이미지 파일 변경 -->
+								<form action="mypage.do/1" method="post" enctype="multipart/form-data">
+								 <div class="row mb-3">
+										<label for="profileImage"
+											class="col-md-4 col-lg-3 col-form-label">Profile
+											Image</label>
+											
+											
+										<div class="col-md-8 col-lg-9">
+											 <img id="profileImg" src="assets/img/mapleStory.jpg" alt="Profile">
+											 <input type="file" name="uploadImgFile" accept=".jpg"/>
+											<div class="pt-2">
+											
+												<button type="reset"class="btn btn-danger btn-sm"
+													title="Remove my profile image"><i class="bi bi-trash"></i>
+													</button>
+													<button type="submit" class="btn btn-primary">저장</button>
+											</div>
+											
+											<!-- <button type="submit" class="class="btn btn-primary btn-sm"" title="Upload new profile image" <i	class="bi bi-upload"></i>></button>
+													 -->
+											<div id="div-preview">
+	        
+	       									</div>
+										</div>
+									</div> 
+								</form>
+			<!-- 자기소개 이미지 파일 변경 끝-->		
 								<h5 class="card-title">Profile Details</h5>
 								<div class="row">
 									<div class="col-lg-3 col-md-4 label ">아이디</div>
@@ -183,17 +209,19 @@
 									<div class="col-lg-9 col-md-8">${memberBusiness_address}</div>
 								</div>
 							</div>
+							
+							
 							<div class="tab-pane fade profile-edit pt-3" id="profile-edit"
 								role="tabpanel">
-								<!-- 마이페이지 자기소개 변경 폼 시작 -->
-								<!-- 현재 change 버튼 누르면 자기소개로 넘어가는데 데이터는 안넘어거감  -->
-								<form action="mypage.do" method="post">
-									<div class="row mb-3">
+		<!-- 마이페이지 자기소개 변경 폼 시작 -->
+							
+								<form action="mypage.do/2" method="post">
+									<!-- <div class="row mb-3">
 										<label for="profileImage"
 											class="col-md-4 col-lg-3 col-form-label">Profile
 											Image</label>
 										<div class="col-md-8 col-lg-9">
-											<img src="assets/img/profile-img.jpg" alt="Profile">
+											<img src="assets/img/mapleStory.jpg" alt="Profile">
 											<div class="pt-2">
 												<a href="#" class="btn btn-primary btn-sm"
 													title="Upload new profile image"><i
@@ -202,7 +230,7 @@
 													title="Remove my profile image"><i class="bi bi-trash"></i></a>
 											</div>
 										</div>
-									</div>
+									</div> -->
 									
 									  <div class="row mb-3">
 										<div class="col-md-8 col-lg-9">
@@ -261,13 +289,14 @@
 												id="Phone" value="${memberBusiness_address}">
 										</div>
 									</div>
+									
 									<div class="text-center">
 										<button type="submit" class="btn btn-primary">Save
 											Changes</button>
 									</div> 
 								</form>
 							</div>
-								<!-- 마이페이지 자기소개 변경 폼 끝 -->
+	<!-- 마이페이지 자기소개 변경 폼 끝 -->
 									
 									<!-- <div class="row mb-3">
 										<label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
@@ -354,22 +383,22 @@
 								마이페이지 셋팅 폼 끝
 								
 							</div> -->
-							<div class="tab-pane fade pt-3" id="profile-change-password"
+							 <div class="tab-pane fade pt-3" id="profile-change-password"
 								role="tabpanel">
-								<!-- 비밀번호 변경 폼 시작 -->
-								<form>
+	<!-- 비밀번호 변경 폼 시작 -->
+								<form action="mypage.do/3" method="post">
 									<div class="row mb-3">
 										<label for="currentPassword"
-											class="col-md-4 col-lg-3 col-form-label">Current
-											Password</label>
+											class="col-md-4 col-lg-3 col-form-label">현재 비밀번호
+											</label>
 										<div class="col-md-8 col-lg-9">
-											<input name="password" type="password" class="form-control"
+											<input name="pass" type="password" class="form-control"
 												id="currentPassword">
 										</div>
 									</div>
 									<div class="row mb-3">
 										<label for="newPassword"
-											class="col-md-4 col-lg-3 col-form-label">New Password</label>
+											class="col-md-4 col-lg-3 col-form-label">새 비밀번호</label>
 										<div class="col-md-8 col-lg-9">
 											<input name="newpassword" type="password"
 												class="form-control" id="newPassword">
@@ -377,8 +406,7 @@
 									</div>
 									<div class="row mb-3">
 										<label for="renewPassword"
-											class="col-md-4 col-lg-3 col-form-label">Re-enter New
-											Password</label>
+											class="col-md-4 col-lg-3 col-form-label">새 비밀번호 확인</label>
 										<div class="col-md-8 col-lg-9">
 											<input name="renewpassword" type="password"
 												class="form-control" id="renewPassword">
@@ -390,7 +418,7 @@
 									</div>
 								</form>
 								<!-- 비밀번호 변경 폼 끝 -->
-							</div>
+							</div> 
 						</div>
 					</div>
 				</div>
@@ -398,6 +426,7 @@
 		</div>
 	</section>
 	</main>
+	
 	<!-- End #main -->
 
 	<!-- ======= Footer ======= -->
@@ -428,7 +457,43 @@
 		document.getElementById('inputSearchDate').valueAsDate = new Date();
 	</script>
 
-
+<!-- 이미지 미리보기 기능 -->
+<script type="text/javascript">
+		let fileTag = document.querySelector("input[name=uploadImgFile]");
+		let divPreview = document.querySelector("#div-preview");
+		fileTag.onchange = function(){
+			
+			//파일 올렸을 때 : fileTag.files.length > 0
+			if(fileTag.files.length>0){
+				//이미지 src에 들어갈 데이터 구하기
+				for(let i=0; i<fileTag.files.length; i++){
+					let reader = new FileReader();
+					reader.onload = function(data){
+						let src = data.target.result;
+						//이미지 태그를 만들어서 넣어줄거임
+						//1. 이미지 태그 만들기
+						let imgTag = document.createElement('img');
+						
+						//2. 이미지 태그 속성들 세팅하기
+						imgTag.setAttribute('src', src);
+						imgTag.setAttribute('width', '100');
+						imgTag.setAttribute('height', '100');
+						
+						//3. 이미지 태그 div안에 넣기
+						divPreview.appendChild(imgTag);
+					}
+					reader.readAsDataURL(fileTag.files[i]);
+					
+				}//for end
+				
+			}else{
+			//취소 버튼을 눌렀을 때
+				//div 안에 싹 다 비우기
+				divPreview.innerHTML = "";
+			}
+		}
+	</script>
 </body>
+
 
 </html>
