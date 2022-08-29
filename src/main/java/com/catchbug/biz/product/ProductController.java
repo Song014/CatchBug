@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -23,7 +24,6 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.catchbug.biz.vo.ImgVO;
@@ -61,7 +61,7 @@ public class ProductController {
 	}
 
 	@PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<List<ImgVO>> productImgAjaxUpload(MultipartFile[] uploadFile) { // 여러개의 파일을 받을때를 대비
+	public ResponseEntity<List<ImgVO>> productImgAjaxUpload(MultipartFile[] uploadFile, HttpServletRequest req) { // 여러개의 파일을 받을때를 대비
 		System.out.println("이미지 업로드 에이작스 작동");
 
 		/* 이미지 파일 체크 */
@@ -86,7 +86,8 @@ public class ProductController {
 		}
 
 		/* 이미지 파일을 저장할 경로 김현민 맥북 기준으로 작성 */
-		String uploadFolder = "/Users/hyeon1339/resources";
+		String uploadFolder = "/Users/hyeon1339/CatchBugProject/src/main/webapp/resources/productImg";
+		System.out.println(uploadFolder);
 
 		/* 날짜 폴더 경로 */
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

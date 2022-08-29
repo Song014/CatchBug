@@ -4,12 +4,31 @@
 
 <mapper namespace="StockMapper">
 
-<select id="getProductList" resultType="product">
-	select * from product order by add_day desc
-</select>
+	<select id="getProductList" resultType="product">
+		select * from product order by add_day desc
+	</select>
 
-<select id="getProductListC" parameterType="category" resultType="product">
-	select * from product where sub_category=#{sub_category}
-</select>
+	<select id="getProductListC" parameterType="category"
+		resultType="product">
+		select * from product where sub_category=#{sub_category}
+	</select>
+
+
+	<select id="searchProduct"
+		parameterType="com.catchbug.biz.vo.ProductVO"
+		resultType="com.catchbug.biz.vo.ProductVO">
+		SELECT *
+		FROM product
+		WHERE product_name like
+		'%'||'${product_name}'||'%'
+		ORDER BY product_no desc
+	</select>
+	
+	<select id="getProductListO" parameterType="product" resultType="product">
+		SELECT *
+		FROM product
+		WHERE product_no = ${product_no}
+	</select>
+
 
 </mapper>
