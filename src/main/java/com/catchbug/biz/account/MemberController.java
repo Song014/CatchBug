@@ -35,7 +35,7 @@ public class MemberController {
 	@RequestMapping(value = "/sign_up.do", method = RequestMethod.POST)
 	public ModelAndView InsertMember(MemberVO vo) {
 		System.out.println("account/sign_up //회원가입 폼에서 post방식 ");
-		
+
 		memberService.insertMember(vo);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("account/login_page");
@@ -56,62 +56,17 @@ public class MemberController {
 	@RequestMapping(value = "/login_page.do", method = RequestMethod.POST)
 	public ModelAndView MemberLogin(MemberVO vo, MemberDAOmybaits memberDAO, ModelAndView mav, HttpSession session) {
 		System.out.println("account/login_page //로그인 페이지에서  post방식 ");
-		List<MemberVO> member = memberService.getMember(vo);
+		MemberVO member = memberService.getMember(vo);
 
-//		Iterator mem = member.iterator();
-//		while(mem.hasNext()) {
-//			System.out.println(mem.next());
-//		}
-
-		for (MemberVO i : member) {
-			System.out.println(i);
-			System.out.println(i.getId());
-			System.out.println(vo.getId());
-
-			if (i.getId() != null) {
-				if (i.getLevel1() == 1) {
-					System.out.println("환영합니다" + i.getId() + "님 어서오세요. 등급은 " + i.getLevel1() + "입니다");
-
-					session.setAttribute("member", i);
-					session.setAttribute("memberId", i.getId());
-					session.setAttribute("memberPass", i.getPass());
-					session.setAttribute("memberBusiness_no", i.getBusiness_no());
-					session.setAttribute("memberBusiness_name", i.getBusiness_name());
-					session.setAttribute("memberCeo", i.getCeo());
-					session.setAttribute("memberContact", i.getContact());
-					session.setAttribute("memberEmail", i.getEmail());
-					session.setAttribute("memberBusiness_address", i.getBusiness_address());
-					session.setAttribute("memberJoin_day", i.getRegdate());
-					session.setAttribute("memberLevel", i.getLevel1());
-					mav.addObject("member", member);
-					mav.setViewName("account/mypage");
-				} else if (i.getLevel1() == 2) {
-					System.out.println("환영합니다" + i.getId() + "님 어서오세요. 등급은 " + i.getLevel1() + "입니다");
-					session.setAttribute("member", i);
-					session.setAttribute("memberId", i.getId());
-					session.setAttribute("memberPass", i.getPass());
-					session.setAttribute("memberBusiness_no", i.getBusiness_no());
-					session.setAttribute("memberBusiness_name", i.getBusiness_name());
-					session.setAttribute("memberCeo", i.getCeo());
-					session.setAttribute("memberContact", i.getContact());
-					session.setAttribute("memberEmail", i.getEmail());
-					session.setAttribute("memberBusiness_address", i.getBusiness_address());
-					session.setAttribute("memberJoin_day", i.getRegdate());
-					session.setAttribute("memberLevel", i.getLevel1());
-					mav.addObject("member", member);
-					mav.setViewName("account/mypage");
-
-				} else if (i.getLevel1() == 3) {
-					System.out.println("환영합니다" + i.getId() + "님 어서오세요. 등급은 " + i.getLevel1() + "입니다");
-					session.setAttribute("memberId", i.getId());
-					session.setAttribute("memberLevel", i.getLevel1());
-					mav.addObject("member", member);
-					mav.setViewName("account/mypage");
-				}
-			}
+		if (member != null) {
+			System.out.println("환영합니다" + member.getId() + "님 어서오세요. 등급은 " + member.getLevel1() + "입니다");
+			// 세션에 멤버에대한 값들 전부 담아주실꺼면 아래처럼 한번에 담아주시고 프론트단에서 ${member.id} ${member.pass} 이런식으로 el태그 써주시면 됩니다
+			session.setAttribute("member", member);
+			mav.setViewName("account/mypage");
 		}
 		return mav;
 	}
+
 	// 로그인끝
 
 	// 마이페이지
@@ -124,55 +79,38 @@ public class MemberController {
 	}
 
 	// mypage / 마이페이지 수정
-	//여러 페이지를 할떈 value="/mypage.do/:id" 이런식으로 rest를 쓰면 해결할수있다.
+	// 여러 페이지를 할떈 value="/mypage.do/:id" 이런식으로 rest를 쓰면 해결할수있다.
 	@RequestMapping(value = "/mypage.do/{page}", method = RequestMethod.POST)
-	public ModelAndView MypageOverview(@PathVariable("page") String page, MemberVO vo, MemberDAOmybaits memberDAO, ModelAndView mav, HttpSession session) throws IllegalStateException, IOException {
+	public ModelAndView MypageOverview(@PathVariable("page") String page, MemberVO vo, MemberDAOmybaits memberDAO,
+			ModelAndView mav, HttpSession session) throws IllegalStateException, IOException {
 		System.out.println("mypage / 마이페이지 수정 ");
 		memberService.updateMypage(vo);
-		List<MemberVO> member = memberService.getMember(vo);
-
+		MemberVO member = memberService.getMember(vo);
+		
+		if (member != null) {
+			System.out.println("환영합니다" + member.getId() + "님 어서오세요. 등급은 " + member.getLevel1() + "입니다");
+			session.setAttribute("member", member); // 세션 재할당?
+		}
+		
 		MultipartFile uploadImgFile = vo.getUploadImgFile();
 		
-		
-			for (MemberVO i : member) {
-			System.out.println(i);
-			System.out.println(i.getId());
-			System.out.println(vo.getId());
-
-			if (i.getId() != null) {
-					System.out.println("환영합니다" + i.getId() + "님 어서오세요. 등급은 " + i.getLevel1() + "입니다");
-
-					session.setAttribute("member", i);
-					session.setAttribute("memberId", i.getId());
-					session.setAttribute("memberPass", i.getPass());
-					session.setAttribute("memberBusiness_no", i.getBusiness_no());
-					session.setAttribute("memberBusiness_name", i.getBusiness_name());
-					session.setAttribute("memberCeo", i.getCeo());
-					session.setAttribute("memberContact", i.getContact());
-					session.setAttribute("memberEmail", i.getEmail());
-					session.setAttribute("memberBusiness_address", i.getBusiness_address());
-					session.setAttribute("memberJoin_day", i.getRegdate());
-					session.setAttribute("memberLevel", i.getLevel1());
-					mav.addObject("member", member);
-					
-					
-				}
-			}
-		if(page=="1") {
+		if (page == "1") {
 			memberService.updateImg(vo);
-			if(!uploadImgFile.isEmpty()) {
+			if (!uploadImgFile.isEmpty()) {
 				String fileName = uploadImgFile.getOriginalFilename();
-				uploadImgFile.transferTo(new File("C:\\work\\STS-bundle\\workspace\\CatchBug6\\src\\main\\webapp\\resources\\assets\\img"+fileName));
-				
-			mav.setViewName("account/mypage");
-		}else if(page=="2") {
-			mav.setViewName("account/mypage");
-		}else if(page=="3") {
-			mav.setViewName("account/mypage");
-		}
-		
+				uploadImgFile.transferTo(
+						new File("C:\\work\\STS-bundle\\workspace\\CatchBug6\\src\\main\\webapp\\resources\\assets\\img"
+								+ fileName));
+
+				mav.setViewName("account/mypage");
+			} else if (page == "2") {
+				mav.setViewName("account/mypage");
+			} else if (page == "3") {
+				mav.setViewName("account/mypage");
+			}
+
 		}
 		return mav;
-	
+
 	}
 }

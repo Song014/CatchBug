@@ -1,7 +1,5 @@
 package com.catchbug.biz.account;
 
-import java.util.List;
-
 import com.catchbug.biz.vo.MemberVO;
 
 public interface MemberService {
@@ -10,7 +8,7 @@ public interface MemberService {
 		void insertMember(MemberVO vo);
 		
 	//로그인
-		List<MemberVO> getMember(MemberVO vo);
+		MemberVO getMember(MemberVO vo);
 		
 	//마이페이지 정보수정
 		void updateMypage(MemberVO vo);
