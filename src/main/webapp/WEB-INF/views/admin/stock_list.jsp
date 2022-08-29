@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -65,56 +66,286 @@
 	<!-- main start -->
 	<main id="main" class="main">
 	<div class="pagetitle">
-		<h1>상품 리스트</h1>
+		<h1>상품 리스트 조회</h1>
 		<nav>
 			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a href="index.html">Home</a></li>
-				<li class="breadcrumb-item">재고관리</li>
-				<li class="breadcrumb-item active">상품 리스트</li>
+				<li class="breadcrumb-item"><a href="/">가맹점 관리</a></li>
+				<li class="breadcrumb-item active">상품리스트</li>
 			</ol>
 		</nav>
 	</div>
-	<div class="dataTable-top">
+	<!-- End Page Title -->
 
-		<div class="dataTable-search">
-			<input class="dataTable-input" placeholder="Search..." type="text">
+	<section class="section dashboard">
+
+
+		<div class="card">
+			<div class="card-body">
+				<div class="row">
+					<!-- 카테고리  -->
+					<div class="col-lg-2" style="margin-top: 3em;">
+						<c:forEach var="m" items="${mainCategory }" varStatus="status">
+							<div class="accordion" id="accordionExample">
+								<!-- ToDo 대분류 1,2,3, 일때 해당하는 카테고리 이름 -->
+
+								<div class="accordion-item">
+									<h2 class="accordion-header" id="headingOne">
+										<button class="accordion-button collapsed" type="button"
+											data-bs-toggle="collapse"
+											data-bs-target="#collapse${status.count }"
+											aria-expanded="false"
+											aria-controls="collapse${status.count }">
+											${m.main_name}</button>
+									</h2>
+									<div id="collapse${status.count }"
+										class="accordion-collapse collapse"
+										aria-labelledby="headingOne"
+										data-bs-parent="#accordionExample" style="">
+										<!-- ToDo 대분류 1 , 2 , 3 에 해당하는 서브카테고리 이름 -->
+										<div class="accordion-body" style="padding: 1px">
+											<c:forEach var="s" items="${subCategory}">
+												<c:if test="${m.main_category eq s.main_category}">
+													<div class="list-group">
+														<input type="hidden" class="subCategoryNo"
+															value="${s.sub_category }">
+														<button type="button"
+															class="list-group-item list-group-item-action getCategory">
+															${s.sub_name }</button>
+													</div>
+												</c:if>
+											</c:forEach>
+										</div>
+									</div>
+								</div>
+							</div>
+						</c:forEach>
+					</div>
+					<div class="col-lg-10">
+						<!-- 카테고리 선택창 -->
+						<div>
+							<div align="right" class="dataTable-top">
+								<div class="col-md-3">
+									<input class="dataTable-input" placeholder="상품명을 입력해 주세요."
+										type="text" id="searchWord">
+									<button class="btn btn-primary" type="submit" id="searchButton">검색</button>
+								</div>
+							</div>
+							<!-- 상품 리스트 -->
+							<table class="table table-borderless top-selling" id="category">
+								<thead>
+									<tr>
+										<th scope="col">번호</th>
+										<th scope="col">이미지</th>
+										<th scope="col">상품 번호</th>
+										<th scope="col">상품 명</th>
+										<th scope="col">개당 가격</th>
+										<th scope="col">등록 일자</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach var="list" items="${product }" varStatus="status">
+										<tr>
+											<td>${status.count }</td>
+											<th scope="row"><a href="#"><img
+													src="https://via.placeholder.com/60" alt=""></a></th>
+											<td>${list.product_no }</td>
+											<td><a class="primary product_modal"
+												data-bs-toggle="modal" data-bs-target="#modalProduct"
+												id="${list.product_no}">${list.product_name }</a></td>
+											<!--해당 상품 모달띄우기 -->
+
+											<td>${list.price }</td>
+											<td><fmt:formatDate value="${list.add_day }"
+													pattern="yyyy-MM-dd" /></td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+							<!-- 상품 리스트 -->
+						</div>
+					</div>
+				</div>
+			</div>
+
+
 		</div>
-	</div>
-	<div class="dataTable-container">
-		<table class="table table-hover"  style="text-align: center">
-			<thead>
-				<tr>
-					<th scope="col" data-sortable="" style="width: 5%;"><a
-						href="#" class="dataTable-sorter">NO.</a></th>
-					<th scope="col" data-sortable="" style="width: 12%;"><a
-						href="#" class="dataTable-sorter">상품번호</a></th>
-					<th scope="col" data-sortable="" style="width: 12%;"><a
-						href="#" class="dataTable-sorter">브랜드 / 제조사</a></th>
-					<th scope="col" data-sortable="" style="width: 44%;"><a
-						href="#" class="dataTable-sorter">상품명</a></th>
-					<th scope="col" data-sortable="" style="width: 10%;"><a
-						href="#" class="dataTable-sorter">재고 수량</a></th>
-					<th scope="col" data-sortable="" style="width: 16%;"><a
-						href="#" class="dataTable-sorter">개당 가격</a></th>
-					<th scope="col" data-sortable="" style="width: 16%;"><a
-						href="#" class="dataTable-sorter">등록 날짜</a></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<th scope="row">1</th>
-					<td>15-27363</td>
-					<td>AMD</td>
-					<td><a href="#">라이젠5 4세대 5600x</a></td>
-					<td>15</td>
-					<td>300,000</td>
-					<td>22/08/01</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+	</section>
 
 	</main>
+	<!-- End #main -->
+
+	<!-- 모달창 -->
+	<div class="modal fade" id="modalProduct" tabindex="-1">
+		<div class="modal-dialog modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">상품 상세정보 보기페이지</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="card">
+						<div class="card-body">
+							<div class="card-title" id="modal-product-name">
+								<h5>상품이름 이거입니다.</h5>
+							</div>
+							<table class="table" id="productModal">
+								<thead>
+									<tr>
+										<th scope="col" style="width: 20%;">상품코드</th>
+										<th scope="col" style="width: 26%;">제조사</th>
+										<th scope="col" style="width: 13%;">가격</th>
+										<th scope="col" style="width: 15%;">등록일</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr id="select-modal">
+										<th scope="row">00001</th>
+										<td>마우스</td>
+										<td>삼성전자</td>
+										<td>15000</td>
+										<td>날짜입력</td>
+									</tr>
+								</tbody>
+							</table>
+
+							<div id="productModalImg"></div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 해당상품 모달 끝 -->
+
+
+	<script type="text/javascript">
+	
+	// 검색버튼을 클릭시 테이블 비동기처리
+	$("#searchButton").on("click",function(e){
+		e.preventDefault();
+		
+		const searchWord = $("#searchWord").val();
+		
+		$.ajax({
+			type: "GET",
+			url: "searchAjax.do?product_name=" + searchWord, //검색값을 담아서 컨트롤러로 전달
+			dataType : "json",
+			success : function(result){
+				$("#category tbody tr").remove();
+				result.forEach(function(result){
+					console.log(result)
+					const str =`
+						<tr>
+							<td>1</td>
+							<th scope="row"><a href="#"><img
+									src="https://via.placeholder.com/60" alt=""></a></th>
+							<td>`+result.product_no+`</td>
+							<td><a class="primary product_modal" data-bs-toggle="modal"
+								data-bs-target="#modalProduct" id="`+result.product_no+`">`+result.product_name+`</a></td>
+							<td>`+result.price+`</td>
+							<td>`+result.add_day+`</td>
+						</tr>
+						`;
+						
+						$("#category tbody").append(str);
+				})
+			}
+		})
+		
+	});
+	</script>
+
+
+	<script type="text/javascript">
+	
+	let trArr = new Array();
+	// 하위 카테고리 클릭시 해당하는 품목 비동기 처리
+	$(".getCategory").on("click", function(e) {
+		e.preventDefault();
+		
+		const no = $(this).parent().find(".subCategoryNo").val();
+		
+		$.ajax({
+			type : "GET", //요청 메소드 방식
+			url : "orderAjax.do?sub_category="+no,
+			dataType : "json", //서버가 요청 URL을 통해서 응답하는 내용의 타입
+			success : function(result) {
+				$("#category tbody tr").remove(); // 기존 존재하는 테이블 삭제
+				result.forEach(function(result) {
+					const str =`
+						<tr>
+							<td>1</td>
+							<th scope="row"><a href="#"><img
+									src="https://via.placeholder.com/60" alt=""></a></th>
+							<td>`+result.product_no+`</td>
+							<td><a class="primary product_modal" data-bs-toggle="modal"
+								data-bs-target="#modalProduct" id="`+result.product_no+`">`+result.product_name+`</a></td>
+							<td>`+result.add_day+`</td>
+							<td>재고량나올곳</td>
+							<td>`+result.price+`</td>
+						</tr>
+						`;
+						
+						$("#category tbody").append(str);
+				});
+				
+				console.log("ajax 성공");
+			},
+			error : function(a, b, c) {
+				//통신 실패시 발생하는 함수(콜백)
+				console.log("실패" + a, b, c);
+			}
+		});
+	})
+	
+	</script>
+
+	<script type="text/javascript">
+	// 모달창 비동기처리
+	$(document).on("click", ".product_modal", function (e) {
+		console.log("모달 비동기처리 작동");
+		e.preventDefault();
+		var tagId = e.target.id;
+		
+		
+		$.ajax({
+			type: "GET",
+			url: "/modalAjax.do?product_no=" + tagId, //선택 태그의 아이디값을 찾아서 전달
+			dataType : "json",
+			success : function(result){
+				$("#productModal tbody tr").remove();
+				$("#productModalImg img").remove();
+				$("#modal-product-name h5").remove();
+				result.forEach(function(result){
+					console.log(result);
+					const str = `
+						<tr id="select-modal">
+							<th scope="row">`+result.product_no+`</th>
+							<td>`+result.product_name+`</td>
+							<td>`+result.price+`</td>
+							<td>`+result.add_day+`</td>
+						</tr>
+					`;
+					const title = `<h5>`+result.product_name+`</h5>`;
+					console.log(title);
+					const imgPath = "/resources/productImg/" + result.add_day + "/" + result.uuid;
+					console.log(imgPath);
+					const imgStr = `<img src="`+imgPath +`"/>`
+					$("#modal-product-name").append(title);
+					$("#productModalImg").append(imgStr);
+					$("#productModal tbody").append(str);
+				})
+			}
+		})
+		
+	});
+			</script>
+	<!-- End #main -->
 
 	<!-- ======= Footer ======= -->
 

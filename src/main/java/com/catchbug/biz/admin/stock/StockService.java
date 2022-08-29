@@ -18,6 +18,10 @@ public interface StockService {
 	void insertCart(ProductVO vo);
 
 	void deleteCart(ProductVO vo);
+	
+	List<ProductVO> searchProductList(ProductVO vo);
+	
+	List<ProductVO> getProductListO(ProductVO vo);
 
 	
 }

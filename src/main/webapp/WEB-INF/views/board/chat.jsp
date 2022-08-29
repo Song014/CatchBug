@@ -73,7 +73,7 @@
 	<div class="card">
 		<div class="card-header">전체 이용자 채팅</div>
 		<div class="card-body">
-			<h5 class="card-title">${memberId.ceo }님 자유롭게 채팅하세요.</h5>
+			<h5 class="card-title">${member.ceo}님 자유롭게 채팅하세요.</h5>
 
 			<div id="msgArea" class="col"></div>
 
@@ -84,7 +84,7 @@
 					aria-label="Recipient's username" aria-describedby="button-addon2">
 				<div class="input-group-append">
 					<button class="btn btn-outline-secondary" type="button"
-						id="button-send" onclick="msgSend()">전송</button>
+						id="button-send">전송</button>
 				</div>
 			</div>
 
@@ -102,8 +102,8 @@
 	<script>
             $(document).ready(function(){
 
-            const username = '${memberId.ceo}'
-
+            const username = '${member.ceo}'
+            
             $("#disconn").on("click", (e) => {
                 disconnect();
             })
@@ -112,7 +112,7 @@
                 send();
             });
 
-            const websocket = new WebSocket("ws://192.168.0.39:8080/ws/chat");
+            const websocket = new WebSocket("ws://localhost:8080/ws/chat");
 
             websocket.onmessage = onMessage;
             websocket.onopen = onOpen;
@@ -121,9 +121,7 @@
             function send(){
 
                 let msg = document.getElementById("msg");
-
-                console.log(username + ">>" + msg.value);
-                websocket.send(username + ">>" + msg.value);
+                websocket.send(username + ":" + msg.value);
                 msg.value = '';
             }
             
