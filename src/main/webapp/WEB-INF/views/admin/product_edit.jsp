@@ -149,8 +149,15 @@
 				</div>
 			</div>
 
-			<div class="col-sm-10">
-				<button type="submit" class="btn btn-primary">상품 등록</button>
+			<div class="row mb-3">
+				<div class="col-md-4 col-lg-3"><button type="button" class="btn btn-secondary rounded-pill" onclick="location.href='stockList.do'">취소</button>
+					<button type="submit" class="btn btn-primary rounded-pill">상품
+						수정</button>
+				</div>
+				<div class="col-md-4 col-lg-8"></div>
+				<div class="col-md-4 col-lg-1" style="text-align: right">
+					<button type="button" class="btn btn-danger rounded-pill" onclick="deleteProduct(${product.product_no})">상품 삭제</button>
+				</div>
 			</div>
 			<div id="uploadResult" class="col-md-12 col-lg-12"
 				name="uploadResult">
@@ -158,9 +165,9 @@
 			</div>
 		</form>
 	</div>
-	<img src="resources/productImg/<fmt:formatDate value="${product.add_day }" pattern="yyyy-MM-dd" />/${product.uuid }" alt="Profile" class="rounded-circle">
-
-	</main>
+	<img
+		src="resources/productImg/<fmt:formatDate value="${product.add_day }" pattern="yyyy-MM-dd" />/${product.uuid }"
+		alt="Profile" class="rounded-circle"> </main>
 
 	<!-- ======= Footer ======= -->
 
@@ -317,6 +324,14 @@
 
 			uploadResult.append(str);
 
+		}
+		
+		/* 상품 삭제진행을 위한함수*/
+		function deleteProduct(input){
+			if(confirm("상품을 삭제하시겠습니까?")){
+				var url = "deleteProduct.do?product_no=" + input;
+				location.href= url;
+			}
 		}
 	</script>
 
