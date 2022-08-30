@@ -40,5 +40,21 @@ public class ProductServiceImpl implements ProductService {
 		
 	}
 
+	@Override
+	public ProductVO getProduct(ProductVO vo) {
+		return pDao.getProduct(vo);
+	}
+
+	@Override
+	public void updateProduct(ProductVO vo) {
+		pDao.updateProduct(vo);
+		
+	}
+
+	@Override
+	public void updateImg(ImgVO vo) {
+		pDao.updateImg(vo);
+	}
+
 
 }
