@@ -25,7 +25,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.catchbug.biz.vo.CategoryVO;
 import com.catchbug.biz.vo.ImgVO;
 import com.catchbug.biz.vo.ProductVO;
 
@@ -37,6 +39,25 @@ public class ProductController {
 
 	@Autowired
 	private ProductService productService;
+	
+	// 상품 수정페이지 이동
+	@RequestMapping("/product_edit")
+	public String ProductEdit(ProductVO vo, Model model) {
+		
+		model.addAttribute("maincategory", productService.getMainCategory());
+		model.addAttribute("subCategory", JSONArray.fromObject(productService.getSubCategory()));
+		model.addAttribute("product",productService.getProduct(vo));
+
+		return "admin/product_edit";
+	}
+	
+	@PostMapping("/updateProduct.do")
+	public String UpdateProduct(ProductVO vo, ImgVO ivo) {
+		productService.updateProduct(vo);
+		productService.updateImg(ivo);
+		
+		return "redirect:stockList.do";
+	}
 
 	// 상품 등록
 	@RequestMapping("/productRegister.do")

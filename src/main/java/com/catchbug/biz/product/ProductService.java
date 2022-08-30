@@ -16,4 +16,10 @@ public interface ProductService {
 	public void insertProduct(ProductVO vo);
 	
 	public void insertImg(ImgVO vo);
+	
+	public ProductVO getProduct(ProductVO vo);
+	
+	public void updateProduct(ProductVO vo);
+	
+	public void updateImg(ImgVO vo);
 }

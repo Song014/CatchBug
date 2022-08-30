@@ -18,23 +18,31 @@ public class ProductDAO {
 	private SqlSessionTemplate mybatis;
 	
 	public List<MainCategoryVO> getMainCategory(){
-		System.out.println("==>getMainCategory DAO 작동");
 		return mybatis.selectList("Product.mainCategory");
 	}
 	
 	public List<SubCategoryVO> getSubCategory(){
-		System.out.println("==>getSubCategory DAO 작동");
 		return mybatis.selectList("Product.subCategory");
 	}
 	
 	public void insertProduct(ProductVO vo) {
-		System.out.println("==>insertProduct DAO 작동");
 		mybatis.insert("Product.insertProduct", vo);
 	}
 	
 	public void insertImg(ImgVO vo) {
-		System.out.println("==>insertImg DAO 작동");
 		mybatis.insert("Product.insertImg",vo);
+	}
+	
+	public ProductVO getProduct(ProductVO vo) {
+		return mybatis.selectOne("Product.getProduct",vo);
+	}
+	
+	public void updateProduct(ProductVO vo) {
+		mybatis.update("Product.updateProduct",vo);
+	}
+	
+	public void updateImg(ImgVO vo) {
+		mybatis.update("Product.updateImg",vo);
 	}
 	
 	

@@ -140,7 +140,6 @@
 										<th scope="col">상품 명</th>
 										<th scope="col">개당 가격</th>
 										<th scope="col">등록 일자</th>
-										<th scope="col">비 고</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -153,12 +152,11 @@
 											<td><a class="primary product_modal"
 												data-bs-toggle="modal" data-bs-target="#modalProduct"
 												id="${list.product_no}">${list.product_name }</a></td>
+											<!--해당 상품 모달띄우기 -->
+
 											<td>${list.price }</td>
 											<td><fmt:formatDate value="${list.add_day }"
 													pattern="yyyy-MM-dd" /></td>
-											<td><button type="button" id="productEdit"
-													class="btn btn-primary btn-sm"
-													onclick="location.href='product_edit?product_no=${list.product_no}'">상품수정</button></td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -290,7 +288,6 @@
 							<td>`+result.add_day+`</td>
 							<td>재고량나올곳</td>
 							<td>`+result.price+`</td>
-							<td><button type="button" id="productEdit" class="btn btn-primary btn-sm" onclick="location.href='product_edit?product_no=`+result.product_no+`'">상품수정</button></td>
 						</tr>
 						`;
 						

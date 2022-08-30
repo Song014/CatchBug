@@ -153,7 +153,7 @@
 									class="bi bi-chevron-down ms-auto"></i>
 							</a>
 							<ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-								<li><a href="stockList.do"> <i class="bi bi-circle"></i><span>상품
+								<li><a href="francStockList.do"> <i class="bi bi-circle"></i><span>상품
 											리스트</span>
 									</a></li>
 								<li><a href="francOrder.do"> <i class="bi bi-circle"></i>

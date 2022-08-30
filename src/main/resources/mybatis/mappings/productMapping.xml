@@ -15,7 +15,7 @@
 		FROM sub_category
 	</select>
 	
-	<insert id="insertProduct" parameterType="com.catchbug.biz.vo.ProductVO">
+	<insert id="insertProduct" parameterType="product">
 		INSERT INTO product
 		values(#{product_no},#{sub_category},#{product_name},#{price},sysdate,#{product_img},#{brand},#{uuid})
 	</insert>
@@ -24,5 +24,23 @@
 		INSERT INTO img
 		values(#{product_no}, #{fileName}, #{uploadPath}, #{uuid})
 	</insert>
+	
+	<select id="getProduct" parameterType="product" resultType="product">
+		SELECT *
+		FROM product
+		WHERE product_no = #{product_no}
+	</select>
+	
+	<update id="updateProduct" parameterType="product">
+		UPDATE product
+		SET sub_category = #{sub_category}, product_name = #{product_name}, price = #{price},add_day = sysdate, product_img = #{product_img}, brand = #{brand}, uuid = #{uuid}
+		WHERE product_no = #{product_no}
+	</update>
+	
+	<update id="updateImg" parameterType="com.catchbug.biz.vo.ImgVO">
+		UPDATE img
+		SET filename = #{fileName}, uploadPath = #{uploadPath}, uuid = #{uuid}
+		WHERE product_no = #{product_no}
+	</update>
 
 </mapper>
