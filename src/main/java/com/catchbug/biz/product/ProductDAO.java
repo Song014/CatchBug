@@ -45,6 +45,10 @@ public class ProductDAO {
 		mybatis.update("Product.updateImg",vo);
 	}
 	
+	public void deleteProduct(ProductVO vo) {
+		mybatis.delete("Product.deleteProduct",vo);
+	}
+	
 	
 
 }

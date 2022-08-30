@@ -40,6 +40,13 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 	
+	// 상품 삭제를 위한 컨트롤러
+	@RequestMapping("/deleteProduct.do")
+	public String DeleteProduct(ProductVO vo) {
+		productService.deleteProduct(vo);
+		return "redirect:stockList.do";
+	}
+	
 	// 상품 수정페이지 이동
 	@RequestMapping("/product_edit")
 	public String ProductEdit(ProductVO vo, Model model) {

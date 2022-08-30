@@ -22,4 +22,6 @@ public interface ProductService {
 	public void updateProduct(ProductVO vo);
 	
 	public void updateImg(ImgVO vo);
+	
+	public void deleteProduct(ProductVO vo);
 }

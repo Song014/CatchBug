@@ -56,5 +56,10 @@ public class ProductServiceImpl implements ProductService {
 		pDao.updateImg(vo);
 	}
 
+	@Override
+	public void deleteProduct(ProductVO vo) {
+		pDao.deleteProduct(vo);
+	}
+
 
 }
