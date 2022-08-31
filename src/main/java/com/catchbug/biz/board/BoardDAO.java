@@ -15,10 +15,16 @@ public class BoardDAO {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 	
+	//자유게시판 글쓰기 목록 불러오기
+	public List<BoardVO> GetFreeBoard(BoardVO vo) {
+		return mybatis.selectList("BoardMapper.getFreeBoard",vo);
+	}
+	
 	//자유게시판 글쓰기 등록
 	public void FreeBoardWrite(BoardVO vo) {
 		mybatis.insert("BoardMapper.freeBoardWrite",vo);
 	}
+	
 	
 	// 공지 리스트
 	public List<NotiVO> get_Noti_list() {
@@ -56,5 +62,9 @@ public class BoardDAO {
 		mybatis.delete("BoardMapper.notidelete", vo);
 	}
 	
+	// 페이지 이동을위한 계산메소드
+	public int getTotal() {
+		return mybatis.selectOne("BoardMapper.getTotal");
+	}
 	
 }

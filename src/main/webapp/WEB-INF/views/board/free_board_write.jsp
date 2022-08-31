@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>Dashboard - NiceAdmin Bootstrap Template</title>
+<title>게시판 - 자유게시판 - 글쓰기</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -94,20 +94,18 @@
 					<div class="col-sm-2">
 						<div class="mb-3">
 							<select class="form-select" id="floatingSelect" name="tap">
-								<option selected="0">탭</option>
-								<option value="1">주문</option>
-								<option value="2">상품</option>
-								<option value="3">배송</option>
-								<option value="4">회원</option>
-								<option value="5">사이트</option>
+								<option selected="" value="0">선택</option>
+								<option value="1">잡담</option>
+								<option value="2">정보</option>
+								<option value="3">유머</option>
 							</select>
 						</div>
 					</div>
 					<div class="col-sm-10">
-						<input type="text" class="form-control" placeholder="제목"
-							name="title" /> <input type="text" hidden="hidden" name="id"
-							value="${member.id }" /> <input type="text" hidden="hidden"
-							name="content" value="" />
+						<input type="text" class="form-control" placeholder="제목" name="title" />
+						<input type="text" hidden="hidden" name="id" value="${member.id }" />
+						<input type="text" hidden="hidden" name="business_name" value="${member.business_name }" />
+						<input type="text" hidden="hidden" name="content" value="" />
 					</div>
 				</div>
 

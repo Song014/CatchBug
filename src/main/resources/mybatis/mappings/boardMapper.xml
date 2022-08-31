@@ -7,38 +7,86 @@
 
 	<!-- 공지 리스트 -->
 	<select id="gerNotiList" resultType="noti">
-		select * from notice order by noti_no desc
+		select * from notice order
+		by noti_no desc
 	</select>
 	<!-- 공지 쓰기 -->
 	<insert id="insertNoti" parameterType="noti">
-		insert into notice(noti_no, id, noti_title, writer, noti_content) values
-		((select nvl(max(noti_no),0) + 1 from
+		insert into
+		notice(noti_no, id, noti_title, writer, noti_content) values
+		((select
+		nvl(max(noti_no),0) + 1 from
 		notice),#{id},#{noti_title},#{writer},#{noti_content})
 	</insert>
 	<!-- 공지 조회수 카운트 -->
 	<update id="notiCntCount" parameterType="noti">
-		update notice set cnt = cnt + 1 where noti_no = #{noti_no}
+		update notice set cnt =
+		cnt + 1 where noti_no = #{noti_no}
 	</update>
 	<!-- 공지 상세보기 -->
 	<select id="detailNoti" parameterType="noti" resultType="noti">
-		select noti_title, noti_content,noti_no from notice where noti_no =
+		select
+		noti_title, noti_content,noti_no from notice where noti_no =
 		#{noti_no}
 	</select>
 	<!-- 공지사항 업데이트 -->
 	<update id="updateNoti" parameterType="noti">
-		update notice set noti_title = #{noti_title}, noti_content = #{noti_content}
-		where noti_no = #{noti_no}
+		update notice set
+		noti_title = #{noti_title}, noti_content = #{noti_content}
+		where
+		noti_no = #{noti_no}
 	</update>
 	<!-- 공지사항 삭제 -->
 	<delete id="notidelete" parameterType="noti">
-		delete from notice where noti_no = #{noti_no}
+		delete from notice where
+		noti_no = #{noti_no}
 	</delete>
 	<!-- 자유게시판 글쓰기 -->
 	<insert id="freeBoardWrite" parameterType="board">
 		Insert INTO board
 		VALUES((select nvl(max(board_no),0) + 1 from
-		board),#{id},#{title},#{content},sysdate,#{tap},0)
-
+		board),#{id},#{title},#{content},sysdate,#{tap},0,#{business_name})
 	</insert>
+
+ 	<!-- 자유게시판 글가져오기 -->
+	<!-- <select id="getFreeBoard" resultType="board"
+		parameterType="board">
+			<![CDATA[
+		SELECT rn, board_no,id,title,content,created_day,tap,cnt,business_name
+		FROM(
+			SELECT
+			rownum rn, board_no,id,title,content,created_day,tap,cnt,business_name
+			FROM board
+			WHERE rownum <= #{endPage}
+		)	
+		WHERE rn > #{startPage}
+		ORDER BY rn desc
+		]]>
+
+	</select>  -->
+
+
+	<!-- 로넘으로 글가져오기 -->
+	<select id="getFreeBoard" resultType="board" parameterType="board">
+		<![CDATA[
+		SELECT *
+		FROM (  SELECT ROWNUM rn, A.*
+		        FROM (  SELECT *
+		                FROM board
+		                ORDER BY created_day asc
+		        ) A
+		    )
+		WHERE rn > #{startPage} and rn <= #{endPage}
+		AND title LIKE '%%'
+		AND business_name LIKE '%%'
+		ORDER BY rn desc
+		]]>
+	</select>
+	
+	<!-- 페이지 이동을위한 갯수 가져오기 -->
+	<select id="getTotal" resultType="int">
+		SELECT count(*) as total
+		FROM board
+	</select>
 
 </mapper>

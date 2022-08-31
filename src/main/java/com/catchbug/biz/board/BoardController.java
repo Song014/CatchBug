@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.catchbug.biz.vo.BoardVO;
 import com.catchbug.biz.vo.NotiVO;
+import com.catchbug.biz.vo.SearchVO;
 
 @Controller
 public class BoardController {
@@ -22,8 +23,49 @@ public class BoardController {
 		return "board/notice_board_write";
 	}
 
+	// 자유게시판 이동
 	@RequestMapping("/freeBoard.do")
-	public String FreeBoard() {
+	public String GetFreeBoard(SearchVO vo, Model model,int page) {
+		
+		int sum = boardService.getTotalBoard();
+		
+		int pageCount = 15;
+		int startPage = (page - 1) * pageCount + 1;
+		int endPage = page * pageCount;
+		
+		if(page == 0) {
+			page = 1;
+		}
+		
+		if(sum%pageCount == 0) {
+			sum = sum/pageCount;
+		}else {
+			sum = sum/pageCount + 1;
+		}
+		
+
+		BoardVO bVo = new BoardVO();
+		
+		bVo.setStartPage(startPage);
+		bVo.setEndPage(endPage);
+
+		
+		int searchTap = vo.getSearchTap();
+		String keyWord = vo.getSearchWord();
+		if (searchTap == 1) {
+			bVo.setTitle("");
+			bVo.setBusiness_name(keyWord);
+		} else if (searchTap == 2) {
+			bVo.setTitle(keyWord);
+			bVo.setBusiness_name("");
+		} else {
+			bVo.setBusiness_name("");
+			bVo.setTitle("");
+		}
+		
+		model.addAttribute("boardList", boardService.getFreeBoard(bVo));
+		model.addAttribute("totalBoard",sum);
+
 		return "board/free_board";
 	}
 
@@ -32,11 +74,11 @@ public class BoardController {
 		return "board/free_board_write";
 	}
 
-	// 자유게시판 글쓰기 처리컨트롤러
+	// 자유게시판 글쓰기
 	@PostMapping("/writeFreeBoard.do")
 	public String FreeBoardWriteAction(BoardVO vo) {
 		boardService.freeBoardWrite(vo);
-		return "redirect:freeBoard.do";
+		return "redirect:freeBoard.do?page=1";
 	}
 
 	@RequestMapping("/QnABoard.do")
@@ -58,8 +100,8 @@ public class BoardController {
 	public String ViewBoard() {
 		return "board/chat";
 	}
-		
-		//공지 리스트
+
+	// 공지 리스트
 	@RequestMapping("/notice_Board.do")
 	public String notice_Board_list(Model model, NotiVO vo) {
 		System.out.println("boardController");

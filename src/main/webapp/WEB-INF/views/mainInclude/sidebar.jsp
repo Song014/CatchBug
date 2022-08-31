@@ -97,7 +97,7 @@
 						data-bs-parent="#sidebar-nav">
 						<li><a href="notice_Board.do"> <i class="bi bi-circle"></i><span>공지사항</span>
 						</a></li>
-						<li><a href="freeBoard.do"> <i class="bi bi-circle"></i><span>자유
+						<li><a href="freeBoard.do?page=1"> <i class="bi bi-circle"></i><span>자유
 									게시판</span>
 						</a></li>
 						<li><a href="QnABoard.do"> <i class="bi bi-circle"></i><span>QnA게시판</span>
@@ -180,7 +180,7 @@
 						data-bs-parent="#sidebar-nav">
 						<li><a href="notice_Board.do"> <i class="bi bi-circle"></i><span>공지사항</span>
 						</a></li>
-						<li><a href="freeBoard.do"> <i class="bi bi-circle"></i><span>자유
+						<li><a href="freeBoard.do?page=1"> <i class="bi bi-circle"></i><span>자유
 									게시판</span>
 						</a></li>
 						<li><a href="QnABoard.do"> <i class="bi bi-circle"></i><span>QnA게시판</span>
