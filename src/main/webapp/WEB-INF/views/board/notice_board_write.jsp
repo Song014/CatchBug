@@ -89,9 +89,7 @@
 						<input type="hidden" name="id" value="${member.id }">
 						<input type="hidden" name="writer" value="관리자">
 				<div class="col-md-12">
-					<div class="ql-editor" data-gramm="false" contenteditable="true">
 						<textarea class="form-control" name="noti_content" rows="6" placeholder="Message" required=""></textarea>
-						</div>
 				</div>
 				<div class="mb-3 text-center">
 					<button type="submit" class="btn btn-primary">글쓰기</button>
