@@ -8,12 +8,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.catchbug.biz.admin.stock.StockService;
+import com.catchbug.biz.product.ProductService;
 import com.catchbug.biz.vo.CategoryVO;
 
 @Controller
 public class FrancController {
 	@Autowired
 	private StockService ss;
+	
+	@Autowired
+	private ProductService ps;
 
 	/* 가맹점관리 */
 	// 상품리스트 관리자 꺼랑 안나눠져 있음
@@ -47,7 +51,7 @@ public class FrancController {
 		model.addAttribute("subCategory", category);
 		// 첫 요청 상품 데이터 최근 등록순
 		vo.setSub_category(0);
-		model.addAttribute("product", ss.getProductList(vo));
+		model.addAttribute("product", ps.getProductList(vo));
 		return "franc/franc_stock_list";
 	}
 }
