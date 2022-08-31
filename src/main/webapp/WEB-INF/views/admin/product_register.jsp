@@ -189,6 +189,8 @@
 	<!-- 	<script>
 		document.getElementById('inputSearchDate').valueAsDate = new Date();
 	</script> -->
+	
+	<!-- 기능 작동을위한 JS파일 링크 -->
 	<script type="text/javascript">
 		$(document)
 				.ready(

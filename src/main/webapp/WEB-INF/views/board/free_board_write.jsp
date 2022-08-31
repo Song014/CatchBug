@@ -1,5 +1,4 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -38,6 +37,11 @@
 
 <!-- Template Main CSS File -->
 <link href="assets/css/style.css" rel="stylesheet">
+
+<!-- quill 적용 -->
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css"
+	rel="stylesheet">
+
 
 <!-- =======================================================
   * Template Name: NiceAdmin - v2.3.1
@@ -85,12 +89,12 @@
 					</ol>
 				</nav>
 			</div>
-			<form>
+			<form action="writeFreeBoard.do" method="post" onsubmit="freeSubmit();">
 				<div class="row mb-3">
 					<div class="col-sm-2">
 						<div class="mb-3">
-							<select class="form-select" id="floatingSelect">
-								<option selected="">탭</option>
+							<select class="form-select" id="floatingSelect" name="tap">
+								<option selected="0">탭</option>
 								<option value="1">주문</option>
 								<option value="2">상품</option>
 								<option value="3">배송</option>
@@ -100,20 +104,18 @@
 						</div>
 					</div>
 					<div class="col-sm-10">
-						<input type="text" class="form-control" placeholder="제목">
+						<input type="text" class="form-control" placeholder="제목"
+							name="title" /> <input type="text" hidden="hidden" name="id"
+							value="${member.id }" /> <input type="text" hidden="hidden"
+							name="content" value="" />
 					</div>
 				</div>
 
 				<div class="col-md-12">
-					<textarea class="form-control" name="message" rows="6"
-						placeholder="Message" required=""></textarea>
-				</div>
-
-
-				<div class="form-check">
-					<input class="form-check-input" type="checkbox" value=""
-						id="invalidCheck2" required=""> <label
-						class="form-check-label" for="invalidCheck2"> 비공개 </label>
+					<!-- Create the editor container -->
+					<div id="editor" style="height: 300px">
+						<p>내용을 입력해주세요.</p>
+					</div>
 				</div>
 				<div class="mb-3 text-center">
 					<button type="submit" class="btn btn-primary">글쓰기</button>
@@ -123,7 +125,24 @@
 		</div>
 	</div>
 
-	</main>
+	<script>
+		 function freeSubmit() {
+			var content = $(".ql-editor").html();
+			 $('input[name=content]').attr('value',content);
+
+		}
+	</script> </main>
+
+
+	<!-- Include the Quill library -->
+	<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+	<!-- Initialize Quill editor -->
+	<script>
+		var quill = new Quill('#editor', {
+			theme : 'snow'
+		});
+	</script>
 	<!-- End #main -->
 
 	<!-- ======= Footer ======= -->

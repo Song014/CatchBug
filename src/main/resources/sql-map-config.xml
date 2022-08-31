@@ -9,8 +9,8 @@
 		<typeAlias alias="member" type="com.catchbug.biz.vo.MemberVO"/>    	
 		<typeAlias alias="category" type="com.catchbug.biz.vo.CategoryVO"/>
 		<typeAlias alias="cart" type="com.catchbug.biz.vo.CartVO"/>
+		<typeAlias alias="board" type="com.catchbug.biz.vo.BoardVO"/>
 		<typeAlias alias="noti" type="com.catchbug.biz.vo.NotiVO"/>
-		
     </typeAliases>
 	<mappers>
 		<mapper resource="mybatis/mappings/stockMapper.xml"/>

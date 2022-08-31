@@ -5,9 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.catchbug.biz.vo.BoardVO;
 import com.catchbug.biz.vo.NotiVO;
 
-@Service("BoardService")
+@Service("boardService")
 public class BoardServiceImpl implements BoardService {
 	
 	@Autowired
@@ -55,5 +56,10 @@ public class BoardServiceImpl implements BoardService {
 		boardDAO.noti_delete(vo);
 	}
 
+	@Override
+	public void freeBoardWrite(BoardVO vo) {
+		boardDAO.FreeBoardWrite(vo);
+
+	}
 
 }

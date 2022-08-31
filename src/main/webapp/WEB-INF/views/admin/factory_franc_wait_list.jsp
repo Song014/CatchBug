@@ -118,7 +118,7 @@
 							<thead>
 								<tr>
 									<th scope="col" data-sortable=""><a href="#"
-										class="dataTable-sorter">#</a></th>
+										class="dataTable-sorter">아이디</a></th>
 									<th scope="col" data-sortable=""><a href="#"
 										class="dataTable-sorter">사업자명</a></th>
 									<th scope="col" data-sortable=""><a href="#"
@@ -143,7 +143,7 @@
 										<td>${list.business_no }</td>
 										<td>${list.regdate }</td>
 										<td>
-											<button type="button" class="btn btn-outline-dark btn1" value="${list.id}" style="margin:0px 10px 0px 10px">승인</button>
+											<button type="button" class="btn btn-primary btn1" value="${list.id}" style="margin:0px 10px 0px 10px">승인</button>
 											<button type="button" class="btn btn-outline-dark btn2" value="${list.id}">반려</button>
 										</td>
 									</tr>
