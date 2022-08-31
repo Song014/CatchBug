@@ -4,27 +4,31 @@
 
 <mapper namespace="Product">
 
-	
-	<select id="mainCategory" resultType="com.catchbug.biz.vo.MainCategoryVO">
+
+	<select id="mainCategory"
+		resultType="com.catchbug.biz.vo.MainCategoryVO">
 		SELECT *
 		FROM main_category
 	</select>
-	
-	<select id="subCategory" resultType="com.catchbug.biz.vo.SubCategoryVO">
+
+	<select id="subCategory"
+		resultType="com.catchbug.biz.vo.SubCategoryVO">
 		SELECT *
 		FROM sub_category
 	</select>
 	
 	<insert id="insertProduct" parameterType="product">
+
 		INSERT INTO product
 		values(#{product_no},#{sub_category},#{product_name},#{price},sysdate,#{product_img},#{brand},#{uuid})
 	</insert>
-	
+
 	<insert id="insertImg" parameterType="com.catchbug.biz.vo.ImgVO">
 		INSERT INTO img
 		values(#{product_no}, #{fileName}, #{uploadPath}, #{uuid})
 	</insert>
 	
+
 	<select id="getProduct" parameterType="product" resultType="product">
 		SELECT *
 		FROM product
@@ -47,5 +51,19 @@
 		DELETE FROM product
 		WHERE product_no = #{product_no}
 	</delete>
+
+	<select id="getProductItem" resultType="orderItem">
+		select product_no,product_name,price from product where product_no=#{product_no}
+	</select>
+
+	<select id="getProductList" resultType="product">
+		select * from product order by add_day desc
+	</select>
+
+	<select id="getProductListC" parameterType="category"
+		resultType="product">
+		select * from product where sub_category=#{sub_category}
+	</select>
+
 
 </mapper>

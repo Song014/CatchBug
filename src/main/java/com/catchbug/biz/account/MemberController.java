@@ -1,7 +1,6 @@
 
 package com.catchbug.biz.account;
 
-
 import java.io.File;
 import java.io.IOException;
 

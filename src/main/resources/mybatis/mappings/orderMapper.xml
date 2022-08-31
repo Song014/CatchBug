@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="OrderMapper">
+
+<insert id="insertOrder">
+	insert into orders(order_no,id,shipping_address,note,total_price) values(#{order_no},#{id},#{shipping_address},#{note, jdbcType=VARCHAR},#{total_price})
+</insert>
+<insert id="insertItemList">
+	insert into order_detail values((SELECT NVL(MAX(detail_no),0) + 1 FROM order_detail),#{order_no},#{product_no},#{purchase_amount})
+</insert>
+
+</mapper>
