@@ -86,8 +86,7 @@
 						<input type="text" class="form-control" placeholder="제목" name="noti_title">
 					</div>
 				</div>
-				
-						<input type="hidden" name="id" value="${memberId.id }">
+						<input type="hidden" name="id" value="${member.id }">
 						<input type="hidden" name="writer" value="관리자">
 				<div class="col-md-12">
 					<div class="ql-editor" data-gramm="false" contenteditable="true">

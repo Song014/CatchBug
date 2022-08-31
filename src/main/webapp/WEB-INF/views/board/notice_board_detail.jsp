@@ -88,7 +88,7 @@
 					</div>
 				</div>
 						
-						<input type="hidden" name="id" value="${memberId.id }">
+						<input type="hidden" name="id" value="${member.id }">
 						<input type="hidden" name="writer" value="관리자">
 						<input type="hidden" name="noti_no" value="${notiInfo.noti_no }">
 						
@@ -97,7 +97,7 @@
 						placeholder="Message" required="">${notiInfo.noti_content }</textarea>
 				</div>
 				<c:choose>
-					<c:when test="${memberId.level1 eq 1 }">
+					<c:when test="${member.level1 eq 1 }">
 						<div class="mb-3 text-center">
 							<button type="submit" class="btn btn-primary">수정하기</button>
 							<button type="reset" class="btn btn-secondary">취소</button>
