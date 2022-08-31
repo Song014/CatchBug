@@ -37,7 +37,7 @@ public class OrderController {
 	private OrderService os;
 
 	// 본사 발주서 작성
-	@RequestMapping("/factoryOrder.do")
+	@RequestMapping("/productForOrder.do")
 	public String factoryOrder(Model model, CategoryVO vo, HttpSession session) {
 
 		// 처음 들어갔을때 카테고리 불러오기
@@ -58,7 +58,7 @@ public class OrderController {
 		List<ProductVO> productList = ps.getProductList(vo);
 		model.addAttribute("product", productList);
 
-		return "admin/factory_order";
+		return "order/factory_order";
 	}
 
 	// 주문하기 눌렀을때
@@ -75,12 +75,12 @@ public class OrderController {
 		}
 		model.addAttribute("cartList", cartList);
 
-		return "admin/order_confirm";
+		return "order/order_confirm";
 	}
 	
 	// 주문하기 눌렀을때
 		@RequestMapping(value = "/submitOrder.do")
-		@Transactional
+		@Transactional(rollbackFor = Exception.class)
 		public String submitOrder(OrderVO oi) {
 			System.out.println(oi);
 			List<OrderItemVO> list = new ArrayList<OrderItemVO>();
@@ -121,7 +121,7 @@ public class OrderController {
 			}
 			
 			
-			return "admin/order_confirm";
+			return "order/order_confirm";
 		}
 	
 	/* 결제모듈 */

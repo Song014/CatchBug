@@ -14,7 +14,7 @@ public class OrderDAO {
 	private SqlSessionTemplate mybatis;
 	
 	public void getOrder() {
-		// TODO Auto-generated method stub
+		// TODO 주문내역 불러오기
 
 	}
 

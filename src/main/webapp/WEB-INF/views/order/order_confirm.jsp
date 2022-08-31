@@ -129,7 +129,7 @@
 						</form>
 						<!-- 이전페이지로 돌아가기 -->
 						<div align="center">
-							<input class="btn btn-primary" type="submit" onclick="location.href='factoryOrder.do'" value="상품 추가"></input>
+							<input class="btn btn-primary" type="submit" onclick="location.href='productForOrder.do'" value="상품 추가"></input>
 						</div>
 
 					</div>

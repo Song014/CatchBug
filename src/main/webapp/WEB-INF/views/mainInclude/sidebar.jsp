@@ -70,7 +70,7 @@
 						<li><a href="factoryStockList.do"> <i
 								class="bi bi-circle"></i><span>본사 재고현황</span>
 						</a></li>
-						<li><a href="factoryOrder.do"> <i
+						<li><a href="productForOrder.do"> <i
 								class="bi bi-circle"></i><span>본사 발주서 작성</span>
 						</a></li>
 						<li><a href="factory_Order_History.do"> <i
@@ -164,7 +164,7 @@
 						<li><a href="stockList.do"> <i class="bi bi-circle"></i><span>상품
 									리스트</span>
 						</a></li>
-						<li><a href="francOrder.do"> <i class="bi bi-circle"></i>
+						<li><a href="productForOrder.do"> <i class="bi bi-circle"></i>
 								<span>발주서 작성</span>
 						</a></li>
 						<li><a href="francOrderHistory.do"> <i
