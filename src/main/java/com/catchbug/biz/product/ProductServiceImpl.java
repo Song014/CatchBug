@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.catchbug.biz.vo.CategoryVO;
 import com.catchbug.biz.vo.ImgVO;
 import com.catchbug.biz.vo.MainCategoryVO;
+import com.catchbug.biz.vo.OrderItemVO;
 import com.catchbug.biz.vo.ProductVO;
 import com.catchbug.biz.vo.SubCategoryVO;
 
@@ -41,6 +43,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+
 	public ProductVO getProduct(ProductVO vo) {
 		return pDao.getProduct(vo);
 	}
@@ -59,6 +62,19 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void deleteProduct(ProductVO vo) {
 		pDao.deleteProduct(vo);
+	}
+	
+	@Override
+	public List<ProductVO> getProductList(CategoryVO vo) {
+
+		return pDao.selectListProduct(vo);
+	}
+
+	@Override
+	public OrderItemVO getProductItem(int product_no) {
+		
+		return pDao.selectOneProduct(product_no);
+
 	}
 
 

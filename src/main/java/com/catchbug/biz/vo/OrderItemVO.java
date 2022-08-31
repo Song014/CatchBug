@@ -7,24 +7,23 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class CartVO {
+public class OrderItemVO {
+
+	// 프론트에서 받을값
 	
-	//프론트에서 받을 값
 	private int product_no;
 	private int purchase_amount;
-	
-	private String id;
-	private int cart_no;
-	
-	// product
-	
+
+	// DB에서 꺼내올 값
+	private int detail_no;
 	private String product_name;
 	private int price;
-	
+
 	// 필요해서 생성
+	private String order_no;
 	private int total;
-	
+
 	public void initTotal() {
-		this.total = this.price*this.purchase_amount;
+		this.total = this.price * this.purchase_amount;
 	}
 }

@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -70,101 +70,96 @@
 	<!-- End Sidebar -->
 	<!-- main start -->
 	<main id="main" class="main">
-		<div class="pagetitle">
-			<h1>발주서 작성</h1>
-			<nav>
-				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="/">Home</a></li>
-					<li class="breadcrumb-item active">발주서 작성</li>
-				</ol>
-			</nav>
-		</div>
-		<!-- End Page Title -->
+	<div class="pagetitle">
+		<h1>발주서 작성</h1>
+		<nav>
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="/">Home</a></li>
+				<li class="breadcrumb-item active">발주서 작성</li>
+			</ol>
+		</nav>
+	</div>
+	<!-- End Page Title -->
 
-		<section class="section dashboard">
+	<section class="section dashboard">
 
 
-			<div class="card">
-				<div class="card-body">
-					<div class="row">
-						<!-- 카테고리  -->
-						<div class="col-lg-2">
-							<c:forEach var="m" items="${mainCategory }" varStatus="status">
-								<div class="accordion" id="accordionExample">
-									<!-- ToDo 대분류 1,2,3, 일때 해당하는 카테고리 이름 -->
+		<div class="card">
+			<div class="card-body">
+				<div class="row">
+					<!-- 카테고리  -->
+					<div class="col-lg-2">
+						<c:forEach var="m" items="${mainCategory }" varStatus="status">
+							<div class="accordion" id="accordionExample">
+								<!-- ToDo 대분류 1,2,3, 일때 해당하는 카테고리 이름 -->
 
-									<div class="accordion-item">
-										<h2 class="accordion-header" id="headingOne">
-											<button class="accordion-button collapsed" type="button"
-												data-bs-toggle="collapse"
-												data-bs-target="#collapse${status.count }"
-												aria-expanded="false"
-												aria-controls="collapse${status.count }">
-												${m.main_name}</button>
-										</h2>
-										<div id="collapse${status.count }"
-											class="accordion-collapse collapse"
-											aria-labelledby="headingOne"
-											data-bs-parent="#accordionExample" style="">
-											<!-- ToDo 대분류 1 , 2 , 3 에 해당하는 서브카테고리 이름 -->
-											<div class="accordion-body" style="padding: 1px">
-												<c:forEach var="s" items="${subCategory}">
-													<c:if test="${m.main_category eq s.main_category}">
-														<div class="list-group">
-															<input type="hidden" class="subCategoryNo"
-																value="${s.sub_category }">
-															<button type="button"
-																class="list-group-item list-group-item-action getCategory">
-																${s.sub_name }</button>
-														</div>
-													</c:if>
-												</c:forEach>
-											</div>
+								<div class="accordion-item">
+									<h2 class="accordion-header" id="headingOne">
+										<button class="accordion-button collapsed" type="button"
+											data-bs-toggle="collapse"
+											data-bs-target="#collapse${status.count }"
+											aria-expanded="false"
+											aria-controls="collapse${status.count }">
+											${m.main_name}</button>
+									</h2>
+									<div id="collapse${status.count }"
+										class="accordion-collapse collapse"
+										aria-labelledby="headingOne"
+										data-bs-parent="#accordionExample" style="">
+										<!-- ToDo 대분류 1 , 2 , 3 에 해당하는 서브카테고리 이름 -->
+										<div class="accordion-body" style="padding: 1px">
+											<c:forEach var="s" items="${subCategory}">
+												<c:if test="${m.main_category eq s.main_category}">
+													<div class="list-group">
+														<input type="hidden" class="subCategoryNo"
+															value="${s.sub_category }">
+														<button type="button"
+															class="list-group-item list-group-item-action getCategory">
+															${s.sub_name }</button>
+													</div>
+												</c:if>
+											</c:forEach>
 										</div>
 									</div>
 								</div>
-							</c:forEach>
-						</div>
-						<div class="col-lg-10">
-							<!-- 카테고리 선택창 -->
-							<div>
-								<div align="right" class="dataTable-top">
-									<div class="dataTable-dropdown">
-										<label><select class="dataTable-selector"><option
-													value="5">5</option>
-												<option value="10" selected="">10</option>
-												<option value="15">15</option>
-												<option value="20">20</option>
-												<option value="25">25</option></select> entries per page</label>
-									</div>
-									<div class="dataTable-search">
-										<form>
-											<input type="date" name="beforeDate"> <input
-												type="date" name="afterDate" id='currnetDate'> <select
-												name="searchOption">
-												<option value="orderNumber" selected="selected">상품번호</option>
-												<option value="content">상품명</option>
-												<option value="remarks">등록일자</option>
-											</select> <input type="text" name="input" placeholder="검색어를 입력해 주세요.">
-											<!-- <input type="button" name="inputBtn" value="검색"> -->
-											<button>검색</button>
-										</form>
-									</div>
+							</div>
+						</c:forEach>
+					</div>
+					<div class="col-lg-10">
+						<!-- 카테고리 선택창 -->
+						<div>
+							<div align="right" class="dataTable-top">
+								<div class="dataTable-search">
+									<form>
+										<input type="date" name="beforeDate"> <input
+											type="date" name="afterDate" id='currnetDate'> <select
+											name="searchOption">
+											<option value="orderNumber" selected="selected">상품번호</option>
+											<option value="content">상품명</option>
+											<option value="remarks">등록일자</option>
+										</select> <input type="text" name="input" placeholder="검색어를 입력해 주세요.">
+										<!-- <input type="button" name="inputBtn" value="검색"> -->
+										<button>검색</button>
+									</form>
 								</div>
-								<!-- 상품 리스트 -->
-								<table class="table table-borderless top-selling" id="category">
-									<thead>
-										<tr>
-											<th scope="col">번호</th>
-											<th scope="col">이미지</th>
-											<th scope="col">상품 번호</th>
-											<th scope="col">상품 명</th>
-											<th scope="col">등록 일자</th>
-											<th scope="col">전체 수량</th>
-											<th scope="col">개당 가격</th>
-											<th scope="col"></th>
-										</tr>
-									</thead>
+							</div>
+							<!-- 상품 리스트 -->
+							<table class="table top-selling">
+								<thead>
+									<tr>
+										<th scope="col">번호</th>
+										<th scope="col">이미지</th>
+										<th scope="col">상품 번호</th>
+										<th scope="col">상품 명</th>
+										<th scope="col">등록 일자</th>
+										<th scope="col">전체 수량</th>
+										<th scope="col">개당 가격</th>
+										<th scope="col"></th>
+									</tr>
+								</thead>
+							</table>
+							<div style="height: 250px; overflow: scroll;">
+								<table class="table  top-selling" id="category">
 									<tbody>
 										<c:forEach var="list" items="${product }" varStatus="status">
 											<tr>
@@ -174,8 +169,9 @@
 												<td>${list.product_no }</td>
 												<td><a class="primary" data-bs-toggle="modal"
 													data-bs-target="#modalProduct">상품 모달띄우기 </a></td>
-												<td>${list.add_day }</td>
-												<td>재고량1</td>
+												<td><fmt:formatDate value="${list.add_day }"
+														pattern="yyyy-MM-dd" /></td>
+												<td>10</td>
 												<td>${list.price }</td>
 												<td><button type="button"
 														class="btn btn-primary btn-sm addBucket">추가</button></td>
@@ -183,43 +179,55 @@
 										</c:forEach>
 									</tbody>
 								</table>
-								<!-- 상품 리스트 -->
 							</div>
-							<!-- 장바구니 -->
-							<div>
-								<form name="testForm">
-									<table class="table" id="bucket">
-										<thead>
-											<tr>
-												<th></th>
-												<th>상품 번호</th>
-												<th>상품 명</th>
-												<th>구매 수량</th>
-												<th>개당 가격</th>
-												<th>버튼</th>
-											</tr>
-										</thead>
-										<tbody>
-
-										</tbody>
-									</table>
-									<div class="d-grid gap-2 mt-3">
-										<button class="btn btn-primary" type="button">주문하기</button>
-									</div>
-								</form>
-							</div>
+							<!-- 상품 리스트 -->
 						</div>
+						<!-- 장바구니 -->
+
+						<table class="table">
+							<thead>
+								<tr>
+									<th></th>
+									<th>상품 번호</th>
+									<th>상품 명</th>
+									<th>구매 수량</th>
+									<th>총 가격</th>
+									<th>버튼</th>
+								</tr>
+							</thead>
+						</table>
+							<div style="height: 250px; overflow: scroll;">
+								<table class="table" id="bucket">
+									<tbody>
+									<c:forEach var="list" items="${cartList }">
+									<tr>
+										<td>${list.product_no }</td>
+										<td><a class="primary" data-bs-toggle="modal" data-bs-target="#modalProduct">${list.product_name }</a></td>
+										<td><input type="number" name="purchase_amount" value=${list.purchase_amount } min="1" max=`+quantity+` style="width:50px;"><button type="button" class="updateBtn">변경</button></td>
+										<td>${list.total }</td>
+										<td><button type="button" class="btn btn-primary btn-sm delBucket">삭제</button></td>
+									</tr>
+									</c:forEach>
+									</tbody>
+								</table>
+							</div>
+							
+							
+							<div class="d-grid gap-2 mt-3">
+								<input class="btn btn-primary" type="button" onclick="location.href='orderPage.do'" value="결제페이지 이동"></input>
+							</div>
 					</div>
 				</div>
-
-
 			</div>
-		</section>
+
+
+		</div>
+	</section>
 
 	</main>
 	<!-- End #main -->
 
-		<!-- 모달창 -->
+	<!-- 모달창 -->
 	<div class="modal fade" id="modalProduct" tabindex="-1">
 		<div class="modal-dialog modal-dialog-scrollable">
 			<div class="modal-content">
@@ -276,11 +284,12 @@
 					
 					$.ajax({
 						type : "GET", //요청 메소드 방식
-						url : "orderAjax.do?sub_category="+no,
+						url : "getProductAjax.do?sub_category="+no,
 						dataType : "json", //서버가 요청 URL을 통해서 응답하는 내용의 타입
 						success : function(result) {
 							$("#category tbody tr").remove(); // 기존 존재하는 테이블 삭제
 							result.forEach(function(result) {
+								
 								const str =`
 									<tr>
 										<td>1</td>
@@ -290,7 +299,7 @@
 										<td><a class="primary" data-bs-toggle="modal"
 											data-bs-target="#modalProduct">`+result.product_name+`</a></td>
 										<td>`+result.add_day+`</td>
-										<td>재고량나올곳</td>
+										<td>10</td>
 										<td>`+result.price+`</td>
 										<td><button type="button"
 												class="btn btn-primary btn-sm addBucket">추가</button></td>
@@ -320,63 +329,90 @@
 					
 					const no = $td.eq(2).text();
 					const name = $td.eq(3).text();
-					const quantity = $td.eq(4).text();
+					const quantity = $td.eq(5).text();
+					
 					const price = $td.eq(6).text();
 					
 					const str =`
 					<tr>
-						<td><input type="checkbox" name="checkBox"></td>
-						<td><input type="hidden" value=`+no+` >`+no+`</td>
+						<td><input type="hidden" name="product_no" value=`+no+` >`+no+`</td>
 						<td><input type="hidden" value=`+name+`><a class="primary" data-bs-toggle="modal" data-bs-target="#modalProduct">`+name+`</a></td>
-						<td><input type="number" value="1"></td>
-						<td><input type="hidden" value=`+price+`>`+price+`</td>
+						<td><input type="number" name="purchase_amount" value="1" min="1" max=`+quantity+` style="width:50px;"><button type="button" class="updateBtn">변경</button></td>
+						<td><input type="hidden"  value=`+price+`>`+price+`</td>
 						<td><button type="button" class="btn btn-primary btn-sm delBucket">삭제</button></td>
 					</tr>
 					`;
 					
-					
-					
-					if(trArr.indexOf(no)!=-1){
-						alert(no+"과 같은 상품이 있습니다")
-					} else {
-						trArr.push(no);
-						$("#bucket tbody").append(str);
-						$.ajax({
+					$.ajax({
 							type : "GET", //요청 메소드 방식
-							url : "orderInsertAjax.do?product_no="+no,
+							url : "insertCartAjax.do?product_no="+no,
 							dataType : "text", //서버가 요청 URL을 통해서 응답하는 내용의 타입
 							success : function(result) {
-								console.log(result+" 성공");
+								if(result=="ok"){
+									console.log(result);
+									$("#bucket tbody").append(str);
+								} else if(result=="false"){
+									alert("이미 추가된 상품입니다.")
+								}
 							},
 							error : function(a, b, c) {
 								//통신 실패시 발생하는 함수(콜백)
 								console.log("실패" + a, b, c);
 							}
 						});
-					}
+					
+					/* if(trArr.indexOf(no)!=-1){
+						alert(no+"과 같은 상품이 있습니다")
+					} else {
+						
+					} */
 				})
+				console.log(trArr);
 				
+				$("#bucket").on("click",".updateBtn",function(){
+					const $tr =  $(this).parent().parent();
+					const no = $tr.children().eq(0).text();
+					const amount = $(this).parent().find('input[type=number]').val();
+					console.log(amount,no);
+					 $.ajax({
+							type : "POST", //요청 메소드 방식
+							url : "updateCartAjax.do",
+							data : {"purchase_amount":amount,"product_no":no},
+							dataType : "text", //서버가 요청 URL을 통해서 응답하는 내용의 타입
+							success : function(result) {
+								$tr.find(input[type=number])
+								
+							},
+							error : function(a, b, c) {
+								//통신 실패시 발생하는 함수(콜백)
+								console.log("실패" + a, b, c);
+							}
+						});
+				})
 				
 				 $("#bucket").on("click", ".delBucket", function() {
 					 const $tr = $(this).parent().parent();
 					 const $td = $tr.children();
 					 const no = $td.eq(1).text();
-					 if(trArr.indexOf(no)!=-1){
-						 trArr.splice(no,1);
-						 $.ajax({
-								type : "GET", //요청 메소드 방식
-								url : "orderDeleteAjax.do?product_no="+no,
-								dataType : "text", //서버가 요청 URL을 통해서 응답하는 내용의 타입
-								success : function(result) {
-									console.log(result+" 성공");
-								},
-								error : function(a, b, c) {
-									//통신 실패시 발생하는 함수(콜백)
-									console.log("실패" + a, b, c);
-								}
-							});
-						}
-					 $tr.remove();
+					 
+					 $.ajax({
+							type : "POST", //요청 메소드 방식
+							url : "deleteCartAjax.do",
+							data : {"product_no":no},
+							dataType : "text", //서버가 요청 URL을 통해서 응답하는 내용의 타입
+							success : function(result) {
+								if(result =="ok"){
+									$tr.remove();
+								} else {
+									alert("다시시도해주세요");
+								} 
+							},
+							error : function(e) {
+								//통신 실패시 발생하는 함수(콜백)
+								console.log("실패" + e);
+							}
+						});
+					 
 			    });
 			</script>
 	<!-- End #main -->
