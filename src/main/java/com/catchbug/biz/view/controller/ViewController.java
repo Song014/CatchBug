@@ -29,10 +29,10 @@ public class ViewController {
 	
 	
 	/* 게시판 */
-	@RequestMapping("/notice_Board.do")
-	public String NoticeBoard() {
-		return "board/notice_board";
-	}
+//	@RequestMapping("/notice_Board.do")
+//	public String NoticeBoard() {
+//		return "board/notice_board";
+//	}
 	
 	@RequestMapping("/notice_Board_Write.do")
 	public String NoticeBoardWrite() {

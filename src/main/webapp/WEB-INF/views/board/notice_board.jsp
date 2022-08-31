@@ -1,5 +1,4 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -10,7 +9,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>Dashboard - NiceAdmin Bootstrap Template</title>
+<title>공 지 사 항 </title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -79,13 +78,15 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<th class="col-lg-1" scope="row">1</th>
-					<td class="col-lg-2">관리자</td>
-					<td class="col-lg-6"><a href="#">여기에 본문이동 이벤트 넣어주세요</a></td>
-					<td class="col-lg-1">28</td>
-					<td class="col-lg-2">2016-05-25</td>
-				</tr>
+				<c:forEach var="list" items="${list }">
+					<tr>
+						<th class="col-lg-1" scope="row">${list.noti_no }</th>
+						<td class="col-lg-2">관리자</td>
+						<td class="col-lg-6"><a href="noti_detail.do?noti_no=${list.noti_no }">${list.noti_title }</a></td>
+						<td class="col-lg-1">${list.cnt }</td>
+						<td class="col-lg-2">${list.noti_day }</td>
+					</tr>
+				</c:forEach>
 			</tbody>
 			<tbody>
 				<tr>
@@ -106,10 +107,16 @@
 			</tbody>
 		</table>
 		<div style="text-align: right;">
-			<button type="button" class="btn btn-primary col-lg-1"
-				onClick="location.href='notice_Board_Write.do'">
-				<i class="bi bi-pencil">글쓰기</i>
-			</button>
+			<c:choose>
+				<c:when test="${member.level1 eq 1 }">
+					<button type="button" class="btn btn-primary col-lg-1"
+						onClick="location.href='notice_Board_Write.do'">
+						<i class="bi bi-pencil">글쓰기</i>
+					</button>
+				</c:when>
+				<c:otherwise>
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</div>
 	</section>

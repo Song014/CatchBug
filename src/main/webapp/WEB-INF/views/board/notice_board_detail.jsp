@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>공지사항 글쓰기</title>
+<title>공지사항 상세보기</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -65,6 +65,7 @@
 	<!-- End Header -->
 
 
+
 	<main id="main" class="main">
 
 	<div class="card">
@@ -80,27 +81,49 @@
 					</ol>
 				</nav>
 			</div>
-			<form action="insertNoti.do" method="post">
+			<form action="updateNoti.do" method="post">
 				<div class="row mb-3">
 					<div class="col-sm-12">
-						<input type="text" class="form-control" placeholder="제목" name="noti_title">
+						<input type="text" class="form-control" name="noti_title" value="${notiInfo.noti_title }" >
 					</div>
 				</div>
-				
+						
 						<input type="hidden" name="id" value="${memberId.id }">
 						<input type="hidden" name="writer" value="관리자">
+						<input type="hidden" name="noti_no" value="${notiInfo.noti_no }">
+						
 				<div class="col-md-12">
-					<div class="ql-editor" data-gramm="false" contenteditable="true">
-						<textarea class="form-control" name="noti_content" rows="6" placeholder="Message" required=""></textarea>
+					<textarea class="form-control" name="noti_content" rows="6"
+						placeholder="Message" required="">${notiInfo.noti_content }</textarea>
+				</div>
+				<c:choose>
+					<c:when test="${memberId.level1 eq 1 }">
+						<div class="mb-3 text-center">
+							<button type="submit" class="btn btn-primary">수정하기</button>
+							<button type="reset" class="btn btn-secondary">취소</button>
+							<button type="button" value="${notiInfo.noti_no }" class="btn btn-primary btn1">삭제</button>
+							<input type="button" class="btn btn-secondary" value="공지 목록"
+								onclick="location.href='notice_Board.do'" />
 						</div>
-				</div>
-				<div class="mb-3 text-center">
-					<button type="submit" class="btn btn-primary">글쓰기</button>
-					<button type="reset" class="btn btn-secondary">취소</button>
-				</div>
+					</c:when>
+					<c:otherwise>
+							<input type="button" class="btn btn-secondary" value="공지 목록"
+								onclick="location.href='notice_Board.do'" />
+					</c:otherwise>
+				</c:choose>
 			</form>
 		</div>
 	</div>
+	
+	<script type="text/javascript">
+	$(".btn1").on("click", function(e) {
+		if (confirm("삭제 하시겠습니까?")) {
+			location.href="/delete_noti.do?noti_no="+e.target.value;
+		} else {
+			return;
+		}
+	})
+	</script>
 
 	</main>
 	<!-- End #main -->
