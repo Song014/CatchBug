@@ -5,6 +5,7 @@ import java.util.List;
 import com.catchbug.biz.vo.CategoryVO;
 import com.catchbug.biz.vo.ImgVO;
 import com.catchbug.biz.vo.MainCategoryVO;
+import com.catchbug.biz.vo.OrderItemVO;
 import com.catchbug.biz.vo.ProductVO;
 import com.catchbug.biz.vo.SubCategoryVO;
 
@@ -19,4 +20,6 @@ public interface ProductService {
 	public void insertImg(ImgVO vo);
 	
 	List<ProductVO> getProductList(CategoryVO vo);
+
+	OrderItemVO getProduct(int product_no);
 }

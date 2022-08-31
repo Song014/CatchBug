@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.catchbug.biz.vo.CategoryVO;
 import com.catchbug.biz.vo.ImgVO;
 import com.catchbug.biz.vo.MainCategoryVO;
+import com.catchbug.biz.vo.OrderItemVO;
 import com.catchbug.biz.vo.ProductVO;
 import com.catchbug.biz.vo.SubCategoryVO;
 
@@ -45,6 +46,11 @@ public class ProductDAO {
 		} else {
 			return mybatis.selectList("Product.getProductListC", vo);
 		}
+	}
+
+	public OrderItemVO selectOneProduct(int product_no) {
+		
+		return mybatis.selectOne("Product.getProduct", product_no);
 	}
 	
 	

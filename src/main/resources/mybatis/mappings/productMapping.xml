@@ -27,6 +27,10 @@
 		INSERT INTO img
 		values(#{product_no}, #{fileName}, #{uploadPath}, #{uuid})
 	</insert>
+	
+	<select id="getProduct" resultType="orderItem">
+		select product_no,product_name,price from product where product_no=#{product_no}
+	</select>
 
 	<select id="getProductList" resultType="product">
 		select * from product order by add_day desc

@@ -129,14 +129,6 @@
 						<!-- 카테고리 선택창 -->
 						<div>
 							<div align="right" class="dataTable-top">
-								<div class="dataTable-dropdown">
-									<label><select class="dataTable-selector"><option
-												value="5">5</option>
-											<option value="10" selected="">10</option>
-											<option value="15">15</option>
-											<option value="20">20</option>
-											<option value="25">25</option></select> entries per page</label>
-								</div>
 								<div class="dataTable-search">
 									<form>
 										<input type="date" name="beforeDate"> <input
@@ -152,7 +144,7 @@
 								</div>
 							</div>
 							<!-- 상품 리스트 -->
-							<table class="table  top-selling">
+							<table class="table top-selling">
 								<thead>
 									<tr>
 										<th scope="col">번호</th>
@@ -199,33 +191,31 @@
 									<th>상품 번호</th>
 									<th>상품 명</th>
 									<th>구매 수량</th>
-									<th>개당 가격</th>
+									<th>총 가격</th>
 									<th>버튼</th>
 								</tr>
 							</thead>
 						</table>
-						<form action="submitOrder.do">
 							<div style="height: 250px; overflow: scroll;">
 								<table class="table" id="bucket">
 									<tbody>
 									<c:forEach var="list" items="${cartList }">
 									<tr>
-										<td><input type="checkbox" name="checkBox"></td>
-										<td><input type="hidden" name="product_no" value=${list.product_no } >${list.product_no }</td>
-										<td><input type="hidden" value=${list.product_name }><a class="primary" data-bs-toggle="modal" data-bs-target="#modalProduct">${list.product_name }</a></td>
+										<td>${list.product_no }</td>
+										<td><a class="primary" data-bs-toggle="modal" data-bs-target="#modalProduct">${list.product_name }</a></td>
 										<td><input type="number" name="purchase_amount" value=${list.purchase_amount } min="1" max=`+quantity+` style="width:50px;"><button type="button" class="updateBtn">변경</button></td>
-										<td><input type="hidden"  value=${list.price }>${list.price }</td>
+										<td>${list.total }</td>
 										<td><button type="button" class="btn btn-primary btn-sm delBucket">삭제</button></td>
 									</tr>
 									</c:forEach>
 									</tbody>
 								</table>
 							</div>
+							
+							
 							<div class="d-grid gap-2 mt-3">
-								<input class="btn btn-primary" type="submit" value="주문하기"></input>
+								<input class="btn btn-primary" type="button" onclick="location.href='orderPage.do'" value="결제페이지 이동"></input>
 							</div>
-						</form>
-
 					</div>
 				</div>
 			</div>
@@ -345,7 +335,6 @@
 					
 					const str =`
 					<tr>
-						<td><input type="checkbox" name="checkBox"></td>
 						<td><input type="hidden" name="product_no" value=`+no+` >`+no+`</td>
 						<td><input type="hidden" value=`+name+`><a class="primary" data-bs-toggle="modal" data-bs-target="#modalProduct">`+name+`</a></td>
 						<td><input type="number" name="purchase_amount" value="1" min="1" max=`+quantity+` style="width:50px;"><button type="button" class="updateBtn">변경</button></td>
@@ -381,15 +370,18 @@
 				console.log(trArr);
 				
 				$("#bucket").on("click",".updateBtn",function(){
-					const no = $(this).parent().parent().children().eq(1).text();
+					const $tr =  $(this).parent().parent();
+					const no = $tr.children().eq(0).text();
 					const amount = $(this).parent().find('input[type=number]').val();
-					console.log(amount);
+					console.log(amount,no);
 					 $.ajax({
 							type : "POST", //요청 메소드 방식
 							url : "updateCartAjax.do",
 							data : {"purchase_amount":amount,"product_no":no},
 							dataType : "text", //서버가 요청 URL을 통해서 응답하는 내용의 타입
 							success : function(result) {
+								$tr.find(input[type=number])
+								
 							},
 							error : function(a, b, c) {
 								//통신 실패시 발생하는 함수(콜백)

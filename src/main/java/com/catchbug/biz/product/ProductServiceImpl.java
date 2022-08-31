@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.catchbug.biz.vo.CategoryVO;
 import com.catchbug.biz.vo.ImgVO;
 import com.catchbug.biz.vo.MainCategoryVO;
+import com.catchbug.biz.vo.OrderItemVO;
 import com.catchbug.biz.vo.ProductVO;
 import com.catchbug.biz.vo.SubCategoryVO;
 
@@ -45,6 +46,12 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductVO> getProductList(CategoryVO vo) {
 
 		return pDao.selectListProduct(vo);
+	}
+
+	@Override
+	public OrderItemVO getProduct(int product_no) {
+		
+		return pDao.selectOneProduct(product_no);
 	}
 
 
