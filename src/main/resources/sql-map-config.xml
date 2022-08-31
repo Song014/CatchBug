@@ -11,6 +11,7 @@
 		<typeAlias alias="member" type="com.catchbug.biz.vo.MemberVO"/>   	
 		<typeAlias alias="category" type="com.catchbug.biz.vo.CategoryVO"/>
 		<typeAlias alias="cart" type="com.catchbug.biz.vo.CartVO"/>
+		<typeAlias alias="board" type="com.catchbug.biz.vo.BoardVO"/>
     </typeAliases>
 	<mappers>
 		<mapper resource="mybatis/mappings/stockMapper.xml"/>
@@ -19,5 +20,6 @@
 		<mapper resource="mybatis/mappings/memberMapping.xml"/>
 		<mapper resource="mybatis/mappings/productMapping.xml"/>
 		<mapper resource="mybatis/mappings/cartMapper.xml"/>
+		<mapper resource="mybatis/mappings/boardMapper.xml"/>
 	</mappers>
 </configuration>
