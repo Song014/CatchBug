@@ -7,8 +7,8 @@ import lombok.Data;
 @Data
 public class BoardVO {
 	
-	private int board_no,tap,cnt;
-	private String id,title,content;
+	private int board_no,tap,cnt,rn,startPage,endPage;
+	private String id,title,content,business_name;
 	private Date created_day;
 	
 	

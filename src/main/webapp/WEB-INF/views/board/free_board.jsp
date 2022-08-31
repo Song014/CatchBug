@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +10,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>Dashboard - NiceAdmin Bootstrap Template</title>
+<title>게시판 - 자유게시판</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -66,54 +66,85 @@
 
 	<main id="main" class="main">
 
-	<div class="pagetitle">
-		<h1 style="text-align: center;">자유게시판</h1>
-		<table class="table table-bordered" style="text-align: center">
-			<thead>
-				<tr class="table-primary" >
-					<th scope="col" style="width: 5%;">#</th>
-					<th scope="col" style="width: 10%;">이름</th>
-					<th scope="col" style="width: 65%;">제목</th>
-					<th scope="col" style="width: 5%;">조회수</th>
-					<th scope="col" style="width: 15%;">작성일</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<th scope="row">1</th>
-					<td>관리자</td>
-					<td><a href="#">여기에 본문이동 이벤트 넣어주세요</a></td>
-					<td>28</td>
-					<td>2016-05-25</td>
-				</tr>
-			</tbody>
-			<tbody>
-				<tr>
-					<th colspan="6">
-						<ul class="pagination justify-content-center">
-							<li class="page-item"><a class="page-link" href="#"
-								tabindex="-1" aria-disabled="true">Previous</a></li>
-							<li class="page-item"><a class="page-link" href="#">1</a></li>
-							<li class="page-item active" aria-current="page"><a
-								class="page-link" href="#">2</a></li>
-							<li class="page-item"><a class="page-link" href="#">3</a></li>
-							<li class="page-item"><a class="page-link" href="#">Next</a></li>
-						</ul>
-					</th>
-				</tr>
-			</tbody>
-		</table>
-		<div style="text-align: right;">
-			<button type="button" class="btn btn-primary col-lg-1"
-				onClick="location.href='free_Board_Write.do'">
-				<i class="bi bi-pencil">글쓰기</i>
-			</button>
+	<div class="card">
+		<div class="card-body">
+			<h1 class="card-title">자유 게시판</h1>
+			<div class="row g-3">
+				<div class="col-md-12" style="text-align: right;">
+					<form action="freeBoard.do?page=1" method="post">
+						<select name="searchTap">
+							<option value="1">작성자</option>
+							<option value="2">제목</option>
+						</select> <input class="dataTable-input" placeholder="검색어를 입력해 주세요."
+							type="text" name="searchWord">
+						<button class="btn btn-primary" type="submit">검색</button>
+					</form>
+				</div>
+			</div>
+			<table class="table table-bordered" style="text-align: center">
+				<thead>
+					<tr class="table-primary">
+						<th scope="col" style="width: 5%;">#</th>
+						<th scope="col" style="width: 5%;">탭</th>
+						<th scope="col" style="width: 10%;">법인명</th>
+						<th scope="col" style="width: 57%;">제목</th>
+						<th scope="col" style="width: 10%;">조회수</th>
+						<th scope="col" style="width: 13%;">작성일</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="list" items="${boardList }" varStatus="status">
+						<tr>
+							<td>${list.rn }</td>
+							<c:choose>
+								<c:when test="${list.tap eq 1}">
+									<th scope="row">잡담</th>
+								</c:when>
+								<c:when test="${list.tap eq 2}">
+									<th scope="row">정보</th>
+								</c:when>
+								<c:when test="${list.tap eq 3}">
+									<th scope="row">유머</th>
+								</c:when>
+							</c:choose>
+							<td>${list.business_name }</td>
+							<td><a class="primary product_modal" data-bs-toggle="modal"
+								data-bs-target="#modalProduct">${list.title }</a></td>
+							<td>${list.cnt }</td>
+							<td><fmt:formatDate value="${list.created_day }"
+									pattern="yyyy-MM-dd" /></td>
+						</tr>
+					</c:forEach>
+				</tbody>
+				<tbody>
+					<tr>
+						<th colspan="6">
+							<ul class="pagination justify-content-center">
+								<c:forEach begin="1" end="${totalBoard }" varStatus="status">
+								<li class="paginate_button previous"><a class="page-link"
+									href="freeBoard.do?page=${status.count }">${status.count }</a></li>
+								</c:forEach>
+
+							</ul>
+						</th>
+					</tr>
+				</tbody>
+			</table>
+			<div style="text-align: right;">
+				<button type="button" class="btn btn-primary col-lg-1"
+					onClick="location.href='free_Board_Write.do'">
+					<i class="bi bi-pencil">글쓰기</i>
+				</button>
+			</div>
 		</div>
 	</div>
-	</section>
-
-	</main>
+	<script>
+	var actionForm = $('#actionForm'); $('.paginate_button a').on('click', function(e) { e.preventDefault(); //걸어둔 링크로 이동하는 것을 일단 막음 actionForm.find('input[name="pageNum"]').val($(this).attr('href')); actionForm.submit(); });
+	</script> </main>
 	<!-- End #main -->
+	<!-- 스크립트 시작부 -->
+
+	<!-- 스크립트 종료 -->
 
 	<!-- ======= Footer ======= -->
 

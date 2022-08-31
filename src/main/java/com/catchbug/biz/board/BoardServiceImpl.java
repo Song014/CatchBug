@@ -55,11 +55,26 @@ public class BoardServiceImpl implements BoardService {
 		
 		boardDAO.noti_delete(vo);
 	}
-
+	
+	
+	//자유게시판 글쓰기 폼
 	@Override
 	public void freeBoardWrite(BoardVO vo) {
 		boardDAO.FreeBoardWrite(vo);
 
 	}
+
+	//자유게시판 가져오기폼
+	@Override
+	public List<BoardVO> getFreeBoard(BoardVO vo) {
+		return boardDAO.GetFreeBoard(vo);
+	}
+
+	@Override
+	public int getTotalBoard() {
+		return boardDAO.getTotal();
+	}
+	
+	
 
 }

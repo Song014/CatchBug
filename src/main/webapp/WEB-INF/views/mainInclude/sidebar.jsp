@@ -1,9 +1,8 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<!-- 채팅관련 스크립트 -->
-<!-- 채팅관련 스크립트 종료 -->
 <c:choose>
 	<c:when test="${member.level1 eq 1 }">
 		<!-- 관리자 -->
@@ -98,7 +97,7 @@
 						data-bs-parent="#sidebar-nav">
 						<li><a href="notice_Board.do"> <i class="bi bi-circle"></i><span>공지사항</span>
 						</a></li>
-						<li><a href="freeBoard.do"> <i class="bi bi-circle"></i><span>자유
+						<li><a href="freeBoard.do?page=1"> <i class="bi bi-circle"></i><span>자유
 									게시판</span>
 						</a></li>
 						<li><a href="QnABoard.do"> <i class="bi bi-circle"></i><span>QnA게시판</span>
@@ -181,7 +180,7 @@
 						data-bs-parent="#sidebar-nav">
 						<li><a href="notice_Board.do"> <i class="bi bi-circle"></i><span>공지사항</span>
 						</a></li>
-						<li><a href="freeBoard.do"> <i class="bi bi-circle"></i><span>자유
+						<li><a href="freeBoard.do?page=1"> <i class="bi bi-circle"></i><span>자유
 									게시판</span>
 						</a></li>
 						<li><a href="QnABoard.do"> <i class="bi bi-circle"></i><span>QnA게시판</span>

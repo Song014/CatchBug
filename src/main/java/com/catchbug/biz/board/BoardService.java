@@ -14,5 +14,7 @@ public interface BoardService {
 	public void update_noti(NotiVO vo);
 	public void noti_delete(NotiVO vo);
 	public void freeBoardWrite(BoardVO vo);
+	public List<BoardVO> getFreeBoard(BoardVO vo);
+	public int getTotalBoard();
 		
 }
