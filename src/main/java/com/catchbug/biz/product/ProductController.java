@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -23,9 +24,10 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.catchbug.biz.vo.CategoryVO;
 import com.catchbug.biz.vo.ImgVO;
 import com.catchbug.biz.vo.ProductVO;
 
@@ -37,6 +39,32 @@ public class ProductController {
 
 	@Autowired
 	private ProductService productService;
+	
+	// 상품 삭제를 위한 컨트롤러
+	@RequestMapping("/deleteProduct.do")
+	public String DeleteProduct(ProductVO vo) {
+		productService.deleteProduct(vo);
+		return "redirect:stockList.do";
+	}
+	
+	// 상품 수정페이지 이동
+	@RequestMapping("/product_edit")
+	public String ProductEdit(ProductVO vo, Model model) {
+		
+		model.addAttribute("maincategory", productService.getMainCategory());
+		model.addAttribute("subCategory", JSONArray.fromObject(productService.getSubCategory()));
+		model.addAttribute("product",productService.getProduct(vo));
+
+		return "admin/product_edit";
+	}
+	
+	@PostMapping("/updateProduct.do")
+	public String UpdateProduct(ProductVO vo, ImgVO ivo) {
+		productService.updateProduct(vo);
+		productService.updateImg(ivo);
+		
+		return "redirect:stockList.do";
+	}
 
 	// 상품 등록
 	@RequestMapping("/productRegister.do")
@@ -61,7 +89,7 @@ public class ProductController {
 	}
 
 	@PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<List<ImgVO>> productImgAjaxUpload(MultipartFile[] uploadFile) { // 여러개의 파일을 받을때를 대비
+	public ResponseEntity<List<ImgVO>> productImgAjaxUpload(MultipartFile[] uploadFile, HttpServletRequest req) { // 여러개의 파일을 받을때를 대비
 		System.out.println("이미지 업로드 에이작스 작동");
 
 		/* 이미지 파일 체크 */
@@ -86,7 +114,8 @@ public class ProductController {
 		}
 
 		/* 이미지 파일을 저장할 경로 김현민 맥북 기준으로 작성 */
-		String uploadFolder = "/Users/hyeon1339/resources";
+		String uploadFolder = "/Users/hyeon1339/CatchBugProject/src/main/webapp/resources/productImg";
+		System.out.println(uploadFolder);
 
 		/* 날짜 폴더 경로 */
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

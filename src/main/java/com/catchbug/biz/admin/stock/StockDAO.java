@@ -34,8 +34,16 @@ public class StockDAO {
 		} else {
 			return mybatis.selectList("StockMapper.getProductListC", vo);
 		}
-		
-		
+	}
+	
+	//검색조건에 맞는 상품리스트 검색
+	public List<ProductVO> searchProductList(ProductVO vo){
+		return mybatis.selectList("StockMapper.searchProduct",vo);
+	}
+	
+	//선택한 상품의 모달창입력을 위한 메소드
+	public List<ProductVO> getProductListO(ProductVO vo) {
+		return mybatis.selectList("StockMapper.getProductListO",vo);
 	}
 
 
@@ -53,5 +61,7 @@ public class StockDAO {
 		System.out.println("deleteCart 처리");
 		mybatis.delete("CartMapper.deleteCart",vo);
 	}
+	
+	
 
 }
