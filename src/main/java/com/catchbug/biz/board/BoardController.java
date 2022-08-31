@@ -17,12 +17,6 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 
-	/* 게시판 */
-	@RequestMapping("/notice_Board.do")
-	public String NoticeBoard() {
-		return "board/notice_board";
-	}
-
 	@RequestMapping("/notice_Board_Write.do")
 	public String NoticeBoardWrite() {
 		return "board/notice_board_write";
@@ -63,6 +57,7 @@ public class BoardController {
 	@RequestMapping("/ViewChat.do")
 	public String ViewBoard() {
 		return "board/chat";
+	}
 		
 		//공지 리스트
 	@RequestMapping("/notice_Board.do")

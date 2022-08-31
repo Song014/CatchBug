@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.catchbug.biz.vo.BoardVO;
+import com.catchbug.biz.vo.NotiVO;
 
 @Repository
 public class BoardDAO {
