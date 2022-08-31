@@ -27,24 +27,7 @@ public class ViewController {
 		return "index";
 	}
 	
-	
-	
-	
-	/* 계정 */
-//	@RequestMapping("/sign_up.do")
-//	public String signUp() {
-//		return "account/sign_up";
-//	}
-//	
-//	@RequestMapping("/login_page.do")
-//	public String loginPage() {
-//		return "account/login_page";
-//	}
-	
-	@RequestMapping("/logout.do")
-	public String loginOut() {
-		return "account/login_page";
-	}
+
 	
 	@RequestMapping("/find_id.do")
 	public String findId() {

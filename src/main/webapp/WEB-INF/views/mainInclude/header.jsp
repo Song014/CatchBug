@@ -54,11 +54,11 @@
 					src="assets/img/profile-img.jpg" alt="Profile"
 					class="rounded-circle"> <c:choose>
 						<c:when test="${member.level1 eq 1 }">
-							<span class="d-none d-md-block dropdown-toggle ps-2">${memberId.business_name }관리자님
+							<span class="d-none d-md-block dropdown-toggle ps-2">${member.business_name }관리자님
 								안녕하세요</span>
 						</c:when>
 						<c:when test="${member.level1 eq 2 }">
-							<span class="d-none d-md-block dropdown-toggle ps-2">${memberId.business_name }가맹점님
+							<span class="d-none d-md-block dropdown-toggle ps-2">${member.business_name }가맹점님
 								안녕하세요</span>
 						</c:when>
 						<c:otherwise>

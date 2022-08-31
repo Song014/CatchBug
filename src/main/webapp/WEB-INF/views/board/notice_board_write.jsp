@@ -1,5 +1,4 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -10,7 +9,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>Dashboard - NiceAdmin Bootstrap Template</title>
+<title>공지사항 글쓰기</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -65,11 +64,6 @@
 	<!-- End Sidebar -->
 	<!-- End Header -->
 
-	<!-- ======= Sidebar ======= -->
-
-	<jsp:include page="../mainInclude/sidebar.jsp"></jsp:include>
-
-	<!-- End Sidebar -->
 
 	<main id="main" class="main">
 
@@ -86,18 +80,17 @@
 					</ol>
 				</nav>
 			</div>
-			<form>
+			<form action="insertNoti.do" method="post">
 				<div class="row mb-3">
 					<div class="col-sm-12">
-						<input type="text" class="form-control" placeholder="제목">
+						<input type="text" class="form-control" placeholder="제목" name="noti_title">
 					</div>
 				</div>
-
+						<input type="hidden" name="id" value="${member.id }">
+						<input type="hidden" name="writer" value="관리자">
 				<div class="col-md-12">
-					<textarea class="form-control" name="message" rows="6"
-						placeholder="Message" required=""></textarea>
+						<textarea class="form-control" name="noti_content" rows="6" placeholder="Message" required=""></textarea>
 				</div>
-
 				<div class="mb-3 text-center">
 					<button type="submit" class="btn btn-primary">글쓰기</button>
 					<button type="reset" class="btn btn-secondary">취소</button>

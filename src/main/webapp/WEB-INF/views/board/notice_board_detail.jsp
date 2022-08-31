@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>공 지 사 항 </title>
+<title>공지사항 상세보기</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -61,74 +61,78 @@
 
 	<jsp:include page="../mainInclude/sidebar.jsp"></jsp:include>
 
-	<!-- ======= Sidebar ======= -->
+	<!-- End Sidebar -->
+	<!-- End Header -->
+
+
 
 	<main id="main" class="main">
 
-	<div class="pagetitle">
-		<h1 style="text-align: center;">공지사항</h1>
-		<table class="table table-bordered">
-			<thead>
-				<tr class="table-primary">
-					<th scope="col">#</th>
-					<th scope="col">이름</th>
-					<th scope="col">제목</th>
-					<th scope="col">조회수</th>
-					<th scope="col">작성일</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="list" items="${list }">
-					<tr>
-						<th class="col-lg-1" scope="row">${list.noti_no }</th>
-						<td class="col-lg-2">관리자</td>
-						<td class="col-lg-6"><a href="noti_detail.do?noti_no=${list.noti_no }">${list.noti_title }</a></td>
-						<td class="col-lg-1">${list.cnt }</td>
-						<td class="col-lg-2">${list.noti_day }</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-			<tbody>
-				<tr>
-					<th colspan="5">
-
-						<ul class="pagination justify-content-center">
-							<li class="page-item"><a class="page-link" href="#"
-								tabindex="-1" aria-disabled="true">Previous</a></li>
-							<li class="page-item"><a class="page-link" href="#">1</a></li>
-							<li class="page-item active" aria-current="page"><a
-								class="page-link" href="#">2</a></li>
-							<li class="page-item"><a class="page-link" href="#">3</a></li>
-							<li class="page-item"><a class="page-link" href="#">Next</a></li>
-						</ul>
-
-					</th>
-				</tr>
-			</tbody>
-		</table>
-		<div style="text-align: right;">
-			<c:choose>
-				<c:when test="${member.level1 eq 1 }">
-					<button type="button" class="btn btn-primary col-lg-1"
-						onClick="location.href='notice_Board_Write.do'">
-						<i class="bi bi-pencil">글쓰기</i>
-					</button>
-				</c:when>
-				<c:otherwise>
-				</c:otherwise>
-			</c:choose>
+	<div class="card">
+		<div class="card-body">
+			<div class="pagetitle">
+				<br>
+				<h1>공지사항</h1>
+				<nav>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="index.html">게시판</a></li>
+						<li class="breadcrumb-item">공지사항</li>
+						<li class="breadcrumb-item active">글쓰기</li>
+					</ol>
+				</nav>
+			</div>
+			<form action="updateNoti.do" method="post">
+				<div class="row mb-3">
+					<div class="col-sm-12">
+						<input type="text" class="form-control" name="noti_title" value="${notiInfo.noti_title }" >
+					</div>
+				</div>
+						
+						<input type="hidden" name="id" value="${member.id }">
+						<input type="hidden" name="writer" value="관리자">
+						<input type="hidden" name="noti_no" value="${notiInfo.noti_no }">
+						
+				<div class="col-md-12">
+					<textarea class="form-control" name="noti_content" rows="6"
+						placeholder="Message" required="">${notiInfo.noti_content }</textarea>
+				</div>
+				<c:choose>
+					<c:when test="${member.level1 eq 1 }">
+						<div class="mb-3 text-center">
+							<button type="submit" class="btn btn-primary">수정하기</button>
+							<button type="reset" class="btn btn-secondary">취소</button>
+							<button type="button" value="${notiInfo.noti_no }" class="btn btn-primary btn1">삭제</button>
+							<input type="button" class="btn btn-secondary" value="공지 목록"
+								onclick="location.href='notice_Board.do'" />
+						</div>
+					</c:when>
+					<c:otherwise>
+							<input type="button" class="btn btn-secondary" value="공지 목록"
+								onclick="location.href='notice_Board.do'" />
+					</c:otherwise>
+				</c:choose>
+			</form>
 		</div>
 	</div>
-	</section>
+	
+	<script type="text/javascript">
+	$(".btn1").on("click", function(e) {
+		if (confirm("삭제 하시겠습니까?")) {
+			location.href="/delete_noti.do?noti_no="+e.target.value;
+		} else {
+			return;
+		}
+	})
+	</script>
 
 	</main>
 	<!-- End #main -->
 
 	<!-- ======= Footer ======= -->
-
-	<jsp:include page="../mainInclude/footer.jsp"></jsp:include>
-
-	<!-- End Footer -->
+  
+  <jsp:include page="../mainInclude/footer.jsp"></jsp:include>
+  
+<!-- End Footer -->
 
 	<a href="#"
 		class="back-to-top d-flex align-items-center justify-content-center"><i
