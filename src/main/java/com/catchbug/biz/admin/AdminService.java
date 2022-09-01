@@ -10,6 +10,8 @@ public interface AdminService {
 	public List<MemberVO> getMemberWaitList();
 	public void memberLevelUpdate(MemberVO vo);
 	public void memberrefuse(MemberVO vo);
+	public List<HashMap<String, Object>> getunOrderHistory();
+	public List<MemberVO> getMemberM(MemberVO vo);
 	
 	
 }

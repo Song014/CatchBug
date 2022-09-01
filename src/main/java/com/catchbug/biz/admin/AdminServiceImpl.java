@@ -1,5 +1,6 @@
 package com.catchbug.biz.admin;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,20 @@ public class AdminServiceImpl implements AdminService {
 	public void memberrefuse(MemberVO vo) {
 		System.out.println("가입 반려 서비스 회원아이디 : " + vo.getId());
 		adminDAO.memberrefuse(vo);
+	}
+
+	@Override
+	public List<HashMap<String,Object>> getunOrderHistory() {
+
+		System.out.println("미출고 내역 서비스");
+		
+		return adminDAO.getunOrderHistory();
+	}
+
+	@Override
+	public List<MemberVO> getMemberM(MemberVO vo) {
+		System.out.println("회원정보 모달 서비스");
+		return adminDAO.getMemberM(vo);
 	}
 
 	

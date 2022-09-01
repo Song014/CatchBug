@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
 
 <!DOCTYPE html>
 
@@ -112,8 +111,6 @@
 						<table class="table datatable dataTable-table">
 							<tr>
 								<th scope="col" data-sortable=""><a href="#"
-									class="dataTable-sorter">#</a></th>
-								<th scope="col" data-sortable=""><a href="#"
 									class="dataTable-sorter">주문번호</a></th>
 								<th scope="col" data-sortable=""><a href="#"
 									class="dataTable-sorter">사업자명</a></th>
@@ -127,19 +124,21 @@
 									class="dataTable-sorter">상태</a></th>
 								<th scope="col">결제</th>
 							</tr>
+							
+							<c:forEach var="list" items="${list }">
 							<tr>
-								<td>1</td>
-								<td>주문번호넣어주세요</td>
-								<td><a class="primary" data-bs-toggle="modal"
-									data-bs-target="#modal-biz"> 사업자 상세보기 모달띄우기 </a></td>
-								<td>22.08.12</td>
-								<td><a class="primary" data-bs-toggle="modal"
-									data-bs-target="#modalDialogScrollable"> 주문 상세보기 모달띄우기 </a></td>
-								<td></td>
+								<td>${list.get("ORDER_NO") }</td>
+								<td><a class="primary order_detail_modal" data-bs-toggle="modal"
+									data-bs-target="#modal-biz"> ${list.get("BUSINESS_NAME" )} </a></td>
+								<td> ${list.get("PROCESSING_DAY" )}</td>
+								<td><a class="primary" id='${list.get("ID")}' data-bs-toggle="modal"
+									data-bs-target="#modalDialogScrollable">주문 상세보기 </a></td>
+								<td>${list.get("NOTE" )}</td>
 								<td>대기</td>
 								<td><input type="button" name="ok" value="승인"> <input
 									type="button" name="no" value="취소"></td>
 							</tr>
+							</c:forEach>
 						</table>
 					</div>
 				</div>
@@ -169,7 +168,7 @@
 				<div class="modal-body">
 					<div class="card">
 						<div class="card-body">
-							<table class="table">
+							<table class="table" id="memberModal">
 								<tr>
 									<th>사업자명</th>
 									<td>늑대와여우</td>
@@ -190,6 +189,7 @@
 									<th>사업장주소지</th>
 									<td>영등포</td>
 								</tr>
+								<button onclick="javascript:btn()"> 버튼 </button>
 							</table>
 						</div>
 					</div>
@@ -223,7 +223,7 @@
 
 							</div>
 
-							<table class="table" tex>
+							<table class="table" >
 								<thead>
 									<tr>
 										<th scope=" col" style="width: 20%;">상품코드</th>
@@ -253,9 +253,58 @@
 		</div>
 	</div>
 	<!-- 모달 끝-->
+	
+	
+	<script type="text/javascript">
+	// 모달창 비동기처리
+	$(document).on("click", ".order_detail_modal", function (e) {
+		console.log("모달 비동기처리 작동");
+		e.preventDefault();
+		var memberId = e.target.id; 
+		
+		$.ajax({
+			type: "GET",
+			url: "/memberInfo.do?id=" + memberId, //선택 태그의 아이디값을 찾아서 전달
+			dataType : "json",
+			success : function(result){
+				$("#memberModal tr th td").remove();
+				result.forEach(function(result){
+					const str = `
+						<tr>
+							<th>사업자명</th>
+							<td>`+result.business_name+`</th>
+						</tr>
+						<tr>
+							<th>대표자</th>
+							<td>`+result.ceo+`</th>
+						</tr>
+						<tr>
+							<th>가입일</th>
+							<td>`+result.regdate+`</th>
+						</tr>
+						<tr>
+							<th>사업자등록번호</th>
+							<td>`+result.contact+`</th>
+						</tr>
+						<tr>
+							<th>사업장주소지</th>
+							<td>`+result.business_address+`</th>
+						</tr>
+						`;
+						${"#memberModal"}.append(str);
+						})
+					}
+			  error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+                   alert("통신 실패.");
+				})
+				
+			});
+			</script>
+	
+	
 <!-- End Main -->
-     
-     
+     할게네
+     봐도 모르것어요형 푸쉬한번해주면 뽑아서 볼게여ㅋㅋㅋ 그럼 잠깐만푸쉬 한번
      
 
 <!-- ======= Footer ======= -->

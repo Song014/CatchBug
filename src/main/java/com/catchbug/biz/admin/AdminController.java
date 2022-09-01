@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.catchbug.biz.vo.MemberVO;
 
@@ -18,7 +20,7 @@ import com.catchbug.biz.vo.MemberVO;
 public class AdminController {
 	
 	@Autowired
-	private AdminService AdminService;
+	private AdminService adminService;
 	
 	//메인 페이지
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
@@ -32,7 +34,7 @@ public class AdminController {
 	public String memberList(Model model, MemberVO vo) {
 		
 		System.out.println("컨트롤러"); 
-		  List<MemberVO> member_list = AdminService.getMemberList();
+		  List<MemberVO> member_list = adminService.getMemberList();
 		  
 		  model.addAttribute("list", member_list);
 		
@@ -45,7 +47,7 @@ public class AdminController {
 		
 		  System.out.println("컨트롤러"); 
 		  
-		  List<MemberVO> member_list = AdminService.getMemberWaitList();
+		  List<MemberVO> member_list = adminService.getMemberWaitList();
 		  model.addAttribute("list", member_list); 
 		 
 		return "admin/factory_franc_wait_list";
@@ -56,7 +58,7 @@ public class AdminController {
 	public String franc_Member_Approval(MemberVO vo) {
 			
 		System.out.println("가입 승인 컨트롤러 회원아이디 : " + vo.getId());
-		AdminService.memberLevelUpdate(vo);
+		adminService.memberLevelUpdate(vo);
 		
 		return "redirect:factory_franc_wait_list.do";
 	}
@@ -66,9 +68,28 @@ public class AdminController {
 		
 		System.out.println("가입 반려 컨트롤러 회원아이디 : " + vo.getId());
 		
-		AdminService.memberrefuse(vo);
+		adminService.memberrefuse(vo);
 		
 		return "redirect:factory_franc_wait_list.do";
+	}
+	
+	// 미출고 주문 현황
+	@RequestMapping("/unOrderHistory.do")
+	public String unOrderHistory(Model model) {
+		
+		System.out.println("미출고 컨트롤러");
+		List<HashMap<String,Object>> list = adminService.getunOrderHistory();
+		System.out.println(list.get(0).get("ID"));
+		model.addAttribute("list", list);
+		return "admin/un_order_history";
+	}
+	
+	// 사업장 정보 모달
+	@GetMapping("/memberInfo.do")
+	@ResponseBody
+	public List<MemberVO> getMemberVO(MemberVO vo){
+		System.out.println("회원정보 모달 컨트롤러");
+		return adminService.getMemberM(vo);
 	}
 	
 	// 가맹점 주문내역
@@ -77,18 +98,7 @@ public class AdminController {
 			return "admin/order_history";
 		}
 	
-
-	@RequestMapping("/franc_wait_list.do")
-	public String franc_WaitList() {
-		
-		return "admin/franc_wait_list";
-	}
-
-	// 미출고 주문 현황
-	@RequestMapping("/unOrderHistory.do")
-	public String unOrderHistory() {
-		return "admin/un_order_history";
-	}
+	
 	
 	/* 재고 관리 */
 	

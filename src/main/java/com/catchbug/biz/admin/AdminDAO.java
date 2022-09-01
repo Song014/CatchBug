@@ -1,6 +1,8 @@
 package com.catchbug.biz.admin;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,16 @@ public class AdminDAO {
 	public void memberrefuse(MemberVO vo) {
 		System.out.println("가입 반려 DAO 회원아이디 : " + vo.getId());
 		mybatis.delete("AdminMapper.memberrefuse", vo);
+	}
+	
+	public List<HashMap<String, Object>> getunOrderHistory(){
+		System.out.println("미출고 리스트 출력");
+		return mybatis.selectList("AdminMapper.unOrderHistory");
+	}
+	
+	public List<MemberVO> getMemberM(MemberVO vo){
+		System.out.println("회원정보 모달 디에이오");
+		return mybatis.selectOne("AdminMapper.getMemberM",vo);
 	}
 
 }
