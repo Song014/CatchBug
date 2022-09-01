@@ -9,12 +9,18 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>Dashboard - NiceAdmin Bootstrap Template</title>
+<title>발주 상품 목록</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
+
+<!-- jQuery -->
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+
 
 <!-- Favicons -->
 <link href="assets/img/favicon.png" rel="icon">
@@ -50,6 +56,7 @@
 </head>
 
 <body>
+
 
 	<!-- ======= Header ======= -->
 
@@ -104,13 +111,16 @@
 							<tbody>
 								<c:forEach var="list" items="${cartList }">
 									<tr>
-										<td class="cart_info_td"><input type="checkbox" class="cart_checkbox"
-											name="checkBox" checked="checked"> <input
-											type="hidden" class="individual_product_no_input" value=${list.product_no }> <input
-											type="hidden" class="individual_product_name_input" value=${list.product_name }> 
-											<input type="hidden" class="individual_purchase_amount_input" value="${list.purchase_amount }">
-											<input
-											type="hidden" class="individual_total_input" value=${list.total }></td>
+										<td class="cart_info_td"><input type="checkbox"
+											class="cart_checkbox" name="cart_check" checked="checked">
+											<input type="hidden" class="individual_product_no_input"
+											value=${list.product_no }> <input type="hidden"
+											class="individual_product_name_input"
+											value=${list.product_name }> <input type="hidden"
+											class="individual_purchase_amount_input"
+											value=${list.purchase_amount }> <input
+											type="hidden" class="individual_total_input"
+											value=${list.total }></td>
 										<td>${list.product_no }</td>
 										<td><a class="primary" data-bs-toggle="modal"
 											data-bs-target="#modalProduct">${list.product_name }</a></td>
@@ -124,12 +134,14 @@
 						</table>
 						<!-- 주문신청시 사용되는 폼 -->
 						<form class="order_form" action="submitOrder.do">
-							<input type="hidden" name="shipping_address" value=${member.business_address } >
-							<input type="hidden" name="id" value=${member.id } >
+							<input type="hidden" name="shipping_address"
+								value=${member.business_address }> <input type="hidden"
+								name="id" value=${member.id }>
 						</form>
 						<!-- 이전페이지로 돌아가기 -->
 						<div align="center">
-							<input class="btn btn-primary" type="submit" onclick="location.href='productForOrder.do'" value="상품 추가"></input>
+							<input class="btn btn-primary" type="submit"
+								onclick="location.href='productForOrder.do'" value="상품 추가"></input>
 						</div>
 
 					</div>
@@ -177,7 +189,9 @@
 						<h3>총 주문금액 :</h3>
 					</div>
 					<!-- 결제모듈 선택-->
-					<input type="button" class="btn btn-primary order_btn" value="결제하기">
+					<!-- 결제하기 버튼 생성 -->
+					<input type="button" onclick="requestPay()"
+						class="btn btn-primary order_btn" value="결제하기">
 				</div>
 			</div>
 		</div>
@@ -225,47 +239,101 @@
 
 		});
 
-		$(".order_btn")
-				.on(
-						"click",
-						function() {
+		/* $(".order_btn").on("click", function() {
 
-							let form_contents = '';
-							let orderNumber = 0;
-
-							$(".cart_info_td")
-									.each(
-											function(index, element) {
-
-												if ($(element).find(
-														".cart_checkbox").is(
-														":checked") === true) { //체크여부
-
-													let product_no = $(element)
-															.find(
-																	".individual_product_no_input")
-															.val();
-													let product_amount = $(element)
-															.find(
-																	".individual_purchase_amount_input")
-															.val();
-
-													let product_no_input = "<input name='orders[" + orderNumber + "].product_no' type='hidden' value='" + product_no + "'>";
-													form_contents += product_no_input;
-
-													let product_amount_input = "<input name='orders[" + orderNumber + "].purchase_amount' type='hidden' value='" + product_amount + "'>";
-													form_contents += product_amount_input;
-
-													orderNumber += 1;
-
-												}
-											});
-
-							$(".order_form").append(form_contents);
-							$(".order_form").submit();
-
-						});
+		}); */
 	</script>
+
+	<!-- iamport.payment.js -->
+	<script type="text/javascript"
+		src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+	<script>
+		var IMP = window.IMP;
+		IMP.init("imp45408430");
+
+		function requestPay() {
+			const id = '${member.id }';
+			const now = new Date();
+			const order_no = id + '_'
+					+ now.toISOString().substring(0, 10).replace(/-/g, '')
+					+ now.getSeconds();
+
+			const $num = $('input[name=cart_check]:checked').length
+			const $name = $(".cart_checkbox:checked").parent().find(
+					".individual_product_name_input").val();
+
+			let form_contents = '';
+			let orderNumber = 0;
+			let total_price = 0;
+
+			$(".cart_info_td")
+					.each(
+							function(index, element) {
+
+								if ($(element).find(".cart_checkbox").is(
+										":checked") === true) { //체크여부
+
+									let product_no = $(element).find(
+											".individual_product_no_input")
+											.val();
+									let product_amount = $(element)
+											.find(
+													".individual_purchase_amount_input")
+											.val();
+
+									let product_no_input = "<input name='orders[" + orderNumber + "].product_no' type='hidden' value='" + product_no + "'>";
+									form_contents += product_no_input;
+
+									let product_amount_input = "<input name='orders[" + orderNumber + "].purchase_amount' type='hidden' value='" + product_amount + "'>";
+									form_contents += product_amount_input;
+									let total = $(element).find(
+									".individual_total_input").val();
+									total_price += Number(total);
+									orderNumber += 1;
+
+								}
+							});
+
+			 IMP.request_pay({
+				pg : 'kcp',
+				pay_method : 'card',
+				merchant_uid : order_no,
+				name : $num > 1 ? $name + ' 외 ' + ($num - 1) + "개" : $name,
+				amount : total_price,
+				buyer_email : 'ghgsb6200@gmail.com',
+				buyer_name : '송기석',
+				buyer_tel : '010-1234-5678',
+				buyer_addr : '서울특별시 강남구 삼성동',
+				buyer_postcode : '123-456'
+			}, function(rsp) { // callback
+				if (rsp.success) {
+					console.log(rsp);
+
+					jQuery.ajax({
+						url : "{/endpoint}",
+						method : "POST",
+						headers : {
+							"Content-Type" : "application/json"
+						},
+						data : {
+							imp_uid : rsp.imp_uid, //결제 고유번호     
+							merchant_uid : rsp.merchant_uid
+						//주문번호
+						}
+					}).done(function(data) {
+						// 가맹점 서버 결제 API 성공시 로직
+
+						$(".order_form").append(form_contents);
+						$(".order_form").submit();
+					})
+
+				} else {
+					console.log(rsp);
+				}
+			});
+		}
+	</script>
+
 	<!-- End #main -->
 
 	<!-- End #main -->
@@ -279,6 +347,9 @@
 	<a href="#"
 		class="back-to-top d-flex align-items-center justify-content-center"><i
 		class="bi bi-arrow-up-short"></i></a>
+
+
+
 
 	<!-- Vendor JS Files -->
 	<script src="assets/vendor/apexcharts/apexcharts.min.js"></script>

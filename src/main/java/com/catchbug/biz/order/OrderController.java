@@ -35,6 +35,8 @@ public class OrderController {
 	
 	@Autowired
 	private OrderService os;
+	
+	
 
 	// 본사 발주서 작성
 	@RequestMapping("/productForOrder.do")
@@ -129,6 +131,11 @@ public class OrderController {
 		}
 	
 	/* 결제모듈 */
+	
+	@RequestMapping(value = "/iamport")
+	public void iamport() {
+		
+	}
 
 	/* 비동기 처리 */
 
