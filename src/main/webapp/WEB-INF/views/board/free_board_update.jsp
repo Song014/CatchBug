@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>게시판 - 자유게시판 - 글쓰기</title>
+<title>게시판 - 자유게시판 - 글수정</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -85,11 +85,12 @@
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="index.html">게시판</a></li>
 						<li class="breadcrumb-item">자유게시판</li>
-						<li class="breadcrumb-item active">글쓰기</li>
+						<li class="breadcrumb-item active">글수정</li>
 					</ol>
 				</nav>
 			</div>
-			<form action="writeFreeBoard.do" method="post" onsubmit="freeSubmit();">
+			<form action="updateFreeBoard.do" method="post"
+				onsubmit="return freeSubmit();">
 				<div class="row mb-3">
 					<div class="col-sm-2">
 						<div class="mb-3">
@@ -101,18 +102,19 @@
 						</div>
 					</div>
 					<div class="col-sm-10">
-						<input type="text" class="form-control" placeholder="제목" name="title" />
-						<input type="text" hidden="hidden" name="id" value="${member.id }" />
-						<input type="text" hidden="hidden" name="business_name" value="${member.business_name }" />
-						<input type="text" hidden="hidden" name="content" value="" />
+						<input type="text" class="form-control" placeholder="제목"
+							name="title" value="${board.title }" /> <input type="text"
+							hidden="hidden" name="board_no" value="${board.board_no }" /> <input
+							type="text" hidden="hidden" name="id" value="${member.id }" /> <input
+							type="text" hidden="hidden" name="business_name"
+							value="${member.business_name }" /> <input type="text"
+							hidden="hidden" name="content" value="" />
 					</div>
 				</div>
 
 				<div class="col-md-12">
 					<!-- Create the editor container -->
-					<div id="editor" style="height: 300px">
-						<p>내용을 입력해주세요.</p>
-					</div>
+					<div id="editor" style="height: 300px">${board.content }</div>
 				</div>
 				<div class="mb-3 text-center">
 					<button type="submit" class="btn btn-primary">글쓰기</button>
@@ -123,9 +125,9 @@
 	</div>
 
 	<script>
-		 function freeSubmit() {
+		function freeSubmit() {
 			var content = $(".ql-editor").html();
-			 $('input[name=content]').attr('value',content);
+			$('input[name=content]').attr('value', content);
 
 		}
 	</script> </main>

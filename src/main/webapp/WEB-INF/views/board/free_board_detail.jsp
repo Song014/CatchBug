@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>게시판 - 자유게시판 - 글쓰기</title>
+<title>자유게시판 상세보기</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -38,11 +38,6 @@
 <!-- Template Main CSS File -->
 <link href="assets/css/style.css" rel="stylesheet">
 
-<!-- quill 적용 -->
-<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css"
-	rel="stylesheet">
-
-
 <!-- =======================================================
   * Template Name: NiceAdmin - v2.3.1
   * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
@@ -69,10 +64,7 @@
 	<!-- End Sidebar -->
 	<!-- End Header -->
 
-	<!-- ======= Sidebar ======= -->
 
-	<jsp:include page="../mainInclude/sidebar.jsp"></jsp:include>
-	<!-- End Sidebar -->
 
 	<main id="main" class="main">
 
@@ -80,66 +72,64 @@
 		<div class="card-body">
 			<div class="pagetitle">
 				<br>
-				<h1>자유 게시판</h1>
+				<h1>자유게시판</h1>
 				<nav>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="index.html">게시판</a></li>
 						<li class="breadcrumb-item">자유게시판</li>
-						<li class="breadcrumb-item active">글쓰기</li>
+						<li class="breadcrumb-item active">상세보기</li>
 					</ol>
 				</nav>
 			</div>
-			<form action="writeFreeBoard.do" method="post" onsubmit="freeSubmit();">
-				<div class="row mb-3">
-					<div class="col-sm-2">
-						<div class="mb-3">
-							<select class="form-select" id="floatingSelect" name="tap">
-								<option value="1">잡담</option>
-								<option value="2">정보</option>
-								<option value="3">유머</option>
-							</select>
-						</div>
-					</div>
-					<div class="col-sm-10">
-						<input type="text" class="form-control" placeholder="제목" name="title" />
-						<input type="text" hidden="hidden" name="id" value="${member.id }" />
-						<input type="text" hidden="hidden" name="business_name" value="${member.business_name }" />
-						<input type="text" hidden="hidden" name="content" value="" />
+			<div class="card">
+				<div class="card-header">
+					<h3>${board.title }</h3>
+				</div>
+				<div class="card-body">${board.content }</div>
+				<div class="card-footer">
+					<div class="mb-3 text-center">
+						<input type="hidden" value="${board.id }" id="id" /> <input
+							type="hidden" value="${board.board_no }" id="board_no" />
+						<button type="button" class="btn btn-primary" onclick="change();">수정하기</button>
+						<button type="button" class="btn btn-secondary"
+							onclick="location.href='freeBoard.do?page=1'">뒤로가기</button>
+						<button type="button" class="btn btn-sm btn-danger"
+							onclick="deleted();">삭제</button>
 					</div>
 				</div>
-
-				<div class="col-md-12">
-					<!-- Create the editor container -->
-					<div id="editor" style="height: 300px">
-						<p>내용을 입력해주세요.</p>
-					</div>
-				</div>
-				<div class="mb-3 text-center">
-					<button type="submit" class="btn btn-primary">글쓰기</button>
-					<button type="reset" class="btn btn-secondary">취소</button>
-				</div>
-			</form>
+			</div>
 		</div>
 	</div>
+	</main>
 
-	<script>
-		 function freeSubmit() {
-			var content = $(".ql-editor").html();
-			 $('input[name=content]').attr('value',content);
 
+	<script type="text/javascript">
+		var id = $("#id").val();
+		var board_no = $("#board_no").val()
+		console.log(id);
+		function deleted(e) {
+			if (id == "${member.id}") {
+				if(confirm("정말 삭제하시겠습니까?")){
+					location.href="/deleteFreeBoard.do?board_no=" + board_no;	
+				}
+			} else {
+				alert("본인만 삭제할 수 있습니다.");
+			}
 		}
-	</script> </main>
 
-
-	<!-- Include the Quill library -->
-	<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-
-	<!-- Initialize Quill editor -->
-	<script>
-		var quill = new Quill('#editor', {
-			theme : 'snow'
-		});
+		function change(e) {
+			if (id == "${member.id}") {
+				if(confirm("정말 수정하시겠습니까?")){
+					location.href="/updateFreeBoard.do?board_no=" + board_no;	
+				}
+			} else {
+				alert("본인만 수정할 수 있습니다.");
+			}
+		}
 	</script>
+
+
+
 	<!-- End #main -->
 
 	<!-- ======= Footer ======= -->

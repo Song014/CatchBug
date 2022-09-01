@@ -93,7 +93,8 @@
 				</div>
 				<div class="mb-3 text-center">
 					<button type="submit" class="btn btn-primary">글쓰기</button>
-					<button type="reset" class="btn btn-secondary">취소</button>
+					<button type="button" class="btn btn-secondary"
+							onclick="location.href='freeBoard.do?page=1'">뒤로가기</button>
 				</div>
 			</form>
 		</div>

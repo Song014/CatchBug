@@ -22,7 +22,7 @@
 
 <!-- Logo -->
 
-<header id="header" class="header fixed-top d-flex align-items-center">
+<header id="header" class="header fixed-top d-flex align-items-center" style="background-color: #E9E8E6;">
 
    <div class="d-flex align-items-center justify-content-between">
       <a href="/" class="logo d-flex align-items-center">

@@ -95,7 +95,7 @@
 				<tbody>
 					<c:forEach var="list" items="${boardList }" varStatus="status">
 						<tr>
-							<td>${list.rn }</td>
+							<td>${list.board_no }</td>
 							<c:choose>
 								<c:when test="${list.tap eq 1}">
 									<th scope="row">잡담</th>
@@ -108,8 +108,7 @@
 								</c:when>
 							</c:choose>
 							<td>${list.business_name }</td>
-							<td><a class="primary product_modal" data-bs-toggle="modal"
-								data-bs-target="#modalProduct">${list.title }</a></td>
+							<td><a class="primary product_modal" href="freeBoardDetail.do?board_no=${list.board_no }">${list.title }</a></td>
 							<td>${list.cnt }</td>
 							<td><fmt:formatDate value="${list.created_day }"
 									pattern="yyyy-MM-dd" /></td>

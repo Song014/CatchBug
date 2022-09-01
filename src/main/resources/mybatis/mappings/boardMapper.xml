@@ -73,13 +73,13 @@
 		FROM (  SELECT ROWNUM rn, A.*
 		        FROM (  SELECT *
 		                FROM board
-		                ORDER BY created_day asc
+		                ORDER BY created_day desc
 		        ) A
 		    )
-		WHERE rn > #{startPage} and rn <= #{endPage}
-		AND title LIKE '%%'
-		AND business_name LIKE '%%'
-		ORDER BY rn desc
+		WHERE rn >= #{startPage} and rn <= #{endPage}
+		AND TITLE LIKE '%'||#{title}||'%'
+		AND business_name LIKE '%'||#{business_name}||'%'
+		ORDER BY rn asc
 		]]>
 	</select>
 	
@@ -88,5 +88,24 @@
 		SELECT count(*) as total
 		FROM board
 	</select>
+	
+	<!-- 자유게시판 상세정보 가져오기 -->
+	<select id="getFreeBoardDetail" resultType="board" parameterType="board">
+		SELECT *
+		FROM board
+		WHERE board_no = #{board_no}
+	</select>
+	
+	<!-- 자유게시판 글 삭제 -->
+	<delete id="deleteFreeBoard" parameterType="board">
+		DELETE FROM board
+		WHERE board_no = #{board_no}
+	</delete>
+	
+	<update id="updateFreeBoard" parameterType="board">
+		UPDATE board
+		SET title = #{title}, content= #{content}, tap = #{tap}
+		WHERE board_no = #{board_no}
+	</update>
 
 </mapper>
