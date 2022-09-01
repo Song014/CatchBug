@@ -19,4 +19,5 @@ public interface BoardService {
 	public BoardVO GetFreeBoardDetail(BoardVO vo);
 	public void DeteleFreeBoard(BoardVO vo);
 	public void UpdateFreeBoard(BoardVO vo);
+	public void FreeBoardCnt(BoardVO vo);
 }

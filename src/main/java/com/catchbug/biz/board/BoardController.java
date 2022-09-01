@@ -64,8 +64,6 @@ public class BoardController {
 		
 		model.addAttribute("boardList", boardService.getFreeBoard(bVo));
 		model.addAttribute("totalBoard",sum);
-
-		System.out.println(boardService.getFreeBoard(bVo));
 		return "board/free_board";
 	}
 	
@@ -74,6 +72,7 @@ public class BoardController {
 	public String FreeBoardDetail(int board_no,Model model) {
 		BoardVO vo = new BoardVO();
 		vo.setBoard_no(board_no);
+		boardService.FreeBoardCnt(vo);
 		model.addAttribute("board",boardService.GetFreeBoardDetail(vo));
 		return "board/free_board_detail";
 	}
