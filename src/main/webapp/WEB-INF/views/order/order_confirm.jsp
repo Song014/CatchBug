@@ -15,7 +15,6 @@
 
 
 <!-- jQuery -->
-
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -109,6 +108,7 @@
 								</tr>
 							</thead>
 							<tbody>
+								<c:set var="total" value="0"></c:set>
 								<c:forEach var="list" items="${cartList }">
 									<tr>
 										<td class="cart_info_td"><input type="checkbox"
@@ -118,7 +118,7 @@
 											class="individual_product_name_input"
 											value=${list.product_name }> <input type="hidden"
 											class="individual_purchase_amount_input"
-											value=${list.purchase_amount }> <input
+											value="${list.purchase_amount }"> <input
 											type="hidden" class="individual_total_input"
 											value=${list.total }></td>
 										<td>${list.product_no }</td>
@@ -129,6 +129,7 @@
 										<td><button type="button"
 												class="btn btn-primary btn-sm delBucket">삭제</button></td>
 									</tr>
+									<c:set var="total" value="${total + list.total }"></c:set>
 								</c:forEach>
 							</tbody>
 						</table>
@@ -140,6 +141,7 @@
 						</form>
 						<!-- 이전페이지로 돌아가기 -->
 						<div align="center">
+							<h3>총 주문금액 :${total }</h3>
 							<input class="btn btn-primary" type="submit"
 								onclick="location.href='productForOrder.do'" value="상품 추가"></input>
 						</div>
@@ -147,51 +149,63 @@
 					</div>
 					<!-- 배송지 선택 + 메모-->
 					<div class="row">
-						<div class="col-lg-2"></div>
+
 						<!-- 배송지 정보  -->
 
-						<div class="col-lg-4" style="border: 1px solid black;">
+						<div class="col-lg-8" style="border: 1px solid black;">
 							<p>
 								<strong>배송지 정보</strong>
 							</p>
 							<!-- ToDo 배송지 변경& 신규배송지 선택시 ajax로 ul 제거후 폼 생성 -->
 							<div>
-								<label>배송지 선택 </label>: <input type="radio" name="address"
+								<label>배송지 선택 </label>: <input type="radio"
+									class="radio_adrress_input" name="address"
 									value="defaultAddress" checked="checked"> 기본배송지 <input
-									type="radio" name="address" value="optionAddress">
-								신규배송지
+									type="radio" class="radio_adrress_input" name="address"
+									value="optionAddress"> 신규배송지
 							</div>
 
-							<ul>
-								<li>${member.ceo }(${member.business_name })</li>
-								<li>${member.contact }</li>
-								<li>${member.business_address }</li>
-								<li>
-							</ul>
+							<table>
+								<tr>
+									<th>이름:</th>
+									<td>${member.ceo }(${member.business_name })</td>
+								</tr>
+								<tr>
+									<th>번호:</th>
+									<td>${member.contact }</td>
+								</tr>
+								<tr>
+									<th>주소:</th>
+									<td>${member.business_address }</td>
+								</tr>
+							</table>
 						</div>
 						<!-- 주문자 정보 -->
 						<div class="col-lg-4" style="border: 1px solid black;">
 							<p>
 								<strong>주문자 정보</strong>
 							</p>
-							<div>
-								<ul>
-									<li>${member.ceo }</li>
-									<li>${member.contact }</li>
-									<li>${member.email }</li>
-								</ul>
-							</div>
+							<table>
+								<tr>
+									<th>주문자명:</th>
+									<td>${member.ceo }</td>
+								</tr>
+								<tr>
+									<th>번호:</th>
+									<td>${member.contact }</td>
+								</tr>
+								<tr>
+									<th>이메일:</th>
+									<td>${member.email }</td>
+								</tr>
+							</table>
 						</div>
-						<div class="col-lg-2"></div>
+
 					</div>
-					<!-- 결제 상세 -->
-					<div class="col-lg-12">
-						<h3>총 주문금액 :</h3>
-					</div>
+
 					<!-- 결제모듈 선택-->
-					<!-- 결제하기 버튼 생성 -->
-					<input type="button" onclick="requestPay()"
-						class="btn btn-primary order_btn" value="결제하기">
+					<input type="button" class="btn btn-primary order_btn"
+						onclick="requestPay()" value="결제하기">
 				</div>
 			</div>
 		</div>
@@ -200,6 +214,25 @@
 	</main>
 
 	<script type="text/javascript">
+
+		$('input[name=cart_check]:checked').change(
+				function() {
+					let total_price = 0;
+
+					$(".cart_info_td").each(
+							function(index, element) {
+
+								if ($(element).find(".cart_checkbox").is(
+										":checked") === true) { //체크여부
+									total_price += Number($(element).find(
+											".individual_total_input").val());
+								}
+							})
+					$("#product_info").children().eq(0).html(
+							"총 구매 금액 : " + total_price + " 원")
+
+				});
+
 		$("#bucket").on("click", ".delBucket", function() {
 			const $tr = $(this).parent().parent();
 			const $td = $tr.children();
@@ -247,20 +280,28 @@
 	<!-- iamport.payment.js -->
 	<script type="text/javascript"
 		src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+	<!-- 결제 모듈 -->
 	<script>
 		var IMP = window.IMP;
 		IMP.init("imp45408430");
 
 		function requestPay() {
 			const id = '${member.id }';
+			const member_name = '${member.ceo }';
+			const member_email = '${member.email }';
+			const member_tel = '${member.contact }';
+			const member_addr = '${member.business_address }';
+			const member_postcode = '03499';
+
 			const now = new Date();
 			const order_no = id + '_'
 					+ now.toISOString().substring(0, 10).replace(/-/g, '')
 					+ now.getSeconds();
 
-			const $num = $('input[name=cart_check]:checked').length
+			const $num = $('input[name=cart_check]:checked').length;
 			const $name = $(".cart_checkbox:checked").parent().find(
 					".individual_product_name_input").val();
+			console.log($num);
 
 			let form_contents = '';
 			let orderNumber = 0;
@@ -287,50 +328,70 @@
 									let product_amount_input = "<input name='orders[" + orderNumber + "].purchase_amount' type='hidden' value='" + product_amount + "'>";
 									form_contents += product_amount_input;
 									let total = $(element).find(
-									".individual_total_input").val();
+											".individual_total_input").val();
 									total_price += Number(total);
 									orderNumber += 1;
 
 								}
 							});
 
-			 IMP.request_pay({
-				pg : 'kcp',
-				pay_method : 'card',
-				merchant_uid : order_no,
-				name : $num > 1 ? $name + ' 외 ' + ($num - 1) + "개" : $name,
-				amount : total_price,
-				buyer_email : 'ghgsb6200@gmail.com',
-				buyer_name : '송기석',
-				buyer_tel : '010-1234-5678',
-				buyer_addr : '서울특별시 강남구 삼성동',
-				buyer_postcode : '123-456'
-			}, function(rsp) { // callback
-				if (rsp.success) {
-					console.log(rsp);
+			IMP
+					.request_pay(
+							{
+								pg : 'kcp',
+								pay_method : 'card',
+								merchant_uid : order_no,
+								name : $num > 1 ? $name + ' 외 ' + ($num - 1)
+										+ "개" : $name,
+								amount : total_price,
+								buyer_email : member_email,
+								buyer_name : member_name,
+								buyer_tel : member_tel,
+								buyer_addr :  member_addr,
+								buyer_postcode : '123-456'
+							},
+							function(rsp) { // callback
+								if (rsp.success) {
+									console.log(rsp);
 
-					jQuery.ajax({
-						url : "{/endpoint}",
-						method : "POST",
-						headers : {
-							"Content-Type" : "application/json"
-						},
-						data : {
-							imp_uid : rsp.imp_uid, //결제 고유번호     
-							merchant_uid : rsp.merchant_uid
-						//주문번호
-						}
-					}).done(function(data) {
-						// 가맹점 서버 결제 API 성공시 로직
+									jQuery
+											.ajax(
+													{
+														url : "/verifyIamport/" + rsp.imp_uid ,
+														method : "POST",
+														headers : {
+															"Content-Type" : "application/json"
+														},
+														data : {
+															imp_uid : rsp.imp_uid, //결제 고유번호     
+															merchant_uid : rsp.merchant_uid
+														//주문번호
+														}
+													})
+											.done(
+													function(data) {
+														// 가맹점 서버 결제 API 성공시 로직
+														console.log(data);
+														if(rsp.paid_amount == data.response.amount){
+												        	alert("결제 및 결제검증완료");
+												        	let order_no_input = "<input name='order_no' type='hidden' value='" + order_no + "'>";
+															form_contents += order_no_input;
+															$(".order_form")
+																	.append(
+																			form_contents);
+															$(".order_form")
+																	.submit();
+											        	} else {
+											        		alert("결제 실패");
+											        	}
+														
+													})
+													
 
-						$(".order_form").append(form_contents);
-						$(".order_form").submit();
-					})
-
-				} else {
-					console.log(rsp);
-				}
-			});
+								} else {
+									console.log(rsp);
+								}
+							});
 		}
 	</script>
 
