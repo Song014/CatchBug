@@ -33,7 +33,7 @@
 	order by order_no asc
 </select>
 
-<select id="getMemberM" parameterType="member">
+<select id="getMemberM" parameterType="member" resultType="member">
 	select * from member where id = #{id}
 </select>
 </mapper>

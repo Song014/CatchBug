@@ -82,8 +82,7 @@ public class AdminController {
 		System.out.println(list.get(0).get("ID"));
 		model.addAttribute("list", list);
 		return "admin/un_order_history";
-	}
-	
+	}//실행ㅇ
 	// 사업장 정보 모달
 	@GetMapping("/memberInfo.do")
 	@ResponseBody

@@ -128,10 +128,10 @@
 							<c:forEach var="list" items="${list }">
 							<tr>
 								<td>${list.get("ORDER_NO") }</td>
-								<td><a class="primary order_detail_modal" data-bs-toggle="modal"
+								<td><a class="primary order_detail_modal" id='${list.get("ID")}' data-bs-toggle="modal"
 									data-bs-target="#modal-biz"> ${list.get("BUSINESS_NAME" )} </a></td>
 								<td> ${list.get("PROCESSING_DAY" )}</td>
-								<td><a class="primary" id='${list.get("ID")}' data-bs-toggle="modal"
+								<td><a class="primary"  data-bs-toggle="modal"
 									data-bs-target="#modalDialogScrollable">주문 상세보기 </a></td>
 								<td>${list.get("NOTE" )}</td>
 								<td>대기</td>
@@ -189,7 +189,7 @@
 									<th>사업장주소지</th>
 									<td>영등포</td>
 								</tr>
-								<button onclick="javascript:btn()"> 버튼 </button>
+
 							</table>
 						</div>
 					</div>
@@ -252,59 +252,63 @@
 			</div>
 		</div>
 	</div>
-	<!-- 모달 끝-->
+	<!-- 모달 끝--> ㅋㅋ아니 어디갔어 테두리..
 	
 	
 	<script type="text/javascript">
 	// 모달창 비동기처리
 	$(document).on("click", ".order_detail_modal", function (e) {
-		console.log("모달 비동기처리 작동");
+		var memberId = e.target.id; // 얘 값이 없는데여 ㄴㄴ
+		console.log("모달 비동기처리 작동 "+memberId);
 		e.preventDefault();
-		var memberId = e.target.id; 
-		
+		let str ="";
 		$.ajax({
-			type: "GET",
-			url: "/memberInfo.do?id=" + memberId, //선택 태그의 아이디값을 찾아서 전달
-			dataType : "json",
-			success : function(result){
-				$("#memberModal tr th td").remove();
-				result.forEach(function(result){
-					const str = `
-						<tr>
-							<th>사업자명</th>
-							<td>`+result.business_name+`</th>
-						</tr>
-						<tr>
-							<th>대표자</th>
-							<td>`+result.ceo+`</th>
-						</tr>
-						<tr>
-							<th>가입일</th>
-							<td>`+result.regdate+`</th>
-						</tr>
-						<tr>
-							<th>사업자등록번호</th>
-							<td>`+result.contact+`</th>
-						</tr>
-						<tr>
-							<th>사업장주소지</th>
-							<td>`+result.business_address+`</th>
-						</tr>
-						`;
-						${"#memberModal"}.append(str);
-						})
-					}
-			  error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
-                   alert("통신 실패.");
-				})
+			type : "GET", //요청 메소드 방식
+			url : "memberInfo.do?id=" + memberId,
+			dataType : "json", //서버가 요청 URL을 통해서 응답하는 내용의 타입
+			success : function(result) {
+					result.forEach(function(result){
+						str = `
+							<tr>
+								<th>사업자명</th>
+								<td>`+result.business_name+`</th>
+							</tr>
+							<tr>
+								<th>대표자</th>
+								<td>`+result.ceo+`</th>
+							</tr>
+							<tr>
+								<th>가입일</th>
+								<td>`+result.regdate+`</th>
+							</tr>
+							<tr>
+								<th>사업자등록번호</th>
+								<td>`+result.contact+`</th>
+							</tr>
+							<tr>
+								<th>사업장주소지</th>
+								<td>`+result.business_address+`</th>
+							</tr>
+							`;
+							
+							})
+							$("#memberModal").html(str);
+				
+				console.log("ajax 성공");
+			},
+			error : function(a, b, c) {
+				//통신 실패시 발생하는 함수(콜백)
+				console.log("실패" + a, b, c);
+			}
+		});
+		
 				
 			});
 			</script>
 	
 	
 <!-- End Main -->
-     할게네
-     봐도 모르것어요형 푸쉬한번해주면 뽑아서 볼게여ㅋㅋㅋ 그럼 잠깐만푸쉬 한번
+
      
 
 <!-- ======= Footer ======= -->

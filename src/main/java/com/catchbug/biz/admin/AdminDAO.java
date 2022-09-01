@@ -46,8 +46,8 @@ public class AdminDAO {
 	}
 	
 	public List<MemberVO> getMemberM(MemberVO vo){
-		System.out.println("회원정보 모달 디에이오");
-		return mybatis.selectOne("AdminMapper.getMemberM",vo);
+		System.out.println("회원정보 모달 디에이오"); // 얘 셀렉원이라 하나뽑아서 리스트로 받으면 에러나는거같은데여 리시트로바꿔조바
+		return mybatis.selectList("AdminMapper.getMemberM",vo);
 	}
 
 }
