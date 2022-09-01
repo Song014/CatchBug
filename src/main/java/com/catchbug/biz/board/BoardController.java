@@ -27,11 +27,29 @@ public class BoardController {
 	@RequestMapping("/freeBoard.do")
 	public String GetFreeBoard(SearchVO vo, Model model,int page) {
 		
-		int sum = boardService.getTotalBoard(); //200개라면
+		int sum = boardService.getTotalBoard(); //불러온 총 데이터량
+
+		//총갯수가 300개고 페이지가 10페이지라면
+		int pageCount = 20; //한페이지에 표시할 글 갯수
 		
-		int pageCount = 20;
-		int startPage = (page - 1) * pageCount + 1;
-		int endPage = page * pageCount;
+		// 9 * 20 + 1 181번부터 200번까지 표시
+		int startPage = (page - 1) * pageCount + 1; //시작 글번호
+		int endPage = page * pageCount; //마지막으로 불러올 글번호
+		
+		//페이지가 10페이지라면 표시할 페이지번호
+		int startPageNum = page - 5;
+		if(startPageNum <=0) {
+			startPageNum = 1; //최소페이지는 1페이지부터
+		}
+		int endPageNum = page + 5;
+		if((sum/pageCount) < endPageNum) { //최대 표시할페이지가 갯수보타 넘치게 될경우 방지.
+			if((sum%pageCount) == 0) { //나머지가 없을경우
+				endPageNum = sum/pageCount;
+			}else {
+				endPageNum = sum/pageCount + 1; //나머지가 있을경우
+			}
+			
+		}
 		
 		if(page == 0) {
 			page = 1;
@@ -61,9 +79,14 @@ public class BoardController {
 			bVo.setBusiness_name("");
 			bVo.setTitle("");
 		}
-		
+		System.out.println("page>"+page);
+		System.out.println("startpage>"+startPageNum);
+		System.out.println("endpage>"+endPageNum);
 		model.addAttribute("boardList", boardService.getFreeBoard(bVo));
 		model.addAttribute("totalBoard",sum);
+		model.addAttribute("page",page); //현재 페이지 정보를 전달
+		model.addAttribute("startPage", startPageNum); //시작 페이지 정보를 전달
+		model.addAttribute("endPage", endPageNum); //끝 페이지 정보를 전달
 		return "board/free_board";
 	}
 	

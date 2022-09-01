@@ -2,6 +2,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%
+	int startPage = (Integer) request.getAttribute("startPage");
+	int endPage = (Integer) request.getAttribute("endPage");
+	int nowPage = (Integer) request.getAttribute("page");
+%>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -108,7 +114,8 @@
 								</c:when>
 							</c:choose>
 							<td>${list.business_name }</td>
-							<td><a class="primary product_modal" href="freeBoardDetail.do?board_no=${list.board_no }">${list.title }</a></td>
+							<td><a class="primary product_modal"
+								href="freeBoardDetail.do?board_no=${list.board_no }">${list.title }</a></td>
 							<td>${list.cnt }</td>
 							<td><fmt:formatDate value="${list.created_day }"
 									pattern="yyyy-MM-dd" /></td>
@@ -119,10 +126,19 @@
 					<tr>
 						<th colspan="6">
 							<ul class="pagination justify-content-center">
-								<c:forEach begin="1" end="${totalBoard }" varStatus="status">
-								<li class="paginate_button previous"><a class="page-link"
-									href="freeBoard.do?page=${status.count }">${status.count }</a></li>
-								</c:forEach>
+								<%
+									for (int i = startPage; i <= endPage; i++) {
+										if(i == nowPage){
+										%>
+											<li class="paginate_button previous active"><a class="page-link" href="freeBoard.do?page=<%=i%>"><%=i%></a></li>
+										<%
+										}else{
+											%>
+											<li class="paginate_button previous"><a class="page-link" href="freeBoard.do?page=<%=i%>"><%=i%></a></li>
+										<%
+										}
+									}
+								%>
 
 							</ul>
 						</th>
@@ -137,13 +153,8 @@
 			</div>
 		</div>
 	</div>
-	<script>
-	var actionForm = $('#actionForm'); $('.paginate_button a').on('click', function(e) { e.preventDefault(); //걸어둔 링크로 이동하는 것을 일단 막음 actionForm.find('input[name="pageNum"]').val($(this).attr('href')); actionForm.submit(); });
-	</script> </main>
+	</main>
 	<!-- End #main -->
-	<!-- 스크립트 시작부 -->
-
-	<!-- 스크립트 종료 -->
 
 	<!-- ======= Footer ======= -->
 
