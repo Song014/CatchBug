@@ -52,7 +52,7 @@ public class BoardController {
 		int searchTap = vo.getSearchTap();
 		String keyWord = vo.getSearchWord();
 		if (searchTap == 1) {
-			bVo.setTitle(" ");
+			bVo.setTitle("");
 			bVo.setBusiness_name(keyWord);
 		} else if (searchTap == 2) {
 			bVo.setTitle(keyWord);
