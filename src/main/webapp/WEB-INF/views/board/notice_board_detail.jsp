@@ -81,7 +81,7 @@
 					</ol>
 				</nav>
 			</div>
-			<form action="updateNoti.do" method="post">
+			<form action="updateNoti.do" method="post" onsubmit="freeSubmit();">
 				<div class="row mb-3">
 					<div class="col-sm-12">
 						<input type="text" class="form-control" name="noti_title" value="${notiInfo.noti_title }" >
@@ -91,19 +91,21 @@
 						<input type="hidden" name="id" value="${member.id }">
 						<input type="hidden" name="writer" value="관리자">
 						<input type="hidden" name="noti_no" value="${notiInfo.noti_no }">
+						<input type="text" hidden="hidden" name="noti_content">
 						
 				<div class="col-md-12">
-					<textarea class="form-control" name="noti_content" rows="6"
-						placeholder="Message" required="">${notiInfo.noti_content }</textarea>
-				</div>
+					<!-- Create the editor container -->
+					<div id="editor" style="height: 300px" name="noti_content">
+					${notiInfo.noti_content }
+					</div>
+					</div>		
+						
 				<c:choose>
 					<c:when test="${member.level1 eq 1 }">
 						<div class="mb-3 text-center">
 							<button type="submit" class="btn btn-primary">수정하기</button>
-							<button type="reset" class="btn btn-secondary">취소</button>
-							<button type="button" value="${notiInfo.noti_no }" class="btn btn-primary btn1">삭제</button>
-							<input type="button" class="btn btn-secondary" value="공지 목록"
-								onclick="location.href='notice_Board.do'" />
+							<input type="button" class="btn btn-secondary" value="취소" onclick="location.href='notice_Board.do'" />
+							<button type="button" value="${notiInfo.noti_no }" class="btn btn-danger btn1">삭제</button>
 						</div>
 					</c:when>
 					<c:otherwise>
@@ -123,6 +125,25 @@
 			return;
 		}
 	})
+	</script>
+	
+	<script>
+		 function freeSubmit() {
+			var content = $(".ql-editor").html();
+			 $('input[name=noti_content]').attr('value',content);
+
+		}
+	</script> </main>
+
+
+	<!-- Include the Quill library -->
+	<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+	<!-- Initialize Quill editor -->
+	<script>
+		var quill = new Quill('#editor', {
+			theme : 'snow'
+		});
 	</script>
 
 	</main>
