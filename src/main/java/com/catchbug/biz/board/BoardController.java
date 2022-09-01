@@ -138,7 +138,8 @@ public class BoardController {
 		return "board/chat";
 	}
 
-	// 공지 리스트
+	//공지 리스트
+
 	@RequestMapping("/notice_Board.do")
 	public String notice_Board_list(Model model, NotiVO vo) {
 		System.out.println("boardController");
