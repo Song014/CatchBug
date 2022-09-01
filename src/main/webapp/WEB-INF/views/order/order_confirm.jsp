@@ -1,375 +1,430 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<!DOCTYPE html>
-<html lang="en">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+		<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+			<!DOCTYPE html>
+			<html lang="en">
 
-<head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
+			<head>
+				<meta charset="utf-8">
+				<meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>발주 상품 목록</title>
-<meta content="" name="description">
-<meta content="" name="keywords">
+				<title>발주 상품 목록</title>
+				<meta content="" name="description">
+				<meta content="" name="keywords">
 
 
-<!-- jQuery -->
-
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+				<!-- jQuery -->
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 
 
 
-<!-- Favicons -->
-<link href="assets/img/favicon.png" rel="icon">
-<link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+				<!-- Favicons -->
+				<link href="assets/img/favicon.png" rel="icon">
+				<link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-<!-- Google Fonts -->
-<link href="https://fonts.gstatic.com" rel="preconnect">
-<link
-	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-	rel="stylesheet">
+				<!-- Google Fonts -->
+				<link href="https://fonts.gstatic.com" rel="preconnect">
+				<link
+					href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+					rel="stylesheet">
 
-<!-- Vendor CSS Files -->
-<link href="assets/vendor/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
-<link href="assets/vendor/bootstrap-icons/bootstrap-icons.css"
-	rel="stylesheet">
-<link href="assets/vendor/boxicons/css/boxicons.min.css"
-	rel="stylesheet">
-<link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
-<link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-<link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-<link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+				<!-- Vendor CSS Files -->
+				<link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+				<link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+				<link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+				<link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+				<link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+				<link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+				<link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
-<!-- Template Main CSS File -->
-<link href="assets/css/style.css" rel="stylesheet">
+				<!-- Template Main CSS File -->
+				<link href="assets/css/style.css" rel="stylesheet">
 
-<!-- =======================================================
+				<!-- =======================================================
   * Template Name: NiceAdmin - v2.3.1
   * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-</head>
+			</head>
 
-<body>
-
-
-	<!-- ======= Header ======= -->
-
-	<jsp:include page="../mainInclude/header.jsp"></jsp:include>
-
-	<!-- End Header -->
+			<body>
 
 
+				<!-- ======= Header ======= -->
+
+				<jsp:include page="../mainInclude/header.jsp"></jsp:include>
+
+				<!-- End Header -->
 
 
-	<!-- ======= Sidebar ======= -->
-
-	<jsp:include page="../mainInclude/sidebar.jsp"></jsp:include>
-
-	<!-- End Sidebar -->
-	<!-- End Header -->
-	<!-- End Sidebar -->
-	<!-- main start -->
-	<main id="main" class="main">
-	<div class="pagetitle">
-		<h1>주문/결제</h1>
-		<nav>
-			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a href="/">Home</a></li>
-				<li class="breadcrumb-item active">주문/결제</li>
-			</ol>
-		</nav>
-	</div>
-	<!-- End Page Title -->
-	<section class="section dashboard">
-		<div class="container">
-			<div class="card">
-				<div class="card-body">
-					<div class="row">
-						<!-- 상품정보 -->
 
 
-						<!-- 주문확인  주문내용 확인 및 장바구니에서 빼기 , 발주서 작성페이지로 이동-->
+				<!-- ======= Sidebar ======= -->
 
-						<table class="table" id="bucket">
-							<thead>
-								<tr>
-									<th><input type="checkbox" class="all_check_input"
-										name="checkBox" checked="checked"></th>
-									<th>상품 번호</th>
-									<th>상품 명</th>
-									<th>구매 수량</th>
-									<th>개당 가격</th>
-									<th>버튼</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach var="list" items="${cartList }">
-									<tr>
-										<td class="cart_info_td"><input type="checkbox"
-											class="cart_checkbox" name="cart_check" checked="checked">
-											<input type="hidden" class="individual_product_no_input"
-											value=${list.product_no }> <input type="hidden"
-											class="individual_product_name_input"
-											value=${list.product_name }> <input type="hidden"
-											class="individual_purchase_amount_input"
-											value=${list.purchase_amount }> <input
-											type="hidden" class="individual_total_input"
-											value=${list.total }></td>
-										<td>${list.product_no }</td>
-										<td><a class="primary" data-bs-toggle="modal"
-											data-bs-target="#modalProduct">${list.product_name }</a></td>
-										<td>${list.purchase_amount }개</td>
-										<td>${list.total }</td>
-										<td><button type="button"
-												class="btn btn-primary btn-sm delBucket">삭제</button></td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
-						<!-- 주문신청시 사용되는 폼 -->
-						<form class="order_form" action="submitOrder.do">
-							<input type="hidden" name="shipping_address"
-								value=${member.business_address }> <input type="hidden"
-								name="id" value=${member.id }>
-						</form>
-						<!-- 이전페이지로 돌아가기 -->
-						<div align="center">
-							<input class="btn btn-primary" type="submit"
-								onclick="location.href='productForOrder.do'" value="상품 추가"></input>
-						</div>
+				<jsp:include page="../mainInclude/sidebar.jsp"></jsp:include>
 
+				<!-- End Sidebar -->
+				<!-- End Header -->
+				<!-- End Sidebar -->
+				<!-- main start -->
+				<main id="main" class="main">
+					<div class="pagetitle">
+						<h1>주문/결제</h1>
+						<nav>
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a href="/">Home</a></li>
+								<li class="breadcrumb-item active">주문/결제</li>
+							</ol>
+						</nav>
 					</div>
-					<!-- 배송지 선택 + 메모-->
-					<div class="row">
-						<div class="col-lg-2"></div>
-						<!-- 배송지 정보  -->
+					<!-- End Page Title -->
+					<section class="section dashboard">
+						<div class="container">
+							<div class="card">
+								<div class="card-body">
+									<div class="row">
+										<!-- 상품정보 -->
 
-						<div class="col-lg-4" style="border: 1px solid black;">
-							<p>
-								<strong>배송지 정보</strong>
-							</p>
-							<!-- ToDo 배송지 변경& 신규배송지 선택시 ajax로 ul 제거후 폼 생성 -->
-							<div>
-								<label>배송지 선택 </label>: <input type="radio" name="address"
-									value="defaultAddress" checked="checked"> 기본배송지 <input
-									type="radio" name="address" value="optionAddress">
-								신규배송지
+
+										<!-- 주문확인  주문내용 확인 및 장바구니에서 빼기 , 발주서 작성페이지로 이동-->
+
+										<table class="table" id="bucket">
+											<thead>
+												<tr>
+													<th><input type="checkbox" class="all_check_input" name="checkBox"
+															checked="checked"></th>
+													<th>상품 번호</th>
+													<th>상품 명</th>
+													<th>구매 수량</th>
+													<th>개당 가격</th>
+													<th>버튼</th>
+												</tr>
+											</thead>
+											<tbody>
+												<c:set var="total" value="0"></c:set>
+												<c:forEach var="list" items="${cartList }">
+													<tr>
+														<td class="cart_info_td"><input type="checkbox"
+																class="cart_checkbox" name="cart_check"
+																checked="checked">
+															<input type="hidden" class="individual_product_no_input"
+																value=${list.product_no }> <input type="hidden"
+																class="individual_product_name_input"
+																value=${list.product_name }> <input type="hidden"
+																class="individual_purchase_amount_input"
+																value="${list.purchase_amount }"> <input type="hidden"
+																class="individual_total_input" value=${list.total }>
+														</td>
+														<td>${list.product_no }</td>
+														<td><a class="primary" data-bs-toggle="modal"
+																data-bs-target="#modalProduct">${list.product_name }</a>
+														</td>
+														<td>${list.purchase_amount }개</td>
+														<td>${list.total }</td>
+														<td><button type="button"
+																class="btn btn-primary btn-sm delBucket">삭제</button>
+														</td>
+													</tr>
+													<c:set var="total" value="${total + list.total }"></c:set>
+												</c:forEach>
+											</tbody>
+										</table>
+										<!-- 주문신청시 사용되는 폼 -->
+										<form class="order_form" action="submitOrder.do">
+											<input type="hidden" name="shipping_address" value=${member.business_address
+												}> <input type="hidden" name="id" value=${member.id }>
+										</form>
+										<!-- 이전페이지로 돌아가기 -->
+										<div align="center">
+											<h3>총 주문금액 :${total }</h3>
+											<input class="btn btn-primary" type="submit"
+												onclick="location.href='productForOrder.do'" value="상품 추가"></input>
+										</div>
+
+									</div>
+									<!-- 배송지 선택 + 메모-->
+									<div class="row">
+
+										<!-- 배송지 정보  -->
+
+										<div class="col-lg-8" style="border: 1px solid black;">
+											<p>
+												<strong>배송지 정보</strong>
+											</p>
+											<!-- ToDo 배송지 변경& 신규배송지 선택시 ajax로 ul 제거후 폼 생성 -->
+											<div>
+												<label>배송지 선택 </label>: <input type="radio" class="radio_adrress_input"
+													name="address" value="defaultAddress" checked="checked"> 기본배송지
+												<input type="radio" class="radio_adrress_input" name="address"
+													value="optionAddress"> 신규배송지
+											</div>
+
+											<table>
+												<tr>
+													<th>이름:</th>
+													<td>${member.ceo }(${member.business_name })</td>
+												</tr>
+												<tr>
+													<th>번호:</th>
+													<td>${member.contact }</td>
+												</tr>
+												<tr>
+													<th>주소:</th>
+													<td>${member.business_address }</td>
+												</tr>
+											</table>
+										</div>
+										<!-- 주문자 정보 -->
+										<div class="col-lg-4" style="border: 1px solid black;">
+											<p>
+												<strong>주문자 정보</strong>
+											</p>
+											<table>
+												<tr>
+													<th>주문자명:</th>
+													<td>${member.ceo }</td>
+												</tr>
+												<tr>
+													<th>번호:</th>
+													<td>${member.contact }</td>
+												</tr>
+												<tr>
+													<th>이메일:</th>
+													<td>${member.email }</td>
+												</tr>
+											</table>
+										</div>
+
+									</div>
+
+									<!-- 결제모듈 선택-->
+									<input type="button" class="btn btn-primary order_btn" onclick="requestPay()"
+										value="결제하기">
+								</div>
 							</div>
-
-							<ul>
-								<li>${member.ceo }(${member.business_name })</li>
-								<li>${member.contact }</li>
-								<li>${member.business_address }</li>
-								<li>
-							</ul>
 						</div>
-						<!-- 주문자 정보 -->
-						<div class="col-lg-4" style="border: 1px solid black;">
-							<p>
-								<strong>주문자 정보</strong>
-							</p>
-							<div>
-								<ul>
-									<li>${member.ceo }</li>
-									<li>${member.contact }</li>
-									<li>${member.email }</li>
-								</ul>
-							</div>
-						</div>
-						<div class="col-lg-2"></div>
-					</div>
-					<!-- 결제 상세 -->
-					<div class="col-lg-12">
-						<h3>총 주문금액 :</h3>
-					</div>
-					<!-- 결제모듈 선택-->
-					<!-- 결제하기 버튼 생성 -->
-					<input type="button" onclick="requestPay()"
-						class="btn btn-primary order_btn" value="결제하기">
-				</div>
-			</div>
-		</div>
-	</section>
+					</section>
 
-	</main>
+				</main>
 
-	<script type="text/javascript">
-		$("#bucket").on("click", ".delBucket", function() {
-			const $tr = $(this).parent().parent();
-			const $td = $tr.children();
-			const no = $td.eq(1).text();
+				<script type="text/javascript">
 
-			$.ajax({
-				type : "POST", //요청 메소드 방식
-				url : "deleteCartAjax.do",
-				data : {
-					"product_no" : no
-				},
-				dataType : "text", //서버가 요청 URL을 통해서 응답하는 내용의 타입
-				success : function(result) {
-					if (result == "ok") {
-						$tr.remove();
-					} else {
-						alert("다시시도해주세요");
-					}
-				},
-				error : function(e) {
-					//통신 실패시 발생하는 함수(콜백)
-					console.log("실패" + e);
-				}
-			});
+					$('input[name=cart_check]:checked').change(
+						function () {
+							let total_price = 0;
 
-		});
+							$(".cart_info_td").each(
+								function (index, element) {
 
-		/* 체크박스 전체 선택 */
-		$(".all_check_input").on("click", function() {
+									if ($(element).find(".cart_checkbox").is(
+										":checked") === true) { //체크여부
+										total_price += Number($(element).find(
+											".individual_total_input").val());
+									}
+								})
+							$("#product_info").children().eq(0).html(
+								"총 구매 금액 : " + total_price + " 원")
 
-			/* 체크박스 체크/해제 */
-			if ($(".all_check_input").prop("checked")) {
-				$(".cart_checkbox").attr("checked", true);
-			} else {
-				$(".cart_checkbox").attr("checked", false);
-			}
+						});
 
-		});
+					$("#bucket").on("click", ".delBucket", function () {
+						const $tr = $(this).parent().parent();
+						const $td = $tr.children();
+						const no = $td.eq(1).text();
 
-		/* $(".order_btn").on("click", function() {
+						$.ajax({
+							type: "POST", //요청 메소드 방식
+							url: "deleteCartAjax.do",
+							data: {
+								"product_no": no
+							},
+							dataType: "text", //서버가 요청 URL을 통해서 응답하는 내용의 타입
+							success: function (result) {
+								if (result == "ok") {
+									$tr.remove();
+								} else {
+									alert("다시시도해주세요");
+								}
+							},
+							error: function (e) {
+								//통신 실패시 발생하는 함수(콜백)
+								console.log("실패" + e);
+							}
+						});
 
-		}); */
-	</script>
+					});
 
-	<!-- iamport.payment.js -->
-	<script type="text/javascript"
-		src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
-	<script>
-		var IMP = window.IMP;
-		IMP.init("imp45408430");
+					/* 체크박스 전체 선택 */
+					$(".all_check_input").on("click", function () {
 
-		function requestPay() {
-			const id = '${member.id }';
-			const now = new Date();
-			const order_no = id + '_'
-					+ now.toISOString().substring(0, 10).replace(/-/g, '')
-					+ now.getSeconds();
+						/* 체크박스 체크/해제 */
+						if ($(".all_check_input").prop("checked")) {
+							$(".cart_checkbox").attr("checked", true);
+						} else {
+							$(".cart_checkbox").attr("checked", false);
+						}
 
-			const $num = $('input[name=cart_check]:checked').length
-			const $name = $(".cart_checkbox:checked").parent().find(
-					".individual_product_name_input").val();
+					});
 
-			let form_contents = '';
-			let orderNumber = 0;
-			let total_price = 0;
+					/* $(".order_btn").on("click", function() {
+			
+					}); */
+				</script>
 
-			$(".cart_info_td")
-					.each(
-							function(index, element) {
+				<!-- iamport.payment.js -->
+				<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+				<!-- 결제 모듈 -->
+				<script>
+					var IMP = window.IMP;
+					IMP.init("imp45408430");
 
-								if ($(element).find(".cart_checkbox").is(
+					function requestPay() {
+						const id = '${member.id }';
+						const member_name = '${member.ceo }';
+						const member_email = '${member.email }';
+						const member_tel = '${member.contact }';
+						const member_addr = '${member.business_address }';
+						const member_postcode = '03499';
+
+						const now = new Date();
+						const order_no = id + '_'
+							+ now.toISOString().substring(0, 10).replace(/-/g, '')
+							+ now.getSeconds();
+
+						const $num = $('input[name=cart_check]:checked').length;
+						const $name = $(".cart_checkbox:checked").parent().find(
+							".individual_product_name_input").val();
+						console.log($num);
+
+						let form_contents = '';
+						let orderNumber = 0;
+						let total_price = 0;
+
+						$(".cart_info_td")
+							.each(
+								function (index, element) {
+
+									if ($(element).find(".cart_checkbox").is(
 										":checked") === true) { //체크여부
 
-									let product_no = $(element).find(
+										let product_no = $(element).find(
 											".individual_product_no_input")
 											.val();
-									let product_amount = $(element)
+										let product_amount = $(element)
 											.find(
-													".individual_purchase_amount_input")
+												".individual_purchase_amount_input")
 											.val();
 
-									let product_no_input = "<input name='orders[" + orderNumber + "].product_no' type='hidden' value='" + product_no + "'>";
-									form_contents += product_no_input;
+										let product_no_input = "<input name='orders[" + orderNumber + "].product_no' type='hidden' value='" + product_no + "'>";
+										form_contents += product_no_input;
 
-									let product_amount_input = "<input name='orders[" + orderNumber + "].purchase_amount' type='hidden' value='" + product_amount + "'>";
-									form_contents += product_amount_input;
-									let total = $(element).find(
-									".individual_total_input").val();
-									total_price += Number(total);
-									orderNumber += 1;
+										let product_amount_input = "<input name='orders[" + orderNumber + "].purchase_amount' type='hidden' value='" + product_amount + "'>";
+										form_contents += product_amount_input;
+										let total = $(element).find(
+											".individual_total_input").val();
+										total_price += Number(total);
+										orderNumber += 1;
 
-								}
-							});
+									}
+								});
 
-			 IMP.request_pay({
-				pg : 'kcp',
-				pay_method : 'card',
-				merchant_uid : order_no,
-				name : $num > 1 ? $name + ' 외 ' + ($num - 1) + "개" : $name,
-				amount : total_price,
-				buyer_email : 'ghgsb6200@gmail.com',
-				buyer_name : '송기석',
-				buyer_tel : '010-1234-5678',
-				buyer_addr : '서울특별시 강남구 삼성동',
-				buyer_postcode : '123-456'
-			}, function(rsp) { // callback
-				if (rsp.success) {
-					console.log(rsp);
+						IMP
+							.request_pay(
+								{
+									pg: 'kcp',
+									pay_method: 'card',
+									merchant_uid: order_no,
+									name: $num > 1 ? $name + ' 외 ' + ($num - 1)
+										+ "개" : $name,
+									amount: total_price,
+									buyer_email: member_email,
+									buyer_name: member_name,
+									buyer_tel: member_tel,
+									buyer_addr: member_addr,
+									buyer_postcode: '123-456'
+								},
+								function (rsp) { // callback
+									if (rsp.success) {
+										console.log(rsp);
 
-					jQuery.ajax({
-						url : "{/endpoint}",
-						method : "POST",
-						headers : {
-							"Content-Type" : "application/json"
-						},
-						data : {
-							imp_uid : rsp.imp_uid, //결제 고유번호     
-							merchant_uid : rsp.merchant_uid
-						//주문번호
-						}
-					}).done(function(data) {
-						// 가맹점 서버 결제 API 성공시 로직
+										jQuery
+											.ajax(
+												{
+													url: "/verifyIamport/" + rsp.imp_uid,
+													method: "POST",
+													headers: {
+														"Content-Type": "application/json"
+													},
+													data: {
+														imp_uid: rsp.imp_uid, //결제 고유번호     
+														merchant_uid: rsp.merchant_uid
+														//주문번호
+													}
+												})
+											.done(
+												function (data) {
+													// 가맹점 서버 결제 API 성공시 로직
+													console.log(data);
+													if (rsp.paid_amount == data.response.amount) {
+														alert("결제 및 결제검증완료");
+														let order_no_input = "<input name='order_no' type='hidden' value='" + order_no + "'>";
+														form_contents += order_no_input;
+														$(".order_form")
+															.append(
+																form_contents);
+														$(".order_form")
+															.submit();
+													} else {
+														alert("결제 실패");
+													}
 
-						$(".order_form").append(form_contents);
-						$(".order_form").submit();
-					})
-
-				} else {
-					console.log(rsp);
-				}
-			});
-		}
-	</script>
-
-	<!-- End #main -->
-
-	<!-- End #main -->
-
-	<!-- ======= Footer ======= -->
-
-	<jsp:include page="../mainInclude/footer.jsp"></jsp:include>
-
-	<!-- End Footer -->
-
-	<a href="#"
-		class="back-to-top d-flex align-items-center justify-content-center"><i
-		class="bi bi-arrow-up-short"></i></a>
+												})
 
 
+									} else {
+										console.log(rsp);
+									}
+								});
+					}
+				</script>
+
+				<!-- End #main -->
+
+				<!-- End #main -->
+
+				<!-- ======= Footer ======= -->
+
+				<jsp:include page="../mainInclude/footer.jsp"></jsp:include>
+
+				<!-- End Footer -->
+
+				<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+						class="bi bi-arrow-up-short"></i></a>
 
 
-	<!-- Vendor JS Files -->
-	<script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
-	<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script src="assets/vendor/chart.js/chart.min.js"></script>
-	<script src="assets/vendor/echarts/echarts.min.js"></script>
-	<script src="assets/vendor/quill/quill.min.js"></script>
-	<script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
-	<script src="assets/vendor/tinymce/tinymce.min.js"></script>
-	<script src="assets/vendor/php-email-form/validate.js"></script>
-
-	<!-- Template Main JS File -->
-	<script src="assets/js/main.js"></script>
-
-	<!-- 날짜 검색시 오늘로 셋팅해주는 스크립트-->
-	<script>
-		document.getElementById('inputSearchDate').valueAsDate = new Date();
-	</script>
 
 
-</body>
+				<!-- Vendor JS Files -->
+				<script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+				<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+				<script src="assets/vendor/chart.js/chart.min.js"></script>
+				<script src="assets/vendor/echarts/echarts.min.js"></script>
+				<script src="assets/vendor/quill/quill.min.js"></script>
+				<script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+				<script src="assets/vendor/tinymce/tinymce.min.js"></script>
+				<script src="assets/vendor/php-email-form/validate.js"></script>
 
-</html>
+				<!-- Template Main JS File -->
+				<script src="assets/js/main.js"></script>
+
+				<!-- 날짜 검색시 오늘로 셋팅해주는 스크립트-->
+				<script>
+					document.getElementById('inputSearchDate').valueAsDate = new Date();
+				</script>
+
+
+			</body>
+
+			</html>
