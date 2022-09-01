@@ -16,5 +16,7 @@ public interface BoardService {
 	public void freeBoardWrite(BoardVO vo);
 	public List<BoardVO> getFreeBoard(BoardVO vo);
 	public int getTotalBoard();
-		
+	public BoardVO GetFreeBoardDetail(BoardVO vo);
+	public void DeteleFreeBoard(BoardVO vo);
+	public void UpdateFreeBoard(BoardVO vo);
 }

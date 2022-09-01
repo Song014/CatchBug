@@ -74,6 +74,24 @@ public class BoardServiceImpl implements BoardService {
 	public int getTotalBoard() {
 		return boardDAO.getTotal();
 	}
+
+	//자유게시판 상세정보 가져오기
+	@Override
+	public BoardVO GetFreeBoardDetail(BoardVO vo) {
+		return boardDAO.GetFreeBoardDetail(vo);
+	}
+
+	//자유게시판 글삭제 메소드
+	@Override
+	public void DeteleFreeBoard(BoardVO vo) {
+		boardDAO.DeleteFreeBoard(vo);	
+	}
+
+	//자유게시판 글업데이트 메소드
+	@Override
+	public void UpdateFreeBoard(BoardVO vo) {
+		boardDAO.UpdateFreeBoard(vo);
+	}
 	
 	
 

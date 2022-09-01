@@ -27,9 +27,9 @@ public class BoardController {
 	@RequestMapping("/freeBoard.do")
 	public String GetFreeBoard(SearchVO vo, Model model,int page) {
 		
-		int sum = boardService.getTotalBoard();
+		int sum = boardService.getTotalBoard(); //200개라면
 		
-		int pageCount = 15;
+		int pageCount = 20;
 		int startPage = (page - 1) * pageCount + 1;
 		int endPage = page * pageCount;
 		
@@ -42,7 +42,6 @@ public class BoardController {
 		}else {
 			sum = sum/pageCount + 1;
 		}
-		
 
 		BoardVO bVo = new BoardVO();
 		
@@ -53,7 +52,7 @@ public class BoardController {
 		int searchTap = vo.getSearchTap();
 		String keyWord = vo.getSearchWord();
 		if (searchTap == 1) {
-			bVo.setTitle("");
+			bVo.setTitle(" ");
 			bVo.setBusiness_name(keyWord);
 		} else if (searchTap == 2) {
 			bVo.setTitle(keyWord);
@@ -66,9 +65,47 @@ public class BoardController {
 		model.addAttribute("boardList", boardService.getFreeBoard(bVo));
 		model.addAttribute("totalBoard",sum);
 
+		System.out.println(boardService.getFreeBoard(bVo));
 		return "board/free_board";
 	}
+	
+	//자유게시판 상세보기 이동
+	@RequestMapping("/freeBoardDetail.do")
+	public String FreeBoardDetail(int board_no,Model model) {
+		BoardVO vo = new BoardVO();
+		vo.setBoard_no(board_no);
+		model.addAttribute("board",boardService.GetFreeBoardDetail(vo));
+		return "board/free_board_detail";
+	}
+	
+	//자유게시판 글 삭제
+	@RequestMapping("/deleteFreeBoard.do")
+	public String DeleteFreeBoard(int board_no) {
+		BoardVO vo = new BoardVO();
+		vo.setBoard_no(board_no);
+		boardService.DeteleFreeBoard(vo);
+		return "redirect:freeBoard.do?page=1";
+		
+	}
+	
+	//자유게시판 수정폼 이동
+	@RequestMapping("updateFreeBoard.do")
+	public String UpdateFreeBoard(int board_no,Model model) {
+		BoardVO vo = new BoardVO();
+		vo.setBoard_no(board_no);
+		model.addAttribute("board", boardService.GetFreeBoardDetail(vo));
+		return "board/free_board_update";
+	}
+	
+	//자유게시판 수정 진행
+	@PostMapping("updateFreeBoard.do")
+	public String FreeBoardUpdate(BoardVO vo) {
+		boardService.UpdateFreeBoard(vo);
+		return "redirect:freeBoard.do?page=1";
+	}
 
+	
+	//자유게시판 글쓰기 폼 이동
 	@RequestMapping("/free_Board_Write.do")
 	public String FreeBoardWrite() {
 		return "board/free_board_write";

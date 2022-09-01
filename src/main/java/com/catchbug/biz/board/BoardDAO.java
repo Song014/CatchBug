@@ -20,11 +20,24 @@ public class BoardDAO {
 		return mybatis.selectList("BoardMapper.getFreeBoard",vo);
 	}
 	
+	//자유게시판 클릭한 글 정보 불러오기
+	public BoardVO GetFreeBoardDetail(BoardVO vo) {
+		return mybatis.selectOne("BoardMapper.getFreeBoardDetail",vo);
+	}
+	
 	//자유게시판 글쓰기 등록
 	public void FreeBoardWrite(BoardVO vo) {
 		mybatis.insert("BoardMapper.freeBoardWrite",vo);
 	}
+	//자유게시판 글삭제 메소드
+	public void DeleteFreeBoard(BoardVO vo) {
+		mybatis.delete("BoardMapper.deleteFreeBoard",vo);
+	}
 	
+	//자유게시판 글수정 메소드
+	public void UpdateFreeBoard(BoardVO vo) {
+		mybatis.update("BoardMapper.updateFreeBoard",vo);
+	}	
 	
 	// 공지 리스트
 	public List<NotiVO> get_Noti_list() {
@@ -66,5 +79,7 @@ public class BoardDAO {
 	public int getTotal() {
 		return mybatis.selectOne("BoardMapper.getTotal");
 	}
+	
+
 	
 }
