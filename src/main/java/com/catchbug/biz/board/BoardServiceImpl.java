@@ -92,6 +92,13 @@ public class BoardServiceImpl implements BoardService {
 	public void UpdateFreeBoard(BoardVO vo) {
 		boardDAO.UpdateFreeBoard(vo);
 	}
+
+	//자유게시판 조회수 증가
+	@Override
+	public void FreeBoardCnt(BoardVO vo) {
+		boardDAO.freeBoardCnt(vo);
+		
+	}
 	
 	
 

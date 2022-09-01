@@ -80,6 +80,11 @@ public class BoardDAO {
 		return mybatis.selectOne("BoardMapper.getTotal");
 	}
 	
+	//자유게시판 조회수 증가
+	public void freeBoardCnt(BoardVO vo) {
+		mybatis.update("BoardMapper.freeBoardCnt",vo);
+	}
+	
 
 	
 }
