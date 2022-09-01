@@ -280,7 +280,9 @@
 					var IMP = window.IMP;
 					IMP.init("imp45408430");
 
+					// 결제 버튼 눌렀을때 실행함수
 					function requestPay() {
+						// 기본으로 들어가는 데이터 
 						const id = '${member.id }';
 						const member_name = '${member.ceo }';
 						const member_email = '${member.email }';
@@ -288,11 +290,13 @@
 						const member_addr = '${member.business_address }';
 						const member_postcode = '03499';
 
+						// 주문번호 생성
 						const now = new Date();
 						const order_no = id + '_'
 							+ now.toISOString().substring(0, 10).replace(/-/g, '')
 							+ now.getSeconds();
 
+						// 첫번째 상품 이름, 상품 개수  (상품 외 2개)형식으로 나타냄
 						const $num = $('input[name=cart_check]:checked').length;
 						const $name = $(".cart_checkbox:checked").parent().find(
 							".individual_product_name_input").val();
@@ -317,11 +321,16 @@
 												".individual_purchase_amount_input")
 											.val();
 
+										// 서버에 보내줄 데이터 (주문번호, 상품번호, 수량)
+										let order_no_input = "<input name='order_no' type='hidden' value='" + order_no + "'>";
+										form_contents += order_no_input;
+
 										let product_no_input = "<input name='orders[" + orderNumber + "].product_no' type='hidden' value='" + product_no + "'>";
 										form_contents += product_no_input;
 
 										let product_amount_input = "<input name='orders[" + orderNumber + "].purchase_amount' type='hidden' value='" + product_amount + "'>";
 										form_contents += product_amount_input;
+
 										let total = $(element).find(
 											".individual_total_input").val();
 										total_price += Number(total);
@@ -330,6 +339,7 @@
 									}
 								});
 
+						// 아이엠포트 결제모듈 
 						IMP
 							.request_pay(
 								{
@@ -369,8 +379,7 @@
 													console.log(data);
 													if (rsp.paid_amount == data.response.amount) {
 														alert("결제 및 결제검증완료");
-														let order_no_input = "<input name='order_no' type='hidden' value='" + order_no + "'>";
-														form_contents += order_no_input;
+
 														$(".order_form")
 															.append(
 																form_contents);
