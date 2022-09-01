@@ -83,14 +83,14 @@
 				<div class="card-body">
 					<div class="row">
 						<!-- 카테고리  -->
-						<div class="col-lg-2">
+						<div class="col-lg-2" style="padding-top:46px">
 							<c:forEach var="m" items="${mainCategory }" varStatus="status">
-								<div class="accordion" id="accordionExample">
+								<div class="accordion" id="accordionExample" >
 									<!-- ToDo 대분류 1,2,3, 일때 해당하는 카테고리 이름 -->
 
-									<div class="accordion-item">
+									<div class="accordion-item" >
 										<h2 class="accordion-header" id="headingOne">
-											<button class="accordion-button collapsed" type="button"
+											<button class="accordion-button" type="button"
 												data-bs-toggle="collapse"
 												data-bs-target="#collapse${status.count }"
 												aria-expanded="false"
@@ -98,7 +98,7 @@
 												${m.main_name}</button>
 										</h2>
 										<div id="collapse${status.count }"
-											class="accordion-collapse collapse" aria-labelledby="headingOne"
+											class="accordion-collapse collapse show" aria-labelledby="headingOne"
 											data-bs-parent="#accordionExample">
 											<!-- ToDo 대분류 1 , 2 , 3 에 해당하는 서브카테고리 이름 -->
 											<div class="accordion-body" style="padding: 1px">
@@ -154,8 +154,7 @@
 										</tr>
 									</thead>
 								</table>
-								!
-								<div style="height: 250px; overflow: scroll;">
+								<div style="height: 250px; overflow: scroll; overflow-x:hidden; ">
 									<table class="table  top-selling" id="category">
 										<tbody>
 											<c:forEach var="list" items="${product }" varStatus="status">
@@ -173,7 +172,7 @@
 															pattern="yyyy-MM-dd" />
 													</td>
 													<td>10</td>
-													<td>${list.price }</td>
+													<td><input type="hidden" class="hidden_price" value=${list.price }> ${list.price }</td>
 													<td><button type="button"
 															class="btn btn-primary btn-sm addBucket">추가</button>
 													</td>
@@ -198,7 +197,7 @@
 									</tr>
 								</thead>
 							</table>
-							<div style="height: 250px; overflow: scroll;">
+							<div style="height: 250px; overflow: scroll; overflow-x:hidden; ">
 								<table class="table" id="bucket">
 									<tbody>
 										<c:forEach var="list" items="${cartList }">
@@ -210,8 +209,8 @@
 												<td><input type="number" name="purchase_amount"
 														value=${list.purchase_amount } min="1"
 														max=`+quantity+` style="width:50px;"><button
-														type="button" class="updateBtn">변경</button></td>
-												<td>${list.total }</td>
+														type="button" class="updateBtn" value="${list.total }">변경</button></td>
+												<td><input type="hidden" class="hidden_price" value=${list.price }>${list.total }</td>
 												<td><button type="button"
 														class="btn btn-primary btn-sm delBucket">삭제</button>
 												</td>
@@ -332,14 +331,15 @@
 			const no = $td.eq(2).text();
 			const name = $td.eq(3).text();
 			const quantity = $td.eq(5).text();
-			const price = $td.eq(6).text();
+			const price = $tr.find(".hidden_price").val();
+			/* const total = price * Number(quantity); */
 
 			const str = `
 			<tr>
 				<td><input type="hidden" name="product_no" value=`+ no + ` >` + no + `</td>
 				<td><input type="hidden" value=`+ name + `><a class="primary" data-bs-toggle="modal" data-bs-target="#modalProduct">` + name + `</a></td>
 				<td><input type="number" name="purchase_amount" value="1" min="1" max=`+ quantity + ` style="width:50px;"><button type="button" class="updateBtn">변경</button></td>
-				<td><input type="hidden"  value=`+ price + `>` + price + `</td>
+				<td><input type="hidden" class="hidden_price" value=`+ price + `>`+price+`</td>
 				<td><button type="button" class="btn btn-primary btn-sm delBucket">삭제</button></td>
 			</tr>
 			`;
@@ -365,10 +365,14 @@
 		})
 
 		// 상품 수량 변경 이벤트
-		$("#bucket").on("click", ".updateBtn", function () {
+		$("#bucket").on("click", ".updateBtn", function (e) {
+			
 			const $tr = $(this).parent().parent();
+			const price = $tr.find(".hidden_price").val();
 			const no = $tr.children().eq(0).text();
 			const amount = $(this).parent().find('input[type=number]').val();
+			const total = price*amount;
+			console.log(total+"버튼밸류");
 			console.log(amount, no);
 			$.ajax({
 				type: "POST",
@@ -376,7 +380,9 @@
 				data: { "purchase_amount": amount, "product_no": no },
 				dataType: "text",
 				success: function (result) {
-					$tr.find(input[type = number])
+					// 업데이트 버튼 클릭시 해당상품 가격 수정
+					
+					$tr.children().eq(3).html(`<input type="hidden" class="hidden_price" value=`+ price + `>`+total);
 
 				},
 				error: function (a, b, c) {

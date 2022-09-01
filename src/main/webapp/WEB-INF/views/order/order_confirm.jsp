@@ -47,6 +47,11 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+  <style type="text/css">
+  .hide{
+  	display: none;
+  }
+  </style>
 			</head>
 
 			<body>
@@ -136,11 +141,13 @@
 											<input type="hidden" name="shipping_address" value=${member.business_address
 												}> <input type="hidden" name="id" value=${member.id }>
 										</form>
-										<!-- 이전페이지로 돌아가기 -->
+										
 										<div align="center">
 											<h3>총 주문금액 :${total }</h3>
-											<input class="btn btn-primary" type="submit"
-												onclick="location.href='productForOrder.do'" value="상품 추가"></input>
+											<!-- 이전페이지로 돌아가기 -->
+											<input class="btn btn-primary" type="submit" onclick="location.href='productForOrder.do'" value="상품 추가"></input>
+											<!-- 결제모듈 선택-->
+											<input type="button" class="btn btn-primary order_btn" onclick="requestPay()" value="결제하기">
 										</div>
 
 									</div>
@@ -159,22 +166,25 @@
 													name="address" value="defaultAddress" checked="checked"> 기본배송지
 												<input type="radio" class="radio_adrress_input" name="address"
 													value="optionAddress"> 신규배송지
+												
 											</div>
-
-											<table>
-												<tr>
-													<th>이름:</th>
-													<td>${member.ceo }(${member.business_name })</td>
-												</tr>
-												<tr>
-													<th>번호:</th>
-													<td>${member.contact }</td>
-												</tr>
-												<tr>
-													<th>주소:</th>
-													<td>${member.business_address }</td>
-												</tr>
-											</table>
+											<form action="submitOrder.do" class="address_form">
+											 	<table>
+													<tr>
+														<th>이름:</th>
+														<td>${member.ceo }</td>
+													</tr>
+													<tr>
+														<th>번호:</th>
+														<td>${member.contact }</td>
+													</tr>
+													<tr>
+														<th>주소:</th>
+														<td>${member.business_address }</td>
+													</tr>
+												</table>
+											</form>
+											
 										</div>
 										<!-- 주문자 정보 -->
 										<div class="col-lg-4" style="border: 1px solid black;">
@@ -199,9 +209,7 @@
 
 									</div>
 
-									<!-- 결제모듈 선택-->
-									<input type="button" class="btn btn-primary order_btn" onclick="requestPay()"
-										value="결제하기">
+
 								</div>
 							</div>
 						</div>
@@ -210,6 +218,47 @@
 				</main>
 
 				<script type="text/javascript">
+					$(".radio_adrress_input").on("change",function(e){
+						e.preventDefault();
+						console.log(e.target.value)
+						let str ="";
+						if(e.target.value=="optionAddress"){
+							str = `
+								<table>
+						 		<tr>
+						 			<th>이름 :</th>
+						 			<td><input type="text" name="ceo"></td>
+						 		</tr>
+						 		<tr>
+						 			<th>번호 :</th>
+						 			<td><input type="text" name="contact"></td>
+					 			</tr>
+					 			<tr>
+						 			<th>주소 :</th>
+						 			<td><input type="text" name="business_address"></td>
+					 			</tr>
+						 	</table>
+						 	`;
+						} else if(e.target.value=="defaultAddress"){
+							str = `
+							<table>
+								<tr>
+									<th>이름:</th>
+									<td>${member.ceo }</td>
+								</tr>
+								<tr>
+									<th>번호:</th>
+									<td>${member.contact }</td>
+								</tr>
+								<tr>
+									<th>주소:</th>
+									<td>${member.business_address }</td>
+								</tr>
+							</table>
+							`
+						}
+						 	$(".address_form").html(str); 
+					})
 
 					$('input[name=cart_check]:checked').change(
 						function () {
@@ -383,8 +432,10 @@
 														$(".order_form")
 															.append(
 																form_contents);
+														$(".address_form").submit();
 														$(".order_form")
 															.submit();
+														
 													} else {
 														alert("결제 실패");
 													}
