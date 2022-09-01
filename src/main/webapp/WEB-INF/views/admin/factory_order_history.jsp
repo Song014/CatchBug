@@ -12,7 +12,9 @@
 <title>Dashboard - NiceAdmin Bootstrap Template</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
-
+<!-- jQuery -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Favicons -->
 <link href="assets/img/favicon.png" rel="icon">
 <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -262,7 +264,22 @@
 
 	<!-- End Footer -->
 
-
+	<script type="text/javascript">
+		$.ajax({
+			type : "get", //요청 메소드 방식
+			url : "/payments/status/all",
+			headers : {
+				"Content-Type" : "application/json"
+			},
+			success : function(result) {
+				console.log(result);
+			},
+			error : function(e) {
+				//통신 실패시 발생하는 함수(콜백)
+				console.log("실패" + e);
+			}
+		});
+	</script>
 
 	<a href="#"
 		class="back-to-top d-flex align-items-center justify-content-center"><i
