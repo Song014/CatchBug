@@ -372,12 +372,12 @@
 			const no = $tr.children().eq(0).text();
 			const amount = $(this).parent().find('input[type=number]').val();
 			const total = price*amount;
+			/* const JSONObject = `{ "purchase_amount": amount, "product_no": no }`; */
 			console.log(total+"버튼밸류");
 			console.log(amount, no);
 			$.ajax({
-				type: "POST",
-				url: "updateCartAjax.do",
-				data: { "purchase_amount": amount, "product_no": no },
+				type: "PUT",
+				url: "updateCartAjax.do?purchase_amount="+amount+"&product_no="+no,
 				dataType: "text",
 				success: function (result) {
 					// 업데이트 버튼 클릭시 해당상품 가격 수정
@@ -395,26 +395,27 @@
 		$("#bucket").on("click", ".delBucket", function () {
 			const $tr = $(this).parent().parent();
 			const $td = $tr.children();
-			const no = $td.eq(1).text();
-
+			const no = $td.eq(0).text();
+			const member_id = '${member.id }';
+			console.log(typeof(member_id)+member_id+no)
 			// db 하나 삭제
 			$.ajax({
-				type: "POST", //요청 메소드 방식
-				url: "deleteCartAjax.do",
-				data: { "product_no": no },
-				dataType: "text", //서버가 요청 URL을 통해서 응답하는 내용의 타입
+				type: "DELETE",
+				url: "deleteCartAjax.do?product_no="+no+"&id="+member_id,
+				dataType: "text",
 				success: function (result) {
-					if (result == "ok") {
+					console.log("delete"+result)
+					if (result == "true") {
 						$tr.remove();
 					} else {
 						alert("다시시도해주세요");
 					}
 				},
 				error: function (e) {
-					//통신 실패시 발생하는 함수(콜백)
 					console.log("실패" + e);
 				}
 			});
+			console.log(typeof(member_id)+member_id)
 
 		});
 	</script>

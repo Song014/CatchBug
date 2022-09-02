@@ -43,7 +43,7 @@ public class OrderController {
 	private OrderService os;
 
 	private IamportClient client;
-	public OrderController() {
+	private OrderController() {
 		client = new IamportClient("4531801211644015",
 				"FwlsbR1eS5ipldOSWyK9K23UfoV0pnvo4GT3Q0SryW6txJ9B9ZDhLdVxVlweIUsrsNGAYAaIjRHBhoyu");
 	}
@@ -156,13 +156,6 @@ public class OrderController {
 		return "redirect:factory_Order_History.do";
 	}
 
-	/* 결제모듈 */
-
-	@RequestMapping(value = "/iamport")
-	public void iamport() {
-
-	}
-
 	/* 비동기 처리 */
 
 	// 하위 카테고리 클릭시 상품 비동기처리
@@ -187,7 +180,7 @@ public class OrderController {
 		return result;
 	}
 
-	@RequestMapping(value = "/updateCartAjax.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/updateCartAjax.do", method = RequestMethod.PUT)
 	@ResponseBody
 	public void updateCart(CartVO vo, HttpSession session) {
 
@@ -200,15 +193,12 @@ public class OrderController {
 	}
 
 	// 상품 삭제시 디비 삭제
-	@RequestMapping(value = "/deleteCartAjax.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/deleteCartAjax.do", method = RequestMethod.DELETE)
 	@ResponseBody
-	public String orderDeleteAjax(CartVO vo, HttpSession session) {
-
-		// 아이디값은 세션에서 받아오기
-		MemberVO member = (MemberVO) session.getAttribute("member");
-		vo.setId(member.getId());
-
-		cs.deleteCart(vo);
-		return "ok";
+	public String orderDeleteAjax(CartVO vo) {
+		System.out.println("delete"+vo);
+		String result = cs.deleteCart(vo);
+		System.out.println("delete"+result);
+		return result;
 	}
 }

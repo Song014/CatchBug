@@ -136,11 +136,7 @@
 												</c:forEach>
 											</tbody>
 										</table>
-										<!-- 주문신청시 사용되는 폼 -->
-										<form class="order_form" action="submitOrder.do">
-											<input type="hidden" name="shipping_address" value=${member.business_address
-												}> <input type="hidden" name="id" value=${member.id }>
-										</form>
+										
 										
 										<div align="center">
 											<h3>총 주문금액 :${total }</h3>
@@ -168,19 +164,21 @@
 													value="optionAddress"> 신규배송지
 												
 											</div>
-											<form action="submitOrder.do" class="address_form">
-											 	<table>
+											
+											<!-- 주문신청시 사용되는 폼 -->
+											<form class="order_form" action="submitOrder.do">
+												<table>
 													<tr>
 														<th>이름:</th>
-														<td>${member.ceo }</td>
+														<td><input type="hidden" name="ceo" value="${member.ceo }">${member.ceo }</td>
 													</tr>
 													<tr>
 														<th>번호:</th>
-														<td>${member.contact }</td>
+														<td><input type="hidden" name="contact" value="${member.contact }">${member.contact }</td>
 													</tr>
 													<tr>
 														<th>주소:</th>
-														<td>${member.business_address }</td>
+														<td><input type="hidden" name="shipping_address" value="${member.business_address }">${member.business_address }</td>
 													</tr>
 												</table>
 											</form>
@@ -227,37 +225,38 @@
 								<table>
 						 		<tr>
 						 			<th>이름 :</th>
-						 			<td><input type="text" name="ceo"></td>
+						 			<td><input type="text" name="ceo" value=""></td>
 						 		</tr>
 						 		<tr>
 						 			<th>번호 :</th>
-						 			<td><input type="text" name="contact"></td>
+						 			<td><input type="text" name="contact" value=""></td>
 					 			</tr>
 					 			<tr>
 						 			<th>주소 :</th>
-						 			<td><input type="text" name="business_address"></td>
+						 			<td><input type="text" name="shipping_address" value=""></td>
 					 			</tr>
 						 	</table>
+						 	
 						 	`;
 						} else if(e.target.value=="defaultAddress"){
 							str = `
 							<table>
 								<tr>
 									<th>이름:</th>
-									<td>${member.ceo }</td>
+									<td><input type="hidden" name="ceo" value="${member.ceo }">${member.ceo }</td>
 								</tr>
 								<tr>
 									<th>번호:</th>
-									<td>${member.contact }</td>
+									<td><input type="hidden" name="contact" value="${member.contact }">${member.contact }</td>
 								</tr>
 								<tr>
 									<th>주소:</th>
-									<td>${member.business_address }</td>
+									<td><input type="hidden" name="shipping_address" value="${member.business_address }">${member.business_address }</td>
 								</tr>
 							</table>
 							`
 						}
-						 	$(".address_form").html(str); 
+						 	$(".order_form").html(str); 
 					})
 
 					$('input[name=cart_check]:checked').change(
@@ -332,11 +331,12 @@
 					// 결제 버튼 눌렀을때 실행함수
 					function requestPay() {
 						// 기본으로 들어가는 데이터 
+						console.log()
 						const id = '${member.id }';
-						const member_name = '${member.ceo }';
+						const member_name = $(".order_form").find("input[name=ceo]").val();
 						const member_email = '${member.email }';
-						const member_tel = '${member.contact }';
-						const member_addr = '${member.business_address }';
+						const member_tel = $(".order_form").find("input[name=contact]").val();
+						const member_addr = $(".order_form").find("input[name=shipping_address]").val();
 						const member_postcode = '03499';
 
 						// 주문번호 생성
@@ -387,6 +387,8 @@
 
 									}
 								});
+						
+						
 
 						// 아이엠포트 결제모듈 
 						IMP
@@ -432,7 +434,7 @@
 														$(".order_form")
 															.append(
 																form_contents);
-														$(".address_form").submit();
+														/* $(".address_form").submit(); */
 														$(".order_form")
 															.submit();
 														
