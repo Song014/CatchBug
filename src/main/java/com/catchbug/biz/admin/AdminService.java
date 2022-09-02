@@ -3,6 +3,7 @@ package com.catchbug.biz.admin;
 import java.util.*;
 
 import com.catchbug.biz.vo.MemberVO;
+import com.catchbug.biz.vo.OrderVO;
 
 public interface AdminService {
 	
@@ -11,7 +12,8 @@ public interface AdminService {
 	public void memberLevelUpdate(MemberVO vo);
 	public void memberrefuse(MemberVO vo);
 	public List<HashMap<String, Object>> getunOrderHistory();
-	public List<MemberVO> getMemberM(MemberVO vo);
+	public MemberVO getMemberM(MemberVO vo);
+	public List<OrderVO> getOrder(MemberVO vo);
 	
 	
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.catchbug.biz.vo.MemberVO;
+import com.catchbug.biz.vo.OrderVO;
 
 @Controller
 public class AdminController {
@@ -82,13 +83,24 @@ public class AdminController {
 		System.out.println(list.get(0).get("ID"));
 		model.addAttribute("list", list);
 		return "admin/un_order_history";
-	}//실행ㅇ
+	}  
+	
 	// 사업장 정보 모달
 	@GetMapping("/memberInfo.do")
 	@ResponseBody
-	public List<MemberVO> getMemberVO(MemberVO vo){
+	public MemberVO getMemberVO(MemberVO vo){
 		System.out.println("회원정보 모달 컨트롤러");
 		return adminService.getMemberM(vo);
+	}
+	
+	// 주문 상세보기
+	@GetMapping("/orderDetail.do")
+	@ResponseBody
+	public List<OrderVO> getOrder(MemberVO vo) {
+		System.out.println("주문 상세보기 모달 컨트롤러");
+		List<OrderVO> vo3 = adminService.getOrder(vo);
+		System.out.println(vo3);
+		return vo3;
 	}
 	
 	// 가맹점 주문내역
@@ -96,7 +108,7 @@ public class AdminController {
 		public String orderHistory() {
 			return "admin/order_history";
 		}
-	
+	  
 	
 	
 	/* 재고 관리 */

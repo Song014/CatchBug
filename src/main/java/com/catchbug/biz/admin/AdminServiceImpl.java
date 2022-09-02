@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.catchbug.biz.vo.MemberVO;
+import com.catchbug.biz.vo.OrderVO;
 
 @Service("adminService")
 public class AdminServiceImpl implements AdminService {
@@ -52,9 +53,15 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<MemberVO> getMemberM(MemberVO vo) {
+	public MemberVO getMemberM(MemberVO vo) {
 		System.out.println("회원정보 모달 서비스");
 		return adminDAO.getMemberM(vo);
+	}
+
+	@Override
+	public List<OrderVO> getOrder(MemberVO vo) {
+		System.out.println("주문 상세보기 모달 서비스");
+		return adminDAO.getOrder(vo);
 	}
 
 	
