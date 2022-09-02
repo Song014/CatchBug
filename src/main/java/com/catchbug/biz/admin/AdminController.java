@@ -83,7 +83,7 @@ public class AdminController {
 		System.out.println(list.get(0).get("ID"));
 		model.addAttribute("list", list);
 		return "admin/un_order_history";
-	}
+	}  
 	
 	// 사업장 정보 모달
 	@GetMapping("/memberInfo.do")
@@ -108,7 +108,7 @@ public class AdminController {
 		public String orderHistory() {
 			return "admin/order_history";
 		}
-	
+	  
 	
 	
 	/* 재고 관리 */
