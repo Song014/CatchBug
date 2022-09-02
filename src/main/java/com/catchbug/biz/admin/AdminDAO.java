@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.catchbug.biz.vo.MemberVO;
+import com.catchbug.biz.vo.OrderVO;
 
 @Repository
 public class AdminDAO {	
@@ -45,9 +46,13 @@ public class AdminDAO {
 		return mybatis.selectList("AdminMapper.unOrderHistory");
 	}
 	
-	public List<MemberVO> getMemberM(MemberVO vo){
-		System.out.println("회원정보 모달 디에이오"); // 얘 셀렉원이라 하나뽑아서 리스트로 받으면 에러나는거같은데여 리시트로바꿔조바
-		return mybatis.selectList("AdminMapper.getMemberM",vo);
+	public MemberVO getMemberM(MemberVO vo){
+		System.out.println("회원정보 모달 디에이오");
+		return 	mybatis.selectOne("AdminMapper.getMemberM", vo);
 	}
-
+	
+	public List<OrderVO> getOrder(MemberVO vo) {
+		System.out.println("오더상세보기 모달 디에이오");
+		return mybatis.selectOne("AdminMapper.getOrderM", vo);
+	}
 }

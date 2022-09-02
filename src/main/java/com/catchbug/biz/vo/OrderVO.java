@@ -24,7 +24,13 @@ public class OrderVO {
 	private String note;
 
 	private int total_price;
-
+	
+	//bj
+	private int detail_no;
+	private int purchase_amount;
+	private int product_no;
+	private int product_quantily;
+	
 	private List<OrderItemVO> orders;
 	
 	public void initTotal() {

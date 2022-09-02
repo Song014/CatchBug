@@ -36,4 +36,18 @@
 <select id="getMemberM" parameterType="member" resultType="member">
 	select * from member where id = #{id}
 </select>
+
+<select id="getOrderM" parameterType="order" resultType="order">
+	select m.id, o.order_no, o.total_price, o.order_status, d.detail_no, d.purchase_amount, p.product_no, p.price,p.product_name, ps.product_quantily
+    from order_detail d
+    inner join product p
+    on d.product_no=p.product_no
+    inner join orders o
+    on d.order_no=o.order_no
+    inner join member m
+    on o.id=m.id
+    inner join product_stock ps
+    on ps.product_no = p.product_no
+    where o.id = #{id}
+</select>
 </mapper>
