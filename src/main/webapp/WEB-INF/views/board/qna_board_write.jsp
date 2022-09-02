@@ -1,5 +1,4 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -86,12 +85,13 @@
 					</ol>
 				</nav>
 			</div>
-			<form>
+			<form method="POST" action="qna/write.do">
+				<input type="hidden" name="id" value="${member.id }">
 				<div class="row mb-3">
 					<div class="col-sm-2">
 						<div class="mb-3">
 							<select class="form-select" id="floatingSelect">
-								<option selected="">탭</option>
+								<option selected="selected">탭</option>
 								<option value="1">주문</option>
 								<option value="2">상품</option>
 								<option value="3">배송</option>
@@ -101,19 +101,19 @@
 						</div>
 					</div>
 					<div class="col-sm-10">
-						<input type="text" class="form-control" placeholder="제목">
+						<input type="text" class="form-control" name="qna_title" placeholder="제목">
 					</div>
 				</div>
 
 				<div class="col-md-12">
-					<textarea class="form-control" name="message" rows="6"
+					<textarea class="form-control" name="qna_content" rows="6"
 						placeholder="Message" required=""></textarea>
 				</div>
 
 
 				<div class="form-check">
-					<input class="form-check-input" type="checkbox" value=""
-						id="invalidCheck2" required=""> <label
+					<input class="form-check-input" type="checkbox" name="invalidCheck" value=""
+						id="invalidCheck2" > <label
 						class="form-check-label" for="invalidCheck2"> 비공개 </label>
 				</div>
 				<div class="mb-3 text-center">

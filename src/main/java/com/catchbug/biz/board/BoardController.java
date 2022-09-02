@@ -140,15 +140,7 @@ public class BoardController {
 		return "redirect:freeBoard.do?page=1";
 	}
 
-	@RequestMapping("/QnABoard.do")
-	public String QnABoard() {
-		return "board/qna_board";
-	}
-
-	@RequestMapping("/QnA_Board_Write.do")
-	public String QnABoardWrite() {
-		return "board/qna_board_write";
-	}
+	
 
 	@RequestMapping("/FAQBoard.do")
 	public String FAQBoard() {

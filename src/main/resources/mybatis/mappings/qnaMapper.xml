@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="QnaMapper">
+
+	<select id="selectList" resultType="qna">
+		select * from qna order by qna_no desc
+	</select>
+
+	<insert id="insertQna">
+		insert into qna(qna_no,id,qna_title,qna_content)values((select nvl(max(qna_no),0) + 1 from qna),#{id},#{qna_title},#{qna_content} )
+	</insert>
+</mapper>
