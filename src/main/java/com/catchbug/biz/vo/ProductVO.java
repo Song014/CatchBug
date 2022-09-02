@@ -17,4 +17,5 @@ public class ProductVO {
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone = "Asia/Seoul")
 	private Date add_day;
 	private String uuid;
+	private int product_quantily;
 }

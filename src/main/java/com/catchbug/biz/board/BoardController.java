@@ -79,9 +79,6 @@ public class BoardController {
 			bVo.setBusiness_name("");
 			bVo.setTitle("");
 		}
-		System.out.println("page>"+page);
-		System.out.println("startpage>"+startPageNum);
-		System.out.println("endpage>"+endPageNum);
 		model.addAttribute("boardList", boardService.getFreeBoard(bVo));
 		model.addAttribute("totalBoard",sum);
 		model.addAttribute("page",page); //현재 페이지 정보를 전달

@@ -85,7 +85,17 @@
 				<div class="card-header">
 					<h3>${board.title }</h3>
 				</div>
-				<div class="card-body">${board.content }</div>
+				<div class="card-body">
+					<div>
+						${board.content }
+					</div>
+					<br>
+					<div class="card">
+						<div class="card-body" style="background-color: #D3D3D3">
+						
+						</div>
+					</div>
+				</div>
 				<div class="card-footer">
 					<div class="mb-3 text-center">
 						<input type="hidden" value="${board.id }" id="id" /> <input

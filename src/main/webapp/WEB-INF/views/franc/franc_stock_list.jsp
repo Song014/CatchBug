@@ -39,6 +39,11 @@
 <!-- Template Main CSS File -->
 <link href="assets/css/style.css" rel="stylesheet">
 
+<!-- Jquery 선언 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous"></script>
+
 <!-- =======================================================
   * Template Name: NiceAdmin - v2.3.1
   * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
@@ -123,8 +128,8 @@
 					<div class="col-lg-10">
 						<!-- 카테고리 선택창 -->
 						<div>
-							<div align="right" class="dataTable-top">
-								<div class="col-md-3">
+							<div align="right" class="dataTable-top col-md-12">
+								<div class="col-md-12">
 									<input class="dataTable-input" placeholder="상품명을 입력해 주세요."
 										type="text" id="searchWord">
 									<button class="btn btn-primary" type="submit" id="searchButton">검색</button>
@@ -139,6 +144,7 @@
 										<th scope="col">상품 번호</th>
 										<th scope="col">상품 명</th>
 										<th scope="col">개당 가격</th>
+										<th scope="col">재고량</th>
 										<th scope="col">등록 일자</th>
 									</tr>
 								</thead>
@@ -152,9 +158,8 @@
 											<td><a class="primary product_modal"
 												data-bs-toggle="modal" data-bs-target="#modalProduct"
 												id="${list.product_no}">${list.product_name }</a></td>
-											<!--해당 상품 모달띄우기 -->
-
 											<td>${list.price }</td>
+											<td>${list.product_quantily }</td>
 											<td><fmt:formatDate value="${list.add_day }"
 													pattern="yyyy-MM-dd" /></td>
 										</tr>
@@ -216,6 +221,7 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-danger" id="addCart">상품담기</button>
 				</div>
 			</div>
 		</div>
@@ -224,6 +230,31 @@
 
 
 	<script type="text/javascript">
+	
+	// 상품 목록 테이블의 추가 버튼 클릭시 이벤트
+	$("#addCart").on("click", function () {
+		
+		const no = $("#cartNo").text();
+		console.log(no);
+		// DB 요청 - 삽입 성공시 장바구니 테이블에 추가 실패시 경고창 
+		   $.ajax({
+			type: "POST",
+			url: "insertCartAjax.do",
+			data: { "product_no": no },
+			dataType: "text",
+			success: function (result) {
+				if (result == "ok") {
+					alert("장바구니에 추가되었습니다.");
+				} else if (result == "false") {
+					// db에 
+					alert("이미 추가된 상품입니다.")
+				}
+			},
+			error: function (a, b, c) {
+				alert("로그인 후 이용 가능합니다.");
+			}
+		});
+	})
 	
 	// 검색버튼을 클릭시 테이블 비동기처리
 	$("#searchButton").on("click",function(e){
@@ -248,6 +279,7 @@
 							<td><a class="primary product_modal" data-bs-toggle="modal"
 								data-bs-target="#modalProduct" id="`+result.product_no+`">`+result.product_name+`</a></td>
 							<td>`+result.price+`</td>
+							<td>`+result.product_quantily+`</td>
 							<td>`+result.add_day+`</td>
 						</tr>
 						`;
@@ -272,7 +304,7 @@
 		
 		$.ajax({
 			type : "GET", //요청 메소드 방식
-			url : "orderAjax.do?sub_category="+no,
+			url: "getProductAjax.do?sub_category=" + no,
 			dataType : "json", //서버가 요청 URL을 통해서 응답하는 내용의 타입
 			success : function(result) {
 				$("#category tbody tr").remove(); // 기존 존재하는 테이블 삭제
@@ -286,7 +318,7 @@
 							<td><a class="primary product_modal" data-bs-toggle="modal"
 								data-bs-target="#modalProduct" id="`+result.product_no+`">`+result.product_name+`</a></td>
 							<td>`+result.add_day+`</td>
-							<td>재고량나올곳</td>
+							<td>`+result.product_quantily+`</td>
 							<td>`+result.price+`</td>
 						</tr>
 						`;

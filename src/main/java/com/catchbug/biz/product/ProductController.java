@@ -89,7 +89,7 @@ public class ProductController {
 	}
 
 	@PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<List<ImgVO>> productImgAjaxUpload(MultipartFile[] uploadFile, HttpServletRequest req) { // 여러개의 파일을 받을때를 대비
+	public ResponseEntity<List<ImgVO>> productImgAjaxUpload(MultipartFile[] uploadFile) { // 여러개의 파일을 받을때를 대비
 		System.out.println("이미지 업로드 에이작스 작동");
 
 		/* 이미지 파일 체크 */
@@ -98,12 +98,13 @@ public class ProductController {
 			File checkfile = new File(multipartFile.getOriginalFilename());
 			String type = null;
 
+
 			try {
 				type = Files.probeContentType(checkfile.toPath());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			/* 이미지 파일이 아닐경우 널을 반환 */
+//			/* 이미지 파일이 아닐경우 널을 반환 */
 //			if (!type.startsWith("image")) {
 //
 //				List<ImgVO> list = null;
@@ -115,7 +116,6 @@ public class ProductController {
 
 		/* 이미지 파일을 저장할 경로 김현민 맥북 기준으로 작성 */
 		String uploadFolder = "/Users/hyeon1339/CatchBugProject/src/main/webapp/resources/productImg";
-		System.out.println(uploadFolder);
 
 		/* 날짜 폴더 경로 */
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
