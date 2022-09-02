@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.catchbug.biz.account.MemberService;
 import com.catchbug.biz.cart.CartService;
 import com.catchbug.biz.product.ProductService;
 import com.catchbug.biz.vo.CartVO;
@@ -32,7 +33,8 @@ import com.siot.IamportRestClient.response.Payment;
 
 @Controller
 public class OrderController {
-
+	
+	
 	@Autowired
 	private ProductService ps;
 
@@ -41,6 +43,9 @@ public class OrderController {
 
 	@Autowired
 	private OrderService os;
+	
+	@Autowired
+	private MemberService ms;
 
 	private IamportClient client;
 	private OrderController() {
@@ -111,10 +116,11 @@ public class OrderController {
 	// 주문하기 눌렀을때
 	@RequestMapping(value = "/submitOrder.do")
 	@Transactional(rollbackFor = Exception.class)
-	public String submitOrder(OrderVO ov) {
+	public String submitOrder(OrderVO ov,HttpSession session) {
 		System.out.println(ov);
 		List<OrderItemVO> list = new ArrayList<OrderItemVO>();
 		// 선택한 상품에 대한 정보 초기화
+		// TODO 관리자 발주 성공시 입고 취소 출고 가맹점 발주성공시 출고 취소 입고 관리자 가맹자 어떻게? 멤버 등급으로 
 		for (OrderItemVO oiv : ov.getOrders()) {
 			OrderItemVO orderItem = ps.getProductItem(oiv.getProduct_no());
 			oiv.setProduct_name(orderItem.getProduct_name());
@@ -142,6 +148,7 @@ public class OrderController {
 			oiv.setOrder_no(ov.getOrder_no());
 			os.insertOrderItemList(oiv);
 			System.out.println(oiv);
+			
 		}
 
 		// 장바구니 삭제
