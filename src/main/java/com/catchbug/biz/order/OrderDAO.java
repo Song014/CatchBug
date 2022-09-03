@@ -42,7 +42,7 @@ public class OrderDAO {
 	}
 	//해당 가맹점 상세정보
 	public MemberVO getMember(MemberVO mvo) {
-		return mybatis.selectOne("OrderMapper.getMember", mvo);
+		return mybatis.selectOne("MemberDAO.getMemberid", mvo);
 	}
 
 }

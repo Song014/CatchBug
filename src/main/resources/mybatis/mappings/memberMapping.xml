@@ -34,6 +34,10 @@
 	<update id="insertImg">
 		update member set uploadImgFile=#{updateImgFile}  where id=#{id}
 	</update>
+	   	<!-- 발주내역에서 id검색하면 id정보 조회 -->
+    <select id="getMemberid" resultType="member" parameterType="member">
+		select id,business_no,business_name,ceo from member where id=#{id}
+	</select>
 	<!--
 	 <select id="getBoard" resultType="board">
 		select * from board where seq=#{seq}  vo객체에 setter 자동주입

@@ -20,7 +20,7 @@
 		on o.id=m.id 
 		where m.level1=2
 	</select>
-
+  
     	<!-- 발주 내역 / 장바구니 번호 클릭시 해당 id가 주문한 내역들 -->
 	<select id="getOrderDetail" resultType="order">
 		 select m.id,d.detail_no,d.order_no,p.product_no,d.purchase_amount,p.product_name,o.total_price
@@ -33,8 +33,5 @@
     on o.id=m.id
     where o.id=#{id}
     </select>
-    	<!-- 발주내역에서 id검색하면 id정보 조회 -->
-    <select id="getMember" resultType="member" parameterType="member">
-		select business_no.business_name,ceo from member where id=#{id}
-	</select>
+ 
 </mapper>
