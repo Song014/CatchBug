@@ -12,10 +12,15 @@ import lombok.ToString;
 @Setter
 @ToString
 public class QnaVO {
-	private int qna_no;
+	private int no, rn;
 	private String id;
-	private String qna_title;
-	private String qna_content;
+	private String title;
+	private String content;
+	private int tap;
+	
+	private String name;
+	
+	private int cnt;
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone = "Asia/Seoul")
-	private Date qna_day;
+	private Date day;
 }

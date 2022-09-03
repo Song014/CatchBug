@@ -9,11 +9,12 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>Dashboard - NiceAdmin Bootstrap Template</title>
+<title>QnA 상세보기</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <!-- Favicons -->
 <link href="assets/img/favicon.png" rel="icon">
 <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -65,11 +66,7 @@
 	<!-- End Sidebar -->
 	<!-- End Header -->
 
-	<!-- ======= Sidebar ======= -->
 
-	<jsp:include page="../mainInclude/sidebar.jsp"></jsp:include>
-
-	<!-- End Sidebar -->
 
 	<main id="main" class="main">
 
@@ -77,65 +74,71 @@
 		<div class="card-body">
 			<div class="pagetitle">
 				<br>
-				<h1>질문 게시판</h1>
+				<h1>QnA 게시판</h1>
 				<nav>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="index.html">게시판</a></li>
-						<li class="breadcrumb-item">질문게시판</li>
-						<li class="breadcrumb-item active">글쓰기</li>
+						<li class="breadcrumb-item">QnA게시판</li>
+						<li class="breadcrumb-item active">상세보기</li>
 					</ol>
 				</nav>
 			</div>
-			<form method="POST" action="qnaWrite.do">
-				<input type="hidden" name="id" value="${member.id }">
-				<div class="row mb-3">
-					<div class="col-sm-2">
-						<div class="mb-3">
-							<select class="form-select" id="floatingSelect" name="tap" required="required">
-								<option value="1">주문</option>
-								<option value="2">상품</option>
-								<option value="3">배송</option>
-								<option value="4">회원</option>
-								<option value="5">사이트</option>
-							</select>
-						</div>
-					</div>
-					<div class="col-sm-10">
-						<input type="text" class="form-control" name="title" placeholder="제목">
+			<div class="card">
+				<div class="card-header">
+					<h3>${board.title }</h3>
+				</div>
+				<div class="card-body">${board.content }</div>
+				<div class="card-footer">
+					<div class="mb-3 text-center">
+						<input type="hidden" value="${board.id }" id="id" /> <input
+							type="hidden" value="${board.no }" id="no" />
+						<button type="button" class="btn btn-primary" onclick="change();">수정하기</button>
+						<button type="button" class="btn btn-secondary"
+							onclick="location.href='QnABoard.do'">뒤로가기</button>
+						<button type="button" class="btn btn-sm btn-danger"
+							onclick="deleted();">삭제</button>
 					</div>
 				</div>
-
-				<div class="col-md-12">
-					<textarea class="form-control" name="content" rows="6"
-						placeholder="Message" required=""></textarea>
-				</div>
-
-
-				<div class="form-check">
-					<input class="form-check-input" type="checkbox" name="invalidCheck" value=""
-						id="invalidCheck2" > <label
-						class="form-check-label" for="invalidCheck2"> 비공개 </label>
-				</div>
-				<div class="mb-3 text-center">
-					<button type="submit" class="btn btn-primary">글쓰기</button>
-					<button type="reset" class="btn btn-secondary">취소</button>
-				</div>
-			</form>
+			</div>
 		</div>
 	</div>
-
 	</main>
+
+
+	<script type="text/javascript">
+		var id = $("#id").val();
+		var board_no = $("#no").val()
+		console.log(id);
+		function deleted(e) {
+			if (id == "${member.id}") {
+				if(confirm("정말 삭제하시겠습니까?")){
+					location.href="/deleteQnA.do?no=" + board_no;	
+				}
+			} else {
+				alert("본인만 삭제할 수 있습니다.");
+			}
+		}
+
+		function change(e) {
+			if (id == "${member.id}") {
+				if(confirm("정말 수정하시겠습니까?")){
+					location.href="/updateQnA.do?no=" + board_no;	
+				}
+			} else {
+				alert("본인만 수정할 수 있습니다.");
+			}
+		}
+	</script>
+
+
+
 	<!-- End #main -->
 
-
 	<!-- ======= Footer ======= -->
-  
-  <jsp:include page="../mainInclude/footer.jsp"></jsp:include>
-  <script type="text/javascript">
-  
 
-  </script>
-<!-- End Footer -->
+	<jsp:include page="../mainInclude/footer.jsp"></jsp:include>
+
+	<!-- End Footer -->
 
 	<a href="#"
 		class="back-to-top d-flex align-items-center justify-content-center"><i

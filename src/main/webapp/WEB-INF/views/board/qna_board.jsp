@@ -14,6 +14,7 @@
 <meta content="" name="description">
 <meta content="" name="keywords">
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Favicons -->
 <link href="assets/img/favicon.png" rel="icon">
 <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -81,7 +82,14 @@
 	<section class="section dashboard">
 		<div class="card">
 			<div class="card-body" style="padding-top:20px;">
-				
+				<!-- <div class="dataTable-dropdown">
+					<label><select class="dataTable-selector"><option
+								value="5">5</option>
+							<option value="10" selected="">10</option>
+							<option value="15">15</option>
+							<option value="20">20</option>
+							<option value="25">25</option></select> entries per page</label>
+				</div> -->
 				<table class="table table-bordered" style="text-align: center">
 					<thead>
 						<tr class="table-primary">
@@ -93,15 +101,15 @@
 							<th scope="col" style="width: 15%;">작성일</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id="tablea">
 					<c:forEach var="list" items="${qna_list }" >
 						<tr>
-							<th scope="row">${list.qna_no }</th>
-							<td>주문</td>
+							<th scope="row">${list.no }</th>
+							<td>${list.name }</td>
 							<td>${list.id }</td>
-							<td><a href="#">${list.qna_title }</a></td>
-							<td>28</td>
-							<td><fmt:formatDate value="${list.qna_day }" pattern="yyyy-MM-dd" timeZone="Asia/Seoul"/></td>
+							<td><a href="QnABoardDetail.do?no=${list.no }">${list.title }</a></td>
+							<td>${list.cnt }</td>
+							<td><fmt:formatDate value="${list.day }" pattern="yyyy-MM-dd" timeZone="Asia/Seoul"/></td>
 						</tr>
 					</c:forEach>
 					</tbody>
@@ -109,13 +117,21 @@
 						<tr>
 							<th colspan="6">
 								<ul class="pagination justify-content-center">
-									<li class="page-item"><a class="page-link" href="#"
-										tabindex="-1" aria-disabled="true">Previous</a></li>
-									<li class="page-item"><a class="page-link" href="#">1</a></li>
-									<li class="page-item active" aria-current="page"><a
-										class="page-link" href="#">2</a></li>
-									<li class="page-item"><a class="page-link" href="#">3</a></li>
-									<li class="page-item"><a class="page-link" href="#">Next</a></li>
+
+									<c:forEach begin="${page.startPageNum }"
+										end="${page.endPageNum }"  items="${qna_list }" varStatus="status">
+										<c:choose>
+											<c:when test="${page.page == status.count }">
+											<li class="paginate_button previous active"><a
+													class="page-link" href="QnABoard.do?page=${status.count }" >${status.count }</a></li>
+											</c:when>
+											<c:otherwise>
+												<li class="paginate_button previous "><a
+													class="page-link" href="QnABoard.do?page=${status.count }" >${status.count }</a></li>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+
 								</ul>
 							</th>
 						</tr>
@@ -132,7 +148,15 @@
 	</section>
 
 	</main>
-
+	<script type="text/javascript">
+	/* function paging(e){
+		onclick="javascript:paging(${status.count });
+		const sel = $(".dataTable-selector  option:selected").val();
+		location.href="QnABoard.do?page="+e+"&pageCount="+sel;
+	} */
+	
+	
+	</script>
 
 	<!-- End #main -->
 
