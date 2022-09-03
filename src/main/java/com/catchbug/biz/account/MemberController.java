@@ -1,17 +1,14 @@
 
 package com.catchbug.biz.account;
 
-import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.catchbug.biz.vo.MemberVO;
@@ -88,37 +85,23 @@ public class MemberController {
 	}
 
 	// mypage / 마이페이지 수정
-	// 여러 페이지를 할떈 value="/mypage.do/:id" 이런식으로 rest를 쓰면 해결할수있다.
-	@RequestMapping(value = "/mypage.do/{page}", method = RequestMethod.POST)
-	public ModelAndView MypageOverview(@PathVariable("page") String page, MemberVO vo, MemberDAOmybaits memberDAO,
-			ModelAndView mav, HttpSession session) throws IllegalStateException, IOException {
-		System.out.println("mypage / 마이페이지 수정 ");
-		memberService.updateMypage(vo);
-		MemberVO member = memberService.getMember(vo);
+		// 여러 페이지를 할떈 value="/mypage.do/:id" 이런식으로 rest를 쓰면 해결할수있다.
+		@RequestMapping(value = "/mypage.do", method = RequestMethod.POST)
+		public ModelAndView MypageOverview(MemberVO vo, MemberDAOmybaits memberDAO,
+				ModelAndView mav, HttpSession session) throws IllegalStateException, IOException {
+			
+			
+			System.out.println("mypage / 마이페이지 수정 ");
+			memberService.updateMypage(vo);
+			MemberVO member = memberService.getMember(vo);
 		
-		if (member != null) {
-			System.out.println("환영합니다" + member.getId() + "님 어서오세요. 등급은 " + member.getLevel1() + "입니다");
-			session.setAttribute("member", member); // 세션 재할당?
-		}
-		
-		MultipartFile uploadImgFile = vo.getUploadImgFile();
-		
-		if (page == "1") {
-			memberService.updateImg(vo);
-			if (!uploadImgFile.isEmpty()) {
-				String fileName = uploadImgFile.getOriginalFilename();
-				uploadImgFile.transferTo(
-						new File("C:\\work\\STS-bundle\\workspace\\CatchBug6\\src\\main\\webapp\\resources\\assets\\img"
-								+ fileName));
-
-				mav.setViewName("account/mypage");
-			} else if (page == "2") {
-				mav.setViewName("account/mypage");
-			} else if (page == "3") {
-				mav.setViewName("account/mypage");
+			if (member != null) {
+				System.out.println("환영합니다" + member.getId() + "님 어서오세요. 등급은 " + member.getLevel1() + "입니다");
+				session.setAttribute("member", member); // 세션 재할당?
 			}
+			mav.setViewName("account/mypage");
 
+			
+			return mav;
 		}
-		return mav;
-	}
 }

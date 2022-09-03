@@ -11,4 +11,30 @@
 	insert into order_detail values((SELECT NVL(MAX(detail_no),0) + 1 FROM order_detail),#{order_no},#{product_no},#{purchase_amount})
 </insert>
 
+<!-- 발주내역 주문서리스트 -->
+	<select id="getOrderList" resultType="order">
+		select
+		order_no,m.id,m.ceo,total_price,order_status,processing_day,note
+		from orders o 
+		inner join member m 
+		on o.id=m.id 
+		where m.level1=2
+	</select>
+
+    	<!-- 발주 내역 / 장바구니 번호 클릭시 해당 id가 주문한 내역들 -->
+	<select id="getOrderDetail" resultType="order">
+		 select m.id,d.detail_no,d.order_no,p.product_no,d.purchase_amount,p.product_name,o.total_price
+    from order_detail d
+    inner join product p
+    on d.product_no=p.product_no
+    inner join orders o
+    on d.order_no=o.order_no
+    inner join member m
+    on o.id=m.id
+    where o.id=#{id}
+    </select>
+    	<!-- 발주내역에서 id검색하면 id정보 조회 -->
+    <select id="getMember" resultType="member" parameterType="member">
+		select business_no.business_name,ceo from member where id=#{id}
+	</select>
 </mapper>
