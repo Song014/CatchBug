@@ -37,8 +37,20 @@ public class CartServiceImp implements CartService {
 	}
 
 	@Override
-	public void deleteCart(CartVO vo) {
-		dao.deleteCart(vo);
+	public String deleteCart(CartVO vo) {
+		try {
+			int result = dao.deleteCart(vo);
+			if(result==0) {
+				return "false";
+			} else if(result==1) {
+				return "true";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "false";
+		}
+		return null;
+		
 	}
 
 	@Override

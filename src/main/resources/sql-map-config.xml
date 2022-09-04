@@ -13,7 +13,9 @@
 		<typeAlias alias="noti" type="com.catchbug.biz.vo.NotiVO"/>
 		<typeAlias alias="orderItem" type="com.catchbug.biz.vo.OrderItemVO"/>
 		<typeAlias alias="order" type="com.catchbug.biz.vo.OrderVO"/>
-
+		<typeAlias alias="boardReply" type="com.catchbug.biz.vo.BoardReplyVO"/>
+		<typeAlias alias="qna" type="com.catchbug.biz.vo.QnaVO"/>
+		<typeAlias alias="page" type="com.catchbug.biz.vo.PageVO"/>
     </typeAliases>
 	<mappers>
 		<mapper resource="mybatis/mappings/stockMapper.xml"/>
@@ -24,6 +26,8 @@
 		<mapper resource="mybatis/mappings/cartMapper.xml"/>
 		<mapper resource="mybatis/mappings/boardMapper.xml"/>
 		<mapper resource="mybatis/mappings/orderMapper.xml"/>
+		<mapper resource="mybatis/mappings/qnaMapper.xml"/>
+		
 		
 	</mappers>
 </configuration>

@@ -36,9 +36,9 @@ public class CartDAO {
 	
 	// d
 	
-	public void deleteCart(CartVO vo) {
+	public int deleteCart(CartVO vo) {
 		System.out.println("deleteCart 처리");
-		mybatis.delete("CartMapper.deleteCart",vo);
+		return mybatis.delete("CartMapper.deleteCart",vo);
 	}
 
 	

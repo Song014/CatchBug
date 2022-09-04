@@ -47,6 +47,11 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+  <style type="text/css">
+  .hide{
+  	display: none;
+  }
+  </style>
 			</head>
 
 			<body>
@@ -131,16 +136,14 @@
 												</c:forEach>
 											</tbody>
 										</table>
-										<!-- 주문신청시 사용되는 폼 -->
-										<form class="order_form" action="submitOrder.do">
-											<input type="hidden" name="shipping_address" value=${member.business_address
-												}> <input type="hidden" name="id" value=${member.id }>
-										</form>
-										<!-- 이전페이지로 돌아가기 -->
+										
+										
 										<div align="center">
 											<h3>총 주문금액 :${total }</h3>
-											<input class="btn btn-primary" type="submit"
-												onclick="location.href='productForOrder.do'" value="상품 추가"></input>
+											<!-- 이전페이지로 돌아가기 -->
+											<input class="btn btn-primary" type="submit" onclick="location.href='productForOrder.do'" value="상품 추가"></input>
+											<!-- 결제모듈 선택-->
+											<input type="button" class="btn btn-primary order_btn" onclick="requestPay()" value="결제하기">
 										</div>
 
 									</div>
@@ -159,22 +162,28 @@
 													name="address" value="defaultAddress" checked="checked"> 기본배송지
 												<input type="radio" class="radio_adrress_input" name="address"
 													value="optionAddress"> 신규배송지
+												
 											</div>
-
-											<table>
-												<tr>
-													<th>이름:</th>
-													<td>${member.ceo }(${member.business_name })</td>
-												</tr>
-												<tr>
-													<th>번호:</th>
-													<td>${member.contact }</td>
-												</tr>
-												<tr>
-													<th>주소:</th>
-													<td>${member.business_address }</td>
-												</tr>
-											</table>
+											
+											<!-- 주문신청시 사용되는 폼 -->
+											<form class="order_form" action="submitOrder.do">
+												<input type="hidden" name="id"  value="${member.id }">
+												<table>
+													<tr>
+														<th>이름:</th>
+														<td><input type="hidden" name="ceo" value="${member.ceo }">${member.ceo }</td>
+													</tr>
+													<tr>
+														<th>번호:</th>
+														<td><input type="hidden" name="contact" value="${member.contact }">${member.contact }</td>
+													</tr>
+													<tr>
+														<th>주소:</th>
+														<td><input type="hidden" name="shipping_address" value="${member.business_address }">${member.business_address }</td>
+													</tr>
+												</table>
+											</form>
+											
 										</div>
 										<!-- 주문자 정보 -->
 										<div class="col-lg-4" style="border: 1px solid black;">
@@ -199,9 +208,7 @@
 
 									</div>
 
-									<!-- 결제모듈 선택-->
-									<input type="button" class="btn btn-primary order_btn" onclick="requestPay()"
-										value="결제하기">
+
 								</div>
 							</div>
 						</div>
@@ -210,6 +217,48 @@
 				</main>
 
 				<script type="text/javascript">
+					$(".radio_adrress_input").on("change",function(e){
+						e.preventDefault();
+						console.log(e.target.value)
+						let str ="";
+						if(e.target.value=="optionAddress"){
+							str = `
+								<table>
+						 		<tr>
+						 			<th>이름 :</th>
+						 			<td><input type="text" name="ceo" value=""></td>
+						 		</tr>
+						 		<tr>
+						 			<th>번호 :</th>
+						 			<td><input type="text" name="contact" value=""></td>
+					 			</tr>
+					 			<tr>
+						 			<th>주소 :</th>
+						 			<td><input type="text" name="shipping_address" value=""></td>
+					 			</tr>
+						 	</table>
+						 	
+						 	`;
+						} else if(e.target.value=="defaultAddress"){
+							str = `
+							<table>
+								<tr>
+									<th>이름:</th>
+									<td><input type="hidden" name="ceo" value="${member.ceo }">${member.ceo }</td>
+								</tr>
+								<tr>
+									<th>번호:</th>
+									<td><input type="hidden" name="contact" value="${member.contact }">${member.contact }</td>
+								</tr>
+								<tr>
+									<th>주소:</th>
+									<td><input type="hidden" name="shipping_address" value="${member.business_address }">${member.business_address }</td>
+								</tr>
+							</table>
+							`
+						}
+						 	$(".order_form").html(str); 
+					})
 
 					$('input[name=cart_check]:checked').change(
 						function () {
@@ -280,19 +329,24 @@
 					var IMP = window.IMP;
 					IMP.init("imp45408430");
 
+					// 결제 버튼 눌렀을때 실행함수
 					function requestPay() {
+						// 기본으로 들어가는 데이터 
+						console.log()
 						const id = '${member.id }';
-						const member_name = '${member.ceo }';
+						const member_name = $(".order_form").find("input[name=ceo]").val();
 						const member_email = '${member.email }';
-						const member_tel = '${member.contact }';
-						const member_addr = '${member.business_address }';
+						const member_tel = $(".order_form").find("input[name=contact]").val();
+						const member_addr = $(".order_form").find("input[name=shipping_address]").val();
 						const member_postcode = '03499';
 
+						// 주문번호 생성
 						const now = new Date();
 						const order_no = id + '_'
 							+ now.toISOString().substring(0, 10).replace(/-/g, '')
 							+ now.getSeconds();
 
+						// 첫번째 상품 이름, 상품 개수  (상품 외 2개)형식으로 나타냄
 						const $num = $('input[name=cart_check]:checked').length;
 						const $name = $(".cart_checkbox:checked").parent().find(
 							".individual_product_name_input").val();
@@ -317,11 +371,16 @@
 												".individual_purchase_amount_input")
 											.val();
 
+										// 서버에 보내줄 데이터 (주문번호, 상품번호, 수량)
+										let order_no_input = "<input name='order_no' type='hidden' value='" + order_no + "'>";
+										form_contents += order_no_input;
+
 										let product_no_input = "<input name='orders[" + orderNumber + "].product_no' type='hidden' value='" + product_no + "'>";
 										form_contents += product_no_input;
 
 										let product_amount_input = "<input name='orders[" + orderNumber + "].purchase_amount' type='hidden' value='" + product_amount + "'>";
 										form_contents += product_amount_input;
+
 										let total = $(element).find(
 											".individual_total_input").val();
 										total_price += Number(total);
@@ -329,7 +388,10 @@
 
 									}
 								});
+						
+						
 
+						// 아이엠포트 결제모듈 
 						IMP
 							.request_pay(
 								{
@@ -369,13 +431,14 @@
 													console.log(data);
 													if (rsp.paid_amount == data.response.amount) {
 														alert("결제 및 결제검증완료");
-														let order_no_input = "<input name='order_no' type='hidden' value='" + order_no + "'>";
-														form_contents += order_no_input;
+
 														$(".order_form")
 															.append(
 																form_contents);
+														/* $(".address_form").submit(); */
 														$(".order_form")
 															.submit();
+														
 													} else {
 														alert("결제 실패");
 													}

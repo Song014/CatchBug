@@ -10,7 +10,7 @@ public interface CartService {
 
 	String insertCart(CartVO vo);
 
-	void deleteCart(CartVO vo);
+	String deleteCart(CartVO vo);
 
 	void updateCart(CartVO vo);
 

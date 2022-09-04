@@ -9,11 +9,12 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>Dashboard - NiceAdmin Bootstrap Template</title>
+<title>글 수정</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <!-- Favicons -->
 <link href="assets/img/favicon.png" rel="icon">
 <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -38,6 +39,11 @@
 
 <!-- Template Main CSS File -->
 <link href="assets/css/style.css" rel="stylesheet">
+
+<!-- quill 적용 -->
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css"
+	rel="stylesheet">
+
 
 <!-- =======================================================
   * Template Name: NiceAdmin - v2.3.1
@@ -65,11 +71,6 @@
 	<!-- End Sidebar -->
 	<!-- End Header -->
 
-	<!-- ======= Sidebar ======= -->
-
-	<jsp:include page="../mainInclude/sidebar.jsp"></jsp:include>
-
-	<!-- End Sidebar -->
 
 	<main id="main" class="main">
 
@@ -77,21 +78,21 @@
 		<div class="card-body">
 			<div class="pagetitle">
 				<br>
-				<h1>질문 게시판</h1>
+				<h1>QnA 게시판</h1>
 				<nav>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="index.html">게시판</a></li>
-						<li class="breadcrumb-item">질문게시판</li>
-						<li class="breadcrumb-item active">글쓰기</li>
+						<li class="breadcrumb-item">QnA게시판</li>
+						<li class="breadcrumb-item active">글수정</li>
 					</ol>
 				</nav>
 			</div>
-			<form method="POST" action="qnaWrite.do">
-				<input type="hidden" name="id" value="${member.id }">
+			<form action="updateQnA.do" method="POST"
+				onsubmit="return qnaSubmit();">
 				<div class="row mb-3">
 					<div class="col-sm-2">
 						<div class="mb-3">
-							<select class="form-select" id="floatingSelect" name="tap" required="required">
+							<select class="form-select" id="floatingSelect" name="tap">
 								<option value="1">주문</option>
 								<option value="2">상품</option>
 								<option value="3">배송</option>
@@ -101,41 +102,56 @@
 						</div>
 					</div>
 					<div class="col-sm-10">
-						<input type="text" class="form-control" name="title" placeholder="제목">
+						<input type="text" class="form-control" placeholder="제목"
+							name="title" value="${board.title }" /> <input type="text"
+							hidden="hidden" name="no" value="${board.no }" /> <input
+							type="text" hidden="hidden" name="id" value="${member.id }" /> <input
+							type="text" hidden="hidden" name="business_name"
+							value="${member.business_name }" /> <input type="text"
+							hidden="hidden" name="content" value="" />
 					</div>
 				</div>
 
 				<div class="col-md-12">
-					<textarea class="form-control" name="content" rows="6"
-						placeholder="Message" required=""></textarea>
-				</div>
-
-
-				<div class="form-check">
-					<input class="form-check-input" type="checkbox" name="invalidCheck" value=""
-						id="invalidCheck2" > <label
-						class="form-check-label" for="invalidCheck2"> 비공개 </label>
+					<!-- Create the editor container -->
+					<div id="editor" style="height: 300px">${board.content }</div>
 				</div>
 				<div class="mb-3 text-center">
 					<button type="submit" class="btn btn-primary">글쓰기</button>
-					<button type="reset" class="btn btn-secondary">취소</button>
+					<button type="button" class="btn btn-secondary"
+							onclick="history.go(-1)">뒤로가기</button>
 				</div>
 			</form>
 		</div>
 	</div>
 
-	</main>
+	<script>
+	  $('#floatingSelect option[value=${board.tap }]').attr('selected', true);
+		function qnaSubmit() {
+			var content = $(".ql-editor").html();
+			console.log(content)
+			$('input[name=content]').attr('value', content);
+
+		}
+	</script> </main>
+
+
+	<!-- Include the Quill library -->
+	<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+	<!-- Initialize Quill editor -->
+	<script>
+		var quill = new Quill('#editor', {
+			theme : 'snow'
+		});
+	</script>
 	<!-- End #main -->
 
-
 	<!-- ======= Footer ======= -->
-  
-  <jsp:include page="../mainInclude/footer.jsp"></jsp:include>
-  <script type="text/javascript">
-  
 
-  </script>
-<!-- End Footer -->
+	<jsp:include page="../mainInclude/footer.jsp"></jsp:include>
+
+	<!-- End Footer -->
 
 	<a href="#"
 		class="back-to-top d-flex align-items-center justify-content-center"><i
