@@ -6,22 +6,30 @@
 
 <!-- 가맹점 전체 리스트 -->
 <select id="getMemberList" resultType="member">
-	select 	* from 	member where level1=2
+  	SELECT *
+	FROM member
+	WHERE level1 = 2
 </select>
 
 <!-- 가입승인 대기 리스트 -->
 <select id="getMemberWaitList" resultType="member">
-	select 	* from 	member where level1=3
+	SELECT *
+	FROM member
+    WHERE level1 = 3
 </select>
 
 <!-- 승인 처리 -->
 <update id="memberLevelUpdate" parameterType="member" >
-	update member set level1 = 2 where id = #{id,jdbcType=VARCHAR}
+	 UPDATE member
+	 SET level1 = 2 
+	 WHERE id = #{id}
 </update>
 
 <!-- 반려 처리 -->
 <delete id="memberrefuse">
-	delete from member where id = #{id}
+	DELETE 
+	FROM member
+	where id = #{id}
 </delete>
 
 <select id="unOrderHistory" resultType="HashMap">
@@ -38,16 +46,16 @@
 </select>
 
 <select id="getOrderM" parameterType="order" resultType="order">
-	select m.id, o.order_no, o.total_price, o.order_status, d.detail_no, d.purchase_amount, p.product_no, p.price,p.product_name, ps.product_quantily
-    from order_detail d
-    inner join product p
-    on d.product_no=p.product_no
-    inner join orders o
-    on d.order_no=o.order_no
-    inner join member m
-    on o.id=m.id
-    inner join product_stock ps
-    on ps.product_no = p.product_no
-    where o.id = #{id}
+	SELECT m.id, o.order_no, o.total_price, o.order_status, d.detail_no, d.purchase_amount, p.product_no, p.price,p.product_name, ps.product_quantily
+    FROM order_detail d
+    INNER JOIN product p
+    ON d.product_no=p.product_no
+    INNER JOIN orders o
+    ON d.order_no=o.order_no
+    INNER JOIN member m
+    ON o.id=m.id
+    INNER JOIN product_stock ps
+    ON ps.product_no = p.product_no
+    WHERE o.id = #{id}
 </select>
 </mapper>

@@ -5,11 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.catchbug.biz.vo.BoardVO;
+import com.catchbug.biz.vo.Criteria;
 import com.catchbug.biz.vo.NotiVO;
+import com.catchbug.biz.vo.PageMaker;
 import com.catchbug.biz.vo.SearchVO;
 
 @Controller
@@ -102,12 +105,34 @@ public class BoardController {
 	}
 
 	//공지 리스트
-
 	@RequestMapping("/notice_Board.do")
-	public String notice_Board_list(Model model, NotiVO vo) {
-		System.out.println("boardController");
-		List<NotiVO> list = boardService.get_Noti_list();
-		model.addAttribute("list", list);
+	
+	public String notice_Board_list(@ModelAttribute("cri") Criteria cri, Model model, NotiVO vo) {
+		System.out.println("boardController"+cri);
+		
+		if(vo.getNoti_title() == null) {
+			List<NotiVO> list = boardService.get_Noti_list(cri);
+			
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCriteria(cri);
+			pageMaker.setTotalCount(boardService.listCount());
+						
+			System.out.println(list);
+			model.addAttribute("list", list);
+			model.addAttribute("pageMaker", pageMaker);
+			
+		} else {
+			System.out.println(vo.getNoti_title()+"===");
+			List<NotiVO> list = boardService.SearchNoti(vo);
+			System.out.println(list.toString());
+			
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCriteria(cri);
+			pageMaker.setTotalCount(boardService.listSearchCount(vo));
+			
+			model.addAttribute("list", list);
+			model.addAttribute("pageMaker", pageMaker);
+		}
 		return "board/notice_board";
 	}
 

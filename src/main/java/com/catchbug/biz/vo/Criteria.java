@@ -4,30 +4,56 @@ import lombok.Data;
 
 @Data
 public class Criteria {
-	
-	private Integer page; // 현재 페이지 번호
-	private Integer perPageNum; // 페이지당 출력할 게시글 갯수
-	
-    // page와 perPageNum을 default로 각각 1, 10으로 정해준다
+
+    private int page;
+    private int perPageNum;
+
     public Criteria() {
-     
-        this.page = 1;
-        this.perPageNum = 10;
+        page = 1;
+        perPageNum = 15;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        if(page <= 0)
+            page = 1;
+
+        this.page = page;
+    }
+
+    public int getPerPageNum() {
+        return perPageNum;
     }
     
-    public void setPage(Integer page) {
-        // page를 1보다 작은 수로 입력되면 1로 고정
-        this.page = (page < 1) ? 1 :  page; 
+    public int getPageStart() {
+        return (this.page - 1) * this.perPageNum;
     }
+
+    public void setPerPageNum(int perPageNum) {
+        if(perPageNum <= 0 || perPageNum > 150) {
+            perPageNum = 15;
+        }else {
+        	this.perPageNum = perPageNum;
+        }
+        
+    }
+
+	@Override
+	public String toString() {
+		return "Criteria [page=" + page + ", perPageNum=" + perPageNum + ", getPage()=" + getPage()
+				+ ", getPerPageNum()=" + getPerPageNum() + ", getPageStart()=" + getPageStart() + "]";
+	}
+
+//    @Override
+//    public String toString() {
+//        return "Criteria{" +
+//                "page=" + page +
+//                ", perPageNum=" + perPageNum +
+//                '}';
+//    }
     
-    public void setPerPageNum(Integer perPageNum) {
-        // perPageNum을 10 미만 또는 100이상일 경우 10으로 고정
-        this.perPageNum = (perPageNum <10 || perPageNum >=100) ? 15 : perPageNum;
-    }
-     
-    //MyBatis
-    public int getPageStart(){
- 
-        return (this.page-1) * perPageNum ;
-    }
+    
 }

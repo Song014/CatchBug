@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.catchbug.biz.vo.BoardVO;
+import com.catchbug.biz.vo.Criteria;
 import com.catchbug.biz.vo.NotiVO;
 
 @Repository
@@ -27,9 +28,9 @@ public class BoardDAO {
 	
 	
 	// 공지 리스트
-	public List<NotiVO> get_Noti_list() {
+	public List<NotiVO> get_Noti_list(Criteria cri) {
 		System.out.println("공지 리스트 디에이오");
-		return mybatis.selectList("BoardMapper.gerNotiList");
+		return mybatis.selectList("BoardMapper.gerNotiList", cri);
 	}
 	
 	// 공지 쓰기
@@ -65,6 +66,26 @@ public class BoardDAO {
 	// 페이지 이동을위한 계산메소드
 	public int getTotal() {
 		return mybatis.selectOne("BoardMapper.getTotal");
+	}
+	
+	// 공지 검색
+	public List<NotiVO> SearchNoti(NotiVO vo) {
+		System.out.println("공지사항 검색 디에이오");
+		return mybatis.selectList("BoardMapper.SearchNoti", vo);
+	}
+	
+	//  검색 페이징 카운트
+	public int listSearchCount(NotiVO vo) {
+		System.out.println("검색 카운트 디에이오");
+		System.out.println(vo.getNoti_title());
+		return mybatis.selectOne("BoardMapper.listSearchNoti", vo);
+	}
+	
+	// 페이징
+	public int listCount() {
+		System.out.println("페이징 디에이오");
+		int count = mybatis.selectOne("BoardMapper.listCount");
+		return count;
 	}
 	
 }

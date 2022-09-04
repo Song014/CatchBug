@@ -77,30 +77,17 @@
 			</ol>
 		</nav>
 	</div>
+
 	<!-- End Page Title -->
-
 	<section class="section dashboard">
-		<div class="row">
-			<div class="card">
-				<div class="card-body">
-
+		<div class="card">
+			<div class="card-body">
+				<div class="row">
 					<div align="right" class="dataTable-top">
-						<div class="dataTable-dropdown">
-							<label><select class="dataTable-selector"><option
-										value="5">5</option>
-									<option value="10" selected="">10</option>
-									<option value="15">15</option>
-									<option value="20">20</option>
-									<option value="25">25</option></select> entries per page</label>
-						</div>
 						<div class="dataTable-search">
-							<form>
-								<input type="date" name="beforeDate"> <input type="date"
-									name="afterDate" id='currnetDate'> <select
-									name="searchOption">
-									<option value="orderNumber" selected="selected">주문번호</option>
-									<option value="content">내용</option>
-									<option value="remarks">비고</option>
+							<form action="">
+								<select name="searchOption">
+									<option value="orderNumber" selected="selected">사업자명</option>
 								</select> <input type="text" name="input" placeholder="검색어를 입력해 주세요.">
 								<!-- <input type="button" name="inputBtn" value="검색"> -->
 								<button>검색</button>
@@ -124,20 +111,23 @@
 									class="dataTable-sorter">상태</a></th>
 								<th scope="col">결제</th>
 							</tr>
-							
+
 							<c:forEach var="list" items="${list }">
-							<tr>
-								<td>${list.get("ORDER_NO") }</td>
-								<td><a class="primary order_detail_member" id='${list.get("ID")}' data-bs-toggle="modal"
-									data-bs-target="#modal-biz"> ${list.get("BUSINESS_NAME" )} </a></td>
-								<td> ${list.get("PROCESSING_DAY" )}</td>
-								<td><a class="primary order_detail_modal" id='${list.get("ID")}' data-bs-toggle="modal"
-									data-bs-target="#modalDialogScrollable">주문 상세보기 </a></td>
-								<td>${list.get("NOTE" )}</td>
-								<td>대기</td>
-								<td><input type="button" name="ok" value="승인"> <input
-									type="button" name="no" value="취소"></td>
-							</tr>
+								<tr>
+									<td>${list.get("ORDER_NO") }</td>
+									<td><a class="primary order_detail_member"
+										id='${list.get("ID")}' data-bs-toggle="modal"
+										data-bs-target="#modal-biz"> ${list.get("BUSINESS_NAME" )}
+									</a></td>
+									<td>${list.get("PROCESSING_DAY" )}</td>
+									<td><a class="primary order_detail_modal"
+										id='${list.get("ID")}' data-bs-toggle="modal"
+										data-bs-target="#modalDialogScrollable">주문 상세보기 </a></td>
+									<td>${list.get("NOTE" )}</td>
+									<td>대기</td>
+									<td><input type="button" name="ok" value="승인"> <input
+										type="button" name="no" value="취소"></td>
+								</tr>
 							</c:forEach>
 						</table>
 					</div>
@@ -223,10 +213,9 @@
 								<thead>
 									<tr>
 										<th scope="col" style="width: 20%;">상품코드</th>
-										<th scope="col" style="width: 50%;">품목명</th>
-										<th scope="col" style="width: 10%;">수량</th>
-										<th scope="col" style="width: 10%;">가격</th>
-										<th scope="col" style="width: 10%;">현 재고</th>
+										<th scope="col" style="width: 30%;">품목명</th>
+										<th scope="col" style="width: 20%;">주문수량</th>
+										<th scope="col" style="width: 20%;">현 재고</th>
 									</tr>
 								</thead>
 								<tbody id="orderModal1">
@@ -312,24 +301,27 @@
              type : "GET", //요청 메소드 방식
              url : "orderDetail.do?id=" + memberId,
              success : function(result) {
-            	 console.log(result);
+             let totalPrice1 = result[0].total_price
+             let tp = totalPrice1.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+             $("#orderNo h5").remove(); // 주문번호
+             $("#totalPrice i").remove(); // 토탈 가격
                 $("#orderModal1").empty();
                   console.log(result) 
-                  for(var j=0;j<result.length;j++){
-                     console.log(j);
+                  for(var i=0;i<result.length;i++){
                    str += ` 
                       <tr>
-                         
-                         <td>`+result[j].detail_no+`</td>
-                         <td>`+result[j].product_name+`</td>
-                         <td>`+result[j].purchase_amount+`</td>
-                         <td>`+result[j].price+`</td>
-                         <td>`+result[j].product_quantily+`</td>
+                         <td>`+result[i].detail_no+`</td>
+                         <td>`+result[i].product_name+`</td>
+                         <td>`+result[i].purchase_amount+`</td>
+                         <td>`+result[i].product_quantily+`</td>
                       </tr>
-
                          `;
-                  }
-                      $("#orderModal1").html(str);
+                  } 
+                  	let orderNo = `<i>주문번호: `+result[0].order_no+`</i>`;
+                  	let totalPrice = `<h5>`+tp+`원</5>`;
+                  	$("#orderNo").html(orderNo);
+                  	$("#totalPrice").html(totalPrice);
+                  	$("#orderModal1").html(str);
                 console.log("ajax 성공");
              }, 
              error : function(a, b, c) {

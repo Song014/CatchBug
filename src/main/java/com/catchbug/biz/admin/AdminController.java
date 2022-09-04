@@ -96,11 +96,9 @@ public class AdminController {
 	// 주문 상세보기
 	@GetMapping("/orderDetail.do")
 	@ResponseBody
-	public List<OrderVO> getOrder(MemberVO vo) {
+	public List<OrderVO> getOrder(OrderVO vo) {
 		System.out.println("주문 상세보기 모달 컨트롤러");
-		List<OrderVO> vo3 = adminService.getOrder(vo);
-		System.out.println(vo3);
-		return vo3;
+		return adminService.getOrder(vo);
 	}
 	
 	// 가맹점 주문내역
@@ -108,8 +106,6 @@ public class AdminController {
 		public String orderHistory() {
 			return "admin/order_history";
 		}
-	  
-	
 	
 	/* 재고 관리 */
 	

@@ -10,39 +10,73 @@ import lombok.Data;
 @Data
 public class PageMaker {
 	
-	private int totalCount; // 승인요청 토탈 수
-	private int displayPageNum = 10; // 페이지당 보여지는 수
-	
-	private int startPage; // 현재 화면에 보여지는 맨 앞 번호
-	private int endPage; // 현재 화면에 보여지는 마지막 번호
-	private boolean prev; // 이전버튼
-	private boolean next; // 다음 페이지
-	
-	private Criteria cri; // page 현재페이지, perPageNum = 10개
-	
-	private void calcData() {
-		endPage = (int) (Math.ceil(cri.getPage() / (double) displayPageNum) * displayPageNum);
-		
-		startPage = (endPage - displayPageNum) + 1;
-		
-		int tempEndPage = (int) (Math.ceil(totalCount / (double) cri.getPerPageNum()));
-		
-		if(endPage > tempEndPage) {
-			endPage = tempEndPage;
-		}
-		
-		prev = startPage == 1 ? false : true;
-		
-		next = endPage * cri.getPerPageNum() >= totalCount ? false : true;
-	}
-	
-    /* 검색 키워드 인코딩 처리 */
-    public String encoding(String keyword) {
-      if(keyword == null || keyword.trim().length() == 0) return "";
-      try {
-        return URLEncoder.encode(keyword, "UTF-8");
-      } catch(Exception e) {
-        return "";
-      }
-    }
+		private Criteria cri;
+	    private int totalCount; //total number of records
+	    private int displayPageNum = 10; //페이지 인덱스는 0~10까지 표시한다.
+	    private int startPage;
+	    private int endPage;
+	    private boolean prev;
+	    private boolean next;
+
+	    public void setTotalCount(int totalCount) {
+	        this.totalCount = totalCount;
+
+	        calcData();
+	    }
+
+	    public void setCriteria(Criteria cri) {
+	        this.cri = cri;
+	    }
+
+	    public Criteria getCri() {
+	        return cri;
+	    }
+
+	    public int getStartPage() {
+	        return startPage;
+	    }
+
+	    public int getEndPage() {
+	        return endPage;
+	    }
+
+	    public boolean isPrev() {
+	        return prev;
+	    }
+
+	    public boolean isNext() {
+	        return next;
+	    }
+
+	    private void calcData() {
+
+	        //e.g. 페이지 번호가 13이라고 할 때, 페이지 범위는 10 부터 20. 따라서 endPage 는 20이어야 한다.
+	        endPage = (int)(Math.ceil(cri.getPage() / (double)displayPageNum)) * displayPageNum;
+
+	        //시작 페이지는 endPage - 10 + 1과 동일하다. 20 - 10 + 1 = 11
+	        startPage = (endPage - displayPageNum) + 1;
+
+	        //e.g. 전체 레코드의 수가 164라 가정할 때, 164 / 10 = 16.4, 실제 필요한 페이지는 17 페이지이다.
+	        int tempEndPage = (int)Math.ceil(totalCount / (double)cri.getPerPageNum());
+
+	        //따라서 endPage가 실제 필요 페이지보다 큰 경우에는 실제 필요한 페이지로 값을 변경한다.
+	        if(endPage > tempEndPage)
+	            endPage = tempEndPage;
+
+	        //첫번째 페이지가 1이 아니라면 prev 링크가 필요하다.
+	        prev = (startPage != 1);
+
+	        //end 페이지까지의 총 레코드의 수가 전체 레코드의 수보다 작다면 next 링크가 필요하다.
+	        next = (endPage * cri.getPerPageNum() < totalCount);
+	    }
+
+	    public String makeQuery(int page) {
+
+	        UriComponents uriComponents = UriComponentsBuilder.newInstance()
+	                .queryParam("page", page)
+	                .queryParam("perPageNum", cri.getPerPageNum()).build();
+
+	        return uriComponents.toUriString();
+	        // 이새끼가 연산해준대..
+	    }
 }

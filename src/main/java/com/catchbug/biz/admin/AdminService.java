@@ -13,7 +13,7 @@ public interface AdminService {
 	public void memberrefuse(MemberVO vo);
 	public List<HashMap<String, Object>> getunOrderHistory();
 	public MemberVO getMemberM(MemberVO vo);
-	public List<OrderVO> getOrder(MemberVO vo);
+	public List<OrderVO> getOrder(OrderVO vo);
 	
 	
 }

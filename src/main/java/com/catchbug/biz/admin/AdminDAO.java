@@ -51,8 +51,8 @@ public class AdminDAO {
 		return 	mybatis.selectOne("AdminMapper.getMemberM", vo);
 	}
 	
-	public List<OrderVO> getOrder(MemberVO vo) {
+	public List<OrderVO> getOrder(OrderVO vo) {
 		System.out.println("오더상세보기 모달 디에이오");
-		return mybatis.selectOne("AdminMapper.getOrderM", vo);
+		return mybatis.selectList("AdminMapper.getOrderM", vo);
 	}
 }

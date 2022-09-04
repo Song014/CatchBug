@@ -59,7 +59,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<OrderVO> getOrder(MemberVO vo) {
+	public List<OrderVO> getOrder(OrderVO vo) {
 		System.out.println("주문 상세보기 모달 서비스");
 		return adminDAO.getOrder(vo);
 	}
