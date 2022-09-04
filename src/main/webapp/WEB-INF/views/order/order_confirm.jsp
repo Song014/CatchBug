@@ -129,7 +129,7 @@
 														<td>${list.purchase_amount }개</td>
 														<td>${list.total }</td>
 														<td><button type="button"
-																class="btn btn-primary btn-sm delBucket">삭제</button>
+																class="btn btn-primary btn-sm delBucket" value="${member.id }">삭제</button>
 														</td>
 													</tr>
 													<c:set var="total" value="${total + list.total }"></c:set>
@@ -278,23 +278,23 @@
 
 						});
 
-					$("#bucket").on("click", ".delBucket", function () {
+					$("#bucket").on("click", ".delBucket", function (e) {
 						const $tr = $(this).parent().parent();
 						const $td = $tr.children();
 						const no = $td.eq(1).text();
-
+						const member_id = e.target.value;
+						console.log("asd"+member_id)
 						$.ajax({
-							type: "POST", //요청 메소드 방식
-							url: "deleteCartAjax.do",
-							data: {
-								"product_no": no
-							},
+							type: "DELETE", //요청 메소드 방식
+							url: "deleteCartAjax.do?product_no="+no+"&id="+member_id,
 							dataType: "text", //서버가 요청 URL을 통해서 응답하는 내용의 타입
 							success: function (result) {
-								if (result == "ok") {
+								if (result == "true") {
 									$tr.remove();
-								} else {
+								} else if(result == "false"){
 									alert("다시시도해주세요");
+								} else{
+									alert("관리자에게 문의해주세요");
 								}
 							},
 							error: function (e) {

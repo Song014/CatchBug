@@ -76,7 +76,7 @@
 		</div>
 		<!-- End Page Title -->
 
-		<section class="section dashboard container">
+		<section class="section dashboard ">
 
 
 			<div class="card">
@@ -140,40 +140,41 @@
 									</div>
 								</div>
 								<!-- 상품 리스트 -->
-								<table class="table top-selling">
+								<div style="border: 1px solid #dee2e6;">
+								<table class="table top-selling " style="margin: 0px;">
 									<thead>
 										<tr>
-											<th scope="col">번호</th>
-											<th scope="col">이미지</th>
-											<th scope="col">상품 번호</th>
-											<th scope="col">상품 명</th>
-											<th scope="col">등록 일자</th>
-											<th scope="col">전체 수량</th>
-											<th scope="col">개당 가격</th>
-											<th scope="col"></th>
+											<th scope="col" style="width: 5%;">번호</th>
+											<th scope="col" style="width: 5%;">이미지</th>
+											<th scope="col" style="width: 7%;">상품 번호</th>
+											<th scope="col" style="width: 35%; text-align: center;">상품 명</th>
+											<th scope="col" style="width: 10%;">등록 일자</th>
+											<th scope="col" style="width: 5%;">전체 수량</th>
+											<th scope="col" style="width: 5%;">개당 가격</th>
+											<th scope="col" style="width: 7%;"></th>
 										</tr>
 									</thead>
 								</table>
-								<div style="height: 250px; overflow: scroll; overflow-x:hidden; ">
-									<table class="table  top-selling" id="category">
+								<div style="height: 230px; overflow: scroll; overflow-x:hidden; ">
+									<table class="table  top-selling " id="category">
 										<tbody>
 											<c:forEach var="list" items="${product }" varStatus="status">
 												<tr>
-													<td>${status.count }</td>
-													<th scope="row"><a href="#"><img
+													<td style="width: 5%;">${status.count }</td>
+													<th scope="row" style="width: 5%;"><a href="#"><img
 																src="https://via.placeholder.com/60"
 																alt=""></a></th>
-													<td>${list.product_no }</td>
-													<td><a class="primary" data-bs-toggle="modal"
+													<td style="width: 7%;">${list.product_no }</td>
+													<td style="width: 40%; text-align: center;"><a class="primary" data-bs-toggle="modal"
 															data-bs-target="#modalProduct">상품 모달띄우기 </a>
 													</td>
-													<td>
+													<td style="width: 10%;">
 														<fmt:formatDate value="${list.add_day }"
 															pattern="yyyy-MM-dd" />
 													</td>
-													<td>10</td>
-													<td><input type="hidden" class="hidden_price" value=${list.price }> ${list.price }</td>
-													<td><button type="button"
+													<td style="width: 5%;">10</td>
+													<td style="width: 5%;"><input type="hidden" class="hidden_price" value=${list.price }> ${list.price }</td>
+													<td style="width: 5%;"> <button type="button"
 															class="btn btn-primary btn-sm addBucket">추가</button>
 													</td>
 												</tr>
@@ -181,14 +182,15 @@
 										</tbody>
 									</table>
 								</div>
+								</div>
 								<!-- 상품 리스트 -->
 							</div>
 							<!-- 장바구니 -->
-
-							<table class="table">
+							<hr>
+							<div style="border: 1px solid #dee2e6;">
+							<table class="table" style="margin: 0px;">
 								<thead>
 									<tr>
-										<th></th>
 										<th>상품 번호</th>
 										<th>상품 명</th>
 										<th>구매 수량</th>
@@ -197,7 +199,7 @@
 									</tr>
 								</thead>
 							</table>
-							<div style="height: 250px; overflow: scroll; overflow-x:hidden; ">
+							<div style="height: 230px; overflow: scroll; overflow-x:hidden; ">
 								<table class="table" id="bucket">
 									<tbody>
 										<c:forEach var="list" items="${cartList }">
@@ -218,6 +220,7 @@
 										</c:forEach>
 									</tbody>
 								</table>
+							</div>
 							</div>
 
 

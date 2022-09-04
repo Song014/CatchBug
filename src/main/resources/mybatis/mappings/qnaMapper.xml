@@ -30,7 +30,7 @@
 		        ) A inner join tap t on a.tap=t.no
 		    )
 		WHERE rn >= #{startPage} and rn <= #{endPage}
-		ORDER BY rn asc
+		
 		]]>
 	</select>
 	
