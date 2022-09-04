@@ -122,7 +122,6 @@ public class BoardController {
 			model.addAttribute("pageMaker", pageMaker);
 			
 		} else {
-			System.out.println(vo.getNoti_title()+"===");
 			List<NotiVO> list = boardService.SearchNoti(vo);
 			System.out.println(list.toString());
 			

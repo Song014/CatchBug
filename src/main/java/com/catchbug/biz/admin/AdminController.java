@@ -80,7 +80,6 @@ public class AdminController {
 		
 		System.out.println("미출고 컨트롤러");
 		List<HashMap<String,Object>> list = adminService.getunOrderHistory();
-		System.out.println(list.get(0).get("ID"));
 		model.addAttribute("list", list);
 		return "admin/un_order_history";
 	}  
