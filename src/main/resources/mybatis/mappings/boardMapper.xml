@@ -73,20 +73,22 @@
 		FROM (  SELECT ROWNUM rn, A.*
 		        FROM (  SELECT *
 		                FROM board
+		                WHERE TITLE LIKE '%'||#{title}||'%'
+						AND business_name LIKE '%'||#{business_name}||'%'
 		                ORDER BY created_day desc
 		        ) A
 		    )
 		WHERE rn >= #{startPage} and rn <= #{endPage}
-		AND TITLE LIKE '%'||#{title}||'%'
-		AND business_name LIKE '%'||#{business_name}||'%'
 		ORDER BY rn asc
 		]]>
 	</select>
 	
 	<!-- 페이지 이동을위한 갯수 가져오기 -->
-	<select id="getTotal" resultType="int">
+	<select id="getTotal" resultType="int" parameterType="board">
 		SELECT count(*) as total
-		FROM board
+		FROM board 
+		WHERE TITLE LIKE '%'||#{title}||'%'
+		AND business_name LIKE '%'||#{business_name}||'%'
 	</select>
 	
 	<!-- 자유게시판 상세정보 가져오기 -->

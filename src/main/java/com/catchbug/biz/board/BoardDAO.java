@@ -82,8 +82,8 @@ public class BoardDAO {
 	}
 	
 	// 페이지 이동을위한 계산메소드
-	public int getTotal() {
-		return mybatis.selectOne("BoardMapper.getTotal");
+	public int getTotal(BoardVO vo) {
+		return mybatis.selectOne("BoardMapper.getTotal",vo);
 	}
 	
 	//자유게시판 조회수 증가

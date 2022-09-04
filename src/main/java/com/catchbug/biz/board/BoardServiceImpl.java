@@ -72,8 +72,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int getTotalBoard() {
-		return boardDAO.getTotal();
+	public int getTotalBoard(BoardVO vo) {
+		return boardDAO.getTotal(vo);
 	}
 
 	//자유게시판 상세정보 가져오기
