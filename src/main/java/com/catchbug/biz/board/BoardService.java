@@ -2,6 +2,7 @@ package com.catchbug.biz.board;
 
 import java.util.List;
 
+import com.catchbug.biz.vo.BoardReplyVO;
 import com.catchbug.biz.vo.BoardVO;
 import com.catchbug.biz.vo.NotiVO;
 
@@ -20,4 +21,8 @@ public interface BoardService {
 	public void DeteleFreeBoard(BoardVO vo);
 	public void UpdateFreeBoard(BoardVO vo);
 	public void FreeBoardCnt(BoardVO vo);
+	public void WriteBoardReply(BoardReplyVO vo);
+	public List<BoardReplyVO> getFreeBoardReply(BoardReplyVO vo);
+	public void DeleteBoardReply(BoardReplyVO vo);
+	public void UpdateBoardReply(BoardReplyVO vo);
 }

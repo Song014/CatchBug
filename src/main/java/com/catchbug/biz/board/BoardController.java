@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.catchbug.biz.vo.BoardReplyVO;
 import com.catchbug.biz.vo.BoardVO;
 import com.catchbug.biz.vo.NotiVO;
 import com.catchbug.biz.vo.SearchVO;
@@ -91,11 +92,22 @@ public class BoardController {
 	@RequestMapping("/freeBoardDetail.do")
 	public String FreeBoardDetail(int board_no,Model model) {
 		BoardVO vo = new BoardVO();
+		BoardReplyVO rVo = new BoardReplyVO();
+		
+		rVo.setBoard_no(board_no);
 		vo.setBoard_no(board_no);
-		boardService.FreeBoardCnt(vo);
+		boardService.FreeBoardCnt(vo); //게시판 조회수 카운트
 		model.addAttribute("board",boardService.GetFreeBoardDetail(vo));
+		model.addAttribute("reply",boardService.getFreeBoardReply(rVo));
 		return "board/free_board_detail";
 	}
+	
+	//자유게시판 댓글작성폼
+		@RequestMapping("/writeFreeBoardReply.do")
+		public String FreeBoardDetail(BoardReplyVO vo) {
+			boardService.WriteBoardReply(vo);
+			return "redirect:freeBoardDetail.do?board_no=" + vo.getBoard_no();
+		}
 	
 	//자유게시판 글 삭제
 	@RequestMapping("/deleteFreeBoard.do")
@@ -119,6 +131,7 @@ public class BoardController {
 	//자유게시판 수정 진행
 	@PostMapping("updateFreeBoard.do")
 	public String FreeBoardUpdate(BoardVO vo) {
+		System.out.println(vo);
 		boardService.UpdateFreeBoard(vo);
 		return "redirect:freeBoard.do?page=1";
 	}
@@ -135,6 +148,26 @@ public class BoardController {
 	public String FreeBoardWriteAction(BoardVO vo) {
 		boardService.freeBoardWrite(vo);
 		return "redirect:freeBoard.do?page=1";
+	}
+	
+	// 자유게시판 댓글 삭제 작동
+	@RequestMapping("/deleteBoardReply.do")
+	public String DeleteFreeBoardReply(int reply_no,String board_no) {
+		BoardReplyVO vo = new BoardReplyVO();
+		vo.setReply_no(reply_no);
+		System.out.println(vo);
+		boardService.DeleteBoardReply(vo);
+		return "redirect:freeBoardDetail.do?board_no=" + board_no;
+	}
+	
+	//자유게시판 댓글 수정 작동
+	@RequestMapping("/updateBoardReply.do")
+	public String UpdateFreeBoardReply(int reply_no,String reply_text,String board_no) {
+		BoardReplyVO vo = new BoardReplyVO();
+		vo.setReply_text(reply_text);
+		vo.setReply_no(reply_no);
+		boardService.UpdateBoardReply(vo);
+		return "redirect:freeBoardDetail.do?board_no=" + board_no;
 	}
 
 	@RequestMapping("/QnABoard.do")

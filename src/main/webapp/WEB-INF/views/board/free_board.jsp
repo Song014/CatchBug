@@ -104,13 +104,19 @@
 							<td>${list.board_no }</td>
 							<c:choose>
 								<c:when test="${list.tap eq 1}">
-									<th scope="row">잡담</th>
+									<th scope="row">주문</th>
 								</c:when>
 								<c:when test="${list.tap eq 2}">
-									<th scope="row">정보</th>
+									<th scope="row">상품</th>
 								</c:when>
 								<c:when test="${list.tap eq 3}">
-									<th scope="row">유머</th>
+									<th scope="row">배송</th>
+								</c:when>
+								<c:when test="${list.tap eq 4}">
+									<th scope="row">회원</th>
+								</c:when>
+								<c:when test="${list.tap eq 5}">
+									<th scope="row">사이트</th>
 								</c:when>
 							</c:choose>
 							<td>${list.business_name }</td>

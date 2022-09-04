@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.catchbug.biz.vo.BoardReplyVO;
 import com.catchbug.biz.vo.BoardVO;
 import com.catchbug.biz.vo.NotiVO;
 
@@ -23,6 +24,11 @@ public class BoardDAO {
 	//자유게시판 클릭한 글 정보 불러오기
 	public BoardVO GetFreeBoardDetail(BoardVO vo) {
 		return mybatis.selectOne("BoardMapper.getFreeBoardDetail",vo);
+	}
+	
+	//자유게시판 클릭한 글 댓글정보 불러오기
+	public List<BoardReplyVO> getFreeBoardReply(BoardReplyVO vo) {
+		return mybatis.selectList("BoardMapper.getFreeBoardReply",vo);
 	}
 	
 	//자유게시판 글쓰기 등록
@@ -83,6 +89,21 @@ public class BoardDAO {
 	//자유게시판 조회수 증가
 	public void freeBoardCnt(BoardVO vo) {
 		mybatis.update("BoardMapper.freeBoardCnt",vo);
+	}
+	
+	//자유게시판 댓글작성
+	public void WriteBoardReply(BoardReplyVO vo) {
+		mybatis.insert("BoardMapper.writeBoardReply",vo);
+	}
+	
+	//자유게시판 댓글 삭제
+	public void DeleteBoardReply(BoardReplyVO vo) {
+		mybatis.delete("BoardMapper.deleteBoardReply",vo);
+	}
+	
+	//자유게시판 댓글 수정
+	public void UpdateBoardReply(BoardReplyVO vo) {
+		mybatis.update("BoardMapper.updateBoardReply",vo);
 	}
 	
 

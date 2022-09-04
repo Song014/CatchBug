@@ -42,6 +42,11 @@
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css"
 	rel="stylesheet">
 
+<!-- Jquery 선언 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous"></script>
+
 
 <!-- =======================================================
   * Template Name: NiceAdmin - v2.3.1
@@ -95,9 +100,11 @@
 					<div class="col-sm-2">
 						<div class="mb-3">
 							<select class="form-select" id="floatingSelect" name="tap">
-								<option value="1">잡담</option>
-								<option value="2">정보</option>
-								<option value="3">유머</option>
+								<option value="1">주문</option>
+								<option value="2">상품</option>
+								<option value="3">배송</option>
+								<option value="4">회원</option>
+								<option value="5">사이트</option>
 							</select>
 						</div>
 					</div>
@@ -119,7 +126,7 @@
 				<div class="mb-3 text-center">
 					<button type="submit" class="btn btn-primary">글쓰기</button>
 					<button type="button" class="btn btn-secondary"
-							onclick="location.href='freeBoard.do?page=1'">뒤로가기</button>
+						onclick="location.href='freeBoard.do?page=1'">뒤로가기</button>
 				</div>
 			</form>
 		</div>

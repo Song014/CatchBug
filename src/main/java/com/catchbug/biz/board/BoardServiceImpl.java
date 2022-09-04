@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.catchbug.biz.vo.BoardReplyVO;
 import com.catchbug.biz.vo.BoardVO;
 import com.catchbug.biz.vo.NotiVO;
 
@@ -97,6 +98,33 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void FreeBoardCnt(BoardVO vo) {
 		boardDAO.freeBoardCnt(vo);
+		
+	}
+
+	
+	//자유게시판 댓글작성
+	@Override
+	public void WriteBoardReply(BoardReplyVO vo) {
+		boardDAO.WriteBoardReply(vo);
+	}
+
+	//자유게시판 댓글정보 가져오기
+	@Override
+	public List<BoardReplyVO> getFreeBoardReply(BoardReplyVO vo) {
+		return boardDAO.getFreeBoardReply(vo);
+	}
+
+	//자유게시판 댓글삭제
+	@Override
+	public void DeleteBoardReply(BoardReplyVO vo) {
+		boardDAO.DeleteBoardReply(vo);
+		
+	}
+
+	//자유게시판 댓글 수정
+	@Override
+	public void UpdateBoardReply(BoardReplyVO vo) {
+		boardDAO.UpdateBoardReply(vo);
 		
 	}
 	

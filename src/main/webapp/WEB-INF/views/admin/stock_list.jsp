@@ -153,8 +153,9 @@
 									<c:forEach var="list" items="${product }" varStatus="status">
 										<tr>
 											<td>${status.count }</td>
-											<th scope="row"><a href="#"><img
-													src="https://via.placeholder.com/60" alt=""></a></th>
+											<th scope="row"><a href="#"><img src="/resources/productImg/<fmt:formatDate value="${list.add_day }"
+													pattern="yyyy-MM-dd" />/${list.uuid}" onclick="window.open(this.src)"/>
+											</a></th>
 											<td>${list.product_no }</td>
 											<td><a class="primary product_modal"
 												data-bs-toggle="modal" data-bs-target="#modalProduct"
@@ -236,27 +237,28 @@
 	<script type="text/javascript">
 	// 상품 목록 테이블의 추가 버튼 클릭시 이벤트
 	$("#addCart").on("click", function () {
-		
-		const no = $("#cartNo").text();
-		console.log(no);
-		// DB 요청 - 삽입 성공시 장바구니 테이블에 추가 실패시 경고창 
-		   $.ajax({
-			type: "POST",
-			url: "insertCartAjax.do",
-			data: { "product_no": no },
-			dataType: "text",
-			success: function (result) {
-				if (result == "ok") {
-					alert("장바구니에 추가되었습니다.");
-				} else if (result == "false") {
-					// db에 
-					alert("이미 추가된 상품입니다.")
+		if(confirm("장바구니에 추가하시겠습니까?")){
+			const no = $("#cartNo").text();
+			console.log(no);
+			// DB 요청 - 삽입 성공시 장바구니 테이블에 추가 실패시 경고창 
+			$.ajax({
+				type: "POST",
+				url: "insertCartAjax.do",
+				data: { "product_no": no },
+				dataType: "text",
+				success: function (result) {
+					if (result == "ok") {
+						alert("장바구니에 추가되었습니다.");
+					} else if (result == "false") {
+						// db에 
+						alert("이미 추가된 상품입니다.")
+					}
+				},
+				error: function (a, b, c) {
+					alert("로그인 후 이용 가능합니다.");
 				}
-			},
-			error: function (a, b, c) {
-				alert("로그인 후 이용 가능합니다.");
-			}
-		});
+		   });
+		}
 	})
 
 	
@@ -277,8 +279,12 @@
 					const str =`
 						<tr>
 							<td>1</td>
-							<th scope="row"><a href="#"><img
-									src="https://via.placeholder.com/60" alt=""></a></th>
+							<th scope="row">
+								<a href="#">
+									<img src="/resources/productImg/`+result.add_day+`/`+result.uuid+`"
+										onclick="window.open(this.src)"/>
+								</a>
+							</th>
 							<td>`+result.product_no+`</td>
 							<td><a class="primary product_modal" data-bs-toggle="modal"
 								data-bs-target="#modalProduct" id="`+result.product_no+`">`+result.product_name+`</a></td>
@@ -316,21 +322,24 @@
 					const str =`
 						<tr>
 							<td>1</td>
-							<th scope="row"><a href="#"><img
-									src="https://via.placeholder.com/60" alt=""></a></th>
+							<th scope="row">
+								<a href="#">
+									<img src="/resources/productImg/`+result.add_day+`/`+result.uuid+`"
+										onclick="window.open(this.src)"/>
+									</a></th>
 							<td>`+result.product_no+`</td>
 							<td><a class="primary product_modal" data-bs-toggle="modal"
 								data-bs-target="#modalProduct" id="`+result.product_no+`">`+result.product_name+`</a></td>
-							<td>`+result.add_day+`</td>
-							<td>`+result.product_quantily+`</td>
 							<td>`+result.price+`</td>
+							<td>`+result.product_quantily+`</td>
+							<td>`+result.add_day+`</td>
 							<td><button type="button" id="productEdit" class="btn btn-primary btn-sm" onclick="location.href='product_edit?product_no=`+result.product_no+`'">상품수정</button></td>
 						</tr>
 						`;
 						
 						$("#category tbody").append(str);
 				});
-				
+					
 				console.log("ajax 성공");
 			},
 			error : function(a, b, c) {

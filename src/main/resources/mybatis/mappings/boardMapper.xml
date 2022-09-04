@@ -96,13 +96,20 @@
 		WHERE board_no = #{board_no}
 	</select>
 	
+	<!--  자유게시판 상세정보속 댓글정보 가져오기 -->
+	<select id="getFreeBoardReply" resultType="boardReply" parameterType="boardReply">
+		SELECT *
+		FROM board_reply
+		WHERE board_no = #{board_no}
+	</select>
+	
 	<!-- 자유게시판 글 삭제 -->
 	<delete id="deleteFreeBoard" parameterType="board">
 		DELETE FROM board
 		WHERE board_no = #{board_no}
 	</delete>
 	
-	<!-- 자유게시판 글 업데이트 -->
+	<!-- 자유게시판 글 수정 -->
 	<update id="updateFreeBoard" parameterType="board">
 		UPDATE board
 		SET title = #{title}, content= #{content}, tap = #{tap}
@@ -113,6 +120,25 @@
 	<update id="freeBoardCnt" parameterType="noti">
 		update board set cnt =
 		cnt + 1 where board_no = #{board_no}
+	</update>
+	
+	<!--  자유게시판 댓글 작성 -->
+	<insert id="writeBoardReply" parameterType="boardReply">
+		INSERT INTO board_reply
+		VALUES((select nvl(max(reply_no),0) + 1 from board_reply),#{reply_text},sysdate,#{id},#{ceo},#{board_no})
+	</insert>
+	
+	<!-- 자유게시판 댓글 삭제 -->
+	<delete id="deleteBoardReply" parameterType="boardReply">
+		DELETE FROM board_reply
+		WHERE reply_no = #{reply_no}
+	</delete>
+	
+	<!-- 자유게시판 댓글 수정 -->
+	<update id="updateBoardReply" parameterType="boardReply">
+		UPDATE board_reply
+		SET reply_text = #{reply_text}
+		WHERE reply_no = #{reply_no}
 	</update>
 
 </mapper>
