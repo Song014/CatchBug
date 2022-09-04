@@ -1,6 +1,10 @@
 
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!-- Jquery 선언 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous"></script>
 
 <!-- ======= Header ======= -->
 
@@ -37,11 +41,11 @@
             data-bs-toggle="dropdown" aria-expanded="false"> <img
                src="assets/img/profile-img.jpg" alt="Profile"
                class="rounded-circle"> <c:choose>
-                  <c:when test="${member.level1 eq 1 }">
+                  <c:when test="${member.level1 eq 1}">
                      <span class="d-none d-md-block dropdown-toggle ps-2">${member.business_name }관리자님
                         안녕하세요</span>
                   </c:when>
-                  <c:when test="${member.level1 eq 2 }">
+                  <c:when test="${member.level1 eq 2}">
                      <span class="d-none d-md-block dropdown-toggle ps-2">${member.business_name }가맹점님
                         안녕하세요</span>
                   </c:when>
@@ -57,7 +61,7 @@
                class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile"
                style="">
                <li class="dropdown-header"><c:choose>
-                     <c:when test="${member.level1 eq 1 }">
+                     <c:when test="${member.level1 eq 1}">
                         <h6>${member.business_name }님</h6></li>
                <li>
                   <hr class="dropdown-divider">
@@ -75,7 +79,7 @@
                   href="logout.do"> <i class="bi bi-box-arrow-right"></i> <span>로그아웃</span>
                </a></li>
                </c:when>
-               <c:when test="${member.level1 eq 2 }">
+               <c:when test="${member.level1 eq 2}">
                   <h6>${member.business_name }가맹점</h6></li>
          <li>
             <hr class="dropdown-divider">

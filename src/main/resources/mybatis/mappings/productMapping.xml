@@ -8,13 +8,13 @@
 	<select id="mainCategory"
 		resultType="com.catchbug.biz.vo.MainCategoryVO">
 		SELECT *
-		FROM main_category
+		FROM main_cate
 	</select>
 
 	<select id="subCategory"
 		resultType="com.catchbug.biz.vo.SubCategoryVO">
 		SELECT *
-		FROM sub_category
+		FROM sub_cate
 	</select>
 	
 	<insert id="insertProduct" parameterType="product">

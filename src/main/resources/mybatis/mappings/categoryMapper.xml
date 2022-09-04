@@ -9,7 +9,7 @@
 			main_category,
 			main_name
 		FROM
-			main_category
+			main_cate
 	</select>
 	
 	<select id="getSubCategory" resultType="category">
@@ -18,7 +18,7 @@
 			main_category,
 			sub_name
 		FROM
-			sub_category
+			sub_cate
 	</select>
 
 </mapper>

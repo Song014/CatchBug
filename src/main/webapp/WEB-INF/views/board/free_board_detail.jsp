@@ -87,8 +87,8 @@
 				</nav>
 			</div>
 			<div class="card">
-				<div class="card-header">
-					<h3>${board.title }</h3>
+				<div class="card-header" style="text-align: center;">
+					<h1>${board.title }</h1>
 				</div>
 				<div class="card-body">
 					<div>
