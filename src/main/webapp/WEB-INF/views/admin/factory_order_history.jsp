@@ -272,7 +272,11 @@
 				"Content-Type" : "application/json"
 			},
 			success : function(result) {
-				console.log(result);
+				
+				for(const key in result.response.list){
+				console.log(result.response.list[key].amount);
+					
+				}
 			},
 			error : function(e) {
 				//통신 실패시 발생하는 함수(콜백)

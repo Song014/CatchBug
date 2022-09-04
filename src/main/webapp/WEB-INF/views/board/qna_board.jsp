@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -10,10 +10,11 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>Dashboard - NiceAdmin Bootstrap Template</title>
+<title>QnA 게시판</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Favicons -->
 <link href="assets/img/favicon.png" rel="icon">
 <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -66,66 +67,104 @@
 	<!-- End Header -->
 
 	<!-- ======= Sidebar ======= -->
-<main id="main" class="main">
+	<main id="main" class="main">
 
 	<div class="pagetitle">
-		<h1 style="text-align: center;">질문 게시판</h1>
-		<table class="table table-bordered" style="text-align: center">
-			<thead>
-				<tr class="table-primary" >
-					<th scope="col" style="width: 5%;">#</th>
-					<th scope="col" style="width: 8%;">탭</th>
-					<th scope="col" style="width: 10%;">이름</th>
-					<th scope="col" style="width: 57%;">제목</th>
-					<th scope="col" style="width: 5%;">조회수</th>
-					<th scope="col" style="width: 15%;">작성일</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<th scope="row">1</th>
-					<td>주문</td>
-					<td>관리자</td>
-					<td><a href="#">여기에 본문이동 이벤트 넣어주세요</a></td>
-					<td>28</td>
-					<td>2016-05-25</td>
-				</tr>
-			</tbody>
-			<tbody>
-				<tr>
-					<th colspan="6">
-						<ul class="pagination justify-content-center">
-							<li class="page-item"><a class="page-link" href="#"
-								tabindex="-1" aria-disabled="true">Previous</a></li>
-							<li class="page-item"><a class="page-link" href="#">1</a></li>
-							<li class="page-item active" aria-current="page"><a
-								class="page-link" href="#">2</a></li>
-							<li class="page-item"><a class="page-link" href="#">3</a></li>
-							<li class="page-item"><a class="page-link" href="#">Next</a></li>
-						</ul>
-					</th>
-				</tr>
-			</tbody>
-		</table>
-		<div style="text-align: right;">
-			<button type="button" class="btn btn-primary col-lg-1"
-				onClick="location.href='QnABoard.do'">
-				<i class="bi bi-pencil">글쓰기</i>
-			</button>
-		</div>
+		<h1>질문 게시판</h1>
+		<nav>
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="/">Home</a></li>
+				<li class="breadcrumb-item active">질문 게시판</li>
+			</ol>
+		</nav>
 	</div>
+	<!-- End Page Title -->
+	<section class="section dashboard">
+		<div class="card">
+			<div class="card-body" style="padding-top:20px;">
+				<!-- <div class="dataTable-dropdown">
+					<label><select class="dataTable-selector"><option
+								value="5">5</option>
+							<option value="10" selected="">10</option>
+							<option value="15">15</option>
+							<option value="20">20</option>
+							<option value="25">25</option></select> entries per page</label>
+				</div> -->
+				<table class="table table-bordered" style="text-align: center">
+					<thead>
+						<tr class="table-primary">
+							<th scope="col" style="width: 5%;">#</th>
+							<th scope="col" style="width: 8%;">탭</th>
+							<th scope="col" style="width: 10%;">이름</th>
+							<th scope="col" style="width: 57%;">제목</th>
+							<th scope="col" style="width: 5%;">조회수</th>
+							<th scope="col" style="width: 15%;">작성일</th>
+						</tr>
+					</thead>
+					<tbody id="tablea">
+					<c:forEach var="list" items="${qna_list }" >
+						<tr>
+							<th scope="row">${list.no }</th>
+							<td>${list.name }</td>
+							<td>${list.id }</td>
+							<td><a href="QnABoardDetail.do?no=${list.no }">${list.title }</a></td>
+							<td>${list.cnt }</td>
+							<td><fmt:formatDate value="${list.day }" pattern="yyyy-MM-dd" timeZone="Asia/Seoul"/></td>
+						</tr>
+					</c:forEach>
+					</tbody>
+					<tbody>
+						<tr>
+							<th colspan="6">
+								<ul class="pagination justify-content-center">
+
+									<c:forEach begin="${page.startPageNum }"
+										end="${page.endPageNum }"  items="${qna_list }" varStatus="status">
+										<c:choose>
+											<c:when test="${page.page == status.count }">
+											<li class="paginate_button previous active"><a
+													class="page-link" href="QnABoard.do?page=${status.count }" >${status.count }</a></li>
+											</c:when>
+											<c:otherwise>
+												<li class="paginate_button previous "><a
+													class="page-link" href="QnABoard.do?page=${status.count }" >${status.count }</a></li>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+
+								</ul>
+							</th>
+						</tr>
+					</tbody>
+				</table>
+				<div style="text-align: right;">
+					<button type="button" class="btn btn-primary col-lg-1"
+						onClick="location.href='QnA_Board_Write.do'">
+						<i class="bi bi-pencil">글쓰기</i>
+					</button>
+				</div>
+			</div>
+		</div>
 	</section>
 
 	</main>
-
+	<script type="text/javascript">
+	/* function paging(e){
+		onclick="javascript:paging(${status.count });
+		const sel = $(".dataTable-selector  option:selected").val();
+		location.href="QnABoard.do?page="+e+"&pageCount="+sel;
+	} */
 	
+	
+	</script>
+
 	<!-- End #main -->
 
-<!-- ======= Footer ======= -->
-  
-  <jsp:include page="../mainInclude/footer.jsp"></jsp:include>
-  
-<!-- End Footer -->
+	<!-- ======= Footer ======= -->
+
+	<jsp:include page="../mainInclude/footer.jsp"></jsp:include>
+
+	<!-- End Footer -->
 
 	<a href="#"
 		class="back-to-top d-flex align-items-center justify-content-center"><i

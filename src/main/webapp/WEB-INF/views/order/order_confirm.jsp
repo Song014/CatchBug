@@ -167,6 +167,7 @@
 											
 											<!-- 주문신청시 사용되는 폼 -->
 											<form class="order_form" action="submitOrder.do">
+												<input type="hidden" name="id"  value="${member.id }">
 												<table>
 													<tr>
 														<th>이름:</th>

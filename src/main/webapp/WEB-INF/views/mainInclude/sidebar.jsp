@@ -100,7 +100,7 @@
 						<li><a href="freeBoard.do?page=1"> <i class="bi bi-circle"></i><span>자유
 									게시판</span>
 						</a></li>
-						<li><a href="QnABoard.do"> <i class="bi bi-circle"></i><span>QnA게시판</span>
+						<li><a href="QnABoard.do?page=1"> <i class="bi bi-circle"></i><span>QnA게시판</span>
 						</a></li>
 						<li><a href="FAQBoard.do"> <i class="bi bi-circle"></i><span>자주
 									묻는 질문</span>
@@ -183,7 +183,7 @@
 						<li><a href="freeBoard.do?page=1"> <i class="bi bi-circle"></i><span>자유
 									게시판</span>
 						</a></li>
-						<li><a href="QnABoard.do"> <i class="bi bi-circle"></i><span>QnA게시판</span>
+						<li><a href="QnABoard.do?page=1"> <i class="bi bi-circle"></i><span>QnA게시판</span>
 						</a></li>
 						<li><a href="FAQBoard.do"> <i class="bi bi-circle"></i><span>자주
 									묻는 질문</span>
