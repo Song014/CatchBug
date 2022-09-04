@@ -1,15 +1,13 @@
 package com.catchbug.biz.vo;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
-@Getter
-@Setter
-@ToString
+import lombok.Data;
+
+@Data
 public class OrderVO {
 	// 컨트롤러에서 생성할 값
 	private String order_no;
@@ -20,11 +18,19 @@ public class OrderVO {
 
 	// db
 	private int order_status;
+	@DateTimeFormat(pattern ="yy/mm/dd")
 	private Date processing_day;
 	private String note;
 
 	private int total_price;
-
+	
+	//bj
+	private int detail_no;
+	private int purchase_amount;
+	private int product_no;
+	private int product_quantily;
+	private String product_name;
+	
 	private List<OrderItemVO> orders;
 	
 	public void initTotal() {

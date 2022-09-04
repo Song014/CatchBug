@@ -90,22 +90,8 @@
 			<div class="card">
 				<div class="card-body">
 					<div align="right" class="dataTable-top">
-						<div class="dataTable-dropdown">
-							<label><select class="dataTable-selector"><option
-										value="5">5</option>
-									<option value="10" selected="">10</option>
-									<option value="15">15</option>
-									<option value="20">20</option>
-									<option value="25">25</option></select> entries per page</label>
-						</div>
 						<div class="dataTable-search">
 							<form>
-								<input type="date" name="beforeDate"> <input type="date"
-									name="afterDate" id='currnetDate'> <select
-									name="searchOption">
-									<option value="orderNumber" selected="selected">주문번호</option>
-									<option value="content">내용</option>
-									<option value="remarks">비고</option>
 								</select> <input type="text" name="input" placeholder="검색어를 입력해 주세요.">
 								<!-- <input type="button" name="inputBtn" value="검색"> -->
 								<button>검색</button>
