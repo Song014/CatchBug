@@ -173,7 +173,7 @@
 				  `
 				  reply_text.html(str);
 			  }else{
-				  alret("본인만 수정할 수 있습니다.");
+				  alert("본인만 수정할 수 있습니다.");
 			  }
 			 
 			  

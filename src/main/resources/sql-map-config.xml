@@ -16,7 +16,6 @@
 		<typeAlias alias="boardReply" type="com.catchbug.biz.vo.BoardReplyVO"/>
 		<typeAlias alias="qna" type="com.catchbug.biz.vo.QnaVO"/>
 		<typeAlias alias="page" type="com.catchbug.biz.vo.PageVO"/>
-
     </typeAliases>
 	<mappers>
 		<mapper resource="mybatis/mappings/stockMapper.xml"/>
