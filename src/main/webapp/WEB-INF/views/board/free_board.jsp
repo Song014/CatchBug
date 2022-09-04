@@ -6,6 +6,8 @@
 	int startPage = (Integer) request.getAttribute("startPage");
 	int endPage = (Integer) request.getAttribute("endPage");
 	int nowPage = (Integer) request.getAttribute("page");
+	String keyWord = (String)request.getAttribute("keyWord");
+	int searchTap = (Integer)request.getAttribute("searchTap");
 %>
 
 
@@ -45,6 +47,10 @@
 <!-- Template Main CSS File -->
 <link href="assets/css/style.css" rel="stylesheet">
 
+<!-- Jquery 선언 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous"></script>
 <!-- =======================================================
   * Template Name: NiceAdmin - v2.3.1
   * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
@@ -77,7 +83,7 @@
 			<h1 class="card-title">자유 게시판</h1>
 			<div class="row g-3">
 				<div class="col-md-12" style="text-align: right;">
-					<form action="freeBoard.do?page=1" method="post">
+					<form action="freeBoard.do?page=1" method="post" id="search">
 						<select name="searchTap">
 							<option value="1">작성자</option>
 							<option value="2">제목</option>
@@ -104,13 +110,19 @@
 							<td>${list.board_no }</td>
 							<c:choose>
 								<c:when test="${list.tap eq 1}">
-									<th scope="row">잡담</th>
+									<th scope="row">주문</th>
 								</c:when>
 								<c:when test="${list.tap eq 2}">
-									<th scope="row">정보</th>
+									<th scope="row">상품</th>
 								</c:when>
 								<c:when test="${list.tap eq 3}">
-									<th scope="row">유머</th>
+									<th scope="row">배송</th>
+								</c:when>
+								<c:when test="${list.tap eq 4}">
+									<th scope="row">회원</th>
+								</c:when>
+								<c:when test="${list.tap eq 5}">
+									<th scope="row">사이트</th>
 								</c:when>
 							</c:choose>
 							<td>${list.business_name }</td>
@@ -130,11 +142,11 @@
 									for (int i = startPage; i <= endPage; i++) {
 										if(i == nowPage){
 										%>
-											<li class="paginate_button previous active"><a class="page-link" href="freeBoard.do?page=<%=i%>"><%=i%></a></li>
+											<li class="paginate_button previous active"><a class="page-link" href="freeBoard.do?page=<%=i%>&searchTap=<%=searchTap%>&searchWord=<%=keyWord%>"><%=i%></a></li>
 										<%
 										}else{
 											%>
-											<li class="paginate_button previous"><a class="page-link" href="freeBoard.do?page=<%=i%>"><%=i%></a></li>
+											<li class="paginate_button previous"><a class="page-link" href="freeBoard.do?page=<%=i%>&searchTap=<%=searchTap%>&searchWord=<%=keyWord%>"><%=i%></a></li>
 										<%
 										}
 									}
@@ -155,6 +167,16 @@
 	</div>
 	</main>
 	<!-- End #main -->
+	<!-- <script>
+		$(document).ready(function(){
+			$("#search").submit(function(){
+				var searchTap = $("select[name=searchTap]").val();
+				var searchWord = $("input[name=searchWord]").val();
+				alert(searchTap +"<=>"+ searchWord);
+
+			})
+		});
+	</script> -->
 
 	<!-- ======= Footer ======= -->
 

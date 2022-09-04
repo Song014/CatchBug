@@ -8,19 +8,25 @@
 	<select id="mainCategory"
 		resultType="com.catchbug.biz.vo.MainCategoryVO">
 		SELECT *
-		FROM main_category
+		FROM main_cate
 	</select>
 
 	<select id="subCategory"
 		resultType="com.catchbug.biz.vo.SubCategoryVO">
 		SELECT *
-		FROM sub_category
+		FROM sub_cate
 	</select>
 	
 	<insert id="insertProduct" parameterType="product">
 
 		INSERT INTO product
 		values(#{product_no},#{sub_category},#{product_name},#{price},sysdate,#{product_img},#{brand},#{uuid})
+	</insert>
+	
+	<!-- 상품 등록시 재고량 0으로 설정 -->
+	<insert id="insertProductQuantily" parameterType="product">
+		INSERT INTO product_stock
+		values(#{product_no},0)
 	</insert>
 
 	<insert id="insertImg" parameterType="com.catchbug.biz.vo.ImgVO">
@@ -34,6 +40,8 @@
 		FROM product
 		WHERE product_no = #{product_no}
 	</select>
+	
+	
 	
 	<update id="updateProduct" parameterType="product">
 		UPDATE product
@@ -57,13 +65,29 @@
 	</select>
 
 	<select id="getProductList" resultType="product">
-		select * from product order by add_day desc
+		SELECT *
+		FROM(
+		    SELECT *
+		    FROM product a
+		    LEFT OUTER JOIN product_stock b
+		    on a.PRODUCT_NO = b.Product_NO
+		    ORDER BY a.product_no desc
+		)
 	</select>
 
 	<select id="getProductListC" parameterType="category"
 		resultType="product">
-		select * from product where sub_category=#{sub_category}
+		SELECT *
+		FROM(
+		    SELECT *
+		    FROM product a
+		    LEFT OUTER JOIN product_stock b
+		    on a.PRODUCT_NO = b.Product_NO
+		    ORDER BY a.product_no desc
+		)
+		WHERE sub_category=#{sub_category}
 	</select>
+	
 
 
 </mapper>

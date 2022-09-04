@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,6 +37,11 @@
 
 <!-- Template Main CSS File -->
 <link href="assets/css/style.css" rel="stylesheet">
+
+<!-- Jquery 선언 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous"></script>
 
 <!-- =======================================================
   * Template Name: NiceAdmin - v2.3.1
@@ -82,10 +87,47 @@
 				</nav>
 			</div>
 			<div class="card">
-				<div class="card-header">
-					<h3>${board.title }</h3>
+				<div class="card-header" style="text-align: center;">
+					<h1>${board.title }</h1>
 				</div>
-				<div class="card-body">${board.content }</div>
+				<div class="card-body">
+					<div>
+						${board.content }
+					</div>
+					<br>
+					<hr>
+					<div class="card">
+						<div class="card-body">
+							<div class="row">
+								<c:forEach items="${reply}" var="reply">
+									<div class="col-lg-1 col-md-2 label ">${ reply.ceo}</div>
+									<div class="col-lg-9 col-md-7">${reply.reply_text}</div>
+									<div class="col-lg-2 col-md-3" style="text-align: right;">
+										<fmt:formatDate value="${reply.reply_day }" pattern="yyyy-MM-dd" />
+										<input type="text" hidden="hidden" value="${reply.board_no }"/>
+										<input type="text" hidden="hidden" value="${reply.id }"/>
+										<button type="button" class="btn btn-sm btn-danger" value="${reply.reply_no }" name="change">수정</button>
+										<button type="button" class="btn btn-sm btn-danger" value="${reply.reply_no }" name="delete">삭제</button>
+									</div>
+								</c:forEach>
+							</div>
+						</div>
+					</div>
+					<hr>
+					<div class="card">
+						<div class="card-body">
+							<form action="writeFreeBoardReply.do?board_no=${board.board_no}" method="post">
+								<label for="reply" style="background-color: lightGray;"><strong>${member.ceo }</strong></label>
+								<input class="dataTable-input" placeholder="댓글내용을 입력해 주세요." style="width: 90%"
+									type="text" name="reply_text">
+								<input type="text" hidden="hidden" value="${board.board_no }" name="board_no"/>
+								<input type="text" hidden="hidden" value="${member.id }" name="id"/>
+								<input type="text" hidden="hidden" value="${member.ceo }" name="ceo"/>
+								<button class="btn btn-primary" type="submit">글쓰기</button>
+							</form>
+						</div>
+					</div>
+				</div>
 				<div class="card-footer">
 					<div class="mb-3 text-center">
 						<input type="hidden" value="${board.id }" id="id" /> <input
@@ -104,9 +146,54 @@
 
 
 	<script type="text/javascript">
+		$(document).ready(function () {
+		  $(document).on("click", "button[name='delete']", function () {
+		    var reply_no = $(this).val();
+		    var id = $(this).prev().prev().val();
+		    var board_no = $(this).prev().prev().prev().val();
+		    if(id == "${member.id}"){
+		    	if(confirm("정말 삭제하시겠습니까?")){
+					location.href="/deleteBoardReply.do?reply_no=" + reply_no + "&board_no="+ board_no;
+		    	}
+		    }else{
+	    		alert("본인만 삭제할 수 있습니다.");
+	    	}
+		  });
+		  
+		  //댓글 수정 버튼클릭시 작동되는 메소드
+		  $(document).on("click", "button[name='change']", function () {
+			  var id = $(this).prev().val();
+			  if(id == "${member.id}"){
+				  var reply_text = $(this).parent().prev();
+				  var text = reply_text.text();
+				  var reply_no = $(this).val();
+				  const str = `
+				  	<input type="text" value="`+text+`" style="width:70%"/>
+				  	<button type="button" class="btn btn-primary" name="updateReply" value="`+reply_no+`">작성</button>
+				  `
+				  reply_text.html(str);
+			  }else{
+				  alert("본인만 수정할 수 있습니다.");
+			  }
+			 
+			  
+		  });
+		  
+		  $(document).on("click","button[name='updateReply']",function(){
+			  var reply_no = $(this).val();
+			  var reply_text = $(this).prev().val();
+			  var board_no = $(this).parent().next().children(":first").val();
+			  if(confirm("댓글을 수정하시겠습니까?")){
+				  location.href="/updateBoardReply.do?reply_no=" + reply_no + "&reply_text=" + reply_text + "&board_no=" + board_no;
+			  }
+			  
+		  })
+		});
+		
+		
 		var id = $("#id").val();
 		var board_no = $("#board_no").val()
-		console.log(id);
+		
 		function deleted(e) {
 			if (id == "${member.id}") {
 				if(confirm("정말 삭제하시겠습니까?")){

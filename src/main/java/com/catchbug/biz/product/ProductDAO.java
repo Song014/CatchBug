@@ -5,6 +5,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.catchbug.biz.vo.CategoryVO;
 import com.catchbug.biz.vo.ImgVO;
@@ -27,8 +28,10 @@ public class ProductDAO {
 		return mybatis.selectList("Product.subCategory");
 	}
 	
+	@Transactional
 	public void insertProduct(ProductVO vo) {
 		mybatis.insert("Product.insertProduct", vo);
+		mybatis.insert("Product.insertProductQuantily", vo);
 	}
 	
 	public void insertImg(ImgVO vo) {

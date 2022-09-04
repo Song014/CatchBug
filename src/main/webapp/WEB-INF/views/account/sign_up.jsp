@@ -188,7 +188,7 @@
                     
                      <div class="col-12">
                       <label for="yourName" class="form-label"></label>
-                      <input type="hidden" name="level1" class="form-control" id="yourlevel1" required>
+                      <input type="hidden" name="level1" class="form-control" id="yourlevel" required>
                     </div>  -->
 
                     <div class="col-12">

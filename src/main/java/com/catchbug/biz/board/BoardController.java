@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.catchbug.biz.vo.BoardReplyVO;
 import com.catchbug.biz.vo.BoardVO;
 import com.catchbug.biz.vo.NotiVO;
 import com.catchbug.biz.vo.SearchVO;
@@ -25,48 +26,9 @@ public class BoardController {
 
 	// 자유게시판 이동
 	@RequestMapping("/freeBoard.do")
-	public String GetFreeBoard(SearchVO vo, Model model,int page) {
-		
-		int sum = boardService.getTotalBoard(); //불러온 총 데이터량
-
-		//총갯수가 300개고 페이지가 10페이지라면
-		int pageCount = 20; //한페이지에 표시할 글 갯수
-		
-		// 9 * 20 + 1 181번부터 200번까지 표시
-		int startPage = (page - 1) * pageCount + 1; //시작 글번호
-		int endPage = page * pageCount; //마지막으로 불러올 글번호
-		
-		//페이지가 10페이지라면 표시할 페이지번호
-		int startPageNum = page - 5;
-		if(startPageNum <=0) {
-			startPageNum = 1; //최소페이지는 1페이지부터
-		}
-		int endPageNum = page + 5;
-		if((sum/pageCount) < endPageNum) { //최대 표시할페이지가 갯수보타 넘치게 될경우 방지.
-			if((sum%pageCount) == 0) { //나머지가 없을경우
-				endPageNum = sum/pageCount;
-			}else {
-				endPageNum = sum/pageCount + 1; //나머지가 있을경우
-			}
-			
-		}
-		
-		if(page == 0) {
-			page = 1;
-		}
-		
-		if(sum%pageCount == 0) {
-			sum = sum/pageCount;
-		}else {
-			sum = sum/pageCount + 1;
-		}
-
+	public String GetFreeBoard(SearchVO vo, Model model, int page) {
 		BoardVO bVo = new BoardVO();
-		
-		bVo.setStartPage(startPage);
-		bVo.setEndPage(endPage);
 
-		
 		int searchTap = vo.getSearchTap();
 		String keyWord = vo.getSearchWord();
 		if (searchTap == 1) {
@@ -79,55 +41,103 @@ public class BoardController {
 			bVo.setBusiness_name("");
 			bVo.setTitle("");
 		}
-		System.out.println("page>"+page);
-		System.out.println("startpage>"+startPageNum);
-		System.out.println("endpage>"+endPageNum);
+
+		int sum = boardService.getTotalBoard(bVo); // 불러온 총 데이터량
+
+		// 총갯수가 300개고 페이지가 10페이지라면
+		int pageCount = 10; // 한페이지에 표시할 글 갯수
+
+		// 9 * 20 + 1 181번부터 200번까지 표시
+		int startPage = (page - 1) * pageCount + 1; // 시작 글번호
+		int endPage = page * pageCount; // 마지막으로 불러올 글번호
+
+		// 페이지가 10페이지라면 표시할 페이지번호
+		int startPageNum = page - 5;
+		if (startPageNum <= 0) {
+			startPageNum = 1; // 최소페이지는 1페이지부터
+		}
+		int endPageNum = page + 5;// 최대 페이지는 현재페이지 +5 까지
+		if ((sum / pageCount) < endPageNum) { // 최대 표시할페이지가 갯수보타 넘치게 될경우 방지.
+			if ((sum % pageCount) == 0) { // 나머지가 없을경우
+				endPageNum = sum / pageCount;
+			} else {
+				endPageNum = sum / pageCount + 1; // 나머지가 있을경우
+			}
+
+		}
+
+		if (page == 0) {
+			page = 1;
+		}
+
+		if (sum % pageCount == 0) {
+			sum = sum / pageCount;
+		} else {
+			sum = sum / pageCount + 1;
+		}
+
+		bVo.setStartPage(startPage);
+		bVo.setEndPage(endPage);
+
+		model.addAttribute("keyWord", keyWord);
+		model.addAttribute("searchTap", searchTap);
 		model.addAttribute("boardList", boardService.getFreeBoard(bVo));
-		model.addAttribute("totalBoard",sum);
-		model.addAttribute("page",page); //현재 페이지 정보를 전달
-		model.addAttribute("startPage", startPageNum); //시작 페이지 정보를 전달
-		model.addAttribute("endPage", endPageNum); //끝 페이지 정보를 전달
+		model.addAttribute("totalBoard", sum);
+		model.addAttribute("page", page); // 현재 페이지 정보를 전달
+		model.addAttribute("startPage", startPageNum); // 시작 페이지 정보를 전달
+		model.addAttribute("endPage", endPageNum); // 끝 페이지 정보를 전달
 		return "board/free_board";
 	}
-	
-	//자유게시판 상세보기 이동
+
+	// 자유게시판 상세보기 이동
 	@RequestMapping("/freeBoardDetail.do")
-	public String FreeBoardDetail(int board_no,Model model) {
+	public String FreeBoardDetail(int board_no, Model model) {
 		BoardVO vo = new BoardVO();
+		BoardReplyVO rVo = new BoardReplyVO();
+
+		rVo.setBoard_no(board_no);
 		vo.setBoard_no(board_no);
-		boardService.FreeBoardCnt(vo);
-		model.addAttribute("board",boardService.GetFreeBoardDetail(vo));
+		boardService.FreeBoardCnt(vo); // 게시판 조회수 카운트
+		model.addAttribute("board", boardService.GetFreeBoardDetail(vo));
+		model.addAttribute("reply", boardService.getFreeBoardReply(rVo));
 		return "board/free_board_detail";
 	}
-	
-	//자유게시판 글 삭제
+
+	// 자유게시판 댓글작성폼
+	@RequestMapping("/writeFreeBoardReply.do")
+	public String FreeBoardDetail(BoardReplyVO vo) {
+		boardService.WriteBoardReply(vo);
+		return "redirect:freeBoardDetail.do?board_no=" + vo.getBoard_no();
+	}
+
+	// 자유게시판 글 삭제
 	@RequestMapping("/deleteFreeBoard.do")
 	public String DeleteFreeBoard(int board_no) {
 		BoardVO vo = new BoardVO();
 		vo.setBoard_no(board_no);
 		boardService.DeteleFreeBoard(vo);
 		return "redirect:freeBoard.do?page=1";
-		
+
 	}
-	
-	//자유게시판 수정폼 이동
+
+	// 자유게시판 수정폼 이동
 	@RequestMapping("updateFreeBoard.do")
-	public String UpdateFreeBoard(int board_no,Model model) {
+	public String UpdateFreeBoard(int board_no, Model model) {
 		BoardVO vo = new BoardVO();
 		vo.setBoard_no(board_no);
 		model.addAttribute("board", boardService.GetFreeBoardDetail(vo));
 		return "board/free_board_update";
 	}
-	
-	//자유게시판 수정 진행
+
+	// 자유게시판 수정 진행
 	@PostMapping("updateFreeBoard.do")
 	public String FreeBoardUpdate(BoardVO vo) {
+		System.out.println(vo);
 		boardService.UpdateFreeBoard(vo);
 		return "redirect:freeBoard.do?page=1";
 	}
 
-	
-	//자유게시판 글쓰기 폼 이동
+	// 자유게시판 글쓰기 폼 이동
 	@RequestMapping("/free_Board_Write.do")
 	public String FreeBoardWrite() {
 		return "board/free_board_write";
@@ -140,7 +150,25 @@ public class BoardController {
 		return "redirect:freeBoard.do?page=1";
 	}
 
-	
+	// 자유게시판 댓글 삭제 작동
+	@RequestMapping("/deleteBoardReply.do")
+	public String DeleteFreeBoardReply(int reply_no, String board_no) {
+		BoardReplyVO vo = new BoardReplyVO();
+		vo.setReply_no(reply_no);
+		System.out.println(vo);
+		boardService.DeleteBoardReply(vo);
+		return "redirect:freeBoardDetail.do?board_no=" + board_no;
+	}
+
+	// 자유게시판 댓글 수정 작동
+	@RequestMapping("/updateBoardReply.do")
+	public String UpdateFreeBoardReply(int reply_no, String reply_text, String board_no) {
+		BoardReplyVO vo = new BoardReplyVO();
+		vo.setReply_text(reply_text);
+		vo.setReply_no(reply_no);
+		boardService.UpdateBoardReply(vo);
+		return "redirect:freeBoardDetail.do?board_no=" + board_no;
+	}
 
 	@RequestMapping("/FAQBoard.do")
 	public String FAQBoard() {
@@ -152,7 +180,7 @@ public class BoardController {
 		return "board/chat";
 	}
 
-	//공지 리스트
+	// 공지 리스트
 
 	@RequestMapping("/notice_Board.do")
 	public String notice_Board_list(Model model, NotiVO vo) {

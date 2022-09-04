@@ -120,7 +120,7 @@
 					번호</label>
 				<div class="col-md-8 col-lg-9">
 					<input name="product_no" type="text" class="form-control"
-						id="product_no" value="" placeholder="상품번호">
+						id="product_no" value="" placeholder="상품번호" maxlength="8">
 				</div>
 			</div>
 

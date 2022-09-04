@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.catchbug.biz.product.ProductService;
 import com.catchbug.biz.vo.CategoryVO;
 import com.catchbug.biz.vo.ProductVO;
+import com.catchbug.biz.vo.SearchVO;
 
 @Controller
 public class StockController {
@@ -24,7 +25,7 @@ public class StockController {
 
 	// 상품 리스트
 	@RequestMapping("/stockList.do")
-	public String StockList(Model model, CategoryVO vo) {
+	public String StockList(Model model, CategoryVO vo, SearchVO sVo) {
 
 		// 처음 들어갔을때 카테고리 불러오기
 

@@ -154,6 +154,7 @@
                 console.log("cur_session : " + cur_session);
                 sessionId = arr[0];
                 message = arr[1];
+                
 
                 console.log("sessionID : " + sessionId);
                 console.log("cur_session : " + cur_session);
