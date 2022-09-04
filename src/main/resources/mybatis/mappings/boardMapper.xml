@@ -102,7 +102,7 @@
 		  FROM notice 
 		  WHERE noti_title = #{noti_title}
 	</select>
-	
+	 
 	<!-- 공지 검색 -->
 	<select id="SearchNoti" resultType="noti" parameterType="criteria">
 	SELECT * 
