@@ -54,7 +54,7 @@ public class MemberController {
 
 	// 로그아웃 코
 	@RequestMapping(value = "/logout.do", method = RequestMethod.GET)
-	public ModelAndView logout(HttpSession session,ModelAndView mav) {
+	public ModelAndView logout(HttpSession session, ModelAndView mav) {
 		session.invalidate();
 		mav.setViewName("redirect:login_page.do");
 		return mav;
@@ -68,7 +68,8 @@ public class MemberController {
 
 		if (member != null) {
 			System.out.println("환영합니다" + member.getId() + "님 어서오세요. 등급은 " + member.getLevel1() + "입니다");
-			// 세션에 멤버에대한 값들 전부 담아주실꺼면 아래처럼 한번에 담아주시고 프론트단에서 ${member.id} ${member.pass} 이런식으로 el태그 써주시면 됩니다
+			// 세션에 멤버에대한 값들 전부 담아주실꺼면 아래처럼 한번에 담아주시고 프론트단에서 ${member.id} ${member.pass}
+			// 이런식으로 el태그 써주시면 됩니다
 			session.setAttribute("member", member);
 			mav.setViewName("account/mypage");
 		}
@@ -95,14 +96,14 @@ public class MemberController {
 		System.out.println("mypage / 마이페이지 수정 ");
 		memberService.updateMypage(vo);
 		MemberVO member = memberService.getMember(vo);
-		
+
 		if (member != null) {
 			System.out.println("환영합니다" + member.getId() + "님 어서오세요. 등급은 " + member.getLevel1() + "입니다");
 			session.setAttribute("member", member); // 세션 재할당?
 		}
-		
+
 		MultipartFile uploadImgFile = vo.getUploadImgFile();
-		
+
 		if (page == "1") {
 			memberService.updateImg(vo);
 			if (!uploadImgFile.isEmpty()) {
