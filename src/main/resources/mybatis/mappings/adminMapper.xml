@@ -32,6 +32,7 @@
 	where id = #{id}
 </delete>
 
+<!-- 미출고 내역 -->
 <select id="unOrderHistory" resultType="HashMap">
 	select o.*, m.id,m.business_name
 	from  orders o
@@ -41,9 +42,12 @@
 	order by order_no asc
 </select>
 
+<!-- 미출고 내역 회원모달 -->
 <select id="getMemberM" parameterType="member" resultType="member">
 	select * from member where id = #{id}
 </select>
+
+<!-- 미출고 내역 주문모달 -->
 <select id="getOrderM" parameterType="order" resultType="order">
 	SELECT m.id, m.regdate , o.order_no, o.total_price, o.order_status, d.detail_no, d.purchase_amount, p.product_no, p.price,p.product_name, ps.product_quantily
     FROM order_detail d
@@ -65,4 +69,33 @@
 	or id LIKE '%'||#{searchWord}||'%'
 	or business_name LIKE '%'||#{searchWord}||'%'
 </select>
+
+<!-- 주문서 조회 -->
+<select id="getOrderList" parameterType="order" resultType="orderItem">
+
+	SELECT *
+	FROM order_detail
+	WHERE order_no = #{order_no}
+</select>
+
+<!-- 현재 재고수 조회 -->
+<select id="getProductQuantily" parameterType="int" resultType="int">
+	SELECT product_quantily 
+	FROM product_stock
+	WHERE product_no = #{product_no}
+</select>
+
+<!-- 승인 처리시 재고수 변경 -->
+<update id="updateQuantily" parameterType="orderItem">
+	UPDATE  PRODUCT_STOCK
+	SET  PRODUCT_QUANTILY = #{purchase_amount}
+	WHERE product_no = #{product_no}
+</update>
+
+<!-- 배송중으로 변경 -->
+<update id="AdminMapper.update_order_status">
+	UPDATE orders
+	set ORDER_STATUS = 2
+	WHERE order_no = #{order_no}
+</update>
 </mapper>

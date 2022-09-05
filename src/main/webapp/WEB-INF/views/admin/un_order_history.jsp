@@ -125,8 +125,9 @@
 										data-bs-target="#modalDialogScrollable">주문 상세보기 </a></td>
 									<td>${list.get("NOTE" )}</td>
 									<td>대기</td>
-									<td><input type="button" name="ok" value="승인"> <input
-										type="button" name="no" value="취소"></td>
+									<td>
+									<button type="button" class="btn btn-primary btn1" value="${list.get('ORDER_NO')}" style="margin:0px 10px 0px 10px">승인</button>
+									<button type="button" class="btn btn-outline-dark btn2" value="${list.get('ORDER_NO')}" >반려</button>
 								</tr>
 							</c:forEach>
 						</table>
@@ -135,9 +136,26 @@
 			</div>
 		</div>
 	</section>
-
 	</main>
 	<!-- End #main -->
+	<!--  승인 버튼 / 취소 버튼 -->
+	<script type="text/javascript">
+	$(".btn1").on("click", function(e) {
+		if (confirm("승인 하시겠습니까?")) {
+			location.href = "/order_approval.do?order_no=" + e.target.value;
+		} else {
+			return;
+		}
+	})
+	
+	$(".btn2").on("click", function(e) {
+		if (confirm("반려 하시겠습니까?")) {
+			location.href="/order_refuse.do?order_no="+e.target.value;
+		} else {
+			return;
+		}
+	})
+	</script>
 
 
 	<!-- 모달1 -->

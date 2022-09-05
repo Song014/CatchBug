@@ -3,6 +3,7 @@ package com.catchbug.biz.admin;
 import java.util.*;
 
 import com.catchbug.biz.vo.MemberVO;
+import com.catchbug.biz.vo.OrderItemVO;
 import com.catchbug.biz.vo.OrderVO;
 import com.catchbug.biz.vo.SearchVO;
 
@@ -16,6 +17,8 @@ public interface AdminService {
 	public MemberVO getMemberM(MemberVO vo);
 	public List<OrderVO> getOrder(OrderVO vo);
 	public List<MemberVO> franc_SearchList(SearchVO vo);
-	
-	
+	public List<OrderItemVO> getOrder_detail(OrderVO vo);
+	public int getProduct_Quantily(int product_no);
+	public int update_Quantily(OrderItemVO list);
+	public void update_order_status(OrderVO vo);
 }
