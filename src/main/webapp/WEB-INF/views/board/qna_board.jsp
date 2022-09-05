@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -14,7 +14,8 @@
 <meta content="" name="description">
 <meta content="" name="keywords">
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Favicons -->
 <link href="assets/img/favicon.png" rel="icon">
 <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -81,7 +82,7 @@
 	<!-- End Page Title -->
 	<section class="section dashboard">
 		<div class="card">
-			<div class="card-body" style="padding-top:20px;">
+			<div class="card-body" style="padding-top: 20px;">
 				<!-- <div class="dataTable-dropdown">
 					<label><select class="dataTable-selector"><option
 								value="5">5</option>
@@ -102,32 +103,48 @@
 						</tr>
 					</thead>
 					<tbody id="tablea">
-					<c:forEach var="list" items="${qna_list }" >
-						<tr>
-							<th scope="row">${list.no }</th>
-							<td>${list.name }</td>
-							<td>${list.id }</td>
-							<td><a href="QnABoardDetail.do?no=${list.no }">${list.title }</a></td>
-							<td>${list.cnt }</td>
-							<td><fmt:formatDate value="${list.day }" pattern="yyyy-MM-dd" timeZone="Asia/Seoul"/></td>
-						</tr>
-					</c:forEach>
+						<c:forEach var="list" items="${qna_list }">
+							<tr>
+								<th scope="row">${list.qna_no }</th>
+								<td>${list.name }</td>
+								<td>${list.id }</td>
+								<!-- 1 비밀글 -->
+								<c:choose>
+									<c:when test="${list.state eq 1 }">
+										<c:choose>
+											<c:when test="${member.level1 eq 1 || member.id eq list.id}">
+												<td><i class="bi bi-lock"><a href="QnABoardDetail.do?qna_no=${list.qna_no }">${list.title }</a></i></td>
+											</c:when>
+											<c:otherwise>
+												<td><i class="bi bi-lock"><a href="#">${list.title }</a></i></td>
+											</c:otherwise>
+										</c:choose>
+									</c:when>
+									<c:otherwise>
+										<td><a href="QnABoardDetail.do?qna_no=${list.qna_no }">${list.title }</a></td>
+									</c:otherwise>
+								</c:choose>
+								<td>${list.cnt }</td>
+								<td><fmt:formatDate value="${list.day }"
+										pattern="yyyy-MM-dd" timeZone="Asia/Seoul" /></td>
+							</tr>
+						</c:forEach>
 					</tbody>
 					<tbody>
 						<tr>
 							<th colspan="6">
 								<ul class="pagination justify-content-center">
-
 									<c:forEach begin="${page.startPageNum }"
-										end="${page.endPageNum }"  items="${qna_list }" varStatus="status">
+										end="${page.endPageNum }" items="${qna_list }"
+										varStatus="status">
 										<c:choose>
 											<c:when test="${page.page == status.count }">
-											<li class="paginate_button previous active"><a
-													class="page-link" href="QnABoard.do?page=${status.count }" >${status.count }</a></li>
+												<li class="paginate_button previous active"><a
+													class="page-link" href="QnABoard.do?page=${status.count }">${status.count }</a></li>
 											</c:when>
 											<c:otherwise>
 												<li class="paginate_button previous "><a
-													class="page-link" href="QnABoard.do?page=${status.count }" >${status.count }</a></li>
+													class="page-link" href="QnABoard.do?page=${status.count }">${status.count }</a></li>
 											</c:otherwise>
 										</c:choose>
 									</c:forEach>
@@ -149,13 +166,11 @@
 
 	</main>
 	<script type="text/javascript">
-	/* function paging(e){
-		onclick="javascript:paging(${status.count });
-		const sel = $(".dataTable-selector  option:selected").val();
-		location.href="QnABoard.do?page="+e+"&pageCount="+sel;
-	} */
-	
-	
+		/* function paging(e){
+			onclick="javascript:paging(${status.count });
+			const sel = $(".dataTable-selector  option:selected").val();
+			location.href="QnABoard.do?page="+e+"&pageCount="+sel;
+		} */
 	</script>
 
 	<!-- End #main -->

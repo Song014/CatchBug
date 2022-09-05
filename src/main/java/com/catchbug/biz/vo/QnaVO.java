@@ -12,11 +12,12 @@ import lombok.ToString;
 @Setter
 @ToString
 public class QnaVO {
-	private int no, rn;
+	private int qna_no, rn;
 	private String id;
 	private String title;
 	private String content;
 	private int tap;
+	private int state;
 	
 	private String name;
 	
