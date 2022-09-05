@@ -28,6 +28,7 @@ public class QnaController {
 		model.addAttribute("qna_list", qs.getQnaList(page));
 		
 		model.addAttribute("page", page);
+		System.out.println(page+"asd");
 
 		return "board/qna_board";
 	}

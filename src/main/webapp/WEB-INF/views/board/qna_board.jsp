@@ -116,7 +116,7 @@
 												<td><i class="bi bi-lock"><a href="QnABoardDetail.do?qna_no=${list.qna_no }">${list.title }</a></i></td>
 											</c:when>
 											<c:otherwise>
-												<td><i class="bi bi-lock"><a href="#">${list.title }</a></i></td>
+												<td><i class="bi bi-lock"><a href="#" onclick="javascript:alert('비공개 게시글입니다.')" >${list.title }</a></i></td>
 											</c:otherwise>
 										</c:choose>
 									</c:when>
@@ -134,8 +134,8 @@
 						<tr>
 							<th colspan="6">
 								<ul class="pagination justify-content-center">
-									<c:forEach begin="${page.startPageNum }"
-										end="${page.endPageNum }" items="${qna_list }"
+									<c:forEach begin="1"
+										end="2" items="${qna_list }"
 										varStatus="status">
 										<c:choose>
 											<c:when test="${page.page == status.count }">
@@ -144,7 +144,7 @@
 											</c:when>
 											<c:otherwise>
 												<li class="paginate_button previous "><a
-													class="page-link" href="QnABoard.do?page=${status.count }">${status.count }</a></li>
+													class="page-link" href="QnABoard.do?page=${status.count }">${status.index }</a></li>
 											</c:otherwise>
 										</c:choose>
 									</c:forEach>
