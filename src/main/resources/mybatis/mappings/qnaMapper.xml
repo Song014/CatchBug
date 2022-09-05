@@ -26,12 +26,15 @@
 		FROM (  SELECT ROWNUM rn, A.*,t.name
 		        FROM (  SELECT *
 		                FROM qna
+	
 		                ORDER BY day desc
 		        ) A inner join tap t on a.tap=t.tap
 		    )
 		WHERE rn >= #{startPage} and rn <= #{endPage}
-		
+			 
 		]]>
+		 <!--               WHERE TITLE LIKE '%'||#{title}||'%'
+						AND business_name LIKE '%'||#{business_name}||'%' -->
 	</select>
 	
 	<!-- 질문 게시글 수 -->
