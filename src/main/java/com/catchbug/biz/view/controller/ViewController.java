@@ -11,7 +11,7 @@ public class ViewController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {
 
-		return "index";
+		return "company/company_intro";
 	}
 	
 	

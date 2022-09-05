@@ -158,6 +158,12 @@
 		  FROM notice 
 		  WHERE noti_title = #{noti_title}
 	</select>
+	
+	<!-- 자유게시판 탭정보 불러오기 -->
+	<select id="getFreeBoardTap" resultType="com.catchbug.biz.vo.TapVO">
+		SELECT *
+		FROM tap
+	</select>
 	 
 	<!-- 공지 검색 -->
 	<select id="SearchNoti" resultType="noti" parameterType="criteria">

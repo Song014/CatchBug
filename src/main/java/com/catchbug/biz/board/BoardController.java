@@ -82,6 +82,7 @@ public class BoardController {
 		bVo.setStartPage(startPage);
 		bVo.setEndPage(endPage);
 
+		model.addAttribute("tap", boardService.getFreeBoardTap());
 		model.addAttribute("keyWord", keyWord);
 		model.addAttribute("searchTap", searchTap);
 		model.addAttribute("boardList", boardService.getFreeBoard(bVo));
@@ -142,7 +143,8 @@ public class BoardController {
 
 	// 자유게시판 글쓰기 폼 이동
 	@RequestMapping("/free_Board_Write.do")
-	public String FreeBoardWrite() {
+	public String FreeBoardWrite(Model model) {
+		model.addAttribute("tap", boardService.getFreeBoardTap());
 		return "board/free_board_write";
 	}
 
