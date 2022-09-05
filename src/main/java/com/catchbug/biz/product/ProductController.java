@@ -77,13 +77,10 @@ public class ProductController {
 
 	@PostMapping("/insertProduct.do")
 	public String InsertProduct(ProductVO vo, ImgVO ivo) {
-		System.out.println("상품 등록 처리");
-		productService.insertProduct(vo);
 		int a = vo.getProduct_no();
-		System.out.println(a);
 		ivo.setProduct_no(a);
-
 		productService.insertImg(ivo);
+		productService.insertProduct(vo);
 
 		return "redirect:productRegister.do"; // 기본은 포워드방식으로 이동
 	}
