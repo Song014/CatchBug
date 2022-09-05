@@ -345,10 +345,9 @@
 							".individual_product_name_input").val();
 						console.log($num);
 
-						let form_contents = '';
+						let form_contents = "<input name='order_no' type='hidden' value='" + order_no + "'>";
 						let orderNumber = 0;
 						let total_price = 0;
-
 						$(".cart_info_td")
 							.each(
 								function (index, element) {
@@ -365,8 +364,7 @@
 											.val();
 
 										// 서버에 보내줄 데이터 (주문번호, 상품번호, 수량)
-										let order_no_input = "<input name='order_no' type='hidden' value='" + order_no + "'>";
-										form_contents += order_no_input;
+										
 
 										let product_no_input = "<input name='orders[" + orderNumber + "].product_no' type='hidden' value='" + product_no + "'>";
 										form_contents += product_no_input;

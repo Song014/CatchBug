@@ -88,6 +88,9 @@
 		WHERE sub_category=#{sub_category}
 	</select>
 	
+	<update id="updateStock" parameterType="orderItem">
+		update product_stock set PRODUCT_QUANTILY=PRODUCT_QUANTILY+#{purchase_amount} where product_no=#{product_no}
+	</update>
 
 
 </mapper>
