@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -25,9 +25,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.catchbug.biz.vo.CategoryVO;
 import com.catchbug.biz.vo.ImgVO;
 import com.catchbug.biz.vo.ProductVO;
 
@@ -37,6 +35,9 @@ import net.sf.json.JSONArray;
 public class ProductController {
 	private String uploadFolder = "/Users/hyeon1339/resources";
 
+	@Autowired
+	private ServletContext servletContext;
+	
 	@Autowired
 	private ProductService productService;
 	
@@ -69,7 +70,6 @@ public class ProductController {
 	// 상품 등록
 	@RequestMapping("/productRegister.do")
 	public String ProductRegister(Model model) {
-
 		model.addAttribute("maincategory", productService.getMainCategory());
 		model.addAttribute("subCategory", JSONArray.fromObject(productService.getSubCategory()));
 		return "admin/product_register";
@@ -77,13 +77,13 @@ public class ProductController {
 
 	@PostMapping("/insertProduct.do")
 	public String InsertProduct(ProductVO vo, ImgVO ivo) {
-		System.out.println("상품 등록 처리");
+		System.out.println("상품 등록 처리"+vo);
+		productService.insertImg(ivo);
 		productService.insertProduct(vo);
 		int a = vo.getProduct_no();
-		System.out.println(a);
+		System.out.println(a+"aaa");
 		ivo.setProduct_no(a);
 
-		productService.insertImg(ivo);
 
 		return "redirect:productRegister.do"; // 기본은 포워드방식으로 이동
 	}
@@ -115,7 +115,8 @@ public class ProductController {
 		}
 
 		/* 이미지 파일을 저장할 경로 김현민 맥북 기준으로 작성 */
-		String uploadFolder = "/Users/hyeon1339/CatchBugProject/src/main/webapp/resources/productImg";
+	
+		String uploadFolder = servletContext.getRealPath("/resources/productImg/");
 
 		/* 날짜 폴더 경로 */
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -133,7 +134,7 @@ public class ProductController {
 		}
 
 		/* 이미저 정보 담는 객체 */
-		List<ImgVO> list = new ArrayList();
+		List<ImgVO> list = new ArrayList<ImgVO>();
 
 		// 향상된 for
 		for (MultipartFile multipartFile : uploadFile) {
@@ -149,7 +150,7 @@ public class ProductController {
 			/* uuid 적용 파일 이름 파일이름 중복 방지 */
 			String uuid = UUID.randomUUID().toString();
 			vo.setUuid(uuid);
-
+		
 			uploadFileName = uuid + "_" + uploadFileName;
 
 			/* 파일 위치, 파일 이름을 합친 File 객체 */

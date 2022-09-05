@@ -31,7 +31,7 @@
 
 	<insert id="insertImg" parameterType="com.catchbug.biz.vo.ImgVO">
 		INSERT INTO img
-		values(#{product_no}, #{fileName}, #{uploadPath}, #{uuid})
+		values(#{uuid},#{fileName}, #{uploadPath} )
 	</insert>
 	
 

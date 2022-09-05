@@ -158,7 +158,7 @@
 											</a></th>
 											<td>${list.product_no }</td>
 											<td><a class="primary product_modal"
-												data-bs-toggle="modal" data-bs-target="#modalProduct"
+													data-bs-toggle="modal" data-bs-target="#modalProduct"
 												id="${list.product_no}">${list.product_name }</a></td>
 											<td>${list.price }</td>
 											<td>${list.product_quantily }</td>

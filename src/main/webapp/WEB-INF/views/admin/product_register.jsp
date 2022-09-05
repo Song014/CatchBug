@@ -249,6 +249,7 @@
 		$("input[type='file']").on("change", function(e) {
 
 			let formData = new FormData();
+			console.log(formData)
 
 			let fileInput = $('input[name="product_img"]');
 			let fileList = fileInput[0].files;
@@ -264,6 +265,7 @@
 				url : '/uploadAjaxAction',
 				processData : false,
 				contentType : false,
+				enctype: 'multipart/form-data',
 				data : formData,
 				type : 'POST',
 				dataType : 'json',
@@ -271,7 +273,7 @@
 					showUploadImage(result);
 				},
 				error : function(result) {
-					alert("이미지 파일이 아닙니다.");
+					alert("통신실패");
 				}
 			});
 		});
