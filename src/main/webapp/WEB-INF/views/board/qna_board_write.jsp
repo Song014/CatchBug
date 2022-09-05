@@ -13,7 +13,8 @@
 <meta content="" name="description">
 <meta content="" name="keywords">
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Favicons -->
 <link href="assets/img/favicon.png" rel="icon">
 <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -65,12 +66,6 @@
 	<!-- End Sidebar -->
 	<!-- End Header -->
 
-	<!-- ======= Sidebar ======= -->
-
-	<jsp:include page="../mainInclude/sidebar.jsp"></jsp:include>
-
-	<!-- End Sidebar -->
-
 	<main id="main" class="main">
 
 	<div class="card">
@@ -86,12 +81,14 @@
 					</ol>
 				</nav>
 			</div>
-			<form method="POST" action="qnaWrite.do">
+			<form method="POST" action="qnaWrite.do" onsubmit="return qnaSubmit();">
 				<input type="hidden" name="id" value="${member.id }">
+				<input type="text" hidden="hidden" name="content" value="" />
 				<div class="row mb-3">
 					<div class="col-sm-2">
 						<div class="mb-3">
-							<select class="form-select" id="floatingSelect" name="tap" required="required">
+							<select class="form-select" id="floatingSelect" name="tap"
+								required="required">
 								<option value="1">주문</option>
 								<option value="2">상품</option>
 								<option value="3">배송</option>
@@ -101,23 +98,25 @@
 						</div>
 					</div>
 					<div class="col-sm-10">
-						<input type="text" class="form-control" name="title" placeholder="제목">
+						<input type="text" class="form-control" name="title"
+							placeholder="제목">
 					</div>
 				</div>
 
 				<div class="col-md-12">
-					<textarea class="form-control" name="content" rows="6"
-						placeholder="Message" required=""></textarea>
+					<!-- Create the editor container -->
+					<div id="editor" style="height: 300px">
+					</div>
 				</div>
-
-
 				<div class="form-check">
-					<input class="form-check-input" type="checkbox" name="invalidCheck" value=""
-						id="invalidCheck2" > <label
+					<input class="form-check-input" type="checkbox" name="state"
+						value="1" id="invalidCheck2"> <label
 						class="form-check-label" for="invalidCheck2"> 비공개 </label>
 				</div>
+				
+				
 				<div class="mb-3 text-center">
-					<button type="submit" class="btn btn-primary">글쓰기</button>
+					<button type="submit" class="btn btn-primary" >글쓰기</button>
 					<button type="reset" class="btn btn-secondary">취소</button>
 				</div>
 			</form>
@@ -129,13 +128,29 @@
 
 
 	<!-- ======= Footer ======= -->
-  
-  <jsp:include page="../mainInclude/footer.jsp"></jsp:include>
-  <script type="text/javascript">
-  
 
-  </script>
-<!-- End Footer -->
+	<jsp:include page="../mainInclude/footer.jsp"></jsp:include>
+	
+	</main>
+	<script>
+	function qnaSubmit() {
+		var content = $(".ql-editor").html();
+		alert(content);
+		$('input[name=content]').attr('value', content);
+
+	}
+	</script>
+
+	<!-- Include the Quill library -->
+	<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+	<!-- Initialize Quill editor -->
+	<script>
+		var quill = new Quill('#editor', {
+			theme : 'snow'
+		});
+	</script>
+	<!-- End Footer -->
 
 	<a href="#"
 		class="back-to-top d-flex align-items-center justify-content-center"><i

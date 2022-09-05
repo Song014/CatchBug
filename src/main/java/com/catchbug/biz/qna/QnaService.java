@@ -3,6 +3,7 @@ package com.catchbug.biz.qna;
 import java.util.List;
 
 import com.catchbug.biz.vo.PageVO;
+import com.catchbug.biz.vo.QnaReplyVO;
 import com.catchbug.biz.vo.QnaVO;
 
 public interface QnaService {
@@ -18,5 +19,14 @@ public interface QnaService {
 	void updateQna(QnaVO vo);
 
 	int getTotalBoard();
+
+	public void WriteQnaReply(QnaReplyVO vo);
+
+	public List<QnaReplyVO> getQnaReply(QnaReplyVO vo);
+
+	public void DeleteQnaReply(QnaReplyVO vo);
+
+	public void UpdateQnaReply(QnaReplyVO vo);
+
 
 }

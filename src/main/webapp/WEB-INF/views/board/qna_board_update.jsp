@@ -104,7 +104,7 @@
 					<div class="col-sm-10">
 						<input type="text" class="form-control" placeholder="제목"
 							name="title" value="${board.title }" /> <input type="text"
-							hidden="hidden" name="no" value="${board.no }" /> <input
+							hidden="hidden" name="qna_no" value="${board.qna_no }" /> <input
 							type="text" hidden="hidden" name="id" value="${member.id }" /> <input
 							type="text" hidden="hidden" name="business_name"
 							value="${member.business_name }" /> <input type="text"
