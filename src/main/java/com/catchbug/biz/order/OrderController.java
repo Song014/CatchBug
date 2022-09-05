@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.catchbug.biz.account.MemberService;
 import com.catchbug.biz.cart.CartService;
@@ -33,8 +34,7 @@ import com.siot.IamportRestClient.response.Payment;
 
 @Controller
 public class OrderController {
-	
-	
+
 	@Autowired
 	private ProductService ps;
 
@@ -43,11 +43,12 @@ public class OrderController {
 
 	@Autowired
 	private OrderService os;
-	
+
 	@Autowired
 	private MemberService ms;
 
 	private IamportClient client;
+
 	private OrderController() {
 		client = new IamportClient("4531801211644015",
 				"FwlsbR1eS5ipldOSWyK9K23UfoV0pnvo4GT3Q0SryW6txJ9B9ZDhLdVxVlweIUsrsNGAYAaIjRHBhoyu");
@@ -60,7 +61,7 @@ public class OrderController {
 			@PathVariable(value = "imp_uid") String imp_uid) throws IamportResponseException, IOException {
 		return client.paymentByImpUid(imp_uid);
 	}
-	
+
 	// 결제 완료후 결제 내역
 	@ResponseBody
 	@RequestMapping(value = "/payments/status/{status}")
@@ -68,7 +69,6 @@ public class OrderController {
 			@PathVariable(value = "status") String status) throws IamportResponseException, IOException {
 		return client.paymentsByStatus(status);
 	}
-	
 
 	// 본사 발주서 작성
 	@RequestMapping("/productForOrder.do")
@@ -116,11 +116,11 @@ public class OrderController {
 	// 주문하기 눌렀을때
 	@RequestMapping(value = "/submitOrder.do")
 	@Transactional(rollbackFor = Exception.class)
-	public String submitOrder(OrderVO ov,HttpSession session) {
+	public String submitOrder(OrderVO ov, HttpSession session) {
 		System.out.println(ov);
 		List<OrderItemVO> list = new ArrayList<OrderItemVO>();
 		// 선택한 상품에 대한 정보 초기화
-		// TODO 관리자 발주 성공시 입고 취소 출고 가맹점 발주성공시 출고 취소 입고 관리자 가맹자 어떻게? 멤버 등급으로 
+		// TODO 관리자 발주 성공시 입고 취소 출고 가맹점 발주성공시 출고 취소 입고 관리자 가맹자 어떻게? 멤버 등급으로
 		for (OrderItemVO oiv : ov.getOrders()) {
 			OrderItemVO orderItem = ps.getProductItem(oiv.getProduct_no());
 			oiv.setProduct_name(orderItem.getProduct_name());
@@ -148,7 +148,7 @@ public class OrderController {
 			oiv.setOrder_no(ov.getOrder_no());
 			os.insertOrderItemList(oiv);
 			System.out.println(oiv);
-			
+
 		}
 
 		// 장바구니 삭제
@@ -181,7 +181,7 @@ public class OrderController {
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		vo.setId(member.getId());
 
-		// 성공 ok 실패 false 
+		// 성공 ok 실패 false
 		String result = cs.insertCart(vo);
 		System.out.println(result);
 		return result;
@@ -203,9 +203,76 @@ public class OrderController {
 	@RequestMapping(value = "/deleteCartAjax.do", method = RequestMethod.DELETE)
 	@ResponseBody
 	public String orderDeleteAjax(CartVO vo) {
-		System.out.println("delete"+vo);
+		System.out.println("delete" + vo);
 		String result = cs.deleteCart(vo);
-		System.out.println("delete"+result);
+		System.out.println("delete" + result);
 		return result;
 	}
+
+	// 가맹점 발주내역 페이지
+	@ResponseBody
+	@RequestMapping(value = "/orderHistory.do", method = RequestMethod.GET)
+	public ModelAndView orderHistorypage(MemberVO mvo, OrderVO ovo, Model model, HttpSession session,
+			ModelAndView mav) {
+		System.out.println("orderHistorypage");
+		List<OrderVO> order_list = os.getOrderList(ovo);
+		model.addAttribute("olist", order_list);
+		mav.setViewName("admin/order_history");
+
+		return mav;
+	}
+
+	// 장바구니 번호 클릭시 해당 id가 주문한 내역 조회 (모달)
+	@ResponseBody
+	@RequestMapping(value = "/orderDetailid.do", method = RequestMethod.GET)
+	public List<OrderVO> orderDetailid(OrderVO dvo, Model model) {
+		System.out.println("orderDetail 실행");
+		List<OrderVO> orderDetail = os.getOrderDetailList(dvo);
+		model.addAttribute("orderDetail", orderDetail);
+		System.out.println(orderDetail);
+		return orderDetail;
+	}
+
+	// id 클릭시 회원정보 조회(모달)
+	@ResponseBody
+	@RequestMapping(value = "/orderId.do", method = RequestMethod.GET)
+	public MemberVO orderid(MemberVO mvo, Model model) {
+		System.out.println("orderceo 실행");
+		MemberVO orderId = os.getMember(mvo);
+		System.out.println(orderId);
+		return orderId;
+	}
+
+	// 가맹점 본인 발주 내역 리스트
+	@RequestMapping(value = "/francOrderHistory.do")
+	public ModelAndView FancOrderHistory(OrderVO ovo, Model model, ModelAndView mav) {
+		System.out.println("francOrderHistory.do");
+		List<OrderVO> order_list = os.getOrderList(ovo);
+		mav.addObject("olist", order_list);
+		mav.setViewName("franc/franc_order_history");
+		return mav;
+
+	}
+
+	// 가맹점 주문서 클릭시 해당 주문서 상세내역 내역 조회 (모달)
+	@ResponseBody
+	@RequestMapping(value = "/orderFDetail.do", method = RequestMethod.GET)
+	public List<OrderVO> orderFDetail(OrderVO dvo, Model model) {
+		System.out.println("orderFDetail 실행");
+		List<OrderVO> orderFDetail = os.getOrderno(dvo);
+		model.addAttribute("orderFDetail", orderFDetail);
+		System.out.println(orderFDetail);
+		return orderFDetail;
+	}
+
+	// id 클릭시 회원정보 조회(모달)
+	@ResponseBody
+	@RequestMapping(value = "/orderfId.do", method = RequestMethod.GET)
+	public MemberVO orderfid(MemberVO mvo, Model model) {
+		System.out.println("orderceo 실행");
+		MemberVO orderfId = os.getMember(mvo);
+		System.out.println(orderfId);
+		return orderfId;
+	}
+
 }

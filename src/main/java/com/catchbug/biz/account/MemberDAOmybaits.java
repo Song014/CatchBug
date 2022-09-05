@@ -31,6 +31,7 @@ public class MemberDAOmybaits {
 	public void updateMypage(MemberVO vo) {
 		System.out.println("===> mybatis로  updateMypage실행");
 		memberMybatis.update("MemberDAO.updateMypage", vo);
+
 	}
 
 	// 마이페이지 이미지수정
@@ -38,42 +39,16 @@ public class MemberDAOmybaits {
 		System.out.println("==> mybatis로 updateImg실행");
 		memberMybatis.update("MemberDAO.updateImg", vo);
 	}
-	
-	public int updateMailKey(MemberVO vo) throws Exception{
+
+	public int updateMailKey(MemberVO vo) throws Exception {
 		return memberMybatis.update("MemberDAO.updateMailKey", vo);
 	}
-	
-	public int updateMailAuth(MemberVO vo) throws Exception{
-		return memberMybatis.update("MemberDAO.updateMailAuth",vo);
+
+	public int updateMailAuth(MemberVO vo) throws Exception {
+		return memberMybatis.update("MemberDAO.updateMailAuth", vo);
 	}
-	
+
 	public int emailAuthFail(String id) throws Exception{
 		return memberMybatis.selectOne("MemberDAO.emailAuthFail",id);
 	}
-
 }
-
-//	   
-//	   //글 삭제
-//	   public void deleteBoard(AccountVO vo) {
-//		   System.out.println("===> mybatis로 deleteAccount 실행");
-//		   accountMybatis.insert("AccountDAO.deleteAccount", vo);
-//		   //DAO도 다 수정해야댐
-//	   }
-//	   
-//	   //상세조회
-//	   public AccountVO getBoard(AccountVO vo) {
-//		   System.out.println("===> mybatis로 getBoard 실행");
-//		  
-//		   //DAO도 다 수정해야댐
-//		   return accountMybatis.selectOne("AccountDAO.getboard",vo);
-//		   
-//	   }
-//	 //글 전체 조회
-//	   public List<AccountVO> getBoardList(AccountVO vo){
-//		   System.out.println("===> mybatis로 getBoard 실행");
-//		  
-//		   return accountMybatis.selectList("AccountDAO.getBoard",vo);
-//		   //DAO도 다 수정해야댐
-
-//	   }
