@@ -162,7 +162,7 @@
 								<input type="button" class="btn btn-primary order_btn"
 									onclick="requestPay('kcp')"  value="신용카드 결제">
 									
-									<a href="#" onclick="requestPay('kakaopay')" >
+									<a href="#" onclick="requestPay('kakaopay.TC0ONETIME')" >
 									<img alt="카카오페이 이미지" src="/assets/img/kakao.png">
 									</a>
 								<!-- 	<input type="button" class="btn btn-primary order_btn"
@@ -345,11 +345,14 @@
 		src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 	<!-- 결제 모듈 -->
 	<script>
+			
 					var IMP = window.IMP;
 					IMP.init("imp45408430");
 
 					// 결제 버튼 눌렀을때 실행함수
 					function requestPay(e) {
+						
+						
 						// 기본으로 들어가는 데이터 
 						const pgs = e; 
 						console.log(pgs)
@@ -363,9 +366,8 @@
 						// 주문번호 생성
 						const now = new Date();
 						const order_no = id + '_'
-							+ now.toISOString().substring(0, 10).replace(/-/g, '')
-							+ now.getSeconds();
-
+							+ now.toISOString().substring(0, 16).replace(/[^0-9]/g , '');
+						console.log(order_no)
 						// 첫번째 상품 이름, 상품 개수  (상품 외 2개)형식으로 나타냄
 						const $num = $('input[name=cart_check]:checked').length;
 						const $name = $(".cart_checkbox:checked").parent().find(
