@@ -91,9 +91,8 @@
 				<div class="card-body">
 					<div align="right" class="dataTable-top">
 						<div class="dataTable-search">
-							<form>
-								</select> <input type="text" name="input" placeholder="검색어를 입력해 주세요.">
-								<!-- <input type="button" name="inputBtn" value="검색"> -->
+							<form action="/factory_franc_wait_list.do">
+								<input type="text" name="searchWord" placeholder="검색어를 입력해 주세요.">
 								<button>검색</button>
 							</form>
 						</div>
@@ -142,11 +141,6 @@
 			</div>
 
 			<script type="text/javascript">
-				
-			<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-				//오늘 날짜
-				document.getElementById('currnetDate').value = new Date()
-						.toISOString().slice(0, 10);
 				
 				$(".btn1").on("click", function(e) {
 					if (confirm("승인 하시겠습니까?")) {

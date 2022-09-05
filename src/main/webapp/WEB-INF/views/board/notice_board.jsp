@@ -83,8 +83,7 @@
 							<form action="/notice_Board.do">
 								<select name="searchOption">
 									<option value="orderNumber" selected="selected">제목</option>
-								</select> <input type="text" name="noti_title"
-									placeholder="검색어를 입력해 주세요.">
+								</select> <input type="text" name="noti_title" placeholder="검색어를 입력해 주세요.">
 								<button>검색</button>
 							</form>
 						</div>
@@ -105,9 +104,7 @@
 
 									<th class="col-lg-1" scope="row">${list.noti_no }</th>
 									<td class="col-lg-2">관리자</td>
-									<td class="col-lg-6"><a
-										href="noti_detail.do?noti_no=${list.noti_no }">${list.noti_title }</a></td>
-									<%-- 									"/board/read${pageMaker.makeQuery(pageMaker.cri.page)}&bno=${item.bno}"> --%>
+									<td class="col-lg-6"><a href="noti_detail.do?noti_no=${list.noti_no }">${list.noti_title }</a></td>
 									<td class="col-lg-1">${list.cnt }</td>
 									<td class="col-lg-2">${list.noti_day }</td>
 								</tr>

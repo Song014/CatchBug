@@ -44,9 +44,8 @@
 <select id="getMemberM" parameterType="member" resultType="member">
 	select * from member where id = #{id}
 </select>
-
 <select id="getOrderM" parameterType="order" resultType="order">
-	SELECT m.id, o.order_no, o.total_price, o.order_status, d.detail_no, d.purchase_amount, p.product_no, p.price,p.product_name, ps.product_quantily
+	SELECT m.id, m.regdate , o.order_no, o.total_price, o.order_status, d.detail_no, d.purchase_amount, p.product_no, p.price,p.product_name, ps.product_quantily
     FROM order_detail d
     INNER JOIN product p
     ON d.product_no=p.product_no
@@ -57,5 +56,13 @@
     INNER JOIN product_stock ps
     ON ps.product_no = p.product_no
     WHERE o.id = #{id}
+</select>
+
+<select id="SearchList" resultType="member" parameterType="search">
+	SELECT * 
+	FROM member
+	WHERE ceo LIKE '%'||#{searchWord}||'%'
+	or id LIKE '%'||#{searchWord}||'%'
+	or business_name LIKE '%'||#{searchWord}||'%'
 </select>
 </mapper>
