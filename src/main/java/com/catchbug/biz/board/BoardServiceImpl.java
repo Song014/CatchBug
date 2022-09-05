@@ -147,6 +147,12 @@ public class BoardServiceImpl implements BoardService {
 		int count = boardDAO.listSearchCount(vo);
 		return count;
 	}
+
+	@Override
+	public int getTotalBoard() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 	
 	

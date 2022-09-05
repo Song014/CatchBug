@@ -1,5 +1,4 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -189,61 +188,61 @@
 	<!-- 	<script>
 		document.getElementById('inputSearchDate').valueAsDate = new Date();
 	</script> -->
-	
+
 	<!-- 기능 작동을위한 JS파일 링크 -->
 	<script type="text/javascript">
-		$(document)
-				.ready(
-						function() {
-							$(document)
-									.on(
-											"change",
-											"select[name='main_category']",
-											function() {
-												let data = JSON
-														.parse('${subCategory}')
+		$(document).ready(function() {
+			
+			const username = '${member.ceo}';
+			const level = '${member.level1}';
+			if (username == "") {
+				alert("로그인한 유저만 이용가능합니다.");
+				location.href = "login_page.do";
+			} else {
+				if (level != 1) {
+					alert("관리자만 이용가능합니다.");
+					location.href = "company_intro.do";
+				}
+			}
+			$(document).on("change","select[name='main_category']",function() {
+				let data = JSON
+						.parse('${subCategory}')
+	
+				//두번째 셀렉트 박스를 삭제 시킨다.
+				var subCategorySelectBox = $("select[name='sub_category']");
+				subCategorySelectBox.children()
+						.remove(); //기존 리스트 삭제 
+	
+				//선택한 첫번째 박스의 값을 가져와 일치하는 값을 두번째 셀렉트 박스에 넣는다.
+				$("option:selected", this).each(function() {
+					var selectValue = $(this).val(); //main category 에서 선택한 값
+					subCategorySelectBox.append("<option value=''>하위 카테고리</option>");
+					for (var i = 0; i < data.length; i++) {
+						if (selectValue == data[i].main_category) {
+							subCategorySelectBox
+									.append("<option value='" + data[i].sub_category + "'>"
+											+ data[i].sub_name
+											+ "</option>");
+	
+						}
+					}
+				});
+			})
+			/*이미지 미리보기 소스*/
+			document.getElementById("formFile").onchange = function() {
+				var reader = new FileReader();
 
-												//두번째 셀렉트 박스를 삭제 시킨다.
-												var subCategorySelectBox = $("select[name='sub_category']");
-												subCategorySelectBox.children()
-														.remove(); //기존 리스트 삭제 
+				reader.onload = function(e) {
+					// get loaded data and render thumbnail.
+					document.getElementById("image").src = e.target.result;
+					document.getElementById("image").style.width = "350px";
+				};
 
-												//선택한 첫번째 박스의 값을 가져와 일치하는 값을 두번째 셀렉트 박스에 넣는다.
-												$("option:selected", this)
-														.each(
-																function() {
-																	var selectValue = $(
-																			this)
-																			.val(); //main category 에서 선택한 값
-																	subCategorySelectBox
-																			.append("<option value=''>하위 카테고리</option>");
-																	for (var i = 0; i < data.length; i++) {
-																		if (selectValue == data[i].main_category) {
+				// read the image file as a data URL.
+				reader.readAsDataURL(this.files[0]);
+			};
 
-																			subCategorySelectBox
-																					.append("<option value='" + data[i].sub_category + "'>"
-																							+ data[i].sub_name
-																							+ "</option>");
-
-																		}
-																	}
-																});
-											})
-							/*이미지 미리보기 소스*/
-							document.getElementById("formFile").onchange = function() {
-								var reader = new FileReader();
-
-								reader.onload = function(e) {
-									// get loaded data and render thumbnail.
-									document.getElementById("image").src = e.target.result;
-									document.getElementById("image").style.width = "350px";
-								};
-
-								// read the image file as a data URL.
-								reader.readAsDataURL(this.files[0]);
-							};
-
-						})
+		})
 
 		/* 이미지 업로드 메서드 */
 		$("input[type='file']").on("change", function(e) {
@@ -321,9 +320,6 @@
 
 		}
 	</script>
-
-
-
 
 </body>
 

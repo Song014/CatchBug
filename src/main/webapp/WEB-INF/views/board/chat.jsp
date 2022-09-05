@@ -103,6 +103,10 @@
             $(document).ready(function(){
 
             const username = '${member.ceo}'
+            if(username == ""){
+            	alert("로그인한 유저만 이용가능합니다.");
+            	location.href="login_page.do";
+            }
             
             $("#disconn").on("click", (e) => {
                 disconnect();

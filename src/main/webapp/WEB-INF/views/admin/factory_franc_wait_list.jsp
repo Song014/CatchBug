@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
 
 <!DOCTYPE html>
 
@@ -170,6 +169,24 @@
 	</section>
 	</main>
 	<!-- End Main -->
+	
+	<script>
+	$(document).ready(function(){
+
+        const username = '${member.ceo}';
+        const level = '${member.level1}';
+        console.log(username);
+        if(username == ""){
+        	alert("로그인한 유저만 이용가능합니다.");
+        	location.href="login_page.do";
+        }else{
+        	if(level != 1){
+            	alert("관리자만 이용가능합니다.");
+            	location.href="company_intro.do";
+        	}
+        }
+	});
+	</script>
 
 
 

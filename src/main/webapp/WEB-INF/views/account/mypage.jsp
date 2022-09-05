@@ -486,6 +486,16 @@
 			}
 		}
 	</script>
+		<script>
+	$(document).ready(function(){
+
+        const username = '${member.ceo}';
+        const level = '${member.level1}';
+       	if(level == 3){
+       		alert(username + "님 안녕하세요 아직 승인이 완료되지 않았습니다.");
+       	}
+	});
+	</script>
 </body>
 
 
