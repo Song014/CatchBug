@@ -1,5 +1,7 @@
 package com.catchbug.biz.account;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -50,5 +52,15 @@ public class MemberDAOmybaits {
 
 	public int emailAuthFail(String id) throws Exception{
 		return memberMybatis.selectOne("MemberDAO.emailAuthFail",id);
+	}
+	
+	//비밀번호 찾기 유효성 검증을 위한 전체 아이디,이메일 불러오기
+	public List<MemberVO> findMemberPW(){
+		return memberMybatis.selectList("MemberDAO.findMemberPW");
+	}
+	
+	//임시비밀번호로 데이터베이스 변경
+	public void changeRandomPW(MemberVO vo) {
+		memberMybatis.update("MemberDAO.changeRandomPW",vo);
 	}
 }

@@ -515,12 +515,12 @@
         if(username == ""){
         	alert("로그인한 유저만 이용가능합니다.");
         	location.href="login_page.do";
-        }else{
-        	if(level != 2){
-        		alert("승인된 유저만 이용가능합니다.");
-            	location.href="company_intro.do";
-        	}
         }
+       	if(level != 1){
+       		alert("승인된 유저만 이용가능합니다.");
+           	location.href="company_intro.do";
+       	}
+        
 	});
 	</script>
 

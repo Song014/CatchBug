@@ -1,5 +1,7 @@
 package com.catchbug.biz.account;
 
+import java.util.List;
+
 import com.catchbug.biz.vo.MemberVO;
 
 public interface MemberService {
@@ -21,5 +23,9 @@ public interface MemberService {
 	int updateMailAuth(MemberVO vo) throws Exception;
 
 	int emailAuthFail(String id) throws Exception;
+	
+	List<MemberVO> FindMemberPW();
+	
+	void changeRandomPW(MemberVO vo);
 
 }

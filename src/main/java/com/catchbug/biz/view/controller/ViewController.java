@@ -43,11 +43,6 @@ public class ViewController {
 		return "account/find_id";
 	}
 	
-	@RequestMapping("/find_pw.do")
-	public String findPw() {
-		return "account/find_pw";
-	}
-	
 	
 	/* 회사소개 */
 	@RequestMapping("/company_intro.do")

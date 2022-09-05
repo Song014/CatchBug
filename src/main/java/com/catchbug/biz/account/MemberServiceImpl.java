@@ -1,5 +1,7 @@
 package com.catchbug.biz.account;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,6 +59,21 @@ public class MemberServiceImpl implements MemberService {
 	public int emailAuthFail(String id) throws Exception {
 		// TODO Auto-generated method stub
 		return MemberDAO.emailAuthFail(id);
+	}
+
+
+	
+	//비밀번호 찾기를 위한 필요정보 가져오기
+	@Override
+	public List<MemberVO> FindMemberPW() {
+		return MemberDAO.findMemberPW();
+	}
+
+
+	//임시비밀번호로 변경
+	@Override
+	public void changeRandomPW(MemberVO vo) {
+		MemberDAO.changeRandomPW(vo);
 	}
 
 }
