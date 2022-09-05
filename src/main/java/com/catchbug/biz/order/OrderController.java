@@ -102,6 +102,7 @@ public class OrderController {
 	public String orderPage(CartVO vo, HttpSession session, Model model) {
 
 		// 처음 보여줄 장바구니에 담긴 데이터
+		
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		List<CartVO> cartList = new ArrayList<CartVO>();
 		for (CartVO cartVO : cs.getCart(member)) {
@@ -134,7 +135,6 @@ public class OrderController {
 			oiv.setPrice(orderItem.getPrice());
 			oiv.initTotal();
 			list.add(oiv);
-			
 		}
 		ov.setOrders(list);
 

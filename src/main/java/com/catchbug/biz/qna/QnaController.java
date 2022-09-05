@@ -66,6 +66,7 @@ public class QnaController {
 		return "board/qna_board_write";
 	}
 
+	// 질문게시판 글쓰기
 	@RequestMapping(value = "/qnaWrite.do", method = RequestMethod.POST)
 	public String write(QnaVO vo) {
 		System.out.println(vo);
@@ -74,14 +75,14 @@ public class QnaController {
 		return "redirect:/QnABoard.do?page=1";
 	}
 
-	// 자유게시판 댓글작성폼
+	// 질문게시판 댓글작성폼
 	@RequestMapping("/writeQnaReply.do")
 	public String writeQnaReply(QnaReplyVO vo) {
 		qs.WriteQnaReply(vo);
 		return "redirect:QnABoardDetail.do?qna_no=" + vo.getQna_no();
 	}
 
-	// 자유게시판 댓글 삭제 작동
+	// 질문게시판 댓글 삭제 작동
 	@RequestMapping("/deleteQnaReply.do")
 	public String deleteQnaReply(QnaReplyVO vo) {
 		System.out.println(vo);
@@ -89,7 +90,7 @@ public class QnaController {
 		return "redirect:QnABoardDetail.do?qna_no=" + vo.getQna_no();
 	}
 
-	// 자유게시판 댓글 수정 작동
+	// 질문게시판 댓글 수정 작동
 	@RequestMapping("/updateQnaReply.do")
 	public String updateQnaReply(QnaReplyVO vo) {
 		qs.UpdateQnaReply(vo);
