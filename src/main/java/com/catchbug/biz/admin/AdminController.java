@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.catchbug.biz.account.MemberService;
 import com.catchbug.biz.vo.MemberVO;
 import com.catchbug.biz.vo.OrderVO;
+import com.catchbug.biz.vo.SearchVO;
 
 
 @Controller
@@ -59,24 +60,23 @@ public class AdminController {
 		return "account/member_list";
 	}
 
-	// 가입승인 대기목록
+
+	
+	// 가입승인 대기목록  + 검색
 	@RequestMapping("/factory_franc_wait_list.do")
-	public String franc_WaitList(MemberVO vo, Model model) {
-
+	public String franc_WaitList(MemberVO vo, Model model, SearchVO sw) {
 		
-		  System.out.println("컨트롤러"); 
-		  
-		  List<MemberVO> member_list = adminService.getMemberWaitList();
-		  model.addAttribute("list", member_list); 
-		 
-
-
-		System.out.println("컨트롤러");
-
-		List<MemberVO> member_list = AdminService.getMemberWaitList();
-		model.addAttribute("list", member_list);
-
-
+		  System.out.println("가입 대기 목록 컨트롤러"); 
+		  System.out.println(sw);
+		  if(sw.getSearchWord() == null) {
+			  System.out.println("검색어X");
+			  List<MemberVO> member_list = adminService.getMemberWaitList();
+			  model.addAttribute("list", member_list); 
+		  }else {
+			  System.out.println("검색");
+			  List<MemberVO> member_list = adminService.franc_SearchList(sw);
+			  model.addAttribute("list", member_list); 
+		  }
 		return "admin/factory_franc_wait_list";
 	}
 
@@ -139,8 +139,6 @@ public class AdminController {
 			return "admin/order_history";
 		}
 	
-
-
 		AdminService.memberrefuse(vo);
 
 		return "redirect:factory_franc_wait_list.do";
@@ -167,5 +165,6 @@ public class AdminController {
 
 
 	/* 재고 관리 */
+
 
 }

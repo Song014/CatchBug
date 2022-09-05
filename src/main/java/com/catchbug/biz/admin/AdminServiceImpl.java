@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.catchbug.biz.vo.MemberVO;
 import com.catchbug.biz.vo.OrderVO;
+import com.catchbug.biz.vo.SearchVO;
 
 @Service("adminService")
 public class AdminServiceImpl implements AdminService {
@@ -63,5 +64,11 @@ public class AdminServiceImpl implements AdminService {
 	public List<OrderVO> getOrder(OrderVO vo) {
 		System.out.println("주문 상세보기 모달 서비스");
 		return adminDAO.getOrder(vo);
+	}
+
+	@Override
+	public List<MemberVO> franc_SearchList(SearchVO vo) {
+		
+		return adminDAO.franc_SearchList(vo);
 	}
 }

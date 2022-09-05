@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>자유게시판 상세보기</title>
+<title>공지사항 상세보기</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -37,11 +37,6 @@
 
 <!-- Template Main CSS File -->
 <link href="assets/css/style.css" rel="stylesheet">
-
-<!-- Jquery 선언 -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-	crossorigin="anonymous"></script>
 
 <!-- =======================================================
   * Template Name: NiceAdmin - v2.3.1
@@ -77,75 +72,87 @@
 		<div class="card-body">
 			<div class="pagetitle">
 				<br>
-				<h1>자유게시판</h1>
+				<h1>공지사항</h1>
 				<nav>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="index.html">게시판</a></li>
-						<li class="breadcrumb-item">자유게시판</li>
-						<li class="breadcrumb-item active">상세보기</li>
+						<li class="breadcrumb-item">공지사항</li>
+						<li class="breadcrumb-item active">글쓰기</li>
 					</ol>
 				</nav>
 			</div>
-			<div class="card">
-				<div class="card-header" style="text-align: center;">
-					<h1>${notiInfo.noti_title}</h1>
+			<form action="updateNoti.do" method="post" onsubmit="freeSubmit();">
+				<div class="row mb-3">
+					<div class="col-sm-12">
+						<input type="text" class="form-control" name="noti_title" value="${notiInfo.noti_title }" >
+					</div>
 				</div>
-				
+						
 						<input type="hidden" name="id" value="${member.id }">
 						<input type="hidden" name="writer" value="관리자">
 						<input type="hidden" name="noti_no" value="${notiInfo.noti_no }">
 						<input type="text" hidden="hidden" name="noti_content">
-				
-				<div class="card-body">
-					<div>
-						${notiInfo.noti_content }
+						
+				<div class="col-md-12">
+					<!-- Create the editor container -->
+					<div id="editor" style="height: 300px" name="noti_content">
+					${notiInfo.noti_content }
 					</div>
-					<br>
-				</div>
-				<div class="card-footer">
-					<div class="mb-3 text-center">
-						<c:choose>
-							<c:when test="${member.level1 eq 1 }">
-									<form action="/noti_updateForm.do">
-								<div class="mb-3 text-center">
-									<button type="submit" class="btn btn-primary" name="noti_no" value="${notiInfo.noti_no }">수정하기</button>
-									<input type="button" class="btn btn-secondary" value="공지 목록" onclick="location.href='notice_Board.do'" />
-									<button type="button" value="${notiInfo.noti_no }" class="btn btn-danger btn1">삭제</button>
-								</div>
-									</form>
-							</c:when>
-							<c:otherwise>
+					</div>		
+						
+				<c:choose>
+					<c:when test="${member.level1 eq 1 }">
+						<div class="mb-3 text-center">
+							<button type="submit" class="btn btn-primary">수정하기</button>
+							<input type="button" class="btn btn-secondary" value="취소" onclick="location.href='notice_Board.do'" />
+						</div>
+					</c:when>
+					<c:otherwise>
 							<input type="button" class="btn btn-secondary" value="공지 목록"
 								onclick="location.href='notice_Board.do'" />
-							</c:otherwise>
-						</c:choose>
-					</div>
-				</div>
-			</div>
+					</c:otherwise>
+				</c:choose>
+			</form>
 		</div>
 	</div>
-	</main>
-		<script type="text/javascript">
-			$(".btn1").on("click", function(e) {
-				if (confirm("삭제 하시겠습니까?")) {
-					location.href="/delete_noti.do?noti_no="+e.target.value;
-				} else {
-					return;
-				}
-			})
+	
+	<script type="text/javascript">
+	$(".btn1").on("click", function(e) {
+		if (confirm("삭제 하시겠습니까?")) {
+			location.href="/delete_noti.do?noti_no="+e.target.value;
+		} else {
+			return;
+		}
+	})
 	</script>
-		  
-		 
+	
+	<script>
+		 function freeSubmit() {
+			var content = $(".ql-editor").html();
+			 $('input[name=noti_content]').attr('value',content);
+
+		}
+	</script> </main>
 
 
+	<!-- Include the Quill library -->
+	<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
+	<!-- Initialize Quill editor -->
+	<script>
+		var quill = new Quill('#editor', {
+			theme : 'snow'
+		});
+	</script>
+
+	</main>
 	<!-- End #main -->
 
 	<!-- ======= Footer ======= -->
-
-	<jsp:include page="../mainInclude/footer.jsp"></jsp:include>
-
-	<!-- End Footer -->
+  
+  <jsp:include page="../mainInclude/footer.jsp"></jsp:include>
+  
+<!-- End Footer -->
 
 	<a href="#"
 		class="back-to-top d-flex align-items-center justify-content-center"><i

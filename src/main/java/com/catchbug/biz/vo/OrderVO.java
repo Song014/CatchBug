@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Data;
 
 @Data
@@ -30,7 +32,7 @@ public class OrderVO {
 	private int product_no;
 	private int product_quantily;
 	private String product_name;
-	
+	 
 	private List<OrderItemVO> orders;
 	
 	public void initTotal() {

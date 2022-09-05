@@ -21,6 +21,8 @@
     
 		<typeAlias alias="criteria" type="com.catchbug.biz.vo.Criteria"/>
 		<typeAlias alias="pageMaker" type="com.catchbug.biz.vo.PageMaker"/>
+		<typeAlias alias="search" type="com.catchbug.biz.vo.SearchVO"/>
+		
 
 
     </typeAliases>

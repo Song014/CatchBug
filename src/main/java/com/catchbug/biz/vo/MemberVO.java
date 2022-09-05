@@ -6,6 +6,7 @@ import java.sql.Date;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 
@@ -19,7 +20,7 @@ public class MemberVO {
 	private String contact; // 연락처
 	private String email; // 이메일
 	private String business_address; // 사업장 주소지
-	@DateTimeFormat(pattern ="yy/mm/dd")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone = "Asia/Seoul")
 	private Date regdate; // 가입일 
 	private int level1; // 등급
 	private int startPage,endPage;
