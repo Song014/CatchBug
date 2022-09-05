@@ -21,7 +21,6 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public MemberVO getMember(MemberVO vo) {
-
 		return MemberDAO.getMember(vo);
 
 	}
@@ -40,6 +39,12 @@ public class MemberServiceImpl implements MemberService {
 	public void updateImg(MemberVO vo) {
 		MemberDAO.updateImg(vo);
 
+	}
+
+	@Override
+	public int getTotalMember(MemberVO vo) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
