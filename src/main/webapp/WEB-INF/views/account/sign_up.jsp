@@ -102,7 +102,7 @@
                   
                   	<div class="col-12">
                       <label for="yourName" class="form-label">* 아이디</label>
-                      <input type="text" name="id" class="form-control" id="yourId" placeholder="catchbug쨩" autofocus>
+                      <input type="text" name="id" class="form-control" id="yourId" placeholder="id를 입력해주세요." autofocus>
                       <div class="invalid-feedback">Please, enter your Id!</div>
                     </div>
                     
@@ -134,7 +134,7 @@
                   
                     <div class="col-12">
                       <label for="yourName" class="form-label">* 대표자</label>
-                      <input type="text" name="ceo" class="form-control" id="yourCeo" placeholder="대표자명"  required>
+                      <input type="text" name="ceo" class="form-control" id="yourCeo" placeholder="대표자 성함"  required>
                       <div class="invalid-feedback">Please, enter your name!</div>
                     </div>
                     
@@ -149,56 +149,20 @@
                       <input type="text" name="email" class="form-control" id="yourEmail" placeholder="peace@naver.com" required>
                       <div class="invalid-feedback">Please, enter your name!</div>
                     </div>
-                    
-                  
-                    
-                    
-
-                    <!-- <div class="col-12">
-                      <label for="yourEmail" class="form-label">* 이메일</label>
-                      <div class="input-group has-validation">
-                        <input type="text" name="emailid" class="form-control" id="yourUsername" placeholder="email"required>
-                        <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="text" name="emaildomain" class="form-control" id="yourUsername" required>
-                        <select	class="select" title="이메일 도메인 주소 선택"	onclick="setEmailDomain(this.value);return false;">
-								<option value="">-선택-</option>
-								<option value="naver.com">naver.com</option>
-								<option value="gmail.com">gmail.com</option>
-								<option value="hanmail.net">hanmail.net</option>
-								<option value="hotmail.com">hotmail.com</option>
-								<option value="korea.com">korea.com</option>
-								<option value="nate.com">nate.com</option>
-								<option value="yahoo.com">yahoo.com</option>
-							</select>
-                        <div class="invalid-feedback">Please enter a valid Email address!</div>
-                      </div>
-                    </div> -->
-                    
                       <div class="col-12">
                       <label for="yourName" class="form-label">* 사업장 주소지</label>
                       <input type="text" name="business_address" class="form-control" id="yourbusiness_address" placeholder="도로명 + 상세주소" required>
                       <div class="invalid-feedback">Please, enter your Business Address!</div>
                     </div>
-                    
-                    <!-- <div class="col-12">
-                      <label for="yourName" class="form-label"></label>
-                      <input type="hidden" name="regdate" class="form-control" id="yourregdate" required>
-                    </div>
-                    
-                     <div class="col-12">
-                      <label for="yourName" class="form-label"></label>
-                      <input type="hidden" name="level1" class="form-control" id="yourlevel" required>
-                    </div>  -->
-
                     <div class="col-12">
                       <div class="form-check">
                         <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
-                        <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="#">terms and conditions</a></label>
+                        <label class="form-check-label" for="acceptTerms">회원가입에 동의합니다.</label>
                         <div class="invalid-feedback">You must agree before submitting.</div>
                       </div>
                     </div>
                     <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Create Account</button>
+                      <button class="btn btn-primary w-100" type="submit">회원가입</button>
                     </div>
                     <div class="col-12">
                       <p class="small mb-0">Already have an account? <a href="login_page.do">Log in</a></p>

@@ -31,18 +31,6 @@ public class ViewController {
 		
 		return "index";
 	}
-
-	
-	@RequestMapping("/logout.do")
-	public String loginOut() {
-		return "account/login_page";
-	}
-	
-	@RequestMapping("/find_id.do")
-	public String findId() {
-		return "account/find_id";
-	}
-	
 	
 	/* 회사소개 */
 	@RequestMapping("/company_intro.do")

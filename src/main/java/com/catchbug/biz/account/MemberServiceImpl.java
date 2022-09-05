@@ -76,4 +76,10 @@ public class MemberServiceImpl implements MemberService {
 		MemberDAO.changeRandomPW(vo);
 	}
 
+	//아이디찾기 정보 받아오기
+	@Override
+	public MemberVO FindMemberID(MemberVO vo) {
+		return MemberDAO.findMemberID(vo);
+	}
+
 }

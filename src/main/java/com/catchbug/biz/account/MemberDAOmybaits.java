@@ -63,4 +63,9 @@ public class MemberDAOmybaits {
 	public void changeRandomPW(MemberVO vo) {
 		memberMybatis.update("MemberDAO.changeRandomPW",vo);
 	}
+	
+	//아이디찾기 일치하는 정보 가져오기
+	public MemberVO findMemberID(MemberVO vo) {
+		return memberMybatis.selectOne("MemberDAO.findMemberID",vo);
+	}
 }

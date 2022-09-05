@@ -79,5 +79,12 @@
 		SET pass = #{pass}
 		WHERE id=#{id} and email=#{email}
 	</update>
+	
+	<!-- 아이디찾기위한 데이터베이스 정보 검색 -->
+	<select id="findMemberID" resultType="member">
+		SELECT id
+		FROM member
+		WHERE business_no = #{business_no} AND ceo = #{ceo}
+	</select>
 
 </mapper>

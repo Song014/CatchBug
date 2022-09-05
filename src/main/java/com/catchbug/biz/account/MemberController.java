@@ -16,8 +16,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -67,6 +69,20 @@ public class MemberController {
 		mav.setViewName("account/login_page");
 		return mav;
 	}
+	
+	//아이디 찾기 이동 메소드
+	@RequestMapping("/find_id.do")
+	public String findId() {
+		return "account/find_id";
+	}
+	
+	//아이디 찾기 로직작동 메소드
+	
+	@ResponseBody
+	@RequestMapping("/findid.do")
+	public MemberVO findeID(MemberVO vo) {
+		return memberService.FindMemberID(vo);
+	}
 
 	// 비밀번호 찾기 임시비밀번호 메일전송 메소드
 	@Transactional
@@ -79,7 +95,7 @@ public class MemberController {
 		// 임시비밀번호 생성후 메일전송
 		MailHandler sendMail = new MailHandler(mailSender);
 		sendMail.setSubject("[CatchBug 물류사이트 인증메일 입니다.");
-		sendMail.setText("<h1>CatchBug 회원가입 인증메일</h1>" + "<br>CatchBug에 오신것을 환영합니다.!" + 
+		sendMail.setText("<h1>CatchBug 비밀번호 찾기 인증메일</h1>" + "<br>CatchBug에 오신것을 환영합니다.!" + 
 						"<br>고객님의 새로운 비밀번호를 보내드립니다. <br>임시 비밀번호 : " + pass +
 						"<br>로그인을 완료하시고 꼭 새로운 비밀번호로 변경하세요!");
 		sendMail.setFrom("catchbugteam@gmail.com", "관리자");
@@ -119,6 +135,8 @@ public class MemberController {
 		return "redirect:login_page.do";
 	}
 
+	
+	//로그인페이지
 	@RequestMapping(value = "/login_page.do", method = RequestMethod.POST)
 	public String MemberLogin(MemberVO vo, MemberDAOmybaits memberDAO, ModelAndView mav, HttpSession session)
 			throws Exception {
@@ -200,4 +218,5 @@ public class MemberController {
 		session.setAttribute("member", member);
 		return "account/mypage";
 	}
+	
 }

@@ -27,5 +27,7 @@ public interface MemberService {
 	List<MemberVO> FindMemberPW();
 	
 	void changeRandomPW(MemberVO vo);
+	
+	MemberVO FindMemberID(MemberVO vo);
 
 }
