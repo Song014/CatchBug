@@ -48,4 +48,15 @@ public class OrderServiceImp implements OrderService {
 		System.out.println("getMember ServiceImpl");
 		return dao.getMember(mvo);
 	}
+	@Override
+	public OrderVO getOrderListid(OrderVO ovo) {
+		System.out.println("getOrderListid ServiceImpl");
+		return dao.getOrderListid(ovo);
+	}
+
+	@Override
+	public List<OrderVO> getOrderno(OrderVO ovo) {
+		System.out.println("getOrderno ServiceImpl");
+		return dao.getOrderno(ovo);
+	}
 }

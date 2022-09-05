@@ -204,24 +204,10 @@
 
 							<div class="tab-pane fade profile-edit pt-3" id="profile-edit"
 								role="tabpanel">
-								<!-- 마이페이지 자기소개 변경 폼 시작 -->
+						<!-- 마이페이지 개인정보 변경 폼 시작 -->
 
-								<form action="mypage.do/2" method="post">
-									<!-- <div class="row mb-3">
-										<label for="profileImage"
-											class="col-md-4 col-lg-3 col-form-label">Profile
-											Image</label>
-										<div class="col-md-8 col-lg-9">
-											<img src="assets/img/mapleStory.jpg" alt="Profile">
-											<div class="pt-2">
-												<a href="#" class="btn btn-primary btn-sm"
-													title="Upload new profile image"><i
-													class="bi bi-upload"></i></a> <a href="#"
-													class="btn btn-danger btn-sm"
-													title="Remove my profile image"><i class="bi bi-trash"></i></a>
-											</div>
-										</div>
-									</div> -->
+								<form action="updateMypage.do" method="post">
+									
 
 									<div class="row mb-3">
 										<div class="col-md-8 col-lg-9">
@@ -293,8 +279,8 @@
 							
 							<div class="tab-pane fade pt-3" id="profile-change-password"
 								role="tabpanel">
-								<!-- 비밀번호 변경 폼 시작 -->
-								<form action="mypage.do/3" method="post">
+					<!-- 비밀번호 변경 폼 시작 -->
+								<form action="updatePass" method="post">
 									<div class="row mb-3">
 										<label for="currentPassword"
 											class="col-md-4 col-lg-3 col-form-label">현재 비밀번호 </label>
@@ -307,7 +293,7 @@
 										<label for="newPassword"
 											class="col-md-4 col-lg-3 col-form-label">새 비밀번호</label>
 										<div class="col-md-8 col-lg-9">
-											<input name="newpassword" type="password"
+											<input name="newpass" type="password"
 												class="form-control" id="newPassword">
 										</div>
 									</div>

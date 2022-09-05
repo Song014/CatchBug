@@ -100,29 +100,20 @@
          <div class="card">
             <div class="card-body">
                <div align="right" class="dataTable-top">
-                  <div class="dataTable-dropdown">
-                     <label><select class="dataTable-selector"><option
-                              value="5">5</option>
-                           <option value="10" selected="">10</option>
-                           <option value="15">15</option>
-                           <option value="20">20</option>
-                           <option value="25">25</option></select> page</label>
-                  </div>
-                  <div class="dataTable-search">
+               
+                  <div>
                      <form>
-                        <input type="date" name="beforeDate"> <input type="date"
-                           name="afterDate" id='currnetDate'> <select
-                           name="searchOption">
-                           <option value="orderNumber" selected="selected">주문번호</option>
-                           <option value="remarks">CEO</option>
+                        <select name="searchOption">
+                           <option value="orderid" selected="selected">id</option>
                            <option value="content">내용</option>
                         </select> <input type="text" name="input" placeholder="검색하세요">
-                        <!-- <input type="button" name="inputBtn" value="검색"> -->
                         <button>검색</button>
                      </form>
                   </div>
                </div>
+               
                <div class="dataTable-container">
+               <form>
                   <table class="table datatable dataTable-table">
                      <tr>
                         <th scope="col" data-sortable=""><a href="#"
@@ -137,10 +128,8 @@
                            class="dataTable-sorter">배송지</a></th>
                         <th scope="col" data-sortable=""><a href="#"
                            class="dataTable-sorter">상태</a></th>
-                        <th scope="col">결제</th>
+                        
                      </tr>
-                     <%-- <c:forEach var="" items=""> --%>
-
                      <c:forEach items="${olist}" var="olist">
                         <tr>
                            <td>#</td>
@@ -151,16 +140,13 @@
                            <td><a class="primary order_id_modal" data-bs="${olist.id}"
                               data-bs-toggle="modal" data-bs-target="#modalDialogScrollable">
                                  ${olist.id}</a></td>
-                           <td>${olist.total_price}</td>
+                           <td>${olist.total_price}원</td>
                            <td>${olist.order_status}</td>
-                           <td>${olist.note}</td>
-                           <td><input type="button" name="ok" value="재승인"></td>
-
-                           <!-- 버튼 안에 disabled="disabled" -->
+                           <td>${olist.note}</td>                    
                         </tr>
                      </c:forEach>
-                     <%-- </c:forEach> --%>
                   </table>
+                  </form>
                </div>
             </div>
          </div>
@@ -213,15 +199,7 @@
 
 
                            </tbody>
-                           <%-- <c:forEach items="${orderDetail}" var="orderDetail">
-                              <tr>
-                                 <td>${orderDetail.id}</td>
-                                 <td>${orderDetail.detail_no}</td>
-                                 <td>${orderDetail.product_name}</td>
-                                 <td>${orderDetail.product_no}</td>
-                                 <td>${orderDetail.purchase_amount}</td>
-                              </tr>
-                           </c:forEach> --%>
+                          
                         </table>
                      </form>
                   </div>

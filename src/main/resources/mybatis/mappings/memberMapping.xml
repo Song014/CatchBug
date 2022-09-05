@@ -30,6 +30,7 @@
 	<update id="updateMypage">
 		update member set business_no=#{business_no}, business_name=#{business_name}, ceo=#{ceo}, contact=#{contact}, email=#{email}, business_address= #{business_address}  where id=#{id} 
 	</update>
+ 	
 	
 	<update id="insertImg">
 		update member set uploadImgFile=#{updateImgFile}  where id=#{id}
@@ -38,42 +39,5 @@
     <select id="getMemberid" resultType="member" parameterType="member">
 		select id,business_no,business_name,ceo from member where id=#{id}
 	</select>
-	<!--
-	 <select id="getBoard" resultType="board">
-		select * from board where seq=#{seq}  vo객체에 setter 자동주입
-	</select>
-	
-	
-	<update id="updateBoard" parameterType="board">
-		update board set title=#{title},content=#{content}, where seq=#{seq} 
-	</update>
-	
-	
-	<delete id="deleteBoard">
-		delete from board where seq=#{seq}
-	</delete>
-	
-	<select id="getBoardList" resultType="board"> -->
-		
-		<!-- select * from board
-		where title like '%'||#{searchKeyword||'%'
-		order by seq desc
-		 -->
-		
-	<!-- 	select * from board
-		where 1 = 1
-		
-		<if test="searchCondition"=="TITLE">
-			and title like '%'||#{searchKeyword}||'%'
-		</if>
-		<if test="searchCondition"=="CONTENT">
-			and title like '%'||#{searchKeyword}||'%'
-		</if>
-		order by seq desc
-		
-		
-		
-	</select> -->
-	
 	
 </mapper>

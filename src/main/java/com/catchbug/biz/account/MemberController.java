@@ -6,14 +6,15 @@ import java.io.IOException;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.catchbug.biz.vo.MemberVO;
 
-@RestController
+@Controller
 public class MemberController {
 
 	@Autowired
@@ -84,24 +85,26 @@ public class MemberController {
 		return mav;
 	}
 
-	// mypage / 마이페이지 수정
-		// 여러 페이지를 할떈 value="/mypage.do/:id" 이런식으로 rest를 쓰면 해결할수있다.
-		@RequestMapping(value = "/mypage.do", method = RequestMethod.POST)
-		public ModelAndView MypageOverview(MemberVO vo, MemberDAOmybaits memberDAO,
-				ModelAndView mav, HttpSession session) throws IllegalStateException, IOException {
-			
-			
-			System.out.println("mypage / 마이페이지 수정 ");
+	// mypage / 개인정보 수정
+		@RequestMapping(value = "/updateMypage.do", method = RequestMethod.POST)
+		public String MypageChange(MemberVO vo,Model model, HttpSession session) throws IllegalStateException, IOException {
+			System.out.println("mypage / 개인정보 수정 ");
 			memberService.updateMypage(vo);
 			MemberVO member = memberService.getMember(vo);
-		
-			if (member != null) {
-				System.out.println("환영합니다" + member.getId() + "님 어서오세요. 등급은 " + member.getLevel1() + "입니다");
-				session.setAttribute("member", member); // 세션 재할당?
-			}
-			mav.setViewName("account/mypage");
-
 			
-			return mav;
+			model.addAttribute("member",member);
+			session.setAttribute("member",member);
+			return "account/mypage";
 		}
+		
+//		@RequestMapping(value = "/updatePass.do", method = RequestMethod.POST)
+//		public String MypagePassChange(MemberVO vo,Model model, HttpSession session) throws IllegalStateException, IOException {
+//			System.out.println("mypage / 비밀번호 수정 ");
+//			memberService.updateMypage(vo);
+//			MemberVO member = memberService.getMember(vo);
+//			
+//			model.addAttribute("member",member);
+//			session.setAttribute("member",member);
+//			return "account/mypage";
+//		}
 }

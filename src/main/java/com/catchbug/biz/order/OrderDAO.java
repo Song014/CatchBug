@@ -36,13 +36,21 @@ public class OrderDAO {
 		return mybatis.selectList("OrderMapper.getOrderList", ovo);
 	}
 
-	// 해당 가맹점 id의 주문서 상세 리스트
+	// 해당 가맹점 id의 주문서 상세 리스트(모달)
 	public List<OrderVO> getOrderDetailList(OrderVO dvo) {
 		return mybatis.selectList("OrderMapper.getOrderDetail", dvo);
 	}
-	//해당 가맹점 상세정보
+	//해당 가맹점 상세정보(모달)
 	public MemberVO getMember(MemberVO mvo) {
 		return mybatis.selectOne("MemberDAO.getMemberid", mvo);
 	}
-
+	//가맹점 본인 반주내역 리스트
+	public OrderVO getOrderListid(OrderVO ovo){
+		return mybatis.selectOne("OrderMapper.getOrderListid", ovo);
+	}
+	//가맹점 주문서 상세 조회(모달)
+	public List<OrderVO> getOrderno(OrderVO ovo) {
+		System.out.println("getOrderno 실행");
+		return mybatis.selectList("OrderMapper.getOrderno", ovo);
+	}
 }

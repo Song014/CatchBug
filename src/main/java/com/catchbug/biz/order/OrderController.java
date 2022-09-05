@@ -216,10 +216,9 @@ public class OrderController {
             // 가맹점 발주내역 페이지 
             @ResponseBody
             @RequestMapping(value ="/orderHistory.do" , method=RequestMethod.GET)
-            public ModelAndView orderHistory(MemberVO mvo,OrderVO ovo,Model model,HttpSession session,ModelAndView mav) {
-               
-            
-                List<OrderVO> order_list=os.getOrderList(ovo);
+            public ModelAndView orderHistorypage(MemberVO mvo,OrderVO ovo,Model model,HttpSession session,ModelAndView mav) {
+                System.out.println("orderHistorypage");
+            	List<OrderVO> order_list=os.getOrderList(ovo);
                 model.addAttribute("olist", order_list);
                 mav.setViewName("admin/order_history");
                
@@ -245,6 +244,37 @@ public class OrderController {
                System.out.println(orderId);
                return orderId;
             }
+         // 가맹점 본인 발주 내역 리스트
+        	@RequestMapping(value="/francOrderHistory.do")
+        	public ModelAndView FancOrderHistory(OrderVO ovo,Model model,ModelAndView mav) {
+        		System.out.println("francOrderHistory.do");
+            	List<OrderVO> order_list=os.getOrderList(ovo);
+                mav.addObject("olist", order_list);
+                mav.setViewName("franc/franc_order_history");
+                return mav;
+        		
+        	}
+        	
+        	 // 가맹점 주문서 클릭시 해당 주문서 상세내역 내역 조회 (모달)
+            @ResponseBody
+            @RequestMapping(value="/orderFDetail.do",method=RequestMethod.GET)
+            public List<OrderVO> orderFDetail(OrderVO dvo,Model model){
+               System.out.println("orderFDetail 실행");
+               List<OrderVO> orderFDetail= os.getOrderno(dvo);
+               model.addAttribute("orderFDetail",orderFDetail);
+               System.out.println(orderFDetail);
+               return orderFDetail;
+            }
             
+        	   // id 클릭시 회원정보 조회(모달)
+            @ResponseBody
+            @RequestMapping(value="/orderfId.do",method=RequestMethod.GET)
+            public MemberVO orderfid(MemberVO mvo,Model model){
+               System.out.println("orderceo 실행");
+               MemberVO orderfId = os.getMember(mvo);
+               System.out.println(orderfId);
+               return orderfId;
+            }
+        	
             
 }

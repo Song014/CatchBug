@@ -15,6 +15,7 @@ public class MemberVO {
 	
 	private String id; // 아이디 
 	private String pass; // 비밀번호
+	private String new_pass;//새비밀번호
 	private String business_no; // 사업자 등록번호 
 	private String business_name; // 법인명 
 	private String ceo; // 대표자 
