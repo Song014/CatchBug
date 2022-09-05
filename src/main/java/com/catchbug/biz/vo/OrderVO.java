@@ -32,7 +32,7 @@ public class OrderVO {
 	private int product_no;
 	private int product_quantily;
 	private String product_name;
-	
+	 
 	private List<OrderItemVO> orders;
 	
 	public void initTotal() {
