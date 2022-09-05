@@ -29,7 +29,8 @@ public class MemberDAOmybaits {
 	   //마이페이지 수정
 	   public void updateMypage(MemberVO vo) {
 		   System.out.println("===> mybatis로  updateMypage실행");
-		   memberMybatis.update("MemberDAO.updateMypage", vo);
+		   memberMybatis.update("MemberDAO.updateMypage",vo);
+		
 	   }
 		   //마이페이지 이미지수정
 		public void updateImg(MemberVO vo) {
@@ -39,32 +40,4 @@ public class MemberDAOmybaits {
 		   
 	}  
 
-
-//	   
-//	   //글 삭제
-//	   public void deleteBoard(AccountVO vo) {
-//		   System.out.println("===> mybatis로 deleteAccount 실행");
-//		   accountMybatis.insert("AccountDAO.deleteAccount", vo);
-//		   //DAO도 다 수정해야댐
-//	   }
-//	   
-//	   //상세조회
-//	   public AccountVO getBoard(AccountVO vo) {
-//		   System.out.println("===> mybatis로 getBoard 실행");
-//		  
-//		   //DAO도 다 수정해야댐
-//		   return accountMybatis.selectOne("AccountDAO.getboard",vo);
-//		   
-//	   }
-//	 //글 전체 조회
-//	   public List<AccountVO> getBoardList(AccountVO vo){
-//		   System.out.println("===> mybatis로 getBoard 실행");
-//		  
-//		   return accountMybatis.selectList("AccountDAO.getBoard",vo);
-//		   //DAO도 다 수정해야댐
-		
-		
-		  
-		      
-//	   }
 

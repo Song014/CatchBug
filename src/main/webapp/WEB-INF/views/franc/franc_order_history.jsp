@@ -2,6 +2,8 @@
 <%@ page session="false"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@page import="com.catchbug.biz.vo.OrderVO"%>
+<%@page import="java.util.List"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -35,6 +37,10 @@
 <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
 <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
 <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+<!-- Jquery 선언 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+   crossorigin="anonymous"></script>
 
 <!-- Template Main CSS File -->
 <link href="assets/css/style.css" rel="stylesheet">
@@ -45,6 +51,8 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+<style>
+</style>
 </head>
 
 <body>
@@ -66,211 +74,167 @@
 
 	<main id="main" class="main">
 	<div class="pagetitle">
-		<h1>가맹점 전체 발주리스트</h1>
+		<h1>가맹점 발주 내역</h1>
 		<nav>
 			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a href="index.html">가맹점 관리</a></li>
-
-				<li class="breadcrumb-item active">가맹점 주문 내역</li>
+				<li class="breadcrumb-item"><a href="/">Home</a></li>
+				<li class="breadcrumb-item active">가맹점 발주 내역</li>
 			</ol>
 		</nav>
 	</div>
-	<section class="section">
+	<!-- End Page Title -->
+
+	<section class="section dashboard">
 		<div class="row">
-			<div class="col-lg-12">
-				<div class="card">
-					<div class="card-body">
-						<h5 class="card-title">전체 가맹점 주문내역</h5>
+			<div class="card">
+				<div class="card-body">
+					<div align="right" class="dataTable-top">
 
-
-						<div
-							class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
-							<div class="dataTable-top">
-								<div align="right" class="dataTable-top">
-									<div class="dataTable-search">
-										<form>
-											<input type="date" name="beforeDate"> <input
-												type="date" name="afterDate" id='currnetDate'> <select
-												name="searchOption">
-												<option value="orderNumber" selected="selected">상품번호</option>
-												<option value="content">상품명</option>
-												<option value="remarks">등록일자</option>
-											</select> <input type="text" name="input" placeholder="검색어를 입력해 주세요.">
-											<!-- <input type="button" name="inputBtn" value="검색"> -->
-											<input type="submit"
-												class="btn btn-sm btn-primary dataTable-input" value="검색" />
-										</form>
-									</div>
-								</div>
-							</div>
-
-							<div class="dataTable-container">
-								<table class="table datatable dataTable-table">
-									<thead>
-										<tr>
-											<th scope="col" data-sortable="" style="width: 5%;"><a
-												href="#" class="dataTable-sorter">#</a></th>
-											<th scope="col" data-sortable="" style="width: 8%;"><a
-												href="#" class="dataTable-sorter">주문번호</a></th>
-											<th scope="col" data-sortable="" style="width: 10%;"><a
-												href="#" class="dataTable-sorter">주문가맹점</a></th>
-											<th scope="col" data-sortable="" style="width: 8%;"><a
-												href="#" class="dataTable-sorter">주문일자</a></th>
-											<th scope="col" data-sortable="" style="width: 45%;"><a
-												href="#" class="dataTable-sorter">내용</a></th>
-											<th scope="col" data-sortable="" style="width: 8%;"><a
-												href="#" class="dataTable-sorter">가격</a></th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<th scope="row">1</th>
-											<td>1234567</td>
-											<td>캐치버그 홍대점123213123</td>
-											<td>08월21일</td>
-											<td>
-												<!-- 주문서 모달부분 코드 --> <a class="primary"
-												data-bs-toggle="modal"
-												data-bs-target="#modalDialogScrollable"> 상세보기 모달띄우기 </a>
-												<div class="modal fade" id="modalDialogScrollable"
-													tabindex="-1">
-													<div class="modal-dialog modal-dialog-scrollable">
-														<div class="modal-content">
-															<div class="modal-header">
-																<h5 class="modal-title">주문번호 : 123456789</h5>
-																<button type="button" class="btn-close"
-																	data-bs-dismiss="modal" aria-label="Close"></button>
-															</div>
-															<div class="modal-body">
-																<div class="card">
-																	<div class="card-body">
-																		<div class="card-title">
-																			<h5 style="text-align: right;">총 주문금액</h5>
-																			<div style="text-align: right;">
-																				<i class="bx bx-won">가격 적어주세요</i>
-
-																			</div>
-
-																		</div>
-
-																		<table class="table" tex>
-																			<thead>
-																				<tr>
-																					<th scope=" col" style="width: 20%;">상품코드</th>
-																					<th scope="col" style="width: 52%;">품목명</th>
-																					<th scope="col" style="width: 13%;">수량</th>
-																					<th scope="col" style="width: 15%;">가격</th>
-																				</tr>
-																			</thead>
-																			<tbody>
-																				<tr>
-																					<th scope="row">00001</th>
-																					<td>무선 마우스 GB110</td>
-																					<td>5</td>
-																					<td>10000123123</td>
-																				</tr>
-
-																			</tbody>
-																		</table>
-																	</div>
-																</div>
-															</div>
-															<div class="modal-footer">
-																<button type="button" class="btn btn-secondary"
-																	data-bs-dismiss="modal">Close</button>
-															</div>
-														</div>
-													</div>
-												</div> <!-- End Modal Dialog Scrollable-->
-											</td>
-											<td>총금액</td>
-										</tr>
-
-
-
-									</tbody>
-									<tbody>
-										<tr>
-											<th scope="row">1</th>
-											<td>1234127</td>
-											<td>캐치버그 서울대점123213123</td>
-											<td>08월21일</td>
-											<td>
-												<!-- 주문서 모달부분 코드 --> <a class="primary"
-												data-bs-toggle="modal"
-												data-bs-target="#modalDialogScrollable"> 상세보기 모달띄우기 </a>
-												<div class="modal fade" id="modalDialogScrollable"
-													tabindex="-1">
-													<div class="modal-dialog modal-dialog-scrollable">
-														<div class="modal-content">
-															<div class="modal-header">
-																<h5 class="modal-title">주문번호 : 123456789</h5>
-																<button type="button" class="btn-close"
-																	data-bs-dismiss="modal" aria-label="Close"></button>
-															</div>
-															<div class="modal-body">
-																<div class="card">
-																	<div class="card-body">
-																		<div class="card-title">
-																			<h5 style="text-align: right;">총 주문금액</h5>
-																			<div style="text-align: right;">
-																				<i class="bx bx-won">가격 적어주세요</i>
-
-																			</div>
-
-																		</div>
-
-																		<table class="table" tex>
-																			<thead>
-																				<tr>
-																					<th scope=" col" style="width: 20%;">상품코드</th>
-																					<th scope="col" style="width: 52%;">품목명</th>
-																					<th scope="col" style="width: 13%;">수량</th>
-																					<th scope="col" style="width: 15%;">가격</th>
-																				</tr>
-																			</thead>
-																			<tbody>
-																				<tr>
-																					<th scope="row">00001</th>
-																					<td>무선 마우스 GB110</td>
-																					<td>5</td>
-																					<td>10000123123</td>
-																				</tr>
-
-																			</tbody>
-																		</table>
-																	</div>
-																</div>
-															</div>
-															<div class="modal-footer">
-																<button type="button" class="btn btn-secondary"
-																	data-bs-dismiss="modal">Close</button>
-															</div>
-														</div>
-													</div>
-												</div> <!-- End Modal Dialog Scrollable-->
-											</td>
-											<td>총금액</td>
-										</tr>
-
-
-
-									</tbody>
-								</table>
-							</div>
-							<div class="dataTable-bottom">
-								<div class="dataTable-info">Showing 1 to 5 of 5 entries</div>
-								<nav class="dataTable-pagination">
-									<ul class="dataTable-pagination-list"></ul>
-								</nav>
-							</div>
+						<div>
+							<form>
+								<select name="searchOption">
+									<option value="order_no" selected="selected">주문서 번호</option>
+									<option value="product_name">상품명</option>
+								</select> <input type="text" name="input" placeholder="검색하세요">
+								<button>검색</button>
+							</form>
 						</div>
+					</div>
+
+					<div class="dataTable-container">
+						<form>
+							<table class="table datatable dataTable-table">
+								<tr>
+									<th scope="col" data-sortable=""><a href="#"
+										class="dataTable-sorter">#</a></th>
+									<th scope="col" data-sortable=""><a href="#"
+										class="dataTable-sorter">주문서 번호</a></th>
+									<th scope="col" data-sortable=""><a href="#"
+										class="dataTable-sorter">ID</a></th>
+									<th scope="col" data-sortable=""><a href="#"
+										class="dataTable-sorter">총 가격</a></th>
+									<th scope="col" data-sortable=""><a href="#"
+										class="dataTable-sorter">처리상태</a></th>
+									<th scope="col" data-sortable=""><a href="#"
+										class="dataTable-sorter">배송지</a></th>
+									<th scope="col" data-sortable=""><a href="#"
+										class="dataTable-sorter">메모</a></th>
+
+								</tr>
+								<c:forEach items="${olist}" var="olist">
+									<tr>
+										<td>#</td>
+										<td><a class="primary order_detail_modal2"
+											data-bs="${olist.order_no}" data-bs-toggle="modal"
+											data-bs-target="#modal-biz2"> ${olist.order_no}</a></td>
+
+										<td><a class="primary order_id_modal2"
+											data-bs="${olist.id}" data-bs-toggle="modal"
+											data-bs-target="#modalDialogScrollable2"> ${olist.id}님</a></td>
+										<td>${olist.total_price}원</td>
+										<td>${olist.order_status}번</td>
+										<td>${olist.shipping_address}</td>
+										<td>${olist.note}</td>
+									</tr>
+								</c:forEach>
+							</table>
+						</form>
 					</div>
 				</div>
 			</div>
+			
+
 		</div>
 	</section>
+
 	</main>
+	<!-- 모달1 -->
+	<div class="modal fade" id="modal-biz2" tabindex="-1">
+		<div class="modal-dialog modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">
+						주문서 번호 : <span id="orderModal41"> <!--주문자 id 들어가는곳-->
+						</span>
+					</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="card">
+						<div class="card-body">
+							<form>
+								<table class="table">
+									<thead>
+										<tr>
+											<th scope="col" style="width: 20%;">주문서 상세</th>
+											<th scope="col" style="width: 30%;">주문번호</th>
+											<th scope="col" style="width: 20%;">상품 번호</th>
+											<th scope="col" style="width: 20%;">상품명</th>
+											<th scope="col" style="width: 15%;">구입수량</th>
+										</tr>
+									</thead>
+									<tbody id="orderModal1">
+
+
+									</tbody>
+
+								</table>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 모달2 주문내용 전체품목-->
+	<div class="modal fade" id="modalDialogScrollable2" tabindex="-1">
+		<div class="modal-dialog modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">ceo 상세보기</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="card">
+						<!-- <div class="card-body">
+                     <div class="card-title">
+                        <h5 style="text-align: right;">총 주문금액</h5>
+                        <div style="text-align: right;">
+                           <i class="bx bx-won">가격 적어주세요</i>
+                        </div>
+                     </div> -->
+						<table class="table" tex>
+							<thead>
+								<tr>
+									<th scope="col" style="width: 20%;">ID</th>
+									<th scope="col" style="width: 30%;">사업자 등록번호</th>
+									<th scope="col" style="width: 30%;">법인명</th>
+									<th scope="col" style="width: 20%;">ceo</th>
+								</tr>
+							</thead>
+							<tbody id="orderModal62">
+
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary"
+					data-bs-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+	</div>
+	<!-- 모달 끝-->
 	<!-- End #main -->
 
 	<!-- ======= Footer ======= -->
@@ -295,11 +259,82 @@
 
 	<!-- Template Main JS File -->
 	<script src="assets/js/main.js"></script>
-
-	<!-- 날짜 검색시 오늘로 셋팅해주는 스크립트-->
+	
 	<script>
-		document.getElementById('inputSearchDate').valueAsDate = new Date();
-	</script>
+   /* order_detail 모달창 */
+   $(document).on("click",".order_detail_modal2", function (e) {
+         var orderno =$(this).data("bs");
+         console.log("모달 비동기처리 작동  : "+orderno);
+         e.preventDefault();
+         let stx ="";
+         $.ajax({
+                  type : "GET", //요청 메소드 방식
+                  url : "orderFDetail.do?order_no=" + orderno,
+                  success : function(result) {
+                     $("#orderModal1").empty();
+                     $("#orderModal41").empty();
+                       
+                       console.log(orderno)
+                       for(var j=0;j<result.length;j++){
+                        stx += ` 
+                           <tr>
+                              <td>`+result[j].detail_no+`</td>
+                              <td>`+result[j].order_no+`</td>
+                              <td>`+result[j].product_no+`</td>
+                              <td>`+result[j].product_name+`</td>
+                              <td>`+result[j].purchase_amount+`</td>
+                           </tr>
+
+                              `;
+                       }
+                  stb= orderno;
+                           $("orderModal1").html(stx);
+                           $("#orderModal41").html(stb);
+                           
+                     console.log("ajax 성공");
+                       
+                  }, 
+                  error : function(a, b, c) {
+                     //통신 실패시 발생하는 함수(콜백)
+                     console.log("실패" + a, b, c);
+                  }
+         })
+         }); 
+   /* order_detail 모달창 끝 */
+   
+    /* order_id 모달창 끝 */ 
+    
+     $(document).on("click", ".order_id_modal2", function (e) {
+         e.preventDefault();
+       var orderId =$(this).data("bs");
+         console.log("모달 비동기처리 작동  : "+orderId);
+         $.ajax({
+                  type : "GET", //요청 메소드 방식
+                  url : "orderfId.do?id=" + orderId,
+                  success : function(orderId) {
+                     $("#orderModal62").empty();
+                       console.log(orderId);
+
+                        stz = `
+                           <tr>
+                              <td>`+orderId.id+`</td>
+                              <td>`+orderId.business_no+`</td>
+                              <td>`+orderId.business_name+`</td>
+                              <td>`+orderId.ceo+`</td>
+                           </tr>
+                              `;
+                              
+                     console.log("ajax 성공");
+                           $("#orderModal62").html(stz);
+                  }, 
+                  error : function(a, b, c) {
+                     //통신 실패시 발생하는 함수(콜백)
+                     console.log("실패" + a, b, c);
+                  }
+         }) 
+     });
+         
+</script>
 
 
 </body>
