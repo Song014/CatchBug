@@ -39,4 +39,24 @@ public class MemberServiceImpl implements MemberService {
 		
 	}
 
+
+	@Override
+	public int updateMailKey(MemberVO vo) throws Exception {
+		
+		return MemberDAO.updateMailKey(vo);
+	}
+
+
+	@Override
+	public int updateMailAuth(MemberVO vo) throws Exception {
+		return MemberDAO.updateMailAuth(vo);
+	}
+
+
+	@Override
+	public int emailAuthFail(String id) throws Exception {
+		// TODO Auto-generated method stub
+		return MemberDAO.emailAuthFail(id);
+	}
+
 }

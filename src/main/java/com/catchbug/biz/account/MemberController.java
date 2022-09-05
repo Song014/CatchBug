@@ -7,6 +7,9 @@ import java.io.IOException;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.catchbug.biz.account.mail.MailHandler;
+import com.catchbug.biz.account.mail.TempKey;
 import com.catchbug.biz.vo.MemberVO;
 
 @RestController
@@ -21,6 +26,10 @@ public class MemberController {
 
 	@Autowired
 	MemberService memberService;
+	
+	//메일전송을 위한 의존주입
+	@Autowired
+	JavaMailSender mailSender;
 
 	// 회원가입 시작
 	@RequestMapping(value = "/sign_up.do", method = RequestMethod.GET)
@@ -31,13 +40,41 @@ public class MemberController {
 		return mav;
 	}
 
+	@Transactional
 	@RequestMapping(value = "/sign_up.do", method = RequestMethod.POST)
-	public ModelAndView InsertMember(MemberVO vo) {
+	public ModelAndView InsertMember(MemberVO vo) throws Exception {
 		System.out.println("account/sign_up //회원가입 폼에서 post방식 ");
-
-		memberService.insertMember(vo);
+		
+		String mail_key = new TempKey().getKey(30,false); // 랜덤키 30글자로 생성
+		vo.setMail_key(mail_key);  //랜덤키 세터주입.
+		memberService.insertMember(vo); //회원가입 진행
+		
+		//회원가입 완료후 메일인증 진행
+		MailHandler sendMail = new MailHandler(mailSender);
+		sendMail.setSubject("[CatchBug 물류사이트 인증메일 입니다.");
+		sendMail.setText(
+			"<h1>CatchBug 회원가입 인증메일</h1>" +
+			"<br>CatchBug에 오신것을 환영합니다.!" +
+			"<br>아래 [이메일 인증 확인] 버튼을 눌러주세요."+
+			"<br><a href='http://localhost:8080/registerEmail?email=" + vo.getEmail() +
+			"&mail_key=" + mail_key + 
+			"' target='_blank'>이메일 인증 확인</a>");
+		sendMail.setFrom("catchbugteam@gmail.com", "관리자");
+		sendMail.setTo(vo.getEmail());
+		sendMail.send();
+		
+		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("account/login_page");
+		return mav;
+	}
+	
+	@GetMapping("/registerEmail")
+	public ModelAndView emailConfirm(MemberVO vo) throws Exception{
+		memberService.updateMailAuth(vo);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/account/emailAuthSuccess");
+		
 		return mav;
 	}
 	// 회원가입 끝
@@ -45,14 +82,13 @@ public class MemberController {
 	// 로그인 시작
 	@RequestMapping(value = "/login_page.do", method = RequestMethod.GET)
 	public ModelAndView MemeberLoginReady() {
-		System.out.println("account/login_page //로그인 페이지에서  get방식  ");
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("account/login_page");
 		return mav;
 	}
 
-	// 로그아웃 코
+	// 로그아웃 코드
 	@RequestMapping(value = "/logout.do", method = RequestMethod.GET)
 	public ModelAndView logout(HttpSession session, ModelAndView mav) {
 		session.invalidate();
@@ -61,7 +97,7 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/login_page.do", method = RequestMethod.POST)
-	public ModelAndView MemberLogin(MemberVO vo, MemberDAOmybaits memberDAO, ModelAndView mav, HttpSession session) {
+	public ModelAndView MemberLogin(MemberVO vo, MemberDAOmybaits memberDAO, ModelAndView mav, HttpSession session) throws Exception {
 
 		System.out.println("account/login_page //로그인 페이지에서  post방식 ");
 		MemberVO member = memberService.getMember(vo);
@@ -72,8 +108,14 @@ public class MemberController {
 			// 이런식으로 el태그 써주시면 됩니다
 			session.setAttribute("member", member);
 			mav.setViewName("account/mypage");
+		}else {
+			mav.setViewName("member/login_page");
 		}
-		return mav;
+		if(memberService.emailAuthFail(vo.getId()) != 1) {
+			mav.setViewName("account/emailAuthFail");
+			return mav;
+		}
+		return null;
 
 	}
 

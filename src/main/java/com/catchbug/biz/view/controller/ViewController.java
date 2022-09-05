@@ -14,6 +14,11 @@ public class ViewController {
 		return "company/company_intro";
 	}
 	
+	@RequestMapping("/emailAuthSuccess.do")
+	public String emailAuthSuccess() {
+		return "/";
+	}
+	
 	
 	@RequestMapping("/master.do")
 	public String MasterPage() {

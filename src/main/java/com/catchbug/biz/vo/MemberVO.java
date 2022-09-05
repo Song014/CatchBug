@@ -25,6 +25,8 @@ public class MemberVO {
 	@DateTimeFormat(pattern ="yy/mm/dd")
 	private Date regdate; // 가입일 
 	private int level1; // 등급
+	private int mail_auth; //메일인증코드
+	private String mail_key; //메일 키
 
 	private MultipartFile uploadImgFile;
 

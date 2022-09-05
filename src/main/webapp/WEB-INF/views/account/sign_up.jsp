@@ -1,5 +1,4 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	<%@taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
@@ -11,7 +10,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>Dashboard - NiceAdmin Bootstrap Template</title>
+<title>캐치버그 물류관리센터 회원가입</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -129,7 +128,7 @@
                     
                     <div class="col-12">
                       <label for="yourName" class="form-label">* 사업자명</label>
-                      <input type="text" name="business_name" class="form-control" id="yourBusinessname" placeholder="123-45-00000"  required>
+                      <input type="text" name="business_name" class="form-control" id="yourBusinessname" placeholder="캐치버그 00점"  required>
                       <div class="invalid-feedback">Please, enter your Business Number!</div>
                     </div>
                   
