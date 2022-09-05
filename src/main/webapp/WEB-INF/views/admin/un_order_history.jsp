@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
 
 <!DOCTYPE html>
 
@@ -78,30 +77,17 @@
 			</ol>
 		</nav>
 	</div>
+
 	<!-- End Page Title -->
-
 	<section class="section dashboard">
-		<div class="row">
-			<div class="card">
-				<div class="card-body">
-
+		<div class="card">
+			<div class="card-body">
+				<div class="row">
 					<div align="right" class="dataTable-top">
-						<div class="dataTable-dropdown">
-							<label><select class="dataTable-selector"><option
-										value="5">5</option>
-									<option value="10" selected="">10</option>
-									<option value="15">15</option>
-									<option value="20">20</option>
-									<option value="25">25</option></select> entries per page</label>
-						</div>
 						<div class="dataTable-search">
-							<form>
-								<input type="date" name="beforeDate"> <input type="date"
-									name="afterDate" id='currnetDate'> <select
-									name="searchOption">
-									<option value="orderNumber" selected="selected">주문번호</option>
-									<option value="content">내용</option>
-									<option value="remarks">비고</option>
+							<form action="">
+								<select name="searchOption">
+									<option value="orderNumber" selected="selected">사업자명</option>
 								</select> <input type="text" name="input" placeholder="검색어를 입력해 주세요.">
 								<!-- <input type="button" name="inputBtn" value="검색"> -->
 								<button>검색</button>
@@ -111,8 +97,6 @@
 					<div class="dataTable-container">
 						<table class="table datatable dataTable-table">
 							<tr>
-								<th scope="col" data-sortable=""><a href="#"
-									class="dataTable-sorter">#</a></th>
 								<th scope="col" data-sortable=""><a href="#"
 									class="dataTable-sorter">주문번호</a></th>
 								<th scope="col" data-sortable=""><a href="#"
@@ -127,19 +111,24 @@
 									class="dataTable-sorter">상태</a></th>
 								<th scope="col">결제</th>
 							</tr>
-							<tr>
-								<td>1</td>
-								<td>주문번호넣어주세요</td>
-								<td><a class="primary" data-bs-toggle="modal"
-									data-bs-target="#modal-biz"> 사업자 상세보기 모달띄우기 </a></td>
-								<td>22.08.12</td>
-								<td><a class="primary" data-bs-toggle="modal"
-									data-bs-target="#modalDialogScrollable"> 주문 상세보기 모달띄우기 </a></td>
-								<td></td>
-								<td>대기</td>
-								<td><input type="button" name="ok" value="승인"> <input
-									type="button" name="no" value="취소"></td>
-							</tr>
+
+							<c:forEach var="list" items="${list }">
+								<tr>
+									<td>${list.get("ORDER_NO") }</td>
+									<td><a class="primary order_detail_member"
+										id='${list.get("ID")}' data-bs-toggle="modal"
+										data-bs-target="#modal-biz"> ${list.get("BUSINESS_NAME" )}
+									</a></td>
+									<td>${list.get("PROCESSING_DAY" )}</td>
+									<td><a class="primary order_detail_modal"
+										id='${list.get("ID")}' data-bs-toggle="modal"
+										data-bs-target="#modalDialogScrollable">주문 상세보기 </a></td>
+									<td>${list.get("NOTE" )}</td>
+									<td>대기</td>
+									<td><input type="button" name="ok" value="승인"> <input
+										type="button" name="no" value="취소"></td>
+								</tr>
+							</c:forEach>
 						</table>
 					</div>
 				</div>
@@ -169,7 +158,7 @@
 				<div class="modal-body">
 					<div class="card">
 						<div class="card-body">
-							<table class="table">
+							<table class="table" id="memberModal">
 								<tr>
 									<th>사업자명</th>
 									<td>늑대와여우</td>
@@ -206,7 +195,7 @@
 	<div class="modal fade" id="modalDialogScrollable" tabindex="-1">
 		<div class="modal-dialog modal-dialog-scrollable">
 			<div class="modal-content">
-				<div class="modal-header">
+				<div class="modal-header" id="orderNo">
 					<h5 class="modal-title">주문번호 : 123456789</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
@@ -216,28 +205,26 @@
 						<div class="card-body">
 							<div class="card-title">
 								<h5 style="text-align: right;">총 주문금액</h5>
-								<div style="text-align: right;">
+								<div style="text-align: right;" id="totalPrice">
 									<i class="bx bx-won">가격 적어주세요</i>
-
 								</div>
-
 							</div>
-
-							<table class="table" tex>
+							<table class="table" >
 								<thead>
 									<tr>
-										<th scope=" col" style="width: 20%;">상품코드</th>
-										<th scope="col" style="width: 52%;">품목명</th>
-										<th scope="col" style="width: 13%;">수량</th>
-										<th scope="col" style="width: 15%;">가격</th>
+										<th scope="col" style="width: 20%;">상품코드</th>
+										<th scope="col" style="width: 30%;">품목명</th>
+										<th scope="col" style="width: 20%;">주문수량</th>
+										<th scope="col" style="width: 20%;">현 재고</th>
 									</tr>
 								</thead>
-								<tbody>
+								<tbody id="orderModal1">
 									<tr>
 										<th scope="row">00001</th>
 										<td>무선 마우스 GB110</td>
 										<td>5</td>
 										<td>10000123123</td>
+										<td>4</td>
 									</tr>
 
 								</tbody>
@@ -253,9 +240,99 @@
 		</div>
 	</div>
 	<!-- 모달 끝-->
+
+
+	<script type="text/javascript">
+	// 사업자명 모달처리
+	$(document).on("click", ".order_detail_member", function (e) {
+		var memberId = e.target.id;
+		console.log("모달 비동기처리 작동 "+memberId);
+		e.preventDefault();
+		let str ="";
+		$.ajax({
+			type : "GET", //요청 메소드 방식
+			url : "memberInfo.do?id=" + memberId,
+			dataType : "json", //서버가 요청 URL을 통해서 응답하는 내용의 타입
+			success : function(result) {
+						str = `
+						<tobody>
+							<tr>
+								<th>사업자명</th>
+								<td>`+result.business_name+`</th>
+							</tr>
+						
+							<tr>
+								<th>대표자</th>
+								<td>`+result.ceo+`</th>
+							</tr>
+							<tr>
+								<th>가입일</th>
+								<td>`+result.regdate+`</th>
+							</tr>
+							<tr>
+								<th>사업자등록번호</th>
+								<td>`+result.contact+`</th>
+							</tr>
+							<tr>
+								<th>사업장주소지</th>
+								<td>`+result.business_address+`</th>
+							</tr>
+						</tobody>	
+							`;
+							$("#memberModal").html(str);
+				console.log("ajax 성공");
+			},
+			error : function(a, b, c) {
+				//통신 실패시 발생하는 함수(콜백)
+				console.log("실패" + a, b, c);
+			}
+		});
+			});
+			</script>
+	
+	<script type="text/javascript">
+	// 주문 상세보기
+	$(document).on("click", ".order_detail_modal", function (e) {
+		var memberId = e.target.id;
+		console.log("주문상세보기 모달 비동기처리 작동 "+memberId);
+		e.preventDefault();
+		let str ="";
+		 $.ajax({
+             type : "GET", //요청 메소드 방식
+             url : "orderDetail.do?id=" + memberId,
+             success : function(result) {
+             let totalPrice1 = result[0].total_price
+             let tp = totalPrice1.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+             $("#orderNo h5").remove(); // 주문번호
+             $("#totalPrice i").remove(); // 토탈 가격
+                $("#orderModal1").empty();
+                  console.log(result) 
+                  for(var i=0;i<result.length;i++){
+                   str += ` 
+                      <tr>
+                         <td>`+result[i].detail_no+`</td>
+                         <td>`+result[i].product_name+`</td>
+                         <td>`+result[i].purchase_amount+`</td>
+                         <td>`+result[i].product_quantily+`</td>
+                      </tr>
+                         `;
+                  } 
+                  	let orderNo = `<i>주문번호: `+result[0].order_no+`</i>`;
+                  	let totalPrice = `<h5>`+tp+`원</5>`;
+                  	$("#orderNo").html(orderNo);
+                  	$("#totalPrice").html(totalPrice);
+                  	$("#orderModal1").html(str);
+                console.log("ajax 성공");
+             }, 
+             error : function(a, b, c) {
+                //통신 실패시 발생하는 함수(콜백)
+                console.log("실패" + a, b, c);
+             }
+    	})
+	});
+			</script>
 <!-- End Main -->
-     
-     
+
      
 
 <!-- ======= Footer ======= -->
