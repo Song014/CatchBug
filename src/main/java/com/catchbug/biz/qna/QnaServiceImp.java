@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.catchbug.biz.vo.PageVO;
+import com.catchbug.biz.vo.QnaReplyVO;
 import com.catchbug.biz.vo.QnaVO;
 
 @Service
@@ -28,13 +29,11 @@ public class QnaServiceImp implements QnaService {
 
 	@Override
 	public QnaVO getQnaDetail(QnaVO vo) {
-		// TODO Auto-generated method stub
 		return dao.getQnaDetail(vo);
 	}
 
 	@Override
 	public void deleteQna(QnaVO vo) {
-		// TODO Auto-generated method stub
 		dao.deleteQna(vo);
 	}
 
@@ -46,8 +45,28 @@ public class QnaServiceImp implements QnaService {
 
 	@Override
 	public int getTotalBoard() {
-		// TODO Auto-generated method stub
 		return dao.getTotal();
+	}
+
+	@Override
+	public void WriteQnaReply(QnaReplyVO vo) {
+		dao.WriteQnaReply(vo);
+	}
+
+	@Override
+	public List<QnaReplyVO> getQnaReply(QnaReplyVO vo) {
+		// TODO Auto-generated method stub
+		return dao.getQnaReply(vo);
+	}
+
+	@Override
+	public void DeleteQnaReply(QnaReplyVO vo) {
+		dao.DeleteQnaReply(vo);
+	}
+
+	@Override
+	public void UpdateQnaReply(QnaReplyVO vo) {
+		dao.UpdateQnaReply(vo);
 	}
 
 }

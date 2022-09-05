@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.catchbug.biz.vo.BoardReplyVO;
 import com.catchbug.biz.vo.BoardVO;
+import com.catchbug.biz.vo.Criteria;
 import com.catchbug.biz.vo.NotiVO;
 
 @Service("boardService")
@@ -17,10 +18,11 @@ public class BoardServiceImpl implements BoardService {
 	
 	//공지 리스트
 	@Override
-	public List<NotiVO> get_Noti_list() {
+	public List<NotiVO> get_Noti_list(Criteria cri) {
 		System.out.println("Noti_list 서비스");
-		
-		return boardDAO.get_Noti_list();
+		System.out.println("cri ::: " + cri.toString());
+	
+		return boardDAO.get_Noti_list(cri);
 	}
 	
 	//공지 쓰기
@@ -127,6 +129,32 @@ public class BoardServiceImpl implements BoardService {
 		boardDAO.UpdateBoardReply(vo);
 		
 	}
+	//공지 검색
+	@Override
+	public List<NotiVO> SearchNoti(NotiVO vo) {
+		System.out.println("공지사항 검색 서비스");
+		return boardDAO.SearchNoti(vo);
+	}
+
+	@Override
+	public int listCount() {
+		int count = boardDAO.listCount();
+		return count;
+	}
+
+	@Override
+	public int listSearchCount(NotiVO vo) {
+		int count = boardDAO.listSearchCount(vo);
+		return count;
+	}
+
+	@Override
+	public int getTotalBoard() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	
 	
 	
 

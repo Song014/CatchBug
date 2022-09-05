@@ -158,7 +158,7 @@
 											</a></th>
 											<td>${list.product_no }</td>
 											<td><a class="primary product_modal"
-												data-bs-toggle="modal" data-bs-target="#modalProduct"
+													data-bs-toggle="modal" data-bs-target="#modalProduct"
 												id="${list.product_no}">${list.product_name }</a></td>
 											<td>${list.price }</td>
 											<td>${list.product_quantily }</td>
@@ -232,6 +232,23 @@
 		</div>
 	</div>
 	<!-- 해당상품 모달 끝 -->
+	
+	<script>
+	$(document).ready(function(){
+
+        const username = '${member.ceo}';
+        const level = '${member.level1}';
+        if(username == ""){
+        	alert("로그인한 유저만 이용가능합니다.");
+        	location.href="login_page.do";
+        }else{
+        	if(level != 1){
+            	alert("관리자만 이용가능합니다.");
+            	location.href="company_intro.do";
+        	}
+        }
+	});
+	</script>
 
 
 	<script type="text/javascript">

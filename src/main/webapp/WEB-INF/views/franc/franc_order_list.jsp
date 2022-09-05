@@ -293,19 +293,28 @@
 							</div>
 						</div>
 						<!— End Modal Dialog Scrollable—>
-          
-          
-          <script>
-             // 오늘 날짜
-             document.getElementById('currnetDate').value = new Date()
-                   .toISOString().slice(0, 10);
-          </script>
  	
        </div>
     </section>
  
     </main>
 <!-- End Main -->
+	<script>
+	$(document).ready(function(){
+
+        const username = '${member.ceo}';
+        const level = '${member.level1}';
+        if(username == ""){
+        	alert("로그인한 유저만 이용가능합니다.");
+        	location.href="login_page.do";
+        }else{
+        	if(level != 2){
+        		alert("승인된 유저만 이용가능합니다.");
+            	location.href="company_intro.do";
+        	}
+        }
+	});
+	</script>
      
      
      

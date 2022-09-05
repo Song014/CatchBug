@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
 
 <!DOCTYPE html>
 
@@ -90,22 +89,8 @@
 			<div class="card">
 				<div class="card-body">
 					<div align="right" class="dataTable-top">
-						<div class="dataTable-dropdown">
-							<label><select class="dataTable-selector"><option
-										value="5">5</option>
-									<option value="10" selected="">10</option>
-									<option value="15">15</option>
-									<option value="20">20</option>
-									<option value="25">25</option></select> entries per page</label>
-						</div>
 						<div class="dataTable-search">
 							<form>
-								<input type="date" name="beforeDate"> <input type="date"
-									name="afterDate" id='currnetDate'> <select
-									name="searchOption">
-									<option value="orderNumber" selected="selected">주문번호</option>
-									<option value="content">내용</option>
-									<option value="remarks">비고</option>
 								</select> <input type="text" name="input" placeholder="검색어를 입력해 주세요.">
 								<!-- <input type="button" name="inputBtn" value="검색"> -->
 								<button>검색</button>
@@ -184,6 +169,24 @@
 	</section>
 	</main>
 	<!-- End Main -->
+	
+	<script>
+	$(document).ready(function(){
+
+        const username = '${member.ceo}';
+        const level = '${member.level1}';
+        console.log(username);
+        if(username == ""){
+        	alert("로그인한 유저만 이용가능합니다.");
+        	location.href="login_page.do";
+        }else{
+        	if(level != 1){
+            	alert("관리자만 이용가능합니다.");
+            	location.href="company_intro.do";
+        	}
+        }
+	});
+	</script>
 
 
 

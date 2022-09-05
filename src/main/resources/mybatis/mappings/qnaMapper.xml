@@ -9,14 +9,14 @@
 	</select> -->
 
 	<insert id="insertQna">
-		insert into qna(no,id,tap,title,content)values((select nvl(max(no),0) + 1 from qna),#{id},#{tap},#{title},#{content} )
+		insert into qna(qna_no,id,tap,title,content,state)values((select nvl(max(qna_no),0) + 1 from qna),#{id},#{tap},#{title},#{content},#{state} )
 	</insert>
 	
 	<!-- 자유게시판 상세정보 가져오기 -->
 	<select id="selectOne" resultType="qna" parameterType="qna">
 		SELECT q.*,t.name
-		FROM qna q INNER JOIN tap t on q.tap=t.no
-		WHERE q.no = #{no}
+		FROM qna q INNER JOIN tap t on q.tap=t.tap
+		WHERE q.qna_no = #{qna_no}
 	</select>
 	
 	<!-- 로넘으로 글가져오기 -->
@@ -26,30 +26,64 @@
 		FROM (  SELECT ROWNUM rn, A.*,t.name
 		        FROM (  SELECT *
 		                FROM qna
+	
 		                ORDER BY day desc
-		        ) A inner join tap t on a.tap=t.no
+		        ) A inner join tap t on a.tap=t.tap
 		    )
 		WHERE rn >= #{startPage} and rn <= #{endPage}
-		
+			 
 		]]>
+		 <!--               WHERE TITLE LIKE '%'||#{title}||'%'
+						AND business_name LIKE '%'||#{business_name}||'%' -->
 	</select>
 	
+	<!-- 질문 게시글 수 -->
 	<select id="getTotal" resultType="int">
 	SELECT count(*) as total
 		FROM qna
 	</select>
 	
+	<!-- 질문 갱신 -->
 	<update id="updateQna">
-		update qna set tap=#{tap},title=#{title},content=#{content} where no=#{no}
+		update qna set tap=#{tap},title=#{title},content=#{content} where qna_no=#{qna_no}
 	</update>
 	
+	<!-- 질문 조회수 -->
 	<update id="updateQnaCnt">
 		update qna set cnt =
-		cnt + 1 where no = #{no}
+		cnt + 1 where qna_no = #{qna_no}
 	</update>
 	
+	<!-- 질문 삭제 -->
 	<delete id="deleteQna">
 		DELETE FROM qna
-		WHERE no = #{no}
+		WHERE qna_no = #{qna_no}
 	</delete>
+	
+	<!--  자유게시판 상세정보속 댓글정보 가져오기 -->
+	<select id="getQnaReply" resultType="qnaReply" parameterType="qnaReply">
+		SELECT *
+		FROM qna_re
+		WHERE qna_no = #{qna_no}
+	</select>
+	
+	<!--  자유게시판 댓글 작성 -->
+	<insert id="writeQnaReply" parameterType="qnaReply">
+		INSERT INTO QNA_RE
+		VALUES((select nvl(max(reply_no),0) + 1 from qna_re),#{reply_text},sysdate,#{id},#{ceo},#{qna_no})
+	</insert>
+	
+	<!-- 자유게시판 댓글 삭제 -->
+	<delete id="deleteQnaReply" parameterType="qnaReply">
+		DELETE FROM QNA_RE
+		WHERE reply_no = #{reply_no}
+	</delete>
+	
+	<!-- 자유게시판 댓글 수정 -->
+	<update id="updateQnaReply" parameterType="qnaReply">
+		UPDATE QNA_RE
+		SET reply_text = #{reply_text}
+		WHERE reply_no = #{reply_no}
+	</update>
+	
 </mapper>

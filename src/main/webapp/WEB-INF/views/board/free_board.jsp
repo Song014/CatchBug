@@ -167,16 +167,16 @@
 	</div>
 	</main>
 	<!-- End #main -->
-	<!-- <script>
-		$(document).ready(function(){
-			$("#search").submit(function(){
-				var searchTap = $("select[name=searchTap]").val();
-				var searchWord = $("input[name=searchWord]").val();
-				alert(searchTap +"<=>"+ searchWord);
+	<script>
+	$(document).ready(function(){
 
-			})
-		});
-	</script> -->
+        const username = '${member.ceo}'
+        if(username == ""){
+        	alert("로그인한 유저만 이용가능합니다.");
+        	location.href="login_page.do";	
+        }
+	});
+	</script>
 
 	<!-- ======= Footer ======= -->
 

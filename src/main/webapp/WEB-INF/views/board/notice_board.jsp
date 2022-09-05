@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>공 지 사 항 </title>
+<title>공 지 사 항</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -66,59 +66,103 @@
 	<main id="main" class="main">
 
 	<div class="pagetitle">
-		<h1 style="text-align: center;">공지사항</h1>
-		<table class="table table-bordered">
-			<thead>
-				<tr class="table-primary">
-					<th scope="col">#</th>
-					<th scope="col">이름</th>
-					<th scope="col">제목</th>
-					<th scope="col">조회수</th>
-					<th scope="col">작성일</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="list" items="${list }">
-					<tr>
-						<th class="col-lg-1" scope="row">${list.noti_no }</th>
-						<td class="col-lg-2">관리자</td>
-						<td class="col-lg-6"><a href="noti_detail.do?noti_no=${list.noti_no }">${list.noti_title }</a></td>
-						<td class="col-lg-1">${list.cnt }</td>
-						<td class="col-lg-2">${list.noti_day }</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-			<tbody>
-				<tr>
-					<th colspan="5">
-
-						<ul class="pagination justify-content-center">
-							<li class="page-item"><a class="page-link" href="#"
-								tabindex="-1" aria-disabled="true">Previous</a></li>
-							<li class="page-item"><a class="page-link" href="#">1</a></li>
-							<li class="page-item active" aria-current="page"><a
-								class="page-link" href="#">2</a></li>
-							<li class="page-item"><a class="page-link" href="#">3</a></li>
-							<li class="page-item"><a class="page-link" href="#">Next</a></li>
-						</ul>
-
-					</th>
-				</tr>
-			</tbody>
-		</table>
-		<div style="text-align: right;">
-			<c:choose>
-				<c:when test="${member.level1 eq 1 }">
-					<button type="button" class="btn btn-primary col-lg-1"
-						onClick="location.href='notice_Board_Write.do'">
-						<i class="bi bi-pencil">글쓰기</i>
-					</button>
-				</c:when>
-				<c:otherwise>
-				</c:otherwise>
-			</c:choose>
-		</div>
+		<h1>공지사항</h1>
+		<nav>
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="/">HOME</a></li>
+				<li class="breadcrumb-item active">공지 사항</li>
+			</ol>
+		</nav>
 	</div>
+	<section class="section dashboard">
+		<div class="card">
+			<div class="card-body">
+				<div class="row">
+					<div align="right" class="dataTable-top">
+						<div class="dataTable-search">
+							<form action="/notice_Board.do">
+								<select name="searchOption">
+									<option value="orderNumber" selected="selected">제목</option>
+								</select> <input type="text" name="noti_title"
+									placeholder="검색어를 입력해 주세요.">
+								<button>검색</button>
+							</form>
+						</div>
+					</div>
+					<table class="table table-bordered">
+						<thead>
+							<tr class="table-primary">
+								<th scope="col">#</th>
+								<th scope="col">이름</th>
+								<th scope="col">제목</th>
+								<th scope="col">조회수</th>
+								<th scope="col">작성일</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="list" items="${list }" varStatus="status">
+								<tr>
+
+									<th class="col-lg-1" scope="row">${list.noti_no }</th>
+									<td class="col-lg-2">관리자</td>
+									<td class="col-lg-6"><a
+										href="noti_detail.do?noti_no=${list.noti_no }">${list.noti_title }</a></td>
+									<%-- 									"/board/read${pageMaker.makeQuery(pageMaker.cri.page)}&bno=${item.bno}"> --%>
+									<td class="col-lg-1">${list.cnt }</td>
+									<td class="col-lg-2">${list.noti_day }</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+						<tbody>
+							<tr>
+								<th colspan="5">
+
+									<ul class="pagination justify-content-center">
+										<!-- 페이지 인덱스를 처리한다. -->
+										<c:if test="${pageMaker.prev}">
+											<li><a
+												href="notice_Board.do${pageMaker.makeQuery(pageMaker.startPage-1)}">&laquo;</a></li>
+										</c:if>
+
+										<c:forEach begin="${pageMaker.startPage}"
+											end="${pageMaker.endPage}" var="idx">
+											<li
+												<c:out value="${pageMaker.cri.page == idx? 'class=active':''}"/>><a
+												href="/notice_Board.do${pageMaker.makeQuery(idx) }">[${idx}]</a></li>
+										</c:forEach>
+
+										<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+											<li><a
+												href="notice_Board.do${pageMaker.makeQuery(pageMaker.endPage+1)}">&raquo;</a></li>
+										</c:if>
+									</ul> <!-- <ul class="pagination justify-content-center">
+										<li class="page-item"><a class="page-link" href="#"tabindex="-1" aria-disabled="true">Previous</a></li>
+										<li class="page-item"><a class="page-link" href="#">1</a></li>
+										<li class="page-item active" aria-current="page"><a
+											class="page-link" href="#">2</a></li>
+										<li class="page-item"><a class="page-link" href="#">3</a></li>
+										<li class="page-item"><a class="page-link" href="#">Next</a></li>
+									</ul> -->
+
+								</th>
+							</tr>
+						</tbody>
+					</table>
+					<div style="text-align: right;">
+						<c:choose>
+							<c:when test="${member.level1 eq 1 }">
+								<button type="button" class="btn btn-primary col-lg-1"
+									onClick="location.href='notice_Board_Write.do'">
+									<i class="bi bi-pencil">글쓰기</i>
+								</button>
+							</c:when>
+							<c:otherwise>
+							</c:otherwise>
+						</c:choose>
+					</div>
+				</div>
+			</div>
+		</div>
 	</section>
 
 	</main>

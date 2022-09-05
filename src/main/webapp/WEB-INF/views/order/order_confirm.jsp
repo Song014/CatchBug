@@ -86,7 +86,6 @@
 					</div>
 					<!-- End Page Title -->
 					<section class="section dashboard">
-						<div class="container">
 							<div class="card">
 								<div class="card-body">
 									<div class="row">
@@ -148,11 +147,11 @@
 
 									</div>
 									<!-- 배송지 선택 + 메모-->
-									<div class="row">
+									<div class="row" style="margin:10px 20%">
 
 										<!-- 배송지 정보  -->
 
-										<div class="col-lg-8" style="border: 1px solid black;">
+										<div class="col-lg-8" style="border: 1px solid black; padding: 20px;">
 											<p>
 												<strong>배송지 정보</strong>
 											</p>
@@ -186,7 +185,7 @@
 											
 										</div>
 										<!-- 주문자 정보 -->
-										<div class="col-lg-4" style="border: 1px solid black;">
+										<div class="col-lg-4" style="border: 1px solid black; padding: 20px;">
 											<p>
 												<strong>주문자 정보</strong>
 											</p>
@@ -211,7 +210,6 @@
 
 								</div>
 							</div>
-						</div>
 					</section>
 
 				</main>
@@ -223,7 +221,6 @@
 						let str ="";
 						if(e.target.value=="optionAddress"){
 							str = `
-								<table>
 						 		<tr>
 						 			<th>이름 :</th>
 						 			<td><input type="text" name="ceo" value=""></td>
@@ -236,12 +233,10 @@
 						 			<th>주소 :</th>
 						 			<td><input type="text" name="shipping_address" value=""></td>
 					 			</tr>
-						 	</table>
 						 	
 						 	`;
 						} else if(e.target.value=="defaultAddress"){
 							str = `
-							<table>
 								<tr>
 									<th>이름:</th>
 									<td><input type="hidden" name="ceo" value="${member.ceo }">${member.ceo }</td>
@@ -254,12 +249,10 @@
 									<th>주소:</th>
 									<td><input type="hidden" name="shipping_address" value="${member.business_address }">${member.business_address }</td>
 								</tr>
-							</table>
 							`
 						}
-						 	$(".order_form").html(str); 
+						 	$(".order_form table").html(str); 
 					})
-
 					$('input[name=cart_check]:checked').change(
 						function () {
 							let total_price = 0;
