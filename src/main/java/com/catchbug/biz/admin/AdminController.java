@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.catchbug.biz.account.MemberService;
 import com.catchbug.biz.vo.MemberVO;
-import com.catchbug.biz.vo.SearchVO;
+
 
 @Controller
 public class AdminController {
@@ -28,6 +28,7 @@ public class AdminController {
 	}
 
 	/* 가맹점 관리 */
+
 	// 전체 가맹리스트
 	@RequestMapping("/member_List.do")
 	public String memberList(Model model, MemberVO vo) {
@@ -74,6 +75,7 @@ public class AdminController {
 
 		return "redirect:factory_franc_wait_list.do";
 	}
+
 
 	// 가맹점 주문내역
 	@RequestMapping("/orderHistory.do")

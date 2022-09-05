@@ -11,9 +11,6 @@ import lombok.Data;
 
 @Data
 public class MemberVO {
-
-
-	
 	private String id; // 아이디
 	private String pass; // 비밀번호
 	private String business_no; // 사업자 등록번호

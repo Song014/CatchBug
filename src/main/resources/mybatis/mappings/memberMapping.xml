@@ -27,10 +27,6 @@
 		select * from member where id=#{id} and pass=#{pass}
 	</select>
 	
-	<select id="getMemberList" resultType="member">
-		select * from member
-	</select>
-	
 	<update id="updateMypage">
 		update member set business_no=#{business_no}, business_name=#{business_name}, ceo=#{ceo}, contact=#{contact}, email=#{email}, business_address= #{business_address}  where id=#{id} 
 	</update>

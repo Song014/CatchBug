@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+>>>>>>> branch 'lbh' of https://github.com/Song014/CatchBug.git
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -142,6 +146,7 @@
 	</section>
 	</main>
 	<!-- End Main -->
+
 
 	<!-- 모달부 -->
 	<div class="modal fade" id="modal-biz" tabindex="-1">

@@ -23,4 +23,5 @@ public interface MemberService {
 
 	public int getTotalMember(MemberVO vo);
 
+
 }
