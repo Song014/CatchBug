@@ -147,8 +147,4 @@ public class AdminController {
 		adminService.update_order_status(vo);
 		return "redirect:unOrderHistory.do";
 	}
-		
-	
-	
-	
 }
