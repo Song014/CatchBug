@@ -129,7 +129,7 @@
                     
                     <div class="col-12">
                       <label for="yourName" class="form-label">* 사업자명</label>
-                      <input type="text" name="business_name" class="form-control" id="yourBusinessname" placeholder="123-45-00000"  required>
+                      <input type="text" name="business_name" class="form-control" id="yourBusinessname" placeholder="주연테크컴퓨터"  required>
                       <div class="invalid-feedback">Please, enter your Business Number!</div>
                     </div>
                   

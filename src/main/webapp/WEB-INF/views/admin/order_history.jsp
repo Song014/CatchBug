@@ -244,7 +244,7 @@
 							<table class="table" tex>
 								<thead>
 									<tr>
-										<th scope=" col" style="width: 20%;">상품코드</th>
+										<th scope="col" style="width: 20%;">상품코드</th>
 										<th scope="col" style="width: 52%;">품목명</th>
 										<th scope="col" style="width: 13%;">수량</th>
 										<th scope="col" style="width: 15%;">가격</th>

@@ -112,7 +112,7 @@ public class ProductController {
 		}
 
 		/* 이미지 파일을 저장할 경로 김현민 맥북 기준으로 작성 */
-		String uploadFolder = "/Users/hyeon1339/CatchBugProject/src/main/webapp/resources/productImg";
+		String uploadFolder = "CatchBug/src/main/webapp/resources/productImg";
 
 		/* 날짜 폴더 경로 */
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
