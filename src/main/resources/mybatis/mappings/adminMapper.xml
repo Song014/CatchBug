@@ -27,9 +27,12 @@
 
 <!-- 반려 처리 -->
 <delete id="memberrefuse">
-	DELETE 
+<!-- 	DELETE 
 	FROM member
-	where id = #{id}
+	where id = #{id} -->
+	UPDATE member
+	SET level1 = 4
+	WHERE id = #{id}
 </delete>
 
 <!-- 미출고 내역 -->
@@ -59,7 +62,7 @@
     ON o.id=m.id
     INNER JOIN product_stock ps
     ON ps.product_no = p.product_no
-    WHERE o.id = #{id}
+    WHERE o.order_no = #{order_no}
 </select>
 
 <select id="SearchList" resultType="member" parameterType="search">
@@ -98,4 +101,12 @@
 	set ORDER_STATUS = 2
 	WHERE order_no = #{order_no}
 </update>
+
+<update id="update_order_refuse">
+	UPDATE orders
+	set ORDER_STATUS = 3
+	WHERE order_no = #{order_no}
+</update>
+
+<!-- 미출고  취소 -->
 </mapper>

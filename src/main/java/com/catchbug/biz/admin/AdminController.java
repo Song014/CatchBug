@@ -1,12 +1,13 @@
 package com.catchbug.biz.admin;
 
 
-import java.util.*;
+import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.catchbug.biz.vo.MemberVO;
 import com.catchbug.biz.vo.OrderItemVO;
@@ -107,6 +109,7 @@ public class AdminController {
 	@ResponseBody
 	public List<OrderVO> getOrder(OrderVO vo) {
 		System.out.println("주문 상세보기 모달 컨트롤러");
+		System.out.println(vo.getOrder_no() + "============================");
 		return adminService.getOrder(vo);
 	}
 	
@@ -119,32 +122,53 @@ public class AdminController {
 	// 가맹점 미출고 승인처리
 	@RequestMapping("/order_approval.do")
 	@Transactional(rollbackFor = Exception.class)
-	public String order_Approval(OrderVO vo) {
-		System.out.println(vo.getOrder_no());
-		vo.getOrder_no();
-		
-		//주문번호로 상품코드 조회.
-		List<OrderItemVO> orderList = adminService.getOrder_detail(vo);
-//		System.out.println(orderList.toString());
-		
-		// 상품코드 및 현재고 - 주문수 차감
-		for(OrderItemVO list : orderList) {
-			int product_no = list.getProduct_no();
-			if(list.getPurchase_amount() < adminService.getProduct_Quantily(product_no)) {
-				System.out.println("주문수 :" + list.getPurchase_amount()+ "현 재고 :"+ adminService.getProduct_Quantily(product_no));
+	public String order_Approval(OrderVO vo, HttpServletResponse response) throws Exception {
+		response.setContentType("text/html; charset=utf-8");
+		PrintWriter w = response.getWriter();
+		try {
+			//주문번호로 상품코드 조회.
+			List<OrderItemVO> orderList = adminService.getOrder_detail(vo);
+				//System.out.println(orderList.toString());
+			// 상품코드 및 현재고 - 주문수 차감
+			for(OrderItemVO list : orderList) {
 				
-				int 현재고 = adminService.getProduct_Quantily(product_no);
-				int 주문수 = list.getPurchase_amount();
-				
-				int deduction = 현재고 - 주문수;
-				System.out.println(deduction);
-				list.setPurchase_amount(deduction);
-				adminService.update_Quantily(list);
+				int product_no = list.getProduct_no();
+				if(list.getPurchase_amount() <= adminService.getProduct_Quantily(product_no)) {
+					System.out.println("주문수 :" + list.getPurchase_amount()+ "현 재고 :"+ adminService.getProduct_Quantily(product_no));
+					
+					int 현재고 = adminService.getProduct_Quantily(product_no);
+					int 주문수 = list.getPurchase_amount();
+					
+					int deduction = 현재고 - 주문수;
+					System.out.println(deduction);
+					list.setPurchase_amount(deduction);
+					adminService.update_Quantily(list);
+				} else {
+					 throw new Exception();
+				}
 			}
-		}
+	    // 승인 완료시 상태값 변경
+	       adminService.update_order_status(vo);
+		} catch (Exception e){
+	         System.out.println("예외가 발생했습니다...");
+	         w.write("<script>alert('재고가 부족으로 승인 실패');history.go(-1);</script>");
+			w.flush();
+			w.close();
+	    }
+		return "redirect:unOrderHistory.do";
+	}
+	
+	// 미출고 주문건 반려
+	@RequestMapping("order_refuse.do")
+	public String order_refuse(OrderVO vo) {
+		System.out.println("미출고 주문건 반려 컨트롤러");
 		
-		// 승인 완료시 상태값 변경
-		adminService.update_order_status(vo);
+//		List<OrderItemVO> orderList = adminService.getOrder_detail(vo);
+//		for(OrderItemVO list : orderList) {
+//			System.out.println("주문번호 : " + list.getOrder_no());
+//			System.out.println("상품코드 : " + list.getProduct_no());
+//		}
+		adminService.update_order_refuse(vo);
 		return "redirect:unOrderHistory.do";
 	}
 }

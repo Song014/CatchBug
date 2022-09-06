@@ -21,4 +21,5 @@ public interface AdminService {
 	public int getProduct_Quantily(int product_no);
 	public int update_Quantily(OrderItemVO list);
 	public void update_order_status(OrderVO vo);
+	public void update_order_refuse(OrderVO vo);
 }

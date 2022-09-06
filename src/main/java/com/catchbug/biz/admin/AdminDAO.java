@@ -83,4 +83,10 @@ public class AdminDAO {
 		mybatis.update("AdminMapper.update_order_status", vo);
 	}
 	
+	// 주문상태 반려로 변경
+	public void update_order_refuse(OrderVO vo) {
+		mybatis.update("AdminMapper.update_order_refuse", vo);
+	}
+	
+	
 }

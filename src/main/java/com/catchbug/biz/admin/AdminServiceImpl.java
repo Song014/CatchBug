@@ -102,6 +102,14 @@ public class AdminServiceImpl implements AdminService {
 		
 	}
 	
+	// 주문상태 배송중으로 변경
+		@Override
+		public void update_order_refuse(OrderVO vo) {
+			adminDAO.update_order_refuse(vo);
+			
+		}
+	
+	
 	
 	
 	
