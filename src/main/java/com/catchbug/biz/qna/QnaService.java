@@ -18,8 +18,6 @@ public interface QnaService {
 
 	void updateQna(QnaVO vo);
 
-	int getTotalBoard();
-
 	public void WriteQnaReply(QnaReplyVO vo);
 
 	public List<QnaReplyVO> getQnaReply(QnaReplyVO vo);
@@ -27,6 +25,8 @@ public interface QnaService {
 	public void DeleteQnaReply(QnaReplyVO vo);
 
 	public void UpdateQnaReply(QnaReplyVO vo);
+
+	int getTotalBoard(PageVO vo);
 
 
 }

@@ -296,8 +296,9 @@
              type : "GET", //요청 메소드 방식
              url : "orderDetail.do?id=" + memberId,
              success : function(result) {
-            	 console.log(result);
-             let totalPrice1 = result[0].total_price
+
+             let totalPrice1 = result[0].total_price;
+
              let tp = totalPrice1.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
              $("#orderNo h5").remove(); // 주문번호
              $("#totalPrice i").remove(); // 토탈 가격

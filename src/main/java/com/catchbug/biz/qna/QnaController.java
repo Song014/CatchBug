@@ -10,6 +10,7 @@ import com.catchbug.biz.common.Paging;
 import com.catchbug.biz.vo.PageVO;
 import com.catchbug.biz.vo.QnaReplyVO;
 import com.catchbug.biz.vo.QnaVO;
+import com.catchbug.biz.vo.SearchVO;
 
 @Controller
 public class QnaController {
@@ -19,15 +20,28 @@ public class QnaController {
 	private QnaService qs;
 
 	@RequestMapping("/QnABoard.do")
-	public String QnABoard(Model model, PageVO vo) {
+	public String QnABoard(Model model, PageVO vo,SearchVO svo) {
 		// 보여줄 페이지수, 전체 게시글수
-		Paging paging = new Paging(10, qs.getTotalBoard());
-
+		Paging paging = new Paging(10, qs.getTotalBoard(vo));
+		System.out.println(svo);
+		
+		
 		PageVO page = paging.getPaging(vo.getPage());
+		if(svo.getSearchWord()!=null) {
+			if(svo.getSearchTap()==1) {
+				page.setId(svo.getSearchWord());
+				System.out.println(vo+"작성자");
+			} else if(svo.getSearchTap()==2) {
+				page.setTitle(svo.getSearchWord());
+				System.out.println(vo+"타이틀");
+			}
+		}
 		System.out.println(page);
 		model.addAttribute("qna_list", qs.getQnaList(page));
 		
+		
 		model.addAttribute("page", page);
+		System.out.println(page+"asd");
 
 		return "board/qna_board";
 	}
@@ -65,6 +79,7 @@ public class QnaController {
 		return "board/qna_board_write";
 	}
 
+	// 질문게시판 글쓰기
 	@RequestMapping(value = "/qnaWrite.do", method = RequestMethod.POST)
 	public String write(QnaVO vo) {
 		System.out.println(vo);
@@ -73,14 +88,14 @@ public class QnaController {
 		return "redirect:/QnABoard.do?page=1";
 	}
 
-	// 자유게시판 댓글작성폼
+	// 질문게시판 댓글작성폼
 	@RequestMapping("/writeQnaReply.do")
 	public String writeQnaReply(QnaReplyVO vo) {
 		qs.WriteQnaReply(vo);
 		return "redirect:QnABoardDetail.do?qna_no=" + vo.getQna_no();
 	}
 
-	// 자유게시판 댓글 삭제 작동
+	// 질문게시판 댓글 삭제 작동
 	@RequestMapping("/deleteQnaReply.do")
 	public String deleteQnaReply(QnaReplyVO vo) {
 		System.out.println(vo);
@@ -88,7 +103,7 @@ public class QnaController {
 		return "redirect:QnABoardDetail.do?qna_no=" + vo.getQna_no();
 	}
 
-	// 자유게시판 댓글 수정 작동
+	// 질문게시판 댓글 수정 작동
 	@RequestMapping("/updateQnaReply.do")
 	public String updateQnaReply(QnaReplyVO vo) {
 		qs.UpdateQnaReply(vo);

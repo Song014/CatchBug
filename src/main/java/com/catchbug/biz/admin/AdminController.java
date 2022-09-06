@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.catchbug.biz.account.MemberService;
 import com.catchbug.biz.vo.MemberVO;
 import com.catchbug.biz.vo.OrderVO;
 import com.catchbug.biz.vo.SearchVO;

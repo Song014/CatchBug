@@ -31,5 +31,7 @@ public interface ProductService {
 	List<ProductVO> getProductList(CategoryVO vo);
 
 	OrderItemVO getProductItem(int product_no);
+	
+	public void updateStock(OrderItemVO oiv);
 
 }
