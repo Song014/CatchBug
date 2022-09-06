@@ -39,7 +39,6 @@ public class QnaController {
 		System.out.println(page);
 		model.addAttribute("qna_list", qs.getQnaList(page));
 		model.addAttribute("search",svo);
-		
 		model.addAttribute("page", page);
 		System.out.println(page+"asd");
 
