@@ -1,5 +1,6 @@
 package com.catchbug.biz.admin;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,18 +16,11 @@ import com.catchbug.biz.vo.MemberVO;
 import com.catchbug.biz.vo.OrderVO;
 import com.catchbug.biz.vo.SearchVO;
 
-
 @Controller
 public class AdminController {
 
 	@Autowired
-
 	private AdminService adminService;
-	
-
-
-	@Autowired
-	private MemberService MemberService;
 
 	// 메인 페이지
 
@@ -41,42 +35,29 @@ public class AdminController {
 	@RequestMapping("/member_List.do")
 	public String memberList(Model model, MemberVO vo) {
 
-		
-		System.out.println("컨트롤러"); 
-		  List<MemberVO> member_list = adminService.getMemberList();
-		  
-		  model.addAttribute("list", member_list);
-		
-
-
 		System.out.println("컨트롤러");
-		List<MemberVO> member_list = MemberService.getMemberList(vo);
+		List<MemberVO> member_list = adminService.getMemberList();
 
 		model.addAttribute("list", member_list);
-
-		System.out.println(member_list);
-
 
 		return "account/member_list";
 	}
 
-
-	
-	// 가입승인 대기목록  + 검색
+	// 가입승인 대기목록 + 검색
 	@RequestMapping("/factory_franc_wait_list.do")
 	public String franc_WaitList(MemberVO vo, Model model, SearchVO sw) {
-		
-		  System.out.println("가입 대기 목록 컨트롤러"); 
-		  System.out.println(sw);
-		  if(sw.getSearchWord() == null) {
-			  System.out.println("검색어X");
-			  List<MemberVO> member_list = adminService.getMemberWaitList();
-			  model.addAttribute("list", member_list); 
-		  }else {
-			  System.out.println("검색");
-			  List<MemberVO> member_list = adminService.franc_SearchList(sw);
-			  model.addAttribute("list", member_list); 
-		  }
+
+		System.out.println("가입 대기 목록 컨트롤러");
+		System.out.println(sw);
+		if (sw.getSearchWord() == null) {
+			System.out.println("검색어X");
+			List<MemberVO> member_list = adminService.getMemberWaitList();
+			model.addAttribute("list", member_list);
+		} else {
+			System.out.println("검색");
+			List<MemberVO> member_list = adminService.franc_SearchList(sw);
+			model.addAttribute("list", member_list);
+		}
 		return "admin/factory_franc_wait_list";
 	}
 
@@ -87,10 +68,6 @@ public class AdminController {
 		System.out.println("가입 승인 컨트롤러 회원아이디 : " + vo.getId());
 
 		adminService.memberLevelUpdate(vo);
-		
-
-		AdminService.memberLevelUpdate(vo);
-
 
 		return "redirect:factory_franc_wait_list.do";
 	}
@@ -101,30 +78,29 @@ public class AdminController {
 
 		System.out.println("가입 반려 컨트롤러 회원아이디 : " + vo.getId());
 
-		
 		adminService.memberrefuse(vo);
-		
+
 		return "redirect:factory_franc_wait_list.do";
 	}
-	
+
 	// 미출고 주문 현황
 	@RequestMapping("/unOrderHistory.do")
 	public String unOrderHistory(Model model) {
-		
+
 		System.out.println("미출고 컨트롤러");
-		List<HashMap<String,Object>> list = adminService.getunOrderHistory();
+		List<HashMap<String, Object>> list = adminService.getunOrderHistory();
 		model.addAttribute("list", list);
 		return "admin/un_order_history";
-	}  
-	
+	}
+
 	// 사업장 정보 모달
 	@GetMapping("/memberInfo.do")
 	@ResponseBody
-	public MemberVO getMemberVO(MemberVO vo){
+	public MemberVO getMemberVO(MemberVO vo) {
 		System.out.println("회원정보 모달 컨트롤러");
 		return adminService.getMemberM(vo);
 	}
-	
+
 	// 주문 상세보기
 	@GetMapping("/orderDetail.do")
 	@ResponseBody
@@ -132,18 +108,6 @@ public class AdminController {
 		System.out.println("주문 상세보기 모달 컨트롤러");
 		return adminService.getOrder(vo);
 	}
-	
-	// 가맹점 주문내역
-		@RequestMapping("/orderHistory.do")
-		public String orderHistory() {
-			return "admin/order_history";
-		}
-	
-		AdminService.memberrefuse(vo);
-
-		return "redirect:factory_franc_wait_list.do";
-	}
-
 
 	// 가맹점 주문내역
 	@RequestMapping("/orderHistory.do")
@@ -157,14 +121,6 @@ public class AdminController {
 		return "admin/franc_wait_list";
 	}
 
-	// 미출고 주문 현황
-	@RequestMapping("/unOrderHistory.do")
-	public String unOrderHistory() {
-		return "admin/un_order_history";
-	}
-
-
 	/* 재고 관리 */
-
 
 }
