@@ -21,21 +21,21 @@ public class QnaController {
 
 	@RequestMapping("/QnABoard.do")
 	public String QnABoard(Model model, PageVO vo,SearchVO svo) {
-		// 보여줄 페이지수, 전체 게시글수
-		Paging paging = new Paging(10, qs.getTotalBoard(vo));
-		System.out.println(svo);
-		
-		
-		PageVO page = paging.getPaging(vo.getPage());
+
+		// 페이징시 검색 값 넣어주고
 		if(svo.getSearchWord()!=null) {
 			if(svo.getSearchTap()==1) {
-				page.setId(svo.getSearchWord());
-				System.out.println(vo+"작성자");
+				vo.setId(svo.getSearchWord());
 			} else if(svo.getSearchTap()==2) {
-				page.setTitle(svo.getSearchWord());
-				System.out.println(vo+"타이틀");
+				vo.setTitle(svo.getSearchWord());
 			}
 		}
+		Paging paging = new Paging(10, qs.getTotalBoard(vo));
+		
+		PageVO page = paging.getPaging(vo.getPage());
+		page.setId(vo.getId());
+		page.setTitle(vo.getTitle());
+		
 		System.out.println(page);
 		model.addAttribute("qna_list", qs.getQnaList(page));
 		

@@ -38,7 +38,6 @@
 		WHERE rn >= #{startPage} and rn <= #{endPage}
 			 
 		]]>
-		<!-- WHERE TITLE LIKE '%'||#{title}||'%' AND business_name LIKE '%'||#{business_name}||'%' -->
 	</select>
 
 	<!-- 질문 게시글 수 -->
