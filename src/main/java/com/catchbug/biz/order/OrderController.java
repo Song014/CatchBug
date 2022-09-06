@@ -157,13 +157,22 @@ public class OrderController {
 		// 주문서 생성
 		os.insertOrder(ov);
 		// 주문한 상품리스트 생성
-		for (OrderItemVO oiv : ov.getOrders()) {
-			oiv.setOrder_no(ov.getOrder_no());
-			os.insertOrderItemList(oiv);
-			ps.updateStock(oiv);
-			System.out.println(oiv);
-			
+		if(member.getLevel1() == 1) {
+			for (OrderItemVO oiv : ov.getOrders()) {
+				oiv.setOrder_no(ov.getOrder_no());
+				ps.updateStock(oiv);
+				os.insertOrderItemList(oiv);
+				System.out.println(oiv);
+				
+			}
+		} else {
+			for (OrderItemVO oiv : ov.getOrders()) {
+				oiv.setOrder_no(ov.getOrder_no());
+				os.insertOrderItemList(oiv);
+				System.out.println(oiv);
+			}
 		}
+		
 
 		// 장바구니 삭제
 		for (OrderItemVO oiv : ov.getOrders()) {

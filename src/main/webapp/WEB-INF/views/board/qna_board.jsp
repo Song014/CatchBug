@@ -138,7 +138,7 @@
 						<tr>
 							<th colspan="6">
 								<ul class="pagination justify-content-center">
-									<c:forEach begin="1" end="2" items="${qna_list }"
+									<c:forEach begin="${page.startPageNum }" end="${page.endPageNum }" items="${qna_list }"
 										varStatus="status">
 										<c:choose>
 											<c:when test="${page.page == status.count }">
@@ -147,7 +147,7 @@
 											</c:when>
 											<c:otherwise>
 												<li class="paginate_button previous "><a
-													class="page-link" href="QnABoard.do?page=${status.count }">${status.index }</a></li>
+													class="page-link" href="QnABoard.do?page=${status.count }">${status.count }</a></li>
 											</c:otherwise>
 										</c:choose>
 									</c:forEach>
