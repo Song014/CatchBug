@@ -1,28 +1,33 @@
 
 package com.catchbug.biz.account;
 
-import java.io.File;
 import java.io.IOException;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.catchbug.biz.vo.MemberVO;
 
-@RestController
+@Controller
 public class MemberController {
+
+	@Inject
+	BCryptPasswordEncoder pwdEncoder;
 
 	@Autowired
 	MemberService memberService;
 
-	// 회원가입 시작
+	// 회원가입 페이지이동
 	@RequestMapping(value = "/sign_up.do", method = RequestMethod.GET)
 	public ModelAndView MemeberSignUp() {
 		System.out.println("account/sign_up //회원가입 페이지에서  get방식  ");
@@ -31,18 +36,30 @@ public class MemberController {
 		return mav;
 	}
 
+	// 회원가입(암호화)
 	@RequestMapping(value = "/sign_up.do", method = RequestMethod.POST)
-	public ModelAndView InsertMember(MemberVO vo) {
+	public String InsertMember(MemberVO vo) {
 		System.out.println("account/sign_up //회원가입 폼에서 post방식 ");
 
-		memberService.insertMember(vo);
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("account/login_page");
-		return mav;
-	}
-	// 회원가입 끝
+		int result = memberService.idcheck(vo);
 
-	// 로그인 시작
+		if (result == 1) {
+			return "account/sign_up";
+			// 입력된 아이디가 존재한다면 >> 다시 회원가입 페이지로 돌아가기
+		} else if (result == 0) {
+			System.out.println("아이디 중복 x");
+			String inputPass = vo.getPass();
+			String pwd = pwdEncoder.encode(inputPass);
+			vo.setPass(pwd);
+
+			memberService.insertMember(vo);
+			return "account/login_page";
+			// 존재하지 않는 아이디라면 회원가입 진행
+		}
+		return "account/login_page";
+	}
+
+	// 로그인 페이지이동
 	@RequestMapping(value = "/login_page.do", method = RequestMethod.GET)
 	public ModelAndView MemeberLoginReady() {
 		System.out.println("account/login_page //로그인 페이지에서  get방식  ");
@@ -52,7 +69,7 @@ public class MemberController {
 		return mav;
 	}
 
-	// 로그아웃 코
+	// 로그아웃
 	@RequestMapping(value = "/logout.do", method = RequestMethod.GET)
 	public ModelAndView logout(HttpSession session, ModelAndView mav) {
 		session.invalidate();
@@ -60,66 +77,84 @@ public class MemberController {
 		return mav;
 	}
 
+	// 로그인
 	@RequestMapping(value = "/login_page.do", method = RequestMethod.POST)
-	public ModelAndView MemberLogin(MemberVO vo, MemberDAOmybaits memberDAO, ModelAndView mav, HttpSession session) {
-
+	public String MemberLogin(MemberVO vo, HttpSession session, RedirectAttributes ra) {
 		System.out.println("account/login_page //로그인 페이지에서  post방식 ");
-		MemberVO member = memberService.getMember(vo);
+		session.getAttribute("member");
+		MemberVO login = memberService.getMember(vo);
+		boolean pwdMatch = pwdEncoder.matches(vo.getPass(), login.getPass());
 
-		if (member != null) {
-			System.out.println("환영합니다" + member.getId() + "님 어서오세요. 등급은 " + member.getLevel1() + "입니다");
-			// 세션에 멤버에대한 값들 전부 담아주실꺼면 아래처럼 한번에 담아주시고 프론트단에서 ${member.id} ${member.pass}
-			// 이런식으로 el태그 써주시면 됩니다
-			session.setAttribute("member", member);
-			mav.setViewName("account/mypage");
+		if (login != null && pwdMatch == true) {
+			session.setAttribute("member", login);
+			System.out.println("값 잘 들어감");
+			return "account/mypage";
+		} else {
+			session.setAttribute("member", null);
+			System.out.println("세션 null");
+			return "account/login_page";
 		}
-		return mav;
-
 	}
 
 	// 로그인끝
-
 	// 마이페이지
 	@RequestMapping(value = "/mypage.do", method = RequestMethod.GET)
-	public ModelAndView Mypage() {
+	public String Mypage(MemberVO vo,Model model) {
 		System.out.println("account/mypage //마이 페이지에서  get방식  ");
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("account/mypage");
-		return mav;
+		return "account/mypage";
 	}
 
-	// mypage / 마이페이지 수정
-	// 여러 페이지를 할떈 value="/mypage.do/:id" 이런식으로 rest를 쓰면 해결할수있다.
-	@RequestMapping(value = "/mypage.do/{page}", method = RequestMethod.POST)
-	public ModelAndView MypageOverview(@PathVariable("page") String page, MemberVO vo, MemberDAOmybaits memberDAO,
-			ModelAndView mav, HttpSession session) throws IllegalStateException, IOException {
-		System.out.println("mypage / 마이페이지 수정 ");
+	// mypage / 개인정보 수정
+	@RequestMapping(value = "/myPageUpdate.do", method = RequestMethod.POST)
+	public String MypageChange(MemberVO vo, HttpSession session) throws IllegalStateException, IOException {
+		System.out.println("mypage / 개인정보 수정 ");
+//		MemberVO login = memberService.getMember(vo);
+//
+//		boolean pwdMatch = pwdEncoder.matches(vo.getPass(), login.getPass());
+//		if (pwdMatch) {
+//			System.out.println("pwdMatch 성공");
+//			memberService.updateMypage(vo);
+//			session.setAttribute("member", login);
+//			System.out.println("개인정보 수정완료");
+//		} else {
+//			System.out.println("pwdMatch 실패");
+//		}
 		memberService.updateMypage(vo);
-		MemberVO member = memberService.getMember(vo);
+		session.invalidate();
+		return "account/login_page";
+	}
 
-		if (member != null) {
-			System.out.println("환영합니다" + member.getId() + "님 어서오세요. 등급은 " + member.getLevel1() + "입니다");
-			session.setAttribute("member", member); // 세션 재할당?
-		}
+	// 비밀번호 체크
+	@ResponseBody
+	@RequestMapping(value = "/passChk.do", method = RequestMethod.POST)
+	public boolean MypagePassChange(MemberVO vo,HttpSession session) throws Exception {
+		System.out.println("mypage / 수정전 비밀번호 체크 ");
+		
+		  MemberVO login = memberService.getMember(vo);
+		  
+		  System.out.println(vo.getPass()+"입니다아아아");
+		  System.out.println(login.getPass()+"입니닷");
+		 
+		boolean pwdcChk = pwdEncoder.matches(vo.getPass(),login.getPass());
+		System.out.println(pwdcChk);
+		return pwdcChk;
 
-		MultipartFile uploadImgFile = vo.getUploadImgFile();
+	}
 
-		if (page == "1") {
-			memberService.updateImg(vo);
-			if (!uploadImgFile.isEmpty()) {
-				String fileName = uploadImgFile.getOriginalFilename();
-				uploadImgFile.transferTo(
-						new File("C:\\work\\STS-bundle\\workspace\\CatchBug6\\src\\main\\webapp\\resources\\assets\\img"
-								+ fileName));
+	// 아이디 중복 체크
+	@ResponseBody
+	@RequestMapping(value = "/idChk.do", method = RequestMethod.POST)
+	public int idChk(MemberVO vo) throws Exception {
+		int result = memberService.idcheck(vo);
+		return result;
+	}
 
-				mav.setViewName("account/mypage");
-			} else if (page == "2") {
-				mav.setViewName("account/mypage");
-			} else if (page == "3") {
-				mav.setViewName("account/mypage");
-			}
+	// mypage //비밀번호 변경
+	@RequestMapping(value = "/updatePass.do", method = RequestMethod.POST)
+	public String MypagePassChange(MemberVO vo, Model model, HttpSession session, RedirectAttributes ra)
+			throws IllegalStateException, IOException {
+		System.out.println("mypage / 비밀번호  변경 ");
 
-		}
-		return mav;
+		return "account/mypage";
 	}
 }

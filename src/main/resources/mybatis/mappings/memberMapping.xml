@@ -4,72 +4,51 @@
 
 <mapper namespace="MemberDAO">
 
-		<!--  <resultMap type="board" id="boardResult">
-			<id property="seq" column="SEQ"></id>
-			<result property="title" column="TITLE"/>
-		</resultMap> -->
-	
-	<insert id="insertMember" >
-		<!-- <selectKey keyProperty="seq" resultType="int" order="BEFORE">
-			select board_seq.nextval as seq from dual;
-		</selectKey>
-		insert into board(seq,title,writer,content)
-		values(#{seq},#{title},#{writer},#{content}) -->
-		
-		insert into member(id,pass,business_no,business_name,ceo,contact,email,business_address)
-			values(#{id},#{pass},#{business_no},#{business_name},#{ceo},#{contact},#{email},#{business_address})
-			<!-- values('1','2','3','4','5','6','7','8') -->
-			<!-- #{  } 는 vo객체에 자동 setter 주입 -->
+	<!-- 회원가입 암호화 -->
+	<insert id="insertMember">
+		insert into
+		member(id,pass,business_no,business_name,ceo,contact,email,business_address)
+		values(#{id},#{pass},#{business_no},#{business_name},#{ceo},#{contact},#{email},#{business_address})
 	</insert>
+	<!-- 패스워드 체크 -->
+	<select id="passChk" resultType="int">
+		SELECT COUNT(*) FROM member
+		WHERE id = #{id}
+		  AND pass = #{pass}
+	</select>
 	
+	<!-- 아이디 중복 체크 -->
+	<select id="idChk" resultType="int">
+		SELECT COUNT(*) FROM member
+		WHERE id = #{id}
+	</select>
 
-	<select id="getMember" resultType="member" parameterType="member">
-		select * from member where id=#{id} and pass=#{pass}
+
+	<select id="getMember" resultType="member"
+		parameterType="member">
+		select * from member where id=#{id} <!-- and pass=#{pass} -->
 	</select>
-	
+
 	<update id="updateMypage">
-		update member set business_no=#{business_no}, business_name=#{business_name}, ceo=#{ceo}, contact=#{contact}, email=#{email}, business_address= #{business_address}  where id=#{id} 
+		update member set business_no=#{business_no},
+		business_name=#{business_name}, ceo=#{ceo}, contact=#{contact},
+		email=#{email}, business_address= #{business_address} where id=#{id}
 	</update>
-	
+
+	<update id="updateMypagePass">
+		update member set pass=#{pass} where id=#{id}
+	</update>
+
+
 	<update id="insertImg">
-		update member set uploadImgFile=#{updateImgFile}  where id=#{id}
+		update member set uploadImgFile=#{updateImgFile}
+		where id=#{id}
 	</update>
-	<!--
-	 <select id="getBoard" resultType="board">
-		select * from board where seq=#{seq}  vo객체에 setter 자동주입
+	<!-- 발주내역에서 id검색하면 id정보 조회 -->
+	<select id="getMemberid" resultType="member"
+		parameterType="member">
+		select id,business_no,business_name,ceo from member
+		where id=#{id}
 	</select>
-	
-	
-	<update id="updateBoard" parameterType="board">
-		update board set title=#{title},content=#{content}, where seq=#{seq} 
-	</update>
-	
-	
-	<delete id="deleteBoard">
-		delete from board where seq=#{seq}
-	</delete>
-	
-	<select id="getBoardList" resultType="board"> -->
-		
-		<!-- select * from board
-		where title like '%'||#{searchKeyword||'%'
-		order by seq desc
-		 -->
-		
-	<!-- 	select * from board
-		where 1 = 1
-		
-		<if test="searchCondition"=="TITLE">
-			and title like '%'||#{searchKeyword}||'%'
-		</if>
-		<if test="searchCondition"=="CONTENT">
-			and title like '%'||#{searchKeyword}||'%'
-		</if>
-		order by seq desc
-		
-		
-		
-	</select> -->
-	
-	
+
 </mapper>
