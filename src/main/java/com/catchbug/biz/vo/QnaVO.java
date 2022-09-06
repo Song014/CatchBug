@@ -24,4 +24,5 @@ public class QnaVO {
 	private int cnt;
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone = "Asia/Seoul")
 	private Date day;
+	
 }
