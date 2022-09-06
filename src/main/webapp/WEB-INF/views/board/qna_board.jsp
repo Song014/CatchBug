@@ -143,11 +143,11 @@
 										<c:choose>
 											<c:when test="${page.page == status.count }">
 												<li class="paginate_button previous active"><a
-													class="page-link" href="QnABoard.do?page=${i }">${i }</a></li>
+													class="page-link" href="QnABoard.do?page=${i }&searchTap=${search.searchTap }&searchWord=${search.searchWord }">${i }</a></li>
 											</c:when>
 											<c:otherwise>
 												<li class="paginate_button previous "><a
-													class="page-link" href="QnABoard.do?page=${i }">${i }</a></li>
+													class="page-link" href="QnABoard.do?page=${i }&searchTap=${search.searchTap }&searchWord=${search.searchWord }">${i }</a></li>
 											</c:otherwise>
 										</c:choose>
 									</c:forEach>
