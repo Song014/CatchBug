@@ -25,8 +25,11 @@
 		</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml
+			<param-value>
+			/WEB-INF/spring/appServlet/servlet-context.xml
+			/WEB-INF/spring/member-security.xml
 			</param-value>
+			<!-- 회원가입 암호화 시큐리티 -->
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 

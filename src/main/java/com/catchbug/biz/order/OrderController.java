@@ -224,8 +224,8 @@ public class OrderController {
             }
             // 장바구니 번호 클릭시 해당 id가 주문한 내역 조회 (모달)
             @ResponseBody
-            @RequestMapping(value="/orderDetail.do",method=RequestMethod.GET)
-            public List<OrderVO> orderDetail(OrderVO dvo,Model model){
+            @RequestMapping(value="/orderDetailid.do",method=RequestMethod.GET)
+            public List<OrderVO> orderDetailid(OrderVO dvo,Model model){
                System.out.println("orderDetail 실행");
                List<OrderVO> orderDetail=os.getOrderDetailList(dvo);
                model.addAttribute("orderDetail",orderDetail);
@@ -274,5 +274,5 @@ public class OrderController {
                return orderfId;
             }
         	
-            
+
 }

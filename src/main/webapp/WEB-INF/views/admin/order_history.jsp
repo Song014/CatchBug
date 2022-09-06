@@ -80,7 +80,6 @@
 
 
 
-
    <!-- ======= Main ======= -->
    <!-- main start -->
    <main id="main" class="main">
@@ -141,8 +140,8 @@
                               data-bs-toggle="modal" data-bs-target="#modalDialogScrollable">
                                  ${olist.id}</a></td>
                            <td>${olist.total_price}원</td>
+                           <td>${olist.shipping_address}</td>                    
                            <td>${olist.order_status}</td>
-                           <td>${olist.note}</td>                    
                         </tr>
                      </c:forEach>
                   </table>
@@ -298,7 +297,7 @@
          let str ="";
          $.ajax({
                   type : "GET", //요청 메소드 방식
-                  url : "orderDetail.do?id=" + orderId,
+                  url : "orderDetailid.do?id=" + orderId,
                   success : function(result) {
                      $("#orderModal1").empty();
                      $("#orderModal3").empty();

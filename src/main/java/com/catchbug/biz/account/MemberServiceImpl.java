@@ -25,18 +25,25 @@ public class MemberServiceImpl implements MemberService {
 		return MemberDAO.getMember(vo);
 		 
 	}
-
-
 	@Override
 	public void updateMypage(MemberVO vo) {
 		MemberDAO.updateMypage(vo);
 	}
-
-
 	@Override
 	public void updateImg(MemberVO vo) {
 		MemberDAO.updateImg(vo);
-		
 	}
 
+
+	@Override
+	public void updatePass(MemberVO vo) {
+		MemberDAO.updatePass(vo);		
+	}
+
+
+	@Override
+	public int idcheck(MemberVO vo) {
+		return MemberDAO.idcheck(vo);
+		
+	}
 }

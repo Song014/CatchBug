@@ -26,9 +26,6 @@ public class OrderVO {
 
 	
 	//bj
-	private int detail_no;
-	private int purchase_amount;
-	private int product_no;
 	private int product_quantily;
 	private String product_name;
 		private String tprice; // 장바구니에 담긴 총가격

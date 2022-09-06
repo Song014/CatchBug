@@ -1,6 +1,5 @@
 <%@page import="java.util.List"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="com.catchbug.biz.vo.MemberVO"%>
@@ -141,7 +140,7 @@
 							<div class="tab-pane fade show active profile-overview"
 								id="profile-overview" role="tabpanel">
 								<!-- 자기소개 이미지 파일 변경 -->
-								<form action="mypage.do/1" method="post"
+								<form action="mypageProfile.do" method="post"
 									enctype="multipart/form-data">
 									<div class="row mb-3">
 										<label for="profileImage"
@@ -206,23 +205,23 @@
 								role="tabpanel">
 						<!-- 마이페이지 개인정보 변경 폼 시작 -->
 
-								<form action="updateMypage.do" method="post">
+								<form id="updateForm" action="/myPageUpdate.do" method="post">
 									
-
 									<div class="row mb-3">
 										<div class="col-md-8 col-lg-9">
 											<input name="id" type="hidden" class="form-control" id="id"
 												value="${member.id}">
 										</div>
 									</div>
-									<div class="row mb-3">
+									<div class="row mb-3"><label for="about" class="col-md-4 col-lg-3 col-form-label">
+									비밀번호 확인
+									</label>
 										<div class="col-md-8 col-lg-9">
-											<input name="pass" type="hidden" class="form-control"
-												id="pass" value="${member.pass}">
+											<input name="pass" type="password" class="form-control"
+												id="pass" >
+												
 										</div>
 									</div>
-
-
 
 									<div class="row mb-3">
 										<label for="about" class="col-md-4 col-lg-3 col-form-label">사업자
@@ -242,7 +241,7 @@
 									<div class="row mb-3">
 										<label for="Job" class="col-md-4 col-lg-3 col-form-label">대표자</label>
 										<div class="col-md-8 col-lg-9">
-											<input name="ceo" type="text" class="form-control" id="Job"
+											<input name="ceo" type="text" class="form-control" id="ceo"
 												value="${member.ceo}">
 										</div>
 									</div>
@@ -250,14 +249,14 @@
 										<label for="Country" class="col-md-4 col-lg-3 col-form-label">연락처</label>
 										<div class="col-md-8 col-lg-9">
 											<input name="contact" type="text" class="form-control"
-												id="Country" value="${member.contact}">
+												id="contact" value="${member.contact}">
 										</div>
 									</div>
 									<div class="row mb-3">
 										<label for="Address" class="col-md-4 col-lg-3 col-form-label">Email</label>
 										<div class="col-md-8 col-lg-9">
 											<input name="email" type="text" class="form-control"
-												id="Address" value="${member.email}">
+												id="email" value="${member.email}">
 										</div>
 									</div>
 									<div class="row mb-3">
@@ -265,22 +264,22 @@
 											주소지</label>
 										<div class="col-md-8 col-lg-9">
 											<input name="business_address" type="text"
-												class="form-control" id="Phone"
+												class="form-control" id="business_address"
 												value="${member.business_address}">
 										</div>
 									</div>
 
+								</form>
 									<div class="text-center">
-										<button type="submit" class="btn btn-primary">Save
+										<button type="button" class="btn btn-primary" id="submit">Save
 											Changes</button>
 									</div>
-								</form>
 							</div>
 							
 							<div class="tab-pane fade pt-3" id="profile-change-password"
 								role="tabpanel">
 					<!-- 비밀번호 변경 폼 시작 -->
-								<form action="updatePass" method="post">
+								<form action="updatePass.do" method="post">
 									<div class="row mb-3">
 										<label for="currentPassword"
 											class="col-md-4 col-lg-3 col-form-label">현재 비밀번호 </label>
@@ -395,6 +394,65 @@
        		alert(username + "님 안녕하세요 아직 승인이 완료되지 않았습니다.");
        	}
 	});
+	</script>
+	<script type="text/javascript">
+		$(document).ready(function(){		
+			$("#submit").on("click", function(){
+				if($("#business_no").val()==""){
+					alert("비밀번호를 입력해주세요.");
+					$("#business_no").focus();
+					return false;
+				}
+				if($("#business_name").val()==""){
+					alert("성명을 입력해주세요.");
+					$("#business_name").focus();
+					return false;
+				}
+				if($("#ceo").val()==""){
+					alert("대표자를 입력해주세요.");
+					$("#ceo").focus();
+					return false;
+				}
+				if($("#contact").val()==""){
+					alert("연락처를 입력해주세요.");
+					$("#contact").focus();
+					return false;
+				}
+				if($("#email").val()==""){
+					alert("이메일을 입력해주세요.");
+					$("#email").focus();
+					return false;
+				}
+				if($("#business_address").val()==""){
+					alert("사업장 주소지를 입력해주세요.");
+					$("#business_address").focus();
+					return false;
+				}
+				$.ajax({
+					url : "/passChk.do",
+					type : "POST",
+					dateType : "json",
+					data : $("#updateForm").serializeArray(),
+					success: function(data){
+						if(data==true){
+							if(confirm("회원수정하시겠습니까?")){
+								$("#updateForm").submit();
+							}
+						}else{
+							alert("패스워드가 틀렸습니다.");
+							return;
+							
+						}
+					}
+				})
+			})
+			// 취소
+			/* $(".cencle").on("click", function(){
+				
+				location.href = "/";
+						    
+			}) */
+		});
 	</script>
 </body>
 
