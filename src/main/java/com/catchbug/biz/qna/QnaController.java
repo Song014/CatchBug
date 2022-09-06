@@ -10,6 +10,7 @@ import com.catchbug.biz.common.Paging;
 import com.catchbug.biz.vo.PageVO;
 import com.catchbug.biz.vo.QnaReplyVO;
 import com.catchbug.biz.vo.QnaVO;
+import com.catchbug.biz.vo.SearchVO;
 
 @Controller
 public class QnaController {
@@ -19,13 +20,25 @@ public class QnaController {
 	private QnaService qs;
 
 	@RequestMapping("/QnABoard.do")
-	public String QnABoard(Model model, PageVO vo) {
+	public String QnABoard(Model model, PageVO vo,SearchVO svo) {
 		// 보여줄 페이지수, 전체 게시글수
-		Paging paging = new Paging(10, qs.getTotalBoard());
-
+		Paging paging = new Paging(10, qs.getTotalBoard(vo));
+		System.out.println(svo);
+		
+		
 		PageVO page = paging.getPaging(vo.getPage());
+		if(svo.getSearchWord()!=null) {
+			if(svo.getSearchTap()==1) {
+				page.setId(svo.getSearchWord());
+				System.out.println(vo+"작성자");
+			} else if(svo.getSearchTap()==2) {
+				page.setTitle(svo.getSearchWord());
+				System.out.println(vo+"타이틀");
+			}
+		}
 		System.out.println(page);
 		model.addAttribute("qna_list", qs.getQnaList(page));
+		
 		
 		model.addAttribute("page", page);
 		System.out.println(page+"asd");

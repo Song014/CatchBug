@@ -44,8 +44,8 @@ public class QnaServiceImp implements QnaService {
 	}
 
 	@Override
-	public int getTotalBoard() {
-		return dao.getTotal();
+	public int getTotalBoard(PageVO vo) {
+		return dao.getTotal(vo);
 	}
 
 	@Override
@@ -68,5 +68,7 @@ public class QnaServiceImp implements QnaService {
 	public void UpdateQnaReply(QnaReplyVO vo) {
 		dao.UpdateQnaReply(vo);
 	}
+
+	
 
 }

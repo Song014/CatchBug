@@ -40,9 +40,9 @@ public class QnaDAO {
 		mybatis.update("QnaMapper.updateQna", vo);
 	}
 
-	public int getTotal() {
+	public int getTotal(PageVO vo) {
 
-		return mybatis.selectOne("QnaMapper.getTotal");
+		return mybatis.selectOne("QnaMapper.getTotal",vo);
 	}
 
 	// 질문게시판 댓글작성
