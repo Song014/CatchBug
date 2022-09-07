@@ -13,4 +13,8 @@ public class PageVO {
 	
 	private int startPage;
 	private int endPage;
+	
+	private String title="";
+	private String id="";
+	
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.catchbug.biz.vo.MemberVO;
 import com.catchbug.biz.vo.OrderVO;
+import com.catchbug.biz.vo.SearchVO;
 
 @Repository
 public class AdminDAO {	
@@ -53,6 +54,12 @@ public class AdminDAO {
 	
 	public List<OrderVO> getOrder(OrderVO vo) {
 		System.out.println("오더상세보기 모달 디에이오");
+		System.out.println( mybatis.selectList("AdminMapper.getOrderM", vo));
 		return mybatis.selectList("AdminMapper.getOrderM", vo);
+	}
+
+	public List<MemberVO> franc_SearchList(SearchVO vo) {
+		// TODO Auto-generated method stub
+		return mybatis.selectList("AdminMapper.SearchList", vo);
 	}
 }

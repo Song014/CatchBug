@@ -29,6 +29,12 @@ public class MemberDAOmybaits {
 
 	}
 
+	// 전체 회원 조회
+	public List<MemberVO> getMemberList(MemberVO vo) {
+		System.out.println("====> mybatis로 getMemberList 실행");
+		return memberMybatis.selectList("MemberDAO.getMemberList", vo);
+	}
+
 	// 마이페이지 수정
 	public void updateMypage(MemberVO vo) {
 		System.out.println("===> mybatis로  updateMypage실행");

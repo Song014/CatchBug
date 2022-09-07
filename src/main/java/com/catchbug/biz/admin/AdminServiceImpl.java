@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.catchbug.biz.vo.MemberVO;
 import com.catchbug.biz.vo.OrderVO;
+import com.catchbug.biz.vo.SearchVO;
 
 @Service("adminService")
 public class AdminServiceImpl implements AdminService {
@@ -15,34 +16,35 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private AdminDAO adminDAO;
 	
-	
-	//가맹점 전체 리스트
+
+	// 가맹점 전체 리스트
 	@Override
 	public List<MemberVO> getMemberList() {
 		System.out.println("AdminServiceIm --> getMemberList");
 		return adminDAO.getMemberList();
 	}
-	
-	//가맹점 승인요청 리스트
+
+	// 가맹점 승인요청 리스트
 	@Override
 	public List<MemberVO> getMemberWaitList() {
 		System.out.println("AdminServiceIm --> getMemberList");
 		return adminDAO.getMemberWaitList();
 	}
-	
-	//가맹점 승인처리
+
+	// 가맹점 승인처리
 	@Override
 	public void memberLevelUpdate(MemberVO vo) {
 		System.out.println("가입 승인 서비스 회원아이디 : " + vo.getId());
 		adminDAO.memberLevelUpdate(vo);
 	}
-	
-	//가맹점 반려처리
+
+	// 가맹점 반려처리
 	@Override
 	public void memberrefuse(MemberVO vo) {
 		System.out.println("가입 반려 서비스 회원아이디 : " + vo.getId());
 		adminDAO.memberrefuse(vo);
 	}
+
 
 	@Override
 	public List<HashMap<String,Object>> getunOrderHistory() {
@@ -64,9 +66,9 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.getOrder(vo);
 	}
 
-	
-	
-	
-	
-
+	@Override
+	public List<MemberVO> franc_SearchList(SearchVO vo) {
+		
+		return adminDAO.franc_SearchList(vo);
+	}
 }

@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Data;
 
 @Data
@@ -28,7 +30,6 @@ public class OrderVO {
 	private int product_quantily;
 	private String product_name;
 	private String tprice; // 장바구니에 담긴 총가격
-
 	private List<OrderItemVO> orders;
 
 	private int detail_no; // 장바구니 번호

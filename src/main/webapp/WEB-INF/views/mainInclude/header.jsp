@@ -140,6 +140,7 @@
                                                     <li>
                                                         <hr class="dropdown-divider"></li>
 
+<<<<<<< HEAD
                                                         <li>
                                                             <a class="dropdown-item d-flex align-items-center" href="login_page.do">
                                                                 <i class="bi bi-person"></i>
@@ -159,6 +160,15 @@
                                                 </li>
                                             </ul>
                                         </ul>
+=======
+         <li><a class="dropdown-item d-flex align-items-center"
+            href="mypage.do"> <i class="bi bi-person"></i> <span>내
+                  정보</span>
+         </a></li>
+         <li>
+            <hr class="dropdown-divider">
+         </li>
+>>>>>>> f6c8304e3976c231c5b3915222f8610a2b8d9b93
 
                                     </nav>
                                     <!-- info drop down end -->

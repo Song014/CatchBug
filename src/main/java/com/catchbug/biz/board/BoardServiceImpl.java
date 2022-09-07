@@ -136,13 +136,15 @@ public class BoardServiceImpl implements BoardService {
 		System.out.println("공지사항 검색 서비스");
 		return boardDAO.SearchNoti(vo);
 	}
-
+	
+	// 공지 리스트 카운트
 	@Override
 	public int listCount() {
 		int count = boardDAO.listCount();
 		return count;
 	}
 
+	// 공지 검색시 리스트 카운트
 	@Override
 	public int listSearchCount(NotiVO vo) {
 		int count = boardDAO.listSearchCount(vo);

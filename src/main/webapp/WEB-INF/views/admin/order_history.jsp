@@ -213,6 +213,7 @@
       </div>
    </div>
 
+<<<<<<< HEAD
    <!-- 모달2 주문내용 전체품목-->
    <div class="modal fade" id="modalDialogScrollable" tabindex="-1">
       <div class="modal-dialog modal-dialog-scrollable">
@@ -242,6 +243,24 @@
                      </thead>
                      <tbody id="orderModal6">
                         
+=======
+							<table class="table" tex>
+								<thead>
+									<tr>
+										<th scope="col" style="width: 20%;">상품코드</th>
+										<th scope="col" style="width: 52%;">품목명</th>
+										<th scope="col" style="width: 13%;">수량</th>
+										<th scope="col" style="width: 15%;">가격</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th scope="row">00001</th>
+										<td>무선 마우스 GB110</td>
+										<td>5</td>
+										<td>10000123123</td>
+									</tr>
+>>>>>>> f6c8304e3976c231c5b3915222f8610a2b8d9b93
 
                      </tbody>
                   </table>

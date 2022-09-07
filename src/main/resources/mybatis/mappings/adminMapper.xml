@@ -1,66 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="AdminMapper">
 
-	<!-- 가맹점 전체 리스트 -->
-	<select id="getMemberList" resultType="member">
-		SELECT *
-		FROM member
-		WHERE level1 = 2
-	</select>
+    <!-- 가맹점 전체 리스트 -->
+    <select id="getMemberList" resultType="member">
+        SELECT *
+        FROM member
+        WHERE level1 = 2
+    </select>
 
-	<!-- 가입승인 대기 리스트 -->
-	<select id="getMemberWaitList" resultType="member">
-		SELECT *
-		FROM member
-		WHERE level1 = 3
-	</select>
+    <!-- 가입승인 대기 리스트 -->
+    <select id="getMemberWaitList" resultType="member">
+        SELECT *
+        FROM member
+        WHERE level1 = 3
+    </select>
 
-	<!-- 승인 처리 -->
-	<update id="memberLevelUpdate" parameterType="member">
-		UPDATE member
-		SET level1 = 2
-		WHERE id = #{id}
-	</update>
+    <!-- 승인 처리 -->
+    <update id="memberLevelUpdate" parameterType="member">
+        UPDATE member
+        SET level1 = 2
+        WHERE id = #{id}
+    </update>
 
-	<!-- 반려 처리 -->
-	<delete id="memberrefuse">
-		DELETE
-		FROM member
-		where id = #{id}
-	</delete>
+    <!-- 반려 처리 -->
+    <delete id="memberrefuse">
+        DELETE
+        FROM member
+        where id = #{id}
+    </delete>
 
-	<select id="unOrderHistory" resultType="HashMap">
-		select o.*, m.id,m.business_name
-		from orders o
-		join member m
-		on o.id = m.id
-		where o.order_status = 1
-		order by order_no asc
-	</select>
+    <select id="unOrderHistory" resultType="HashMap">
+        select o.*, m.id, m.business_name
+        from orders o
+                 join member m
+                      on o.id = m.id
+        where o.order_status = 1
+        order by order_no asc
+    </select>
 
-	<select id="getMemberM" parameterType="member"
-		resultType="member">
-		select * from member where id = #{id}
-	</select>
+    <select id="getMemberM" parameterType="member" resultType="member">
+        select *
+        from member
+        where id = #{id}
+    </select>
+    <select id="getOrderM" parameterType="order" resultType="order">
+        SELECT m.id,
+               m.regdate,
+               o.order_no,
+               o.total_price,
+               o.order_status,
+               d.detail_no,
+               d.purchase_amount,
+               p.product_no,
+               p.price,
+               p.product_name,
+               ps.product_quantily
+        FROM order_detail d
+                 INNER JOIN product p
+                            ON d.product_no = p.product_no
+                 INNER JOIN orders o
+                            ON d.order_no = o.order_no
+                 INNER JOIN member m
+                            ON o.id = m.id
+                 INNER JOIN product_stock ps
+                            ON ps.product_no = p.product_no
+        WHERE o.id = #{id}
+    </select>
 
-	<select id="getOrderM" parameterType="order" resultType="order">
-		SELECT m.id, o.order_no, o.total_price, o.order_status, d.detail_no,
-		d.purchase_amount, p.product_no, p.price,p.product_name,
-		ps.product_quantily
-		FROM order_detail d
-		INNER JOIN product p
-		ON d.product_no=p.product_no
-		INNER JOIN orders o
-		ON d.order_no=o.order_no
-		INNER JOIN member m
-		ON o.id=m.id
-		INNER JOIN product_stock ps
-		ON ps.product_no = p.product_no
-		WHERE o.id = #{id}
-	</select>
-	
-
+    <select id="SearchList" resultType="member" parameterType="search">
+        SELECT *
+        FROM member
+        WHERE ceo LIKE '%' || #{searchWord} || '%'
+           or id LIKE '%' || #{searchWord} || '%'
+           or business_name LIKE '%' || #{searchWord} || '%'
+    </select>
 </mapper>

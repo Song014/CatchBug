@@ -67,6 +67,11 @@ public class ProductDAO {
 	public void deleteProduct(ProductVO vo) {
 		mybatis.delete("Product.deleteProduct",vo);
 	}
+
+	public void updateStock(OrderItemVO oiv) {
+		System.out.println(oiv);
+		mybatis.update("Product.updateStock",oiv);
+	}
 	
 	
 

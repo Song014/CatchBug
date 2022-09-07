@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 
 <head>
@@ -111,7 +111,6 @@
 									class="dataTable-sorter">상태</a></th>
 								<th scope="col">결제</th>
 							</tr>
-
 							<c:forEach var="list" items="${list }">
 								<tr>
 									<td>${list.get("ORDER_NO") }</td>
@@ -119,7 +118,8 @@
 										id='${list.get("ID")}' data-bs-toggle="modal"
 										data-bs-target="#modal-biz"> ${list.get("BUSINESS_NAME" )}
 									</a></td>
-									<td>${list.get("PROCESSING_DAY" )}</td>
+									<td><fmt:formatDate value="${list.get('PROCESSING_DAY')}" pattern="yyyy-MM-dd" /></td>
+<%-- 									<td>${list.get("PROCESSING_DAY")}</td> --%>
 									<td><a class="primary order_detail_modal"
 										id='${list.get("ID")}' data-bs-toggle="modal"
 										data-bs-target="#modalDialogScrollable">주문 상세보기 </a></td>
@@ -133,12 +133,6 @@
 					</div>
 				</div>
 			</div>
-			<script>
-				// 오늘 날짜
-				document.getElementById('currnetDate').value = new Date()
-						.toISOString().slice(0, 10);
-			</script>
-
 		</div>
 	</section>
 
@@ -254,6 +248,7 @@
 			url : "memberInfo.do?id=" + memberId,
 			dataType : "json", //서버가 요청 URL을 통해서 응답하는 내용의 타입
 			success : function(result) {
+				console.log(result.regdate);
 						str = `
 						<tobody>
 							<tr>
@@ -301,7 +296,9 @@
              type : "GET", //요청 메소드 방식
              url : "orderDetail.do?id=" + memberId,
              success : function(result) {
-             let totalPrice1 = result[0].total_price
+
+             let totalPrice1 = result[0].total_price;
+
              let tp = totalPrice1.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
              $("#orderNo h5").remove(); // 주문번호
              $("#totalPrice i").remove(); // 토탈 가격

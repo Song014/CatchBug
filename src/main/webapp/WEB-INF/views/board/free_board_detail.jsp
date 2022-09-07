@@ -91,9 +91,7 @@
 					<h1>${board.title }</h1>
 				</div>
 				<div class="card-body">
-					<div>
-						${board.content }
-					</div>
+					<div>${board.content }</div>
 					<br>
 					<hr>
 					<div class="card">
@@ -103,11 +101,14 @@
 									<div class="col-lg-1 col-md-2 label ">${ reply.ceo}</div>
 									<div class="col-lg-9 col-md-7">${reply.reply_text}</div>
 									<div class="col-lg-2 col-md-3" style="text-align: right;">
-										<fmt:formatDate value="${reply.reply_day }" pattern="yyyy-MM-dd" />
-										<input type="text" hidden="hidden" value="${reply.board_no }"/>
-										<input type="text" hidden="hidden" value="${reply.id }"/>
-										<button type="button" class="btn btn-sm btn-danger" value="${reply.reply_no }" name="change">수정</button>
-										<button type="button" class="btn btn-sm btn-danger" value="${reply.reply_no }" name="delete">삭제</button>
+										<fmt:formatDate value="${reply.reply_day }"
+											pattern="yyyy-MM-dd" />
+										<input type="text" hidden="hidden" value="${reply.board_no }" />
+										<input type="text" hidden="hidden" value="${reply.id }" />
+										<button type="button" class="btn btn-sm btn-danger"
+											value="${reply.reply_no }" name="change">수정</button>
+										<button type="button" class="btn btn-sm btn-danger"
+											value="${reply.reply_no }" name="delete">삭제</button>
 									</div>
 								</c:forEach>
 							</div>
@@ -116,13 +117,15 @@
 					<hr>
 					<div class="card">
 						<div class="card-body">
-							<form action="writeFreeBoardReply.do?board_no=${board.board_no}" method="post">
+							<form action="writeFreeBoardReply.do?board_no=${board.board_no}"
+								method="post">
 								<label for="reply" style="background-color: lightGray;"><strong>${member.ceo }</strong></label>
-								<input class="dataTable-input" placeholder="댓글내용을 입력해 주세요." style="width: 90%"
-									type="text" name="reply_text">
-								<input type="text" hidden="hidden" value="${board.board_no }" name="board_no"/>
-								<input type="text" hidden="hidden" value="${member.id }" name="id"/>
-								<input type="text" hidden="hidden" value="${member.ceo }" name="ceo"/>
+								<input class="dataTable-input" placeholder="댓글내용을 입력해 주세요."
+									style="width: 90%" type="text" name="reply_text"> <input
+									type="text" hidden="hidden" value="${board.board_no }"
+									name="board_no" /> <input type="text" hidden="hidden"
+									value="${member.id }" name="id" /> <input type="text"
+									hidden="hidden" value="${member.ceo }" name="ceo" />
 								<button class="btn btn-primary" type="submit">글쓰기</button>
 							</form>
 						</div>

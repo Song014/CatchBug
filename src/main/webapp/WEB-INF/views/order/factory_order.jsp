@@ -171,7 +171,7 @@
 													</a></td>
 													<td style="width: 10%;"><fmt:formatDate
 															value="${list.add_day }" pattern="yyyy-MM-dd" /></td>
-													<td style="width: 5%;">10</td>
+													<td style="width: 5%;">${list.product_quantily }</td>
 													<td style="width: 5%;"><input type="hidden"
 														class="hidden_price" value=${list.price }>
 														${list.price }</td>
@@ -212,7 +212,7 @@
 														}</a></td>
 												<td style="width: 11.7%;"><input type="number"
 													name="purchase_amount" value=${list.purchase_amount }
-													min="1" max=`+quantity+` style="width: 50px;">
+													min="1"  style="width: 50px;">
 												<button type="button" class="updateBtn"
 														value="${list.total }">변경</button></td>
 												<td style="width: 10%;"><input type="hidden"
@@ -390,7 +390,7 @@
 							<td style="width: 40%;"><a class="primary product_modal" data-bs-toggle="modal"
 								data-bs-target="#modalProduct" id="`+result.product_no+`">`+ result.product_name + `</a></td>
 							<td style="width: 10%;">`+ result.add_day + `</td>
-							<td style="width: 5%;">10</td>
+							<td style="width: 5%;">`+result.product_quantily+`</td>
 							<td style="width: 5%;">`+ result.price + `</td>
 							<td style="width: 5%;"><button type="button"
 									class="btn btn-primary btn-sm addBucket">추가</button></td>
@@ -422,7 +422,7 @@
 			<tr style="text-align:center;">
 				<td style="width: 9%;"><input type="hidden" name="product_no" value=`+ no + ` >` + no + `</td>
 				<td style="width: 41%;"><input type="hidden" value=`+ name + `><a class="primary product_modal" data-bs-toggle="modal" data-bs-target="#modalProduct" id="`+no+`">` + name + `</a></td>
-				<td style="width: 11.7%;"><input type="number" name="purchase_amount" value="1" min="1" max=`+ quantity + ` style="width:50px;"><button type="button" class="updateBtn">변경</button></td>
+				<td style="width: 11.7%;"><input type="number" name="purchase_amount" value="1" min="1"  style="width:50px;"><button type="button" class="updateBtn">변경</button></td>
 				<td style="width: 10%;"><input type="hidden" class="hidden_price" value=`+ price + `>`+price+`</td>
 				<td style="width: 5%;"><button type="button" class="btn btn-primary btn-sm delBucket">삭제</button></td>
 			</tr>
@@ -507,7 +507,7 @@
 		
 		
 	</script>
-		<script>
+<!-- 		<script>
 	$(document).ready(function(){
 
         const username = '${member.ceo}';
@@ -515,6 +515,14 @@
         if(username == ""){
         	alert("로그인한 유저만 이용가능합니다.");
         	location.href="login_page.do";
+<<<<<<< HEAD
+=======
+        }else{
+        	if(level != 1){
+        		alert("승인된 유저만 이용가능합니다.");
+            	location.href="company_intro.do";
+        	}
+>>>>>>> f6c8304e3976c231c5b3915222f8610a2b8d9b93
         }
        	if(level != 1){
        		alert("승인된 유저만 이용가능합니다.");
@@ -522,7 +530,7 @@
        	}
         
 	});
-	</script>
+	</script> -->
 
 	<!-- End #main -->
 

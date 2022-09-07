@@ -1,8 +1,10 @@
+<<<<<<< HEAD
+=======
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
+>>>>>>> branch 'lbh' of https://github.com/Song014/CatchBug.git
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +12,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>Dashboard - NiceAdmin Bootstrap Template</title>
+<title>가맹점 리스트</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -71,7 +73,7 @@
 
 	<!-- main start -->
 	<!-- main start -->
-	<main id="main" class="main"> 
+	<main id="main" class="main">
 	<div class="pagetitle">
 		<h1>가맹점 리스트</h1>
 		<nav>
@@ -91,21 +93,50 @@
 					<div class="search" align="right">
 						<form>
 							<select name="searchOption">
-								<option value="orderNumber" selected="selected">사업자등록번호</option>
-								<option value="content">대표자</option>
+								<option value="content" selected="selected">대표자</option>
 								<option value="remarks">법인명</option>
 							</select> <input type="text" name="input" placeholder="검색어를 입력해 주세요.">
 							<!-- <input type="button" name="inputBtn" value="검색"> -->
 							<button>검색</button>
 						</form>
-
 					</div>
+
+					<!-- Table with hoverable rows -->
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">법인명</th>
+								<th scope="col">대표자</th>
+								<th scope="col">사업자 등록 번호</th>
+								<th scope="col">연락처</th>
+								<th scope="col">사업장 주소지</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="member" items="${list}" varStatus="status">
+								<tr>
+									<th scope="row">${status.count}</th>
+									<td><a class="primary" data-bs-toggle="modal"
+										data-bs-target="#modal-biz"> ${member.business_name} </a></td>
+									<td>${member.ceo}</td>
+									<td>${member.business_no}</td>
+									<td>${member.contact}</td>
+									<td>${member.business_address}</td>
+								</tr>
+							</c:forEach>
+
+						</tbody>
+					</table>
+					<!-- End Table with hoverable rows -->
+
+
 
 					<script type="text/javascript">
 						
 					<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 						//오늘 날짜
-						document.getElementById('currnetDate').value = new Date()
+						document.getElementById('currentDate').value = new Date()
 								.toISOString().slice(0, 10);
 					</script>
 
@@ -115,6 +146,7 @@
 	</section>
 	</main>
 	<!-- End Main -->
+
 
 	<!-- 모달부 -->
 	<div class="modal fade" id="modal-biz" tabindex="-1">
@@ -131,23 +163,27 @@
 							<table class="table">
 								<tr>
 									<th>사업자명</th>
-									<td>${oneinfo.id}</td>
+									<td>늑대와여우</td>
 								</tr>
 								<tr>
 									<th>대표자</th>
-									<td>${oneinfo.ceo}</td>
+									<td>홍길동</td>
 								</tr>
 								<tr>
 									<th>가입일</th>
-									<td>2022.01.01</td>
+									<td>2022.09.05</td>
 								</tr>
 								<tr>
 									<th>사업자등록번호</th>
-									<td>110-123-45678</td>
+									<td>125-12-51251</td>
+								</tr>
+								<tr>
+									<th>연락처</th>
+									<td>010-2312-1231</td>
 								</tr>
 								<tr>
 									<th>사업장주소지</th>
-									<td>영등포</td>
+									<td>서울시 용산구</td>
 								</tr>
 							</table>
 						</div>

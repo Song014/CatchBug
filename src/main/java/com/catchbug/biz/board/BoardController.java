@@ -230,8 +230,17 @@ public class BoardController {
 		boardService.noti_cnt_Count(vo);
 		// 상세보기
 		NotiVO noti = boardService.detail_noti(vo);
+		System.out.println(noti.toString());
 		model.addAttribute("notiInfo", noti);
 		return "board/notice_board_detail";
+	}
+	
+	// 공지 수정폼
+	@RequestMapping("noti_updateForm.do")
+	public String noti_dupdate_Form(NotiVO vo, Model model) {
+		NotiVO noti = boardService.detail_noti(vo);
+		model.addAttribute("notiInfo", noti);
+		return "board/notice_board_update";
 	}
 
 	// 공지사항 업데이트
