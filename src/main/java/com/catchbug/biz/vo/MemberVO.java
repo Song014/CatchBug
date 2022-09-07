@@ -5,12 +5,7 @@ import java.sql.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
-
-<<<<<<<HEAD
-        =======
 import com.fasterxml.jackson.annotation.JsonFormat;
-
->>>>>>>f6c8304e3976c231c5b3915222f8610a2b8d9b93
 import lombok.Data;
 
 @Data
