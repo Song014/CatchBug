@@ -26,6 +26,7 @@ public class OrderVO {
 
 	private int total_price;
 
+
 	// bj
 	private int product_quantily;
 	private String product_name;

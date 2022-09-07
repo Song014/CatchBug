@@ -3,29 +3,26 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="MemberDAO">
-
     <!-- <resultMap type="board" id="boardResult"> <id property="seq" column="SEQ"></id>
         <result property="title" column="TITLE"/> </resultMap> -->
 
+    <!-- 회원가입 암호화 -->
     <insert id="insertMember">
-        <!-- <selectKey keyProperty="seq" resultType="int" order="BEFORE"> select
-            board_seq.nextval as seq from dual; </selectKey> insert into board(seq,title,writer,content)
-            values(#{seq},#{title},#{writer},#{content}) -->
-
-        insert into
-        member(id,pass,business_no,business_name,ceo,contact,email,business_address,mail_key)
-        values(#{id},#{pass},#{business_no},#{business_name},#{ceo},#{contact},#{email},#{business_address},#{mail_key})
-        <!-- values('1','2','3','4','5','6','7','8') -->
-        <!-- #{ } 는 vo객체에 자동 setter 주입 -->
+        insert into member(id, pass, business_no, business_name, ceo, contact, email, business_address)
+        values (#{id}, #{pass}, #{business_no}, #{business_name}, #{ceo}, #{contact}, #{email}, #{business_address})
     </insert>
+    <!-- 패스워드 체크 -->
+    <select id="passChk" resultType="int">
+        SELECT COUNT(*)
+        FROM member
+        WHERE id = #{id}
+          AND pass = #{pass}
+    </select>
 
 
     <select id="getMember" resultType="member"
             parameterType="member">
-        select *
-        from member
-        where id = #{id}
-          and pass = #{pass}
+        select * from member where id=#{id} <!-- and pass=#{pass} -->
     </select>
 
     <update id="updateMypage">
@@ -71,6 +68,7 @@
           and mail_auth = 1
     </select>
 
+    <!-- 발주내역에서 id검색하면 id정보 조회 -->
     <select id="getMemberid" resultType="member"
             parameterType="member">
         select id, business_no, business_name, ceo

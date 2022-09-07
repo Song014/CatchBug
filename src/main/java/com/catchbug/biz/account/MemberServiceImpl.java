@@ -32,15 +32,18 @@ public class MemberServiceImpl implements MemberService {
 
 	}
 
+
 	@Override
 	public List<MemberVO> getMemberList(MemberVO vo) {
 		return (List<MemberVO>) MemberDAO.getMemberList(vo);
 	}
 
+
 	@Override
 	public void updateMypage(MemberVO vo) {
 		MemberDAO.updateMypage(vo);
 	}
+
 
 	@Override
 	public void updateImg(MemberVO vo) {
@@ -52,7 +55,6 @@ public class MemberServiceImpl implements MemberService {
 	public int getTotalMember(MemberVO vo) {
 		// TODO Auto-generated method stub
 		return 0;
-
 	}
 
 
@@ -96,4 +98,14 @@ public class MemberServiceImpl implements MemberService {
 		return MemberDAO.findMemberID(vo);
 	}
 
+	public void updatePass(MemberVO vo) {
+		MemberDAO.updatePass(vo);		
+	}
+
+
+	@Override
+	public int idcheck(MemberVO vo) {
+		return MemberDAO.idcheck(vo);
+		
+	}
 }

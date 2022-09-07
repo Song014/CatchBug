@@ -10,6 +10,10 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
+import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -22,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.catchbug.biz.account.mail.MailHandler;
 import com.catchbug.biz.account.mail.TempKey;
@@ -31,6 +36,9 @@ import net.sf.json.JSONArray;
 
 @Controller
 public class MemberController {
+
+	@Inject
+	BCryptPasswordEncoder pwdEncoder;
 
 	@Autowired
 	MemberService memberService;
@@ -48,12 +56,28 @@ public class MemberController {
 		return mav;
 	}
 
+	//회원가입 메소드
 	@Transactional
 	@RequestMapping(value = "/sign_up.do", method = RequestMethod.POST)
-	public ModelAndView InsertMember(MemberVO vo) throws Exception {
+	public String InsertMember(MemberVO vo) throws Exception {
 		String mail_key = new TempKey().getKey(30, false); // 랜덤키 30글자로 생성
 		vo.setMail_key(mail_key); // 랜덤키 세터주입.
-		memberService.insertMember(vo); // 회원가입 진행
+
+		int result = memberService.idcheck(vo);
+
+		if (result == 1) {
+			return "account/sign_up";
+			// 입력된 아이디가 존재한다면 >> 다시 회원가입 페이지로 돌아가기
+		} else if (result == 0) {
+			System.out.println("아이디 중복 x");
+			String inputPass = vo.getPass();
+			String pwd = pwdEncoder.encode(inputPass);
+			vo.setPass(pwd);
+
+			memberService.insertMember(vo);
+			return "account/login_page";
+			// 존재하지 않는 아이디라면 회원가입 진행
+		}
 
 		// 회원가입 완료후 메일인증 진행
 		MailHandler sendMail = new MailHandler(mailSender);
@@ -64,10 +88,7 @@ public class MemberController {
 		sendMail.setFrom("catchbugteam@gmail.com", "관리자");
 		sendMail.setTo(vo.getEmail());
 		sendMail.send();
-
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("account/login_page");
-		return mav;
+		return "account/login_page";
 	}
 	
 	//아이디 찾기 이동 메소드
@@ -121,59 +142,55 @@ public class MemberController {
 	}
 	// 회원가입 끝
 
-	// 로그인 시작
-	@RequestMapping(value = "/login_page.do", method = RequestMethod.GET)
-	public String MemeberLoginReady() {
-		ModelAndView mav = new ModelAndView();
-		return "account/login_page";
-	}
 
-	// 로그아웃 코드
+	// 로그인 페이지이동
+
+
+	//로그아웃 코드
 	@RequestMapping(value = "/logout.do", method = RequestMethod.GET)
 	public String logout(HttpSession session, ModelAndView mav) {
 		session.invalidate();
 		return "redirect:login_page.do";
 	}
 
-	
 	//로그인페이지
 	@RequestMapping(value = "/login_page.do", method = RequestMethod.POST)
 	public String MemberLogin(MemberVO vo, MemberDAOmybaits memberDAO, ModelAndView mav, HttpSession session)
 			throws Exception {
+		MemberVO login = memberService.getMember(vo);
+		boolean pwdMatch = pwdEncoder.matches(vo.getPass(), login.getPass());
 
-		System.out.println("account/login_page //로그인 페이지에서  post방식 ");
-		MemberVO member = memberService.getMember(vo);
+		if (login != null && pwdMatch == true) {
+			session.setAttribute("member", login);
+			return "account/mypage";
+		} 
 
 		if (memberService.emailAuthFail(vo.getId()) != 1) { // 이메일 인증 검증
 			return "account/emailAuthFail";
 		}
 
-		if (member.getLevel1() == 4) {
+		if (login.getLevel1() == 4) {
 			return "account/loginFail";
 		}
 
-		if (member != null) {
-			session.setAttribute("member", member);
+		if (login != null) {
+			session.setAttribute("member", login);
 			return "account/mypage";
 		}
-
+		session.setAttribute("member", null);
 		return "member/login_page";
 
-	}
 
+	}
 	// 로그인끝
 
 	// 마이페이지
 	@RequestMapping(value = "/mypage.do", method = RequestMethod.GET)
-	public ModelAndView Mypage() {
+	public String Mypage(MemberVO vo,Model model) {
 		System.out.println("account/mypage //마이 페이지에서  get방식  ");
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("account/mypage");
-		return mav;
+		return "account/mypage";
 	}
 
-	// mypage / 마이페이지 수정
-	// 여러 페이지를 할떈 value="/mypage.do/:id" 이런식으로 rest를 쓰면 해결할수있다.
 	@RequestMapping(value = "/mypage.do/{page}", method = RequestMethod.POST)
 	public ModelAndView MypageOverview(@PathVariable("page") String page, MemberVO vo, MemberDAOmybaits memberDAO,
 			ModelAndView mav, HttpSession session) throws IllegalStateException, IOException {
@@ -216,6 +233,7 @@ public class MemberController {
 
 		model.addAttribute("member", member);
 		session.setAttribute("member", member);
+
 		return "account/mypage";
 	}
 	

@@ -14,7 +14,7 @@
 <!-- 관리자가 보는 발주내역 주문서리스트 -->
 	<select id="getOrderList" resultType="order">
 		select
-		order_no,m.id,m.ceo,total_price,order_status,processing_day,note
+		order_no,m.id,m.ceo,total_price,order_status,processing_day,note,shipping_address
 		from orders o 
 		inner join member m 
 		on o.id=m.id 
