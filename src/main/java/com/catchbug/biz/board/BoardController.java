@@ -180,12 +180,6 @@ public class BoardController {
 		return "board/faq_board";
 	}
 
-	@RequestMapping("/ViewChat.do")
-	public String ViewBoard() {
-		return "board/chat";
-	}
-
-
 	//공지 리스트
 
 	@RequestMapping("/notice_Board.do")

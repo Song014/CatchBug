@@ -193,7 +193,7 @@ public class MemberController {
 			if (!uploadImgFile.isEmpty()) {
 				String fileName = uploadImgFile.getOriginalFilename();
 				uploadImgFile.transferTo(
-						new File("C:\\work\\STS-bundle\\workspace\\CatchBug6\\src\\main\\webapp\\resources\\assets\\img"
+						new File("/Users/hyeon1339/CatchBugProject/src/main/webapp/resources/productImg/profile"
 								+ fileName));
 
 				mav.setViewName("account/mypage");

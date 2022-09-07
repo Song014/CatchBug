@@ -1,90 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="MemberDAO">
 
-	<!-- <resultMap type="board" id="boardResult"> <id property="seq" column="SEQ"></id> 
-		<result property="title" column="TITLE"/> </resultMap> -->
+    <!-- <resultMap type="board" id="boardResult"> <id property="seq" column="SEQ"></id>
+        <result property="title" column="TITLE"/> </resultMap> -->
 
-	<insert id="insertMember">
-		<!-- <selectKey keyProperty="seq" resultType="int" order="BEFORE"> select 
-			board_seq.nextval as seq from dual; </selectKey> insert into board(seq,title,writer,content) 
-			values(#{seq},#{title},#{writer},#{content}) -->
+    <insert id="insertMember">
+        <!-- <selectKey keyProperty="seq" resultType="int" order="BEFORE"> select
+            board_seq.nextval as seq from dual; </selectKey> insert into board(seq,title,writer,content)
+            values(#{seq},#{title},#{writer},#{content}) -->
 
-		insert into
-		member(id,pass,business_no,business_name,ceo,contact,email,business_address,mail_key)
-		values(#{id},#{pass},#{business_no},#{business_name},#{ceo},#{contact},#{email},#{business_address},#{mail_key})
-		<!-- values('1','2','3','4','5','6','7','8') -->
-		<!-- #{ } 는 vo객체에 자동 setter 주입 -->
-	</insert>
-
-
-	<select id="getMember" resultType="member"
-		parameterType="member">
-		select * from member where id=#{id} and pass=#{pass}
-	</select>
-
-	<update id="updateMypage">
-		update member set business_no=#{business_no},
-		business_name=#{business_name}, ceo=#{ceo}, contact=#{contact},
-		email=#{email}, business_address= #{business_address} where id=#{id}
-	</update>
+        insert into
+        member(id,pass,business_no,business_name,ceo,contact,email,business_address,mail_key)
+        values(#{id},#{pass},#{business_no},#{business_name},#{ceo},#{contact},#{email},#{business_address},#{mail_key})
+        <!-- values('1','2','3','4','5','6','7','8') -->
+        <!-- #{ } 는 vo객체에 자동 setter 주입 -->
+    </insert>
 
 
-	<update id="insertImg">
-		update member set uploadImgFile=#{updateImgFile}
-		where id=#{id}
-	</update>
+    <select id="getMember" resultType="member"
+            parameterType="member">
+        select *
+        from member
+        where id = #{id}
+          and pass = #{pass}
+    </select>
 
-	<!-- 회원가입시 이메일 인증을 위한 랜덤번호 저장 -->
-	<update id="updateMailKey" parameterType="member">
-		UPDATE member
-		SET
-		mail_key = #{mail_key}
-		WHERE email = #{email} and id=#{id}
-	</update>
+    <update id="updateMypage">
+        update member
+        set business_no=#{business_no},
+            business_name=#{business_name},
+            ceo=#{ceo},
+            contact=#{contact},
+            email=#{email},
+            business_address= #{business_address}
+        where id = #{id}
+    </update>
 
-	<!-- 메일 인증 성공시 기본값 변경을위한 쿼리 -->
-	<update id="updateMailAuth" parameterType="member">
-		UPDATE member
-		SET
-		mail_auth = 1
-		WHERE email=#{email} and mail_key=#{mail_key}
-	</update>
 
-	<!-- 로그인시 메일인증 체크코드 0으로 반환시 인증X -->
-	<select id="emailAuthFail" parameterType="String"
-		resultType="int">
-		SELECT count(*)
-		FROM member
-		WHERE id=#{id} and mail_auth=1
-	</select>
-	
-	<select id="getMemberid" resultType="member"
-		parameterType="member">
-		select id,business_no,business_name,ceo from member
-		where id=#{id}
-	</select>
-	
-	<!-- 비밀번호 찾기 유효성 검증을 위한정보 가져오기 -->
-	<select id="findMemberPW" resultType="member">
-	SELECT id,email
-	FROM MEMBER
-	</select>
-	
-	<!-- 생성된 임시비밀번호로 변경하기 -->
-	<update id="changeRandomPW" parameterType="member">
-		UPDATE member
-		SET pass = #{pass}
-		WHERE id=#{id} and email=#{email}
-	</update>
-	
-	<!-- 아이디찾기위한 데이터베이스 정보 검색 -->
-	<select id="findMemberID" resultType="member">
-		SELECT id
-		FROM member
-		WHERE business_no = #{business_no} AND ceo = #{ceo}
-	</select>
+    <update id="insertImg">
+        update member
+        set uploadImgFile=#{updateImgFile}
+        where id = #{id}
+    </update>
+
+    <!-- 회원가입시 이메일 인증을 위한 랜덤번호 저장 -->
+    <update id="updateMailKey" parameterType="member">
+        UPDATE member
+        SET mail_key = #{mail_key}
+        WHERE email = #{email}
+          and id = #{id}
+    </update>
+
+    <!-- 메일 인증 성공시 기본값 변경을위한 쿼리 -->
+    <update id="updateMailAuth" parameterType="member">
+        UPDATE member
+        SET mail_auth = 1
+        WHERE email = #{email}
+          and mail_key = #{mail_key}
+    </update>
+
+    <!-- 로그인시 메일인증 체크코드 0으로 반환시 인증X -->
+    <select id="emailAuthFail" parameterType="String"
+            resultType="int">
+        SELECT count(*)
+        FROM member
+        WHERE id = #{id}
+          and mail_auth = 1
+    </select>
+
+    <select id="getMemberid" resultType="member"
+            parameterType="member">
+        select id, business_no, business_name, ceo
+        from member
+        where id = #{id}
+    </select>
+
+    <!-- 비밀번호 찾기 유효성 검증을 위한정보 가져오기 -->
+    <select id="findMemberPW" resultType="member">
+        SELECT id, email
+        FROM MEMBER
+    </select>
+
+    <!-- 생성된 임시비밀번호로 변경하기 -->
+    <update id="changeRandomPW" parameterType="member">
+        UPDATE member
+        SET pass = #{pass}
+        WHERE id = #{id}
+          and email = #{email}
+    </update>
+
+    <!-- 아이디찾기위한 데이터베이스 정보 검색 -->
+    <select id="findMemberID" resultType="member">
+        SELECT id
+        FROM member
+        WHERE business_no = #{business_no}
+          AND ceo = #{ceo}
+    </select>
 
 </mapper>
