@@ -1,7 +1,5 @@
 package com.catchbug.biz.vo;
 
-import java.net.URLEncoder;
-
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 

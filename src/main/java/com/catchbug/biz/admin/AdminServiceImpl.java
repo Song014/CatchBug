@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.catchbug.biz.vo.Criteria;
 import com.catchbug.biz.vo.MemberVO;
 import com.catchbug.biz.vo.OrderItemVO;
 import com.catchbug.biz.vo.OrderVO;
@@ -49,11 +50,9 @@ public class AdminServiceImpl implements AdminService {
 
 	// 미출고 내역
 	@Override
-	public List<HashMap<String,Object>> getunOrderHistory() {
-
+	public List<HashMap<String,Object>> getunOrderHistory(Criteria cri) {
 		System.out.println("미출고 내역 서비스");
-		
-		return adminDAO.getunOrderHistory();
+		return adminDAO.getunOrderHistory(cri);
 	}
 	
 	// 미출고내역 회원정보 모달
@@ -87,13 +86,11 @@ public class AdminServiceImpl implements AdminService {
 	// 현재 재고수 조회
 	@Override
 	public int getProduct_Quantily(int productNo) {
-		// TODO Auto-generated method stub
 		return adminDAO.getProduct_Quantily(productNo);
 	}
 	// 재고수 차감
 	@Override
 	public int update_Quantily(OrderItemVO list) {
-		
 		return adminDAO.update_Quantily(list);
 	}
 	
@@ -105,9 +102,14 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	// 주문상태 배송중으로 변경
-		@Override
-		public void update_order_refuse(OrderVO vo) {
-			adminDAO.update_order_refuse(vo);
-			
-		}
+	@Override
+	public void update_order_refuse(OrderVO vo) {
+		adminDAO.update_order_refuse(vo);
+	}
+	
+	// 페이징 토탈 카운트
+	@Override
+	public int count(Criteria cri) {
+		return adminDAO.count(cri);
+	}
 }

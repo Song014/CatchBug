@@ -12,14 +12,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.catchbug.biz.vo.Criteria;
 import com.catchbug.biz.vo.MemberVO;
 import com.catchbug.biz.vo.OrderItemVO;
 import com.catchbug.biz.vo.OrderVO;
+import com.catchbug.biz.vo.PageMaker;
 import com.catchbug.biz.vo.SearchVO;
 
 @Controller
@@ -91,13 +94,35 @@ public class AdminController {
 	}
 
 	// 미출고 주문 현황
+//	@RequestMapping("/unOrderHistory.do")
+//	public String unOrderHistory(Model model) {
+//
+//		System.out.println("미출고 컨트롤러");
+//		List<HashMap<String, Object>> list = adminService.getunOrderHistory();
+//		model.addAttribute("list", list);
+//		return "admin/un_order_history";
+//	}
+	
+	// 미출고 리스트 +  페이징 + 검색
 	@RequestMapping("/unOrderHistory.do")
-	public String unOrderHistory(Model model) {
-
-		System.out.println("미출고 컨트롤러");
-		List<HashMap<String, Object>> list = adminService.getunOrderHistory();
-		model.addAttribute("list", list);
+	public String unOrderHistory(@ModelAttribute("cri") Criteria cri,
+			Model model) throws Exception {
+			
+			List<HashMap<String, Object>> list = adminService.getunOrderHistory(cri);
+			
+			PageMaker pageMaker = new PageMaker();
+			
+			pageMaker.setCriteria(cri);
+			pageMaker.setTotalCount(adminService.count(cri));
+			
+			model.addAttribute("list", list);
+			model.addAttribute("pageMaker", pageMaker);
+			
+			model.addAttribute("searchType", cri.getSearchType());
+			model.addAttribute("searchName", cri.getSearchName());
+		
 		return "admin/un_order_history";
+		
 	}
 
 	// 사업장 정보 모달
@@ -129,9 +154,6 @@ public class AdminController {
 		return "admin/franc_wait_list";
 	}
 
-	/* 재고 관리 */
-
-	
 	// 가맹점 미출고 승인처리
 	@RequestMapping("/order_approval.do")
 	@Transactional(rollbackFor = Exception.class)
@@ -151,7 +173,6 @@ public class AdminController {
 					
 					int 현재고 = adminService.getProduct_Quantily(product_no);
 					int 주문수 = list.getPurchase_amount();
-					
 					int deduction = 현재고 - 주문수;
 					System.out.println(deduction);
 					list.setPurchase_amount(deduction);
@@ -175,12 +196,6 @@ public class AdminController {
 	@RequestMapping("order_refuse.do")
 	public String order_refuse(OrderVO vo) {
 		System.out.println("미출고 주문건 반려 컨트롤러");
-		
-//		List<OrderItemVO> orderList = adminService.getOrder_detail(vo);
-//		for(OrderItemVO list : orderList) {
-//			System.out.println("주문번호 : " + list.getOrder_no());
-//			System.out.println("상품코드 : " + list.getProduct_no());
-//		}
 		adminService.update_order_refuse(vo);
 		return "redirect:unOrderHistory.do";
 	}

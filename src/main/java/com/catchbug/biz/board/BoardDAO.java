@@ -1,5 +1,6 @@
 package com.catchbug.biz.board;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -45,12 +46,6 @@ public class BoardDAO {
 	public void UpdateFreeBoard(BoardVO vo) {
 		mybatis.update("BoardMapper.updateFreeBoard",vo);
 	}	
-	
-	// 공지 리스트
-	public List<NotiVO> get_Noti_list(Criteria cri) {
-		System.out.println("공지 리스트 디에이오");
-		return mybatis.selectList("BoardMapper.gerNotiList", cri);
-	}
 	
 	// 공지 쓰기
 	public void insert_noti(NotiVO vo) {
@@ -107,23 +102,22 @@ public class BoardDAO {
 		mybatis.update("BoardMapper.updateBoardReply",vo);
 	}
 
-	// 공지 검색
-	public List<NotiVO> SearchNoti(NotiVO vo) {
-		System.out.println("공지사항 검색 디에이오");
-		return mybatis.selectList("BoardMapper.SearchNoti", vo);
-	}
-	
-	//  검색 페이징 카운트
-	public int listSearchCount(NotiVO vo) {
-		System.out.println("검색 카운트 디에이오");
-		System.out.println(vo.getNoti_title());
-		return mybatis.selectOne("BoardMapper.listSearchNoti", vo);
-	}
+	// 공지 리스트
+		public List<NotiVO> get_Noti_list(Criteria cri) {
+			System.out.println("공지 리스트 디에이오");
+			return mybatis.selectList("BoardMapper.gerNotiList", cri);
+		}
 	
 	// 페이징
-	public int listCount() {
+	public int listCount(Criteria cri) {
 		System.out.println("페이징 디에이오");
-		int count = mybatis.selectOne("BoardMapper.listCount");
+		
+			HashMap<String, Object> data = new HashMap<String, Object>();
+		
+		data.put("searchType", cri.getSearchType());
+		data.put("searchName", cri.getSearchName());
+		
+		int count = mybatis.selectOne("BoardMapper.count", data);
 		return count;
 	}
 

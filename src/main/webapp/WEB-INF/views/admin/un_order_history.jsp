@@ -74,11 +74,12 @@
 				<div class="row">
 					<div align="right" class="dataTable-top">
 						<div class="dataTable-search">
-							<form action="">
-								<select name="searchOption">
-									<option value="orderNumber" selected="selected">사업자명</option>
-								</select> <input type="text" name="input" placeholder="검색어를 입력해 주세요.">
-								<!-- <input type="button" name="inputBtn" value="검색"> -->
+							<form action="/unOrderHistory.do">
+								<select name="searchType">
+									<option value="1" selected="selected" >사업자명</option>
+									<option value="2">주문 번호</option>
+								</select> 
+								<input type="text" name="searchName" placeholder="검색어를 입력해 주세요.">
 								<button>검색</button>
 							</form>
 						</div>
@@ -103,10 +104,10 @@
 							<c:forEach var="list" items="${list }">
 								<tr>
 									<td>${list.get("ORDER_NO") }</td>
-									<td><a class="primary order_detail_member"
-										id='${list.get("ID")}' data-bs-toggle="modal"
-										data-bs-target="#modal-biz"> ${list.get("BUSINESS_NAME" )}
-									</a></td>
+									<td>
+									<a class="primary order_detail_member" id='${list.get("ID")}' data-bs-toggle="modal"  
+										data-bs-target="#modal-biz"> ${list.get("BUSINESS_NAME" )}</a>
+									</td>
 									<td><fmt:formatDate value="${list.get('PROCESSING_DAY')}" pattern="yyyy-MM-dd" /></td>
 <%-- 									<td>${list.get("PROCESSING_DAY")}</td> --%>
 									<td><a class="primary order_detail_modal"
@@ -120,6 +121,24 @@
 								</tr>
 							</c:forEach>
 						</table>
+							<ul class="pagination justify-content-center">
+										<!-- 페이지 인덱스를 처리한다. -->
+										<c:if test="${pageMaker.prev}">
+											<li><a
+												href="/unOrderHistory.do${pageMaker.makeQuery(pageMaker.startPage-1)}">&laquo;</a></li>
+										</c:if>
+
+										<c:forEach begin="${pageMaker.startPage}"
+											end="${pageMaker.endPage}" var="idx">
+											<li <c:out value="${pageMaker.cri.page == idx? 'class=active':''}"/>>
+												<a class="page-link" href="/unOrderHistory.do${pageMaker.makeQuery(idx) }&searchType=${searchType }&searchName=${searchName } " >${idx}</a></li>
+										</c:forEach>
+
+										<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+											<li><a
+												href="/unOrderHistory.do${pageMaker.makeQuery(pageMaker.endPage+1)}">&raquo;</a></li>
+										</c:if>
+									</ul>
 					</div>
 				</div>
 			</div>
@@ -135,6 +154,10 @@
 		} else {
 			return;
 		}
+	})
+	
+	$(".btn1").on("click", function(e) {
+		location.href = "/order_approval.do?order_no=" + e.target.value;
 	})
 	
 	$(".btn2").on("click", function(e) {
@@ -213,7 +236,7 @@
 							<table class="table" >
 								<thead>
 									<tr>
-										<th scope="col" style="width: 20%;">상품코드</th>
+										<th scope="col" style="width: 20%;">No</th>
 										<th scope="col" style="width: 30%;">품목명</th>
 										<th scope="col" style="width: 20%;">주문수량</th>
 										<th scope="col" style="width: 20%;">현 재고</th>

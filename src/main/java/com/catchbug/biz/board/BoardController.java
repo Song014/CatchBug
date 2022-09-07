@@ -185,34 +185,27 @@ public class BoardController {
 
 
 	//공지 리스트
-
 	@RequestMapping("/notice_Board.do")
-	
 	public String notice_Board_list(@ModelAttribute("cri") Criteria cri, Model model, NotiVO vo) {
-		System.out.println("boardController"+cri);
 		
-		if(vo.getNoti_title() == null) {
-			List<NotiVO> list = boardService.get_Noti_list(cri);
-			
-			PageMaker pageMaker = new PageMaker();
-			pageMaker.setCriteria(cri);
-			pageMaker.setTotalCount(boardService.listCount());
-						
-			System.out.println(list);
-			model.addAttribute("list", list);
-			model.addAttribute("pageMaker", pageMaker);
-			
-		} else {
-			List<NotiVO> list = boardService.SearchNoti(vo);
-			System.out.println(list.toString());
-			
-			PageMaker pageMaker = new PageMaker();
-			pageMaker.setCriteria(cri);
-			pageMaker.setTotalCount(boardService.listSearchCount(vo));
-			
-			model.addAttribute("list", list);
-			model.addAttribute("pageMaker", pageMaker);
-		}
+		List<NotiVO> list = boardService.get_Noti_list(cri);
+		System.out.println(cri.getSearchName() + " ---- 제목");
+		System.out.println(cri.getSearchType() + " ---- 검색어");
+		
+		
+		PageMaker pageMaker = new PageMaker();
+		
+		pageMaker.setCriteria(cri);
+		pageMaker.setTotalCount(boardService.listCount(cri));
+		
+		System.out.println(boardService.listCount(cri) + "페이지 카운트");
+		
+		model.addAttribute("list", list);
+		model.addAttribute("pageMaker", pageMaker);
+		
+		model.addAttribute("searchType", cri.getSearchType());
+		model.addAttribute("searchName", cri.getSearchName());
+		
 		return "board/notice_board";
 	}
 

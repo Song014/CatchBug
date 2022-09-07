@@ -36,13 +36,39 @@
 </delete>
 
 <!-- 미출고 내역 -->
-<select id="unOrderHistory" resultType="HashMap">
+<select id="unOrderHistory" parameterType="criteria" resultType="HashMap">
 	select o.*, m.id,m.business_name
 	from  orders o
 	join member m
 	on o.id = m.id
-	where o.order_status = 1
-	order by order_no asc
+	
+	<choose>
+    <when test="searchType == 2">
+		WHERE o.order_no like '%'||#{searchName}||'%'
+		AND order_status = 1
+		order by o.order_no asc
+		OFFSET #{pageStart} ROWS FETCH FIRST #{perPageNum} ROWS ONLY
+	</when>
+	
+	<when test="searchType == 1">
+		WHERE m.business_name like '%'||#{searchName}||'%'
+		AND order_status = 1
+		order by o.order_no asc
+		OFFSET #{pageStart} ROWS FETCH FIRST #{perPageNum} ROWS ONLY
+	</when>
+	
+	<!--  <when test="searchType.equals('business_name')">
+		WHERE m.business_name like concat('%', #{keyword}, '%')
+		OR WHERE order_status = 1
+		order by p.product_no asc
+	</when> -->
+	
+	<otherwise>
+		where o.order_status = 1
+		order by o.order_no asc
+		OFFSET #{pageStart} ROWS FETCH FIRST #{perPageNum} ROWS ONLY
+	</otherwise>
+	</choose>
 </select>
 
 <!-- 미출고 내역 회원모달 -->
@@ -63,8 +89,10 @@
     INNER JOIN product_stock ps
     ON ps.product_no = p.product_no
     WHERE o.order_no = #{order_no}
+   	order by p.product_no asc
 </select>
 
+<!-- 가입 승인목록 리스트 -->
 <select id="SearchList" resultType="member" parameterType="search">
 	SELECT * 
 	FROM member
@@ -102,11 +130,42 @@
 	WHERE order_no = #{order_no}
 </update>
 
+<!-- 미출고  취소 -->
 <update id="update_order_refuse">
 	UPDATE orders
 	set ORDER_STATUS = 3
 	WHERE order_no = #{order_no}
 </update>
 
-<!-- 미출고  취소 -->
+<!-- 리스트 카운트 -->
+<select id="count" resultType="int" parameterType="hashMap">
+	SELECT count(o.order_no)
+	FROM orders o
+	INNER JOIN member m
+    ON o.id=m.id
+	
+	<choose>
+    <when test="searchType == 2">
+		WHERE o.order_no like '%'||#{searchName}||'%'
+		AND o.order_status = 1
+	</when>
+	
+	<when test="searchType == 1">
+		WHERE m.business_name like '%'||#{searchName}||'%'
+		AND o.order_status = 1
+	</when>
+	
+	<!--  <when test="searchType.equals('business_name')">
+		WHERE m.business_name like concat('%', #{keyword}, '%')
+		OR WHERE order_status = 1
+		order by p.product_no asc
+	</when> -->
+	
+	<otherwise>
+		where o.order_status = 1
+	</otherwise>
+	</choose>
+	
+</select>
+
 </mapper>

@@ -2,12 +2,12 @@ package com.catchbug.biz.admin;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.catchbug.biz.vo.Criteria;
 import com.catchbug.biz.vo.MemberVO;
 import com.catchbug.biz.vo.OrderItemVO;
 import com.catchbug.biz.vo.OrderVO;
@@ -43,9 +43,9 @@ public class AdminDAO {
 		mybatis.delete("AdminMapper.memberrefuse", vo);
 	}
 	// 미출고 리스트
-	public List<HashMap<String, Object>> getunOrderHistory(){
+	public List<HashMap<String, Object>> getunOrderHistory(Criteria cri){
 		System.out.println("미출고 리스트 출력");
-		return mybatis.selectList("AdminMapper.unOrderHistory");
+		return mybatis.selectList("AdminMapper.unOrderHistory", cri);
 	}
 	
 	// 회원정보 모달 
@@ -86,6 +86,17 @@ public class AdminDAO {
 	// 주문상태 반려로 변경
 	public void update_order_refuse(OrderVO vo) {
 		mybatis.update("AdminMapper.update_order_refuse", vo);
+	}
+
+	public int count(Criteria cri) {
+		
+		HashMap<String, Object> data = new HashMap<String, Object>();
+		
+		data.put("searchType", cri.getSearchType());
+		data.put("searchName", cri.getSearchName());
+		
+		int totalCount = mybatis.selectOne("AdminMapper.count", data);
+		return totalCount;
 	}
 	
 	
