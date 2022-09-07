@@ -32,11 +32,7 @@ public class FrancController {
 	 * 
 	 * return "franc/franc_order"; }
 	 */
-	// 발주 내역
-	@RequestMapping("/francOrderHistory.do")
-	public String FancOrderHistory() {
-		return "franc/franc_order_history";
-	}
+	
 
 	// 상품 리스트
 	@RequestMapping("/francStockList.do")
