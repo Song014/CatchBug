@@ -159,11 +159,7 @@ public class MemberController {
 		vo.setUploadPath(str);
 		String uuid = null;
 		/* uuid 적용 파일 이름 파일이름 중복 방지 */
-		if(vo.getUuid()!="noimg.png") {
-			uuid = vo.getUuid();
-		} else{
-			uuid = UUID.randomUUID().toString();
-		}
+		uuid = UUID.randomUUID().toString();
 		
 		vo.setUuid(uuid);
 		uploadFileName = uuid + "_" + uploadFileName;
@@ -211,13 +207,11 @@ public class MemberController {
 	@PostMapping(value = "profileUpdate")
 	public String MypageProfileUpdate(ImgVO ivo,MemberVO mvo) {
 		System.out.println("이미지 업데이트"+ivo+"  : 사용자"+mvo);
-		// 이미지 테이블에 이미지 정보 올리고
 		
-		if(mvo.getUuid().equals(memberService.getProfileImg(ivo))) {
-			productService.insertImg(ivo);			
-		}
+		// 이미지 테이블에 이미지 정보 올리고
+		memberService.updateImg(ivo);			
 		// 회원 테이블 uuid 값 업데이트
-		memberService.updateImg(mvo); 
+		memberService.updateUuid(mvo); 
 		
 		return "성공";
 	}

@@ -94,8 +94,8 @@
 								<!-- ToDo 대분류 1,2,3, 일때 해당하는 카테고리 이름 -->
 
 								<div class="accordion-item">
-									<h2 class="accordion-header" id="headingOne">
-										<button class="accordion-button" type="button"
+									<h2 class="accordion-header" id="heading${status.count }">
+										<button class="accordion-button collapsed" type="button"
 											data-bs-toggle="collapse"
 											data-bs-target="#collapse${status.count }"
 											aria-expanded="false"
@@ -103,8 +103,8 @@
 											${m.main_name}</button>
 									</h2>
 									<div id="collapse${status.count }"
-										class="accordion-collapse collapse show"
-										aria-labelledby="headingOne"
+										class="accordion-collapse collapse"
+										aria-labelledby="heading${status.count }"
 										data-bs-parent="#accordionExample">
 										<!-- ToDo 대분류 1 , 2 , 3 에 해당하는 서브카테고리 이름 -->
 										<div class="accordion-body" style="padding: 1px">

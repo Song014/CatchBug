@@ -151,7 +151,7 @@
 											<div id="div-preview">
 												<img id="image" src="/resources/profileImg/${img.uploadPath }/${img.uuid}" style="width:100px; heigth:100px;" />
 												<input type="hidden" name="id" value="${member.id }">
-												<input type="hidden" name="uuid" value="${member.uuid }">
+												<input type="hidden" name="oldUuid" value="${member.uuid }">
 											</div>
 											<input type="file" name="multipartFile" />
 											<div class="pt-2">

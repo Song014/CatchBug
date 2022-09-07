@@ -36,10 +36,10 @@ public class MemberDAOmybaits {
 
 	}
 
-	// 마이페이지 이미지수정
-	public void updateImg(MemberVO vo) {
+	// 마이페이지 uuid수정
+	public void updateUuid(MemberVO vo) {
 		System.out.println("==> mybatis로 updateImg실행");
-		memberMybatis.update("MemberDAO.updateImg", vo);
+		memberMybatis.update("MemberDAO.updateUuid", vo);
 	}
 
 	// 마이페이지 비밀번호 변경
@@ -63,6 +63,10 @@ public class MemberDAOmybaits {
 	public ImgVO getProfileImg(MemberVO vo) {
 
 		return memberMybatis.selectOne("MemberDAO.getProfileImg",vo);
+	}
+
+	public void updateImg(ImgVO vo) {
+		memberMybatis.update("MemberDAO.updateImg",vo);
 	}
 
 }

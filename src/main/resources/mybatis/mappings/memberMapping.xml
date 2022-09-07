@@ -40,9 +40,14 @@
 	</update>
 
 	<!-- uuid 업데이트 -->
-	<update id="updateImg">
+	<update id="updateUuid">
 		update member set uuid=#{uuid}
 		where id=#{id}
+	</update>
+	<!-- 이미지 업데이트 -->
+	<update id="updateImg">
+		update img set filename = #{fileName}, uploadPath =#{uploadPath},uuid=#{uuid}
+		where uuid = (select uuid from member where id=#{id}) 
 	</update>
 	
 	<select id="getProfileImg" resultType="img">
