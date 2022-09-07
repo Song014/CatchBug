@@ -68,7 +68,7 @@
                </li>
 
                <li><a class="dropdown-item d-flex align-items-center"
-                  href="users-profile.html"> <i class="bi bi-person"></i> <span>내
+                  href="mypage.do?id=${member.id }"> <i class="bi bi-person"></i> <span>내
                         정보</span>
                </a></li>
                <li>
@@ -86,7 +86,7 @@
          </li>
 
          <li><a class="dropdown-item d-flex align-items-center"
-            href="users-profile.html"> <i class="bi bi-person"></i> <span>내
+            href="mypage.do?id=${member.id }"> <i class="bi bi-person"></i> <span>내
                   정보</span>
          </a></li>
          <li>

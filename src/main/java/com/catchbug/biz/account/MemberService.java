@@ -2,6 +2,7 @@ package com.catchbug.biz.account;
 
 import java.util.List;
 
+import com.catchbug.biz.vo.ImgVO;
 import com.catchbug.biz.vo.MemberVO;
 
 public interface MemberService {
@@ -31,5 +32,7 @@ public interface MemberService {
 
 	// id 중복확인
 	int idcheck(MemberVO vo);
+
+	ImgVO getProfileImg(MemberVO vo);
 
 }
