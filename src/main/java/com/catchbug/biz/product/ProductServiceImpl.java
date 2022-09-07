@@ -82,5 +82,10 @@ public class ProductServiceImpl implements ProductService {
 		pDao.updateStock(oiv);
 	}
 
+	@Override
+	public List<ProductVO> getList() {
+		return pDao.getList();
+	}
+
 
 }

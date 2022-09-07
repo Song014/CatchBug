@@ -72,6 +72,10 @@ public class ProductDAO {
 		System.out.println(oiv);
 		mybatis.update("Product.updateStock",oiv);
 	}
+
+	public List<ProductVO> getList(){
+		return mybatis.selectList("Product.productList");
+	}
 	
 	
 

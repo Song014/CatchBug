@@ -96,7 +96,7 @@
                 <div class = "col-md-4 col-lg-1"></div>
                 <div class = "col-md-8 col-lg-4">
                     <select class = "form-select" aria-label = "Default select example" name = "sub_category">
-                        <option selected = "">하위 카테고리</option>
+                        <option selected = "" value = "0">하위 카테고리</option>
                     </select>
                 </div>
             </div>
@@ -121,8 +121,7 @@
             <div class = "row mb-3">
                 <label for = "product_name" class = "col-md-4 col-lg-3 col-form-label">상품명</label>
                 <div class = "col-md-8 col-lg-9">
-                    <input name = "product_name" type = "text" class = "form-control" id = "production" value = ""
-                           placeholder = "상품명">
+                    <input name = "product_name" type = "text" class = "form-control" value = "" placeholder = "상품명">
                 </div>
             </div>
 
@@ -130,8 +129,7 @@
                 <label for = "price" class = "col-md-4 col-lg-3 col-form-label">개당
                                                                                 가격</label>
                 <div class = "col-md-8 col-lg-9">
-                    <input name = "price" type = "text" class = "form-control" id = "production" value = ""
-                           placeholder = "개당 가격 (원)">
+                    <input name = "price" type = "text" class = "form-control" value = "" placeholder = "개당 가격 (원)">
                 </div>
             </div>
 
@@ -173,6 +171,37 @@
     document.getElementById('inputSearchDate').valueAsDate = new Date();
 </script> -->
 
+<%--상품 등록시 기존상품과 코드가 일치하는지 여부를 체크--%>
+<script>
+    $("form").on("submit", function () {
+        var product_no = $('input[name=product_no]').val();
+        var productList = JSON.parse('${productList}');
+        var category_no = $('select[name=sub_category]').val();
+        for (var list in productList) {
+            if (productList[list].product_no == product_no) {
+                alert("상품번호가 이미 존재합니다.");
+                return false;
+            } else if (category_no == '0') {
+                alert("카테고리를 선택하세요.");
+                return false;
+            } else if ($('input[name=brand]').val() == '') {
+                alert("제조사나 브랜드를 입력하세요.");
+                return false;
+            } else if ($('input[name=price]').val() == '') {
+                alert("가격을 입력해주세요.");
+                return false;
+            } else if ($('input[name=product_name]').val() == '') {
+                alert("상품명을 입력해주세요.");
+                return false;
+            } else {
+                alert("새로운 상품이 등록되었습니다.");
+                return false;
+            }
+        }
+    })
+
+</script>
+
 <!-- 기능 작동을위한 JS파일 링크 -->
 <script type = "text/javascript">
     $(document).ready(function () {
@@ -189,8 +218,7 @@
             }
         }
         $(document).on("change", "select[name='main_category']", function () {
-            let data = JSON
-                .parse('${subCategory}')
+            let data = JSON.parse('${subCategory}')
 
             //두번째 셀렉트 박스를 삭제 시킨다.
             var subCategorySelectBox = $("select[name='sub_category']");

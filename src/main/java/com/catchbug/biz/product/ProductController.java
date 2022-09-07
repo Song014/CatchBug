@@ -70,6 +70,7 @@ public class ProductController {
 	// 상품 등록
 	@RequestMapping("/productRegister.do")
 	public String ProductRegister(Model model) {
+		model.addAttribute("productList", JSONArray.fromObject(productService.getList()));
 		model.addAttribute("maincategory", productService.getMainCategory());
 		model.addAttribute("subCategory", JSONArray.fromObject(productService.getSubCategory()));
 		return "admin/product_register";

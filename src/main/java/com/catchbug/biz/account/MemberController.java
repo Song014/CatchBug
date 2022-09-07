@@ -109,7 +109,7 @@ public class MemberController {
 	@Transactional
 	@PostMapping("/findPW.do")
 	public String findePW(MemberVO vo) throws MessagingException, UnsupportedEncodingException {
-		String pass = new TempKey().getKey(10, false); // 임시 비밀번호 생성
+		String pass = new TempKey().getKey(10, false); // 성임시 비밀번호 생
 		vo.setPass(pass);
 		memberService.changeRandomPW(vo);
 
@@ -144,8 +144,14 @@ public class MemberController {
 
 
 	// 로그인 페이지이동
+	@RequestMapping(value = "/login_page.do", method = RequestMethod.GET)
+	public ModelAndView MemeberLoginReady() {
+		System.out.println("account/login_page //로그인 페이지에서  get방식  ");
 
-
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("account/login_page");
+		return mav;
+	}
 	//로그아웃 코드
 	@RequestMapping(value = "/logout.do", method = RequestMethod.GET)
 	public String logout(HttpSession session, ModelAndView mav) {
