@@ -36,7 +36,5 @@
 		<mapper resource="mybatis/mappings/boardMapper.xml"/>
 		<mapper resource="mybatis/mappings/orderMapper.xml"/>
 		<mapper resource="mybatis/mappings/qnaMapper.xml"/>
-		
-		
 	</mappers>
 </configuration>

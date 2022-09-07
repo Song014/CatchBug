@@ -81,9 +81,10 @@
 					<div align="right" class="dataTable-top">
 						<div class="dataTable-search">
 							<form action="/notice_Board.do">
-								<select name="searchOption">
-									<option value="orderNumber" selected="selected">제목</option>
-								</select> <input type="text" name="noti_title" placeholder="검색어를 입력해 주세요.">
+								<select name="searchType">
+									<option value="1" selected="selected">제목</option>
+								</select> 
+									<input type="text" name="searchName" placeholder="검색어를 입력해 주세요.">
 								<button>검색</button>
 							</form>
 						</div>
@@ -124,15 +125,16 @@
 										<c:forEach begin="${pageMaker.startPage}"
 											end="${pageMaker.endPage}" var="idx">
 											<li
-												<c:out value="${pageMaker.cri.page == idx? 'class=active':''}"/>><a
-												href="/notice_Board.do${pageMaker.makeQuery(idx) }">[${idx}]</a></li>
+												<c:out value="${pageMaker.cri.page == idx? 'class=active':''}"/>>
+												<a class="paginate_button previous" href="/notice_Board.do${pageMaker.makeQuery(idx) }&searchType=${searchType }&searchName=${searchName }">[${idx}]</a></li>
 										</c:forEach>
 
 										<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 											<li><a
 												href="notice_Board.do${pageMaker.makeQuery(pageMaker.endPage+1)}">&raquo;</a></li>
 										</c:if>
-									</ul> <!-- <ul class="pagination justify-content-center">
+									</ul> 
+									<!-- <ul class="pagination justify-content-center">
 										<li class="page-item"><a class="page-link" href="#"tabindex="-1" aria-disabled="true">Previous</a></li>
 										<li class="page-item"><a class="page-link" href="#">1</a></li>
 										<li class="page-item active" aria-current="page"><a
