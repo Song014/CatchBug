@@ -2,7 +2,10 @@ package com.catchbug.biz.account;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.catchbug.biz.vo.MemberVO;
@@ -14,6 +17,8 @@ public class MemberServiceImpl implements MemberService {
 //	private AccountDAO accountDAO;
 	private MemberDAOmybaits MemberDAO;
 
+	@Inject
+	BCryptPasswordEncoder pwdEncoder;
 	// 훠왼가입 기능
 
 	@Override
@@ -56,23 +61,12 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return 0;
 
-
-	@Override
-	public void updateImg(MemberVO vo) {
-		MemberDAO.updateImg(vo);
-
 	}
-
-
-	@Override
-	public void updatePass(MemberVO vo) {
-		MemberDAO.updatePass(vo);		
-	}
-
-
+	
 	@Override
 	public int idcheck(MemberVO vo) {
 		return MemberDAO.idcheck(vo);
 		
 	}
+
 }

@@ -60,9 +60,17 @@
 
 <select id="SearchList" resultType="member" parameterType="search">
 	SELECT * 
-	FROM member
+	FROM member m
 	WHERE ceo LIKE '%'||#{searchWord}||'%'
 	or id LIKE '%'||#{searchWord}||'%'
 	or business_name LIKE '%'||#{searchWord}||'%'
 </select>
+<!-- 가맹점 발주내역 검색기능 -->
+<select id="SearchList2" resultType="order" parameterType="search">
+	SELECT * 
+	FROM orders
+	WHERE  id LIKE '%'||#{searchWord}||'%'
+	or order_no LIKE '%'||#{searchWord}||'%'
+</select>
+
 </mapper>

@@ -73,7 +73,7 @@
 
 
 	<!-- ======= Sidebar ======= -->
-	
+
 	<jsp:include page="../mainInclude/sidebar.jsp"></jsp:include>
 
 	<!-- End Sidebar -->
@@ -96,19 +96,18 @@
 		<div class="row">
 			<div class="col-xl-4">
 				<div class="card">
-					<div
-						class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-						<img src="assets/img/mapleStory.jpg" alt="Profile"
-							class="rounded-circle">
-						<h2>메이플스토리</h2>
-						<h3>10년째 메인모델</h3>
-						<div class="social-links mt-2">
+			<!-- 왼쪽 프로필 사진 -->
+					<div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+					 	<img src="assets/img/mapleStory.jpg" alt="Profile"	class="rounded-circle"> 
+							<label for="ex_file">프로필 사진 바꾸기</label> 
+          				     <input name="uploadFile" type="file" accept="image/gif, image/jpeg, image/png"/> 						<div class="social-links mt-2">
 							<a href="#" class="twitter"><i class="bi bi-twitter"></i></a> <a
 								href="#" class="facebook"><i class="bi bi-facebook"></i></a> <a
 								href="#" class="instagram"><i class="bi bi-instagram"></i></a> <a
 								href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
 						</div>
 					</div>
+		<!-- 왼쪽 프로필 사진 끝 -->
 				</div>
 			</div>
 			<div class="col-xl-8">
@@ -125,11 +124,6 @@
 									data-bs-target="#profile-edit" aria-selected="false"
 									tabindex="-1" role="tab">MyPage 수정</button>
 							</li>
-							<!-- <li class="nav-item" role="presentation">
-								<button class="nav-link" data-bs-toggle="tab"
-									data-bs-target="#profile-settings" aria-selected="false"
-									tabindex="-1" role="tab">Settings</button>
-							</li> -->
 							<li class="nav-item" role="presentation">
 								<button class="nav-link" data-bs-toggle="tab"
 									data-bs-target="#profile-change-password" aria-selected="false"
@@ -139,35 +133,33 @@
 						<div class="tab-content pt-2">
 							<div class="tab-pane fade show active profile-overview"
 								id="profile-overview" role="tabpanel">
-								<!-- 자기소개 이미지 파일 변경 -->
-								<form action="mypageProfile.do" method="post"
-									enctype="multipart/form-data">
+				<!-- 자기소개 이미지 파일 변경 -->
+								<form  action="/profileUpdate.do" method="post" id="actionForm">
 									<div class="row mb-3">
+										<div class="profilebox" style="background: #bdbdbd;">
+                 
+           							 	</div>
 										<label for="profileImage"
-											class="col-md-4 col-lg-3 col-form-label">Profile
-											Image</label>
-
-
+											class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
 										<div class="col-md-8 col-lg-9">
-											<img id="profileImg" src="assets/img/mapleStory.jpg"
-												alt="Profile"> <input type="file" name="uploadImgFile"
-												accept=".jpg" />
+											<img id="profileImg" src="assets/img/mapleStory.jpg" alt="Profile">
+											<input name="uploadImgFile" type="file" accept="image/gif, image/jpeg, image/png"/>
+								
 											<div class="pt-2">
-
-												<button type="reset" class="btn btn-danger btn-sm"
-													title="Remove my profile image">
+												<button type="button" id="reject" class="btn btn-danger btn-sm"	title="Remove my profile image">
 													<i class="bi bi-trash"></i>
 												</button>
-												<button type="submit" class="btn btn-primary">저장</button>
+												<button type="submit" id='update'  data-oper="update" class="btn btn-primary">저장</button>
 											</div>
 
 											<!-- <button type="submit" class="class="btn btn-primary btn-sm"" title="Upload new profile image" <i	class="bi bi-upload"></i>></button>
 													 -->
-											<div id="div-preview"></div>
-										</div>
+											 	<div id="div-preview"></div> 
+											</div>
 									</div>
 								</form>
-								<!-- 자기소개 이미지 파일 변경 끝-->
+								
+				<!-- 자기소개 이미지 파일 변경 끝-->
 								<h5 class="card-title">Profile Details</h5>
 								<div class="row">
 									<div class="col-lg-3 col-md-4 label ">아이디</div>
@@ -203,23 +195,23 @@
 
 							<div class="tab-pane fade profile-edit pt-3" id="profile-edit"
 								role="tabpanel">
-						<!-- 마이페이지 개인정보 변경 폼 시작 -->
+								<!-- 마이페이지 개인정보 변경 폼 시작 -->
 
 								<form id="updateForm" action="/myPageUpdate.do" method="post">
-									
+
 									<div class="row mb-3">
 										<div class="col-md-8 col-lg-9">
 											<input name="id" type="hidden" class="form-control" id="id"
 												value="${member.id}">
 										</div>
 									</div>
-									<div class="row mb-3"><label for="about" class="col-md-4 col-lg-3 col-form-label">
-									비밀번호 확인
-									</label>
+									<div class="row mb-3">
+										<label for="about" class="col-md-4 col-lg-3 col-form-label">
+											비밀번호 확인 </label>
 										<div class="col-md-8 col-lg-9">
 											<input name="pass" type="password" class="form-control"
-												id="pass" >
-												
+												id="pass">
+
 										</div>
 									</div>
 
@@ -270,45 +262,48 @@
 									</div>
 
 								</form>
-									<div class="text-center">
-										<button type="button" class="btn btn-primary" id="submit">Save
-											Changes</button>
-									</div>
+								<div class="text-center">
+									<button type="button" class="btn btn-primary" id="submit">Save
+										Changes</button>
+								</div>
 							</div>
-							
+
 							<div class="tab-pane fade pt-3" id="profile-change-password"
 								role="tabpanel">
-					<!-- 비밀번호 변경 폼 시작 -->
-								<form action="updatePass.do" method="post">
+								<!-- 비밀번호 변경 폼 시작 -->
+								<form action="/updatePass.do" id="pwUpdateForm"
+									name="pwUpdateForm" method="post">
+									<input type="hidden" id="memberId" name="memberId"
+										value="${member.id}">
 									<div class="row mb-3">
 										<label for="currentPassword"
 											class="col-md-4 col-lg-3 col-form-label">현재 비밀번호 </label>
 										<div class="col-md-8 col-lg-9">
-											<input name="pass" type="password" class="form-control"
-												id="currentPassword">
+											<input name="memberPw" type="password" class="form-control"
+												id="memberPw">
 										</div>
 									</div>
 									<div class="row mb-3">
 										<label for="newPassword"
 											class="col-md-4 col-lg-3 col-form-label">새 비밀번호</label>
 										<div class="col-md-8 col-lg-9">
-											<input name="newpass" type="password"
-												class="form-control" id="newPassword">
+											<input name="memberPw1" type="password" class="form-control"
+												id="memberPw1">
 										</div>
 									</div>
 									<div class="row mb-3">
 										<label for="renewPassword"
 											class="col-md-4 col-lg-3 col-form-label">새 비밀번호 확인</label>
 										<div class="col-md-8 col-lg-9">
-											<input name="renewpassword" type="password"
-												class="form-control" id="renewPassword">
+											<input name="memberPw2" type="password" class="form-control"
+												id="memberPw2">
 										</div>
 									</div>
-									<div class="text-center">
-										<button type="submit" class="btn btn-primary">Change
-											Password</button>
-									</div>
 								</form>
+								<div class="text-center">
+									<button id="pwUpdate" type="button" class="btn btn-primary">Change
+										Password</button>
+								</div>
 								<!-- 비밀번호 변경 폼 끝 -->
 							</div>
 						</div>
@@ -383,47 +378,50 @@
 				//div 안에 싹 다 비우기
 				divPreview.innerHTML = "";
 			}
-		}
+		} 
 	</script>
-		<script>
-	$(document).ready(function(){
+	<script>
+		$(document).ready(function() {
 
-        const username = '${member.ceo}';
-        const level = '${member.level1}';
-       	if(level == 3){
-       		alert(username + "님 안녕하세요 아직 승인이 완료되지 않았습니다.");
-       	}
-	});
+			const username = '${member.ceo}';
+			const level = '${member.level1}';
+			if (level == 3) {
+				alert(username + "님 안녕하세요 아직 승인이 완료되지 않았습니다.");
+			}
+		});
 	</script>
 	<script type="text/javascript">
-		$(document).ready(function(){		
-			$("#submit").on("click", function(){
-				if($("#business_no").val()==""){
+		$(document).ready(function() {
+			$("#submit").on("click", function() {
+				if ($("#business_no").val() == "") {
 					alert("비밀번호를 입력해주세요.");
 					$("#business_no").focus();
 					return false;
 				}
-				if($("#business_name").val()==""){
+				if ($("#business_name").val() == "") {
 					alert("성명을 입력해주세요.");
 					$("#business_name").focus();
 					return false;
+					
+					
+					1
 				}
-				if($("#ceo").val()==""){
+				if ($("#ceo").val() == "") {
 					alert("대표자를 입력해주세요.");
 					$("#ceo").focus();
 					return false;
 				}
-				if($("#contact").val()==""){
+				if ($("#contact").val() == "") {
 					alert("연락처를 입력해주세요.");
 					$("#contact").focus();
 					return false;
 				}
-				if($("#email").val()==""){
+				if ($("#email").val() == "") {
 					alert("이메일을 입력해주세요.");
 					$("#email").focus();
 					return false;
 				}
-				if($("#business_address").val()==""){
+				if ($("#business_address").val() == "") {
 					alert("사업장 주소지를 입력해주세요.");
 					$("#business_address").focus();
 					return false;
@@ -433,27 +431,23 @@
 					type : "POST",
 					dateType : "json",
 					data : $("#updateForm").serializeArray(),
-					success: function(data){
-						if(data==true){
-							if(confirm("회원수정하시겠습니까?")){
+					success : function(data) {
+						if (data == true) {
+							if (confirm("회원수정하시겠습니까?")) {
 								$("#updateForm").submit();
 							}
-						}else{
+						} else {
 							alert("패스워드가 틀렸습니다.");
 							return;
-							
+
 						}
 					}
 				})
 			})
-			// 취소
-			/* $(".cencle").on("click", function(){
-				
-				location.href = "/";
-						    
-			}) */
 		});
 	</script>
+
+	
 </body>
 
 

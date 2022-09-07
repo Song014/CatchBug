@@ -71,4 +71,10 @@ public class AdminServiceImpl implements AdminService {
 		
 		return adminDAO.franc_SearchList(vo);
 	}
+
+	// 가맹점 발주내역 검색기능 
+	@Override
+	public List<OrderVO> franc_SearchList2(SearchVO vo) {
+		return adminDAO.franc_SearchList2(vo);
+	}
 }

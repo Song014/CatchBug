@@ -23,7 +23,7 @@
   
     	<!-- 발주 내역 / 장바구니 번호 클릭시 해당 id가 주문한 내역들  (모달)-->
 	<select id="getOrderDetail" resultType="order">
-		 select m.id,d.detail_no,d.order_no,p.product_no,d.purchase_amount,p.product_name,o.total_price
+		 select m.id,d.detail_no,d.order_no,p.product_no,d.purchase_amount,p.product_name,o.total_price,p.brand
     from order_detail d
     inner join product p
     on d.product_no=p.product_no
@@ -54,5 +54,7 @@
     on d.order_no=o.order_no
     where o.order_no=#{order_no}
 	</select>
+	<!-- 검색 조회 -->
+	
 
 </mapper>

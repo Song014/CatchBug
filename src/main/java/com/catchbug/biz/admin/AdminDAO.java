@@ -2,7 +2,6 @@ package com.catchbug.biz.admin;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +58,10 @@ public class AdminDAO {
 	}
 
 	public List<MemberVO> franc_SearchList(SearchVO vo) {
-		// TODO Auto-generated method stub
 		return mybatis.selectList("AdminMapper.SearchList", vo);
 	}
+	public List<OrderVO> franc_SearchList2(SearchVO vo) {
+		return mybatis.selectList("AdminMapper.SearchList2", vo);
+	}
+	
 }

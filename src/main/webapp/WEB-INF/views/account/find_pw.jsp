@@ -107,19 +107,19 @@
 
 								<div class="col-12">
 									<br> <label for="yourName" class="form-label">*
-										Your Id</label> <input type="text" name="id" class="form-control"
+										Id</label> <input type="text" name="id" class="form-control"
 										id="yourId" required>
 									<div class="invalid-feedback">Please, enter your Id!</div>
 								</div>
 
 								<div class="col-12">
-									<label for="yourName" class="form-label">* Your Name</label> <input
-										type="text" name="ceo" class="form-control" id="yourName"
+									<label for="yourName" class="form-label">* 대표자 명</label> <input
+										type="text" name="ceo" class="form-control" id="yourCeo"
 										required>
 									<div class="invalid-feedback">Please, enter your name!</div>
 								</div>
 
-								<div class="col-12">
+								<!-- <div class="col-12">
 									<label for="yourEmail" class="form-label">* Your Email</label>
 									<div class="input-group has-validation">
 										<input type="text" name="emailid" class="form-control"
@@ -143,7 +143,7 @@
 									</div>
 
 
-								</div>
+								</div> -->
 								<div class="col-12">
 									<button class="btn btn-primary w-100" type="submit">비밀번호
 										찾기</button>
@@ -216,8 +216,6 @@
 	        }
 	    }).open();
 	</script> -->
-
-
 	<!-- Vendor JS Files -->
 	<script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
 	<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

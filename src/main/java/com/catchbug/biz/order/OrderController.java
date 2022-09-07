@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.catchbug.biz.account.MemberService;
+import com.catchbug.biz.admin.AdminService;
 import com.catchbug.biz.cart.CartService;
 import com.catchbug.biz.product.ProductService;
 import com.catchbug.biz.vo.CartVO;
@@ -26,6 +27,7 @@ import com.catchbug.biz.vo.MemberVO;
 import com.catchbug.biz.vo.OrderItemVO;
 import com.catchbug.biz.vo.OrderVO;
 import com.catchbug.biz.vo.ProductVO;
+import com.catchbug.biz.vo.SearchVO;
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.response.IamportResponse;
@@ -48,6 +50,9 @@ public class OrderController {
 	
 	@Autowired
 	private MemberService ms;
+	
+	@Autowired
+	private AdminService as;
 
 	private IamportClient client;
 	private OrderController() {
@@ -234,16 +239,21 @@ public class OrderController {
 		return result;
 	}
   
-            // 가맹점 발주내역 페이지 
-            @ResponseBody
+            // 가맹점 발주내역 페이지 + 검색
             @RequestMapping(value ="/orderHistory.do" , method=RequestMethod.GET)
-            public ModelAndView orderHistorypage(MemberVO mvo,OrderVO ovo,Model model,HttpSession session,ModelAndView mav) {
-                System.out.println("orderHistorypage");
-            	List<OrderVO> order_list=os.getOrderList(ovo);
-                model.addAttribute("olist", order_list);
-                mav.setViewName("admin/order_history");
+            public String orderHistorypage(SearchVO sw,OrderVO ovo,Model model) {
                
-               return mav;
+                System.out.println(sw);
+        		if (sw.getSearchWord() == null) {
+        			System.out.println("orderHistorypage");
+                	List<OrderVO> orderno_list=os.getOrderList(ovo);
+                    model.addAttribute("olist", orderno_list);
+        		}else {
+        			System.out.println("검색");
+        			List<OrderVO> orderno_list = as.franc_SearchList2(sw);
+        			model.addAttribute("olist", orderno_list);
+        		}
+               return "admin/order_history";
             }
             // 장바구니 번호 클릭시 해당 id가 주문한 내역 조회 (모달)
             @ResponseBody
@@ -296,6 +306,5 @@ public class OrderController {
                System.out.println(orderfId);
                return orderfId;
             }
-        	
 
 }

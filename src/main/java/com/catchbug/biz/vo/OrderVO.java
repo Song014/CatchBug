@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 
@@ -25,7 +25,7 @@ public class OrderVO {
 	private String note;
 
 	private int total_price;
-
+	private String brand;
 	
 	//bj
 	private int product_quantily;
@@ -45,5 +45,10 @@ public class OrderVO {
 			this.total_price += orderItemVO.getTotal();
 		}
 	}
+	
+	@JsonProperty(access=JsonProperty.Access.WRITE_ONLY)
+	private String searchCondition;
+	@JsonProperty(access=JsonProperty.Access.WRITE_ONLY)
+	private String searchKeyword;
 	
 }

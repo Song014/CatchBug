@@ -3,12 +3,9 @@ package com.catchbug.biz.vo;
 
 import java.sql.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
-
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 
 import lombok.Data;
 
@@ -16,9 +13,11 @@ import lombok.Data;
 public class MemberVO {
 
 	private String id; // 아이디
-
+	
 	private String pass; // 비밀번호
-	private String new_pass;//새비밀번호
+	private String newPassword;//새비밀번호
+	private String newPasswordConfirm;//새비밀번호 확인
+	
 	private String business_no; // 사업자 등록번호 
 	private String business_name; // 법인명 
 	private String ceo; // 대표자 

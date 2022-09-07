@@ -37,11 +37,6 @@ public class MemberDAOmybaits {
 			System.out.println("==> mybatis로 updateImg실행");
 			memberMybatis.update("MemberDAO.updateImg",vo);
 		}
-	//마이페이지 비밀번호 변경
-		public void updatePass(MemberVO vo) {
-			System.out.println("updatePass 실행");
-			memberMybatis.update("MemberDAO.updateMypagePass",vo);
-		}
 		
 		//아이디 중복 확인
 		public int idcheck(MemberVO vo) {
@@ -49,51 +44,14 @@ public class MemberDAOmybaits {
 			return memberMybatis.selectOne("MemberDAO.idChk", vo);
 		}
 		   
-	} 
-
+	 
 	// 전체 회원 조회
 	public List<MemberVO> getMemberList(MemberVO vo) {
 		System.out.println("====> mybatis로 getMemberList 실행");
 		return memberMybatis.selectList("MemberDAO.getMemberList", vo);
 	}
-
-	// 마이페이지 수정
-	public void updateMypage(MemberVO vo) {
-		System.out.println("===> mybatis로  updateMypage실행");
-		memberMybatis.update("MemberDAO.updateMypage", vo);
-	}
-
-	// 마이페이지 이미지수정
-	public void updateImg(MemberVO vo) {
-		System.out.println("==> mybatis로 updateImg실행");
-		memberMybatis.update("MemberDAO.updateImg", vo);
-	}
-
+	
 }
 
 
-//	   
-//	   //글 삭제
-//	   public void deleteBoard(AccountVO vo) {
-//		   System.out.println("===> mybatis로 deleteAccount 실행");
-//		   accountMybatis.insert("AccountDAO.deleteAccount", vo);
-//		   //DAO도 다 수정해야댐
-//	   }
-//	   
-//	   //상세조회
-//	   public AccountVO getBoard(AccountVO vo) {
-//		   System.out.println("===> mybatis로 getBoard 실행");
-//		  
-//		   //DAO도 다 수정해야댐
-//		   return accountMybatis.selectOne("AccountDAO.getboard",vo);
-//		   
-//	   }
-//	 //글 전체 조회
-//	   public List<AccountVO> getBoardList(AccountVO vo){
-//		   System.out.println("===> mybatis로 getBoard 실행");
-//		  
-//		   return accountMybatis.selectList("AccountDAO.getBoard",vo);
-//		   //DAO도 다 수정해야댐
-
-//	   }
 

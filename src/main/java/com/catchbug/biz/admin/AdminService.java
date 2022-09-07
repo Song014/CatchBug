@@ -1,6 +1,7 @@
 package com.catchbug.biz.admin;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
 
 import com.catchbug.biz.vo.MemberVO;
 import com.catchbug.biz.vo.OrderVO;
@@ -20,6 +21,7 @@ public interface AdminService {
 	public MemberVO getMemberM(MemberVO vo);
 	public List<OrderVO> getOrder(OrderVO vo);
 	public List<MemberVO> franc_SearchList(SearchVO vo);
+	public List<OrderVO> franc_SearchList2(SearchVO vo);
 	
 
 }

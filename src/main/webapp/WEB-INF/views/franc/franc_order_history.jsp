@@ -132,7 +132,16 @@
 											data-bs="${olist.id}" data-bs-toggle="modal"
 											data-bs-target="#modalDialogScrollable2"> ${olist.id}님</a></td>
 										<td>${olist.total_price}원</td>
-										<td>${olist.order_status}번</td>
+										<td>
+										<c:if test="${olist.order_status eq '0'}"> 관리자 결제 완료
+										</c:if>
+										<c:if test="${olist.order_status eq '1'}"> 가맹점 결제 대기
+										</c:if>
+										<c:if test="${olist.order_status eq '2'}"> 가맹점 결제완료(관리자가 승인시)
+										</c:if>
+										<c:if test="${olist.order_status eq '3'}"> 가맹점 결제 취소
+										</c:if>
+										</td>	
 										<td>${olist.shipping_address}</td>
 										<td>${olist.note}</td>
 									</tr>
@@ -154,7 +163,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title">
-						주문서 번호 : <span id="orderModal41"> <!--주문자 id 들어가는곳-->
+						주문서 번호 : <span id="orderModal42"> <!--주문자 id 들어가는곳-->
 						</span>
 					</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -174,7 +183,7 @@
 											<th scope="col" style="width: 15%;">구입수량</th>
 										</tr>
 									</thead>
-									<tbody id="orderModal1">
+									<tbody id="orderModal11">
 
 
 									</tbody>
@@ -271,25 +280,25 @@
                   type : "GET", //요청 메소드 방식
                   url : "orderFDetail.do?order_no=" + orderno,
                   success : function(result) {
-                     $("#orderModal1").empty();
-                     $("#orderModal41").empty();
-                       
-                       console.log(orderno)
-                       for(var j=0;j<result.length;j++){
-                        stx += ` 
-                           <tr>
-                              <td>`+result[j].detail_no+`</td>
-                              <td>`+result[j].order_no+`</td>
-                              <td>`+result[j].product_no+`</td>
-                              <td>`+result[j].product_name+`</td>
-                              <td>`+result[j].purchase_amount+`</td>
-                           </tr>
+                     $("#orderModal11").empty();
+                     $("#orderModal42").empty();
 
+                       for(var b=0;b<result.length;b++){
+                        stx += `
+                           <tr>
+                              <td>`+result[b].detail_no+`</td>
+                              <td>`+result[b].order_no+`</td>
+                              <td>`+result[b].product_no+`</td>
+                              <td>`+result[b].product_name+`</td>
+                              <td>`+result[b].purchase_amount+`</td>
+                           </tr>
                               `;
                        }
-                  stb= orderno;
-                           $("orderModal1").html(stx);
-                           $("#orderModal41").html(stb);
+                       console.log(stx)
+                   
+                  			 stb= orderno; 
+                           $("#orderModal11").html(stx);
+                           $("#orderModal42").html(stb); 
                            
                      console.log("ajax 성공");
                        
@@ -335,7 +344,22 @@
      });
          
 </script>
-
+<script>
+/* 	 $(document).ready(function(){
+			
+		const username = '${member.ceo}';
+        const level = '${member.level1}';
+        if(username == ""){
+        	alert("로그인한 유저만 이용가능합니다.");
+        	location.href="login_page.do";
+        }else{
+        	if(level != 2){
+            	alert("가맹점만 이용가능합니다.");
+            	location.href="login_page.do";
+        	}
+        }
+	});  */
+	</script>
 
 </body>
 

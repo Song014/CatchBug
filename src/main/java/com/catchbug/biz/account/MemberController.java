@@ -6,6 +6,7 @@ import java.io.IOException;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.apache.catalina.authenticator.SpnegoAuthenticator.AuthenticateAction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -80,20 +81,23 @@ public class MemberController {
 	// 로그인
 	@RequestMapping(value = "/login_page.do", method = RequestMethod.POST)
 	public String MemberLogin(MemberVO vo, HttpSession session, RedirectAttributes ra) {
-		System.out.println("account/login_page //로그인 페이지에서  post방식 ");
-		session.getAttribute("member");
+//		session.getAttribute("member");
 		MemberVO login = memberService.getMember(vo);
+		if(login == null) {
+			System.out.println("이런 회원 안키웁니다");
+			ra.addFlashAttribute("msg", "로그인에 실패하였습니다.");
+			return "account/login_page";
+		}
 		boolean pwdMatch = pwdEncoder.matches(vo.getPass(), login.getPass());
 
 		if (login != null && pwdMatch == true) {
 			session.setAttribute("member", login);
 			System.out.println("값 잘 들어감");
 			return "account/mypage";
-		} else {
-			session.setAttribute("member", null);
-			System.out.println("세션 null");
+		}else {
 			return "account/login_page";
 		}
+		
 	}
 
 	// 로그인끝
@@ -106,19 +110,9 @@ public class MemberController {
 
 	// mypage / 개인정보 수정
 	@RequestMapping(value = "/myPageUpdate.do", method = RequestMethod.POST)
-	public String MypageChange(MemberVO vo, HttpSession session) throws IllegalStateException, IOException {
+	public String MypageChange(MemberVO vo, HttpSession session,AuthenticateAction auth) throws IllegalStateException, IOException {
 		System.out.println("mypage / 개인정보 수정 ");
-//		MemberVO login = memberService.getMember(vo);
-//
-//		boolean pwdMatch = pwdEncoder.matches(vo.getPass(), login.getPass());
-//		if (pwdMatch) {
-//			System.out.println("pwdMatch 성공");
-//			memberService.updateMypage(vo);
-//			session.setAttribute("member", login);
-//			System.out.println("개인정보 수정완료");
-//		} else {
-//			System.out.println("pwdMatch 실패");
-//		}
+
 		memberService.updateMypage(vo);
 		session.invalidate();
 		return "account/login_page";
@@ -127,13 +121,10 @@ public class MemberController {
 	// 비밀번호 체크
 	@ResponseBody
 	@RequestMapping(value = "/passChk.do", method = RequestMethod.POST)
-	public boolean MypagePassChange(MemberVO vo,HttpSession session) throws Exception {
+	public boolean PassCheck(MemberVO vo,HttpSession session) throws Exception {
 		System.out.println("mypage / 수정전 비밀번호 체크 ");
 		
 		  MemberVO login = memberService.getMember(vo);
-		  
-		  System.out.println(vo.getPass()+"입니다아아아");
-		  System.out.println(login.getPass()+"입니닷");
 		 
 		boolean pwdcChk = pwdEncoder.matches(vo.getPass(),login.getPass());
 		System.out.println(pwdcChk);
@@ -149,12 +140,6 @@ public class MemberController {
 		return result;
 	}
 
-	// mypage //비밀번호 변경
-	@RequestMapping(value = "/updatePass.do", method = RequestMethod.POST)
-	public String MypagePassChange(MemberVO vo, Model model, HttpSession session, RedirectAttributes ra)
-			throws IllegalStateException, IOException {
-		System.out.println("mypage / 비밀번호  변경 ");
-
-		return "account/mypage";
-	}
 }
+	
+
