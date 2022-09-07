@@ -170,7 +170,7 @@ public class AdminController {
 				int product_no = list.getProduct_no();
 				if(list.getPurchase_amount() <= adminService.getProduct_Quantily(product_no)) {
 					System.out.println("주문수 :" + list.getPurchase_amount()+ "현 재고 :"+ adminService.getProduct_Quantily(product_no));
-					
+					 
 					int 현재고 = adminService.getProduct_Quantily(product_no);
 					int 주문수 = list.getPurchase_amount();
 					int deduction = 현재고 - 주문수;
