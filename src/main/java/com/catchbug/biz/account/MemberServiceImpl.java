@@ -114,4 +114,17 @@ public class MemberServiceImpl implements MemberService {
 		
 		MemberDAO.insertMemberImg(vo);
 	}
+
+	@Override
+	public ImgVO getProfileImg(MemberVO vo) {
+		
+		return MemberDAO.getProfileImg(vo);
+	}
+
+	@Override
+	public void insertMemberImg(ImgVO vo) {
+		
+		MemberDAO.insertMemberImg(vo);
+
+	}
 }

@@ -35,52 +35,219 @@ import com.siot.IamportRestClient.response.Payment;
 @Controller
 public class OrderController {
 
-    @Autowired
-    private ProductService ps;
 
-    @Autowired
-    private CartService cs;
+	
+	@Autowired
+	private ProductService ps;
 
-    @Autowired
-    private OrderService os;
+	@Autowired
+	private CartService cs;
 
-    @Autowired
-    private MemberService ms;
+	@Autowired
+	private OrderService os;
+	
+	@Autowired
+	private MemberService ms;
 
-    private IamportClient client;
+	private IamportClient client;
+	private OrderController() {
+		client = new IamportClient("4531801211644015",
+				"FwlsbR1eS5ipldOSWyK9K23UfoV0pnvo4GT3Q0SryW6txJ9B9ZDhLdVxVlweIUsrsNGAYAaIjRHBhoyu");
+	}
 
-    private OrderController() {
-        client = new IamportClient("4531801211644015",
-                "FwlsbR1eS5ipldOSWyK9K23UfoV0pnvo4GT3Q0SryW6txJ9B9ZDhLdVxVlweIUsrsNGAYAaIjRHBhoyu");
-    }
+	// 결제시 검증
+	@ResponseBody
+	@RequestMapping(value = "/verifyIamport/{imp_uid}")
+	public IamportResponse<Payment> paymentByImpUid(Model model, Locale locale, HttpSession session,
+			@PathVariable(value = "imp_uid") String imp_uid) throws IamportResponseException, IOException {
+		return client.paymentByImpUid(imp_uid);
+	}
+	
+	// 결제 완료후 결제 내역
+	@ResponseBody
+	@RequestMapping(value = "/payments/status/{status}")
+	public IamportResponse<PagedDataList<Payment>> paymentByImpStatus(Model model, Locale locale, HttpSession session,
+			@PathVariable(value = "status") String status) throws IamportResponseException, IOException {
+		return client.paymentsByStatus(status);
+	}
+	
 
-    // 결제시 검증
-    @ResponseBody
-    @RequestMapping(value = "/verifyIamport/{imp_uid}")
-    public IamportResponse<Payment> paymentByImpUid(Model model, Locale locale, HttpSession session,
-                                                    @PathVariable(value = "imp_uid") String imp_uid) throws IamportResponseException, IOException {
-        return client.paymentByImpUid(imp_uid);
-    }
+	// 본사 발주서 작성
+	@RequestMapping("/productForOrder.do")
+	public String factoryOrder(Model model, CategoryVO vo, HttpSession session) {
 
-    // 결제 완료후 결제 내역
-    @ResponseBody
-    @RequestMapping(value = "/payments/status/{status}")
-    public IamportResponse<PagedDataList<Payment>> paymentByImpStatus(Model model, Locale locale, HttpSession session,
-                                                                      @PathVariable(value = "status") String status) throws IamportResponseException, IOException {
-        return client.paymentsByStatus(status);
-    }
+		// 처음 들어갔을때 카테고리 불러오기
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		List<CartVO> cartList = new ArrayList<CartVO>();
+		if (cs.getCart(member) != null) {
+			for (CartVO cartVO : cs.getCart(member)) {
+				cartVO.initTotal();
+				cartList.add(cartVO);
+			}
+			model.addAttribute("cartList", cartList);
+		}
 
-    // 본사 발주서 작성
-    @RequestMapping("/productForOrder.do")
-    public String factoryOrder(Model model, CategoryVO vo, HttpSession session) {
+		// 카테고리
+		model.addAttribute("mainCategory", ps.getMainCategory());
+		model.addAttribute("subCategory", ps.getSubCategory());
+		// 첫 요청 상품 데이터 최근 등록순
+		vo.setSub_category(0);
 
-        // 처음 들어갔을때 카테고리 불러오기
-        MemberVO member = (MemberVO) session.getAttribute("member");
-        List<CartVO> cartList = new ArrayList<CartVO>();
-        if (cs.getCart(member) != null) {
-            for (CartVO cartVO : cs.getCart(member)) {
-                cartVO.initTotal();
-                cartList.add(cartVO);
+		List<ProductVO> productList = ps.getProductList(vo);
+		model.addAttribute("product", productList);
+
+		return "order/factory_order";
+	}
+
+	// 주문하기 눌렀을때
+	@RequestMapping(value = "/orderPage.do")
+	public String orderPage(CartVO vo, HttpSession session, Model model) {
+
+		// 처음 보여줄 장바구니에 담긴 데이터
+		
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		List<CartVO> cartList = new ArrayList<CartVO>();
+		for (CartVO cartVO : cs.getCart(member)) {
+			cartVO.initTotal();
+			cartList.add(cartVO);
+		}
+		model.addAttribute("cartList", cartList);
+
+		return "order/order_confirm";
+	}
+
+	// 주문하기 눌렀을때
+	@RequestMapping(value = "/submitOrder.do")
+	@Transactional(rollbackFor = Exception.class)
+	public String submitOrder(OrderVO ov,HttpSession session) {
+		try {
+			System.out.println(ov);
+			MemberVO mvo = new MemberVO();
+			MemberVO memberpass=(MemberVO) session.getAttribute("member");
+			mvo.setId(ov.getId());
+			mvo.setPass(memberpass.getPass());
+			MemberVO member = ms.getMember(mvo);
+			System.out.println(member+"메메메메메메멤");
+			List<OrderItemVO> list = new ArrayList<OrderItemVO>();
+			// 선택한 상품에 대한 정보 초기화
+			// TODO 관리자 발주 성공시 입고 취소 출고 가맹점 발주성공시 출고 취소 입고 관리자 가맹자 어떻게? 멤버 등급으로 
+			for (OrderItemVO oiv : ov.getOrders()) {
+				OrderItemVO orderItem = ps.getProductItem(oiv.getProduct_no());
+				oiv.setProduct_name(orderItem.getProduct_name());
+				oiv.setProduct_no(orderItem.getProduct_no());
+				oiv.setPrice(orderItem.getPrice());
+				oiv.initTotal();
+				list.add(oiv);
+			}
+			ov.setOrders(list);
+
+			/*
+			 * // 주문번호 생성 아이디_날짜초까지 Date date = new Date(); SimpleDateFormat format = new
+			 * SimpleDateFormat("_yyyyMMddmmss"); String orderId = ov.getId() +
+			 * format.format(date);
+			 */
+			System.out.println(ov.getOrder_no());
+			ov.setOrder_no(ov.getOrder_no());
+			ov.initTotal();
+			// 기본 주문 상태가 0이고  0이면 본사발주기 때문에 바로 더미테이블에 재고 뽑아오기
+			int order_status = 0;
+			if(member.getLevel1() == 2) {
+				order_status = 1;
+			}
+			ov.setOrder_status(order_status);
+			System.out.println(ov);
+
+			// 주문서 생성
+			os.insertOrder(ov);
+			// 주문한 상품리스트 생성
+			if(member.getLevel1() == 1) {
+				for (OrderItemVO oiv : ov.getOrders()) {
+					oiv.setOrder_no(ov.getOrder_no());
+					ps.updateStock(oiv);
+					os.insertOrderItemList(oiv);
+					System.out.println(oiv);
+					
+				}
+			} else {
+				for (OrderItemVO oiv : ov.getOrders()) {
+					oiv.setOrder_no(ov.getOrder_no());
+					os.insertOrderItemList(oiv);
+					System.out.println(oiv);
+				}
+			}
+			
+
+			// 장바구니 삭제
+			for (OrderItemVO oiv : ov.getOrders()) {
+				CartVO vo = new CartVO();
+				vo.setId(ov.getId());
+				vo.setProduct_no(oiv.getProduct_no());
+
+				cs.deleteCart(vo);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:factory_Order_History.do";
+	}
+
+	/* 비동기 처리 */
+
+	// 하위 카테고리 클릭시 상품 비동기처리
+	@RequestMapping("/getProductAjax.do")
+	@ResponseBody
+	public List<ProductVO> orderAjax(CategoryVO vo) {
+
+		return ps.getProductList(vo);
+	}
+
+	// 상품 추가시 디비 삽입
+	@RequestMapping(value = "/insertCartAjax.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String orderInsertAjax(CartVO vo, HttpSession session) {
+
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		vo.setId(member.getId());
+
+		// 성공 ok 실패 false 
+		String result = cs.insertCart(vo);
+		System.out.println(result);
+		return result;
+	}
+
+	@RequestMapping(value = "/updateCartAjax.do", method = RequestMethod.PUT)
+	@ResponseBody
+	public void updateCart(CartVO vo, HttpSession session) {
+
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		vo.setId(member.getId());
+		System.out.println(vo + "=====");
+
+		cs.updateCart(vo);
+
+	}
+
+	// 상품 삭제시 디비 삭제
+	@RequestMapping(value = "/deleteCartAjax.do", method = RequestMethod.DELETE)
+	@ResponseBody
+	public String orderDeleteAjax(CartVO vo) {
+		System.out.println("delete"+vo);
+		String result = cs.deleteCart(vo);
+		System.out.println("delete"+result);
+		return result;
+	}
+  
+            // 가맹점 발주내역 페이지 
+            @ResponseBody
+            @RequestMapping(value ="/orderHistory.do" , method=RequestMethod.GET)
+            public ModelAndView orderHistorypage(MemberVO mvo,OrderVO ovo,Model model,HttpSession session,ModelAndView mav) {
+                System.out.println("orderHistorypage");
+            	List<OrderVO> order_list=os.getOrderList(ovo);
+                model.addAttribute("olist", order_list);
+                mav.setViewName("admin/order_history");
+               
+               return mav;
             }
             model.addAttribute("cartList", cartList);
         }

@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import retrofit2.http.HEAD;
 
-import java.util.List;
 
 @Repository("memberDAO")
 public class MemberDAOmybaits {
@@ -18,6 +17,12 @@ public class MemberDAOmybaits {
 	public void insertMember(MemberVO vo) {
 		System.out.println("===> mybatis로 insertMemeber 실행");
 		memberMybatis.insert("MemberDAO.insertMember", vo);
+	}
+
+	// 마이페이지 uuid수정
+	public void updateUuid(MemberVO vo) {
+		System.out.println("==> mybatis로 updateImg실행");
+		memberMybatis.update("MemberDAO.updateUuid", vo);
 	}
 
 	// 마이페이지 uuid수정
@@ -38,11 +43,18 @@ public class MemberDAOmybaits {
         return memberMybatis.selectOne("MemberDAO.getMember", vo);
 
     }
+
+
+	// 전체 회원 조회
+	public List<MemberVO> getMemberList(MemberVO vo) {
+		System.out.println("====> mybatis로 getMemberList 실행");
+		return memberMybatis.selectList("MemberDAO.getMemberList", vo);
+	}
+
 	public ImgVO getProfileImg(MemberVO vo) {
 
 		return memberMybatis.selectOne("MemberDAO.getProfileImg",vo);
 	}
-
 	public void insertMemberImg(ImgVO vo) {
 		memberMybatis.insert("MemberDAO.insertMemberImg",vo);
 	}

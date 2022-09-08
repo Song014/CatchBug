@@ -1,39 +1,12 @@
 
 package com.catchbug.biz.account;
 
-import com.catchbug.biz.account.mail.MailHandler;
-import com.catchbug.biz.account.mail.TempKey;
-import com.catchbug.biz.img.ImgService;
-import com.catchbug.biz.product.ProductService;
-import com.catchbug.biz.vo.ImgVO;
-import com.catchbug.biz.vo.MemberVO;
-import net.sf.json.JSONArray;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.imageio.ImageIO;
-import javax.inject.Inject;
-import javax.mail.MessagingException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.nio.file.Files;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.UUID;
 
 @Controller
 public class MemberController {
@@ -181,7 +154,9 @@ public class MemberController {
 	public String MemberLogin(MemberVO vo, HttpSession session)
 			throws Exception {
 		MemberVO login = memberService.getMember(vo);
+		System.out.println(login+"로긴");
 		boolean pwdMatch = pwdEncoder.matches(vo.getPass(), login.getPass());
+		System.out.println(pwdMatch);
 
 
 		if (login.getId() != null && pwdMatch) {
@@ -217,7 +192,7 @@ public class MemberController {
 	}
 	
 	@PostMapping(value = "myProfileUpload", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<ImgVO> MypageProfile(MultipartFile multipartFile, ImgVO vo, HttpServletRequest req) {
+	public ResponseEntity<ImgVO> MypageProfile(MultipartFile multipartFile, ImgVO vo) {
 		System.out.println("이미지 업로드 에이작스 작동");
 		System.out.println(multipartFile);
 		File checkFile = new File(multipartFile.getOriginalFilename());
@@ -228,8 +203,6 @@ public class MemberController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
 		Date date = new Date();
@@ -239,7 +212,8 @@ public class MemberController {
 		/* 폴더 생성 */
 		File uploadPath = new File(uploadFolder, str);
 		
-		if(!uploadPath.exists()) {
+
+		if(uploadPath.exists() == false) {
 			uploadPath.mkdirs();
 		}
 		
@@ -280,6 +254,23 @@ public class MemberController {
 		return "account/login_page";
 	}
 	
+	@ResponseBody
+	@PostMapping(value = "profileUpdate")
+	public String MypageProfileUpdate(ImgVO ivo,MemberVO mvo,HttpSession session) {
+		System.out.println("이미지 업데이트"+ivo+"  : 사용자"+mvo);
+		// 이미지 관련 세션데이터 삭제
+		session.removeAttribute("profile");
+		// 프론트에서 받아온 이미지 관련 데이터 재설정
+		session.setAttribute("profile", ivo);
+		
+		imgService.insertImg(ivo);	
+		// 회원 테이블 uuid 값 업데이트
+		memberService.updateUuid(mvo); 
+		
+		return "성공";
+	}
+
+	// 비밀번호 체크
 	@ResponseBody
 	@PostMapping(value = "profileUpdate")
 	public String MypageProfileUpdate(ImgVO ivo,MemberVO mvo,HttpSession session) {

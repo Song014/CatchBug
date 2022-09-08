@@ -49,4 +49,9 @@ public interface MemberService {
 
     void updateUuid(MemberVO mvo);
 
+	ImgVO getProfileImg(MemberVO vo);
+
+	void updateUuid(MemberVO mvo);
+
+
 }
