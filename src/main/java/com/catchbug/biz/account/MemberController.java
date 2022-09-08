@@ -56,6 +56,15 @@ public class MemberController {
 		return mav;
 	}
 
+
+	//아이디 중복찾기 메소드
+	@PostMapping("/idChk.do")
+	@ResponseBody
+	public int IdCheck(MemberVO vo){
+		int result = memberService.idcheck(vo);
+
+		return result;
+	}
 	//회원가입 메소드
 	@Transactional
 	@RequestMapping(value = "/sign_up.do", method = RequestMethod.POST)
@@ -63,21 +72,11 @@ public class MemberController {
 		String mail_key = new TempKey().getKey(30, false); // 랜덤키 30글자로 생성
 		vo.setMail_key(mail_key); // 랜덤키 세터주입.
 
-		int result = memberService.idcheck(vo);
+		String inputPass = vo.getPass();
+		String pwd = pwdEncoder.encode(inputPass);
+		vo.setPass(pwd);
 
-		if (result == 1) {
-			return "account/sign_up";
-			// 입력된 아이디가 존재한다면 >> 다시 회원가입 페이지로 돌아가기
-		} else if (result == 0) {
-			System.out.println("아이디 중복 x");
-			String inputPass = vo.getPass();
-			String pwd = pwdEncoder.encode(inputPass);
-			vo.setPass(pwd);
-
-			memberService.insertMember(vo);
-			return "account/login_page";
-			// 존재하지 않는 아이디라면 회원가입 진행
-		}
+		memberService.insertMember(vo);
 
 		// 회원가입 완료후 메일인증 진행
 		MailHandler sendMail = new MailHandler(mailSender);
