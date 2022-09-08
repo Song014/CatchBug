@@ -9,6 +9,7 @@ import com.catchbug.biz.vo.BoardReplyVO;
 import com.catchbug.biz.vo.BoardVO;
 import com.catchbug.biz.vo.Criteria;
 import com.catchbug.biz.vo.NotiVO;
+import com.catchbug.biz.vo.TapVO;
 
 @Service("boardService")
 public class BoardServiceImpl implements BoardService {
@@ -142,6 +143,13 @@ public class BoardServiceImpl implements BoardService {
 	public int getTotalBoard() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	
+	//게시판 탭정보 불러오기
+	@Override
+	public List<TapVO> getFreeBoardTap() {
+		return boardDAO.GetFreeBoardTap();
 	}
 	
 	

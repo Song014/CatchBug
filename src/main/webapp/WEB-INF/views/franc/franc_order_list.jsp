@@ -308,7 +308,7 @@
         	alert("로그인한 유저만 이용가능합니다.");
         	location.href="login_page.do";
         }else{
-        	if(level != 2){
+        	if(level == 3){
         		alert("승인된 유저만 이용가능합니다.");
             	location.href="company_intro.do";
         	}

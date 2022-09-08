@@ -33,7 +33,8 @@ import net.sf.json.JSONArray;
 
 @Controller
 public class ProductController {
-	private String uploadFolder = "C:/work/spring-space/CatchBug/src/main/webapp/resources";
+//	private String uploadFolder = "C:/work/spring-space/CatchBug/src/main/webapp/resources";
+	private String uploadFolder = "/Users/hyeon1339/CatchBugProject/src/main/webapp/resources/productImg";
 
 	@Autowired
 	private ServletContext servletContext;
@@ -70,6 +71,7 @@ public class ProductController {
 	// 상품 등록
 	@RequestMapping("/productRegister.do")
 	public String ProductRegister(Model model) {
+		model.addAttribute("productList", JSONArray.fromObject(productService.getList()));
 		model.addAttribute("maincategory", productService.getMainCategory());
 		model.addAttribute("subCategory", JSONArray.fromObject(productService.getSubCategory()));
 		return "admin/product_register";
@@ -114,9 +116,7 @@ public class ProductController {
 		}
 
 		/* 이미지 파일을 저장할 경로 김현민 맥북 기준으로 작성 */
-
-		String uploadFolder = "CatchBug/src/main/webapp/resources/productImg";
-
+//		String uploadFolder = "/Users/hyeon1339/CatchBugProject/src/main/webapp/resources/productImg";
 
 		/* 날짜 폴더 경로 */
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -176,7 +176,7 @@ public class ProductController {
 	public ResponseEntity<byte[]> getImage(String fileName) {
 		System.out.println("이미지 출력작동");
 		/* 이미지 경로 */
-		File file = new File("C:/work/spring-space/CatchBug/src/main/webapp/resources/" + fileName);
+		File file = new File(uploadFolder + fileName);
 
 		ResponseEntity<byte[]> result = null;
 

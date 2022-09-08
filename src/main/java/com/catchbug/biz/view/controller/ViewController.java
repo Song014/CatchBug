@@ -11,7 +11,12 @@ public class ViewController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {
 
-		return "index";
+		return "company/company_intro";
+	}
+	
+	@RequestMapping("/emailAuthSuccess.do")
+	public String emailAuthSuccess() {
+		return "/";
 	}
 	
 	
@@ -26,23 +31,6 @@ public class ViewController {
 		
 		return "index";
 	}
-
-	
-	@RequestMapping("/logout.do")
-	public String loginOut() {
-		return "account/login_page";
-	}
-	
-	@RequestMapping("/find_id.do")
-	public String findId() {
-		return "account/find_id";
-	}
-	
-	@RequestMapping("/find_pw.do")
-	public String findPw() {
-		return "account/find_pw";
-	}
-	
 	
 	/* 회사소개 */
 	@RequestMapping("/company_intro.do")

@@ -94,9 +94,9 @@
 					<div class="col-sm-2">
 						<div class="mb-3">
 							<select class="form-select" id="floatingSelect" name="tap">
-								<option value="1">잡담</option>
-								<option value="2">정보</option>
-								<option value="3">유머</option>
+								<c:forEach var="tap" items="${tap}">
+								<option value="${tap.tap}">${tap.name }</option>
+								</c:forEach>
 							</select>
 						</div>
 					</div>

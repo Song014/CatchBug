@@ -11,6 +11,7 @@ import com.catchbug.biz.vo.BoardReplyVO;
 import com.catchbug.biz.vo.BoardVO;
 import com.catchbug.biz.vo.Criteria;
 import com.catchbug.biz.vo.NotiVO;
+import com.catchbug.biz.vo.TapVO;
 
 @Repository
 public class BoardDAO {
@@ -26,6 +27,11 @@ public class BoardDAO {
 	//자유게시판 클릭한 글 정보 불러오기
 	public BoardVO GetFreeBoardDetail(BoardVO vo) {
 		return mybatis.selectOne("BoardMapper.getFreeBoardDetail",vo);
+	}
+	
+	//자유게시판 탭정보 불러오기.
+	public List<TapVO> GetFreeBoardTap() {
+		return mybatis.selectList("BoardMapper.getFreeBoardTap");
 	}
 	
 	//자유게시판 클릭한 글 댓글정보 불러오기

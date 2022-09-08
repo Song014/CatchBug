@@ -1,5 +1,4 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -10,7 +9,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>Dashboard - NiceAdmin Bootstrap Template</title>
+<title>캐치버그 - 비밀번호 찾기</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -49,6 +48,12 @@
 <!-- Template Main CSS File -->
 <link href="assets/css/style.css" rel="stylesheet">
 
+
+<!-- Jquery 선언 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous"></script>
+
 <!-- =======================================================
   * Template Name: NiceAdmin - v2.3.1
   * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
@@ -69,11 +74,10 @@
 
 
 	<!-- ======= Sidebar ======= -->
-<jsp:include page="../mainInclude/sidebar.jsp"></jsp:include>
+	<jsp:include page="../mainInclude/sidebar.jsp"></jsp:include>
 
 	<!-- End Sidebar -->
-	<!-- End Header -->
-	<!-- End Sidebar -->
+
 	<!-- main start -->
 	<main id="main" class="main">
 
@@ -100,87 +104,35 @@
 							</div>
 
 							<label>
-								<h5>등록된 회원정보로 비밀번호 찾기</h5>
+								<h5>비밀번호 찾기</h5>
 							</label>
 
-							<form class="row g-3 needs-validation" novalidate>
+							<form class="row g-3 needs-validation" action="/findPW.do"
+								method="post" onsubmit="return findPW()">
 
 								<div class="col-12">
 									<br> <label for="yourName" class="form-label">*
-										Your Id</label> <input type="text" name="id" class="form-control"
-										id="yourId" required>
-									<div class="invalid-feedback">Please, enter your Id!</div>
+										아이디</label> <input type="text" name="id" class="form-control"
+										id="id" required>
 								</div>
 
 								<div class="col-12">
-									<label for="yourName" class="form-label">* Your Name</label> <input
-										type="text" name="ceo" class="form-control" id="yourName"
+									<label for="yourName" class="form-label">* 이메일</label> <input
+										type="text" name="email" class="form-control" id="email"
 										required>
-									<div class="invalid-feedback">Please, enter your name!</div>
-								</div>
-
-								<div class="col-12">
-									<label for="yourEmail" class="form-label">* Your Email</label>
-									<div class="input-group has-validation">
-										<input type="text" name="emailid" class="form-control"
-											id="yourUsername" required> <span
-											class="input-group-text" id="inputGroupPrepend">@</span> <input
-											type="text" name="emaildomain" class="form-control"
-											id="yourUsername" required> <select class="select"
-											title="이메일 도메인 주소 선택"
-											onclick="setEmailDomain(this.value);return false;">
-											<option value="">-선택-</option>
-											<option value="naver.com">naver.com</option>
-											<option value="gmail.com">gmail.com</option>
-											<option value="hanmail.net">hanmail.net</option>
-											<option value="hotmail.com">hotmail.com</option>
-											<option value="korea.com">korea.com</option>
-											<option value="nate.com">nate.com</option>
-											<option value="yahoo.com">yahoo.com</option>
-										</select>
-										<div class="invalid-feedback">Please enter a valid Email
-											address!</div>
-									</div>
-
-
 								</div>
 								<div class="col-12">
 									<button class="btn btn-primary w-100" type="submit">비밀번호
 										찾기</button>
 								</div>
+								<div class="col-12" style="text-align: center;">
+									<p>
+										<Strong>※ 고객님의 이메일로 임시비밀번호가 전송됩니다. ※</Strong>
+									</p>
+								</div>
 							</form>
-
 
 							<hr>
-
-							<label>
-								<h5>본인인증 수단으로 비밀번호 찾기</h5>
-							</label>
-
-							<form class="row g-3 needs-validation" novalidate>
-								<!-- 아이디 -->
-								<div class="col-12">
-
-									<label for="yourName" class="form-label">* Your Id</label> <input
-										type="text" name="id" class="form-control" id="yourId"
-										required>
-									<div class="invalid-feedback">Please, enter your Id!</div>
-								</div>
-								<!-- 인증수단 -->
-								<div class="cert">
-									<a href="#">
-										<figure>
-											<img src="​​" alt="이메일 인증">
-											<figcaption>이메일 본인인증</figcaption>
-										</figure>
-									</a>
-								</div>
-								<!-- 	비밀번호 찾기-->
-								<div class="col-12">
-									<button class="btn btn-primary w-100" type="submit">비밀번호
-										찾기</button>
-								</div>
-							</form>
 							<p>
 								※ 위 방법으로 비밀번호를 찾을수 없는 경우 <a href="#" target="_blank">고객센터</a>에
 								문의해주세요. ※
@@ -207,15 +159,24 @@
 		class="back-to-top d-flex align-items-center justify-content-center"><i
 		class="bi bi-arrow-up-short"></i></a>
 
-	<!-- Daum Address API -->
-	<!-- 	<script>
-	    new daum.Postcode({
-	        oncomplete: function(data) {
-	            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
-	            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
-	        }
-	    }).open();
-	</script> -->
+	<script type="text/javascript">
+	
+	$(document).ready(function(){
+		$("form").on("submit", function() {
+			var find = ${find};
+			var id = $("#id").val();
+			var email = $("#email").val();
+			
+			for(var i = 0; i< find.length; i++){
+				if(id == find[i].id && email == find[i].email){
+					return true;
+				}
+			}
+			alert("아이디랑 이메일을 확인해 주세요.");
+			return false;
+		})
+	});
+	</script>
 
 
 	<!-- Vendor JS Files -->

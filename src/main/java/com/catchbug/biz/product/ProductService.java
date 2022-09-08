@@ -34,4 +34,6 @@ public interface ProductService {
 	
 	public void updateStock(OrderItemVO oiv);
 
+	public List<ProductVO> getList();
+
 }
