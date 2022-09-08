@@ -11,6 +11,7 @@
             /WEB-INF/spring/root-context.xml
             /WEB-INF/spring/email-context.xml  <!-- 메일 사용을위한 컨텍스트 추가 -->
             /WEB-INF/spring/member-security.xml
+            /WEB-INF/spring/appServlet/servlet-context.xml
         </param-value>
     </context-param>
 

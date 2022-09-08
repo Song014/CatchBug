@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.imageio.ImageIO;
 import javax.inject.Inject;
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -36,6 +37,8 @@ import java.util.UUID;
 
 @Controller
 public class MemberController {
+//	private String uploadFolder = "C:/work/spring-space/CatchBug/src/main/webapp/resources";
+	private String uploadFolder = "/Users/hyeon1339/CatchBugProject/src/main/webapp/resources/profileImg";
 
 	@Inject
 	BCryptPasswordEncoder pwdEncoder;
@@ -60,6 +63,17 @@ public class MemberController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("account/sign_up");
 		return mav;
+	}
+
+	// 비밀번호 체크
+	@ResponseBody
+	@RequestMapping(value = "/passChk.do", method = RequestMethod.POST)
+	public boolean MypagePassChange(MemberVO vo,HttpSession session) throws Exception {
+		MemberVO login = memberService.getMember(vo);
+		boolean pwdcChk = pwdEncoder.matches(vo.getPass(),login.getPass());
+		System.out.println(pwdcChk);
+		return pwdcChk;
+
 	}
 
 
@@ -169,6 +183,7 @@ public class MemberController {
 		MemberVO login = memberService.getMember(vo);
 		boolean pwdMatch = pwdEncoder.matches(vo.getPass(), login.getPass());
 
+
 		if (login.getId() != null && pwdMatch) {
 			session.setAttribute("member", login);
 			session.setAttribute("profile", memberService.getProfileImg(vo));
@@ -202,7 +217,7 @@ public class MemberController {
 	}
 	
 	@PostMapping(value = "myProfileUpload", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<ImgVO> MypageProfile(MultipartFile multipartFile, ImgVO vo) {
+	public ResponseEntity<ImgVO> MypageProfile(MultipartFile multipartFile, ImgVO vo, HttpServletRequest req) {
 		System.out.println("이미지 업로드 에이작스 작동");
 		System.out.println(multipartFile);
 		File checkFile = new File(multipartFile.getOriginalFilename());
@@ -213,9 +228,8 @@ public class MemberController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		String uploadFolder = "C:/work/spring-space/CatchBug/src/main/webapp/resources/profileImg";
-		
+
+
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
 		Date date = new Date();
@@ -261,19 +275,6 @@ public class MemberController {
 	@RequestMapping(value = "/myPageUpdate.do", method = RequestMethod.POST)
 	public String MypageChange(MemberVO vo,HttpSession session) throws IllegalStateException, IOException {
 		System.out.println("mypage / 개인정보 수정 ");
-//		MemberVO login = memberService.getMember(vo);
-//
-//		boolean pwdMatch = pwdEncoder.matches(vo.getPass(), login.getPass());
-//		if (pwdMatch) {
-//			System.out.println("pwdMatch 성공");
-//			memberService.updateMypage(vo);
-//			session.setAttribute("member", login);
-//			System.out.println("개인정보 수정완료");
-//		} else {
-//			System.out.println("pwdMatch 실패");
-//		}
-
-		
 		memberService.updateMypage(vo);
 		session.invalidate();
 		return "account/login_page";
@@ -294,16 +295,6 @@ public class MemberController {
 		
 		return "성공";
 	}
-	// 마이페이지
-	@RequestMapping(value = "/mypage.do", method = RequestMethod.GET)
-	public String Mypage(MemberVO vo,ImgVO ivo,Model model) {
-		System.out.println("account/mypage //마이 페이지에서  get방식  "+vo);
-		// 이미지 불러와야됨 멤버가 가지고있는 uuid와 img 테이블의 uuid 비교후
-
-		model.addAttribute("img",memberService.getProfileImg(vo));
-
-		return "account/mypage";
-	}
 
 	// mypage / 개인정보 수정
 
@@ -318,5 +309,6 @@ public class MemberController {
 
 		return "account/mypage";
 	}
+
 
 }

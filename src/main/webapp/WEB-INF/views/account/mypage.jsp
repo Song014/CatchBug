@@ -348,11 +348,6 @@
 <!-- Template Main JS File -->
 <script src="assets/js/main.js"></script>
 
-<!-- 날짜 검색시 오늘로 셋팅해주는 스크립트-->
-<script>
-    document.getElementById('inputSearchDate').valueAsDate = new Date();
-</script>
-
 <script type="text/javascript">
     function onImgSubmit(){
         const $form = $("#form_img_control");

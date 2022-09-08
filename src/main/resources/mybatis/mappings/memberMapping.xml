@@ -73,14 +73,6 @@
           and mail_auth = 1
     </select>
 
-    <!-- 발주내역에서 id검색하면 id정보 조회 -->
-    <select id="getMemberid" resultType="member"
-            parameterType="member">
-        select id, business_no, business_name, ceo
-        from member
-        where id = #{id}
-    </select>
-
     <!-- 비밀번호 찾기 유효성 검증을 위한정보 가져오기 -->
     <select id="findMemberPW" resultType="member">
         SELECT id, email
