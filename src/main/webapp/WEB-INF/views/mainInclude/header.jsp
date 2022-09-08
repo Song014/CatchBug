@@ -38,14 +38,18 @@
 
          <li class="nav-item dropdown pe-3"><a
             class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
-            data-bs-toggle="dropdown" aria-expanded="false"> <img
-               src="assets/img/profile-img.jpg" alt="Profile"
-               class="rounded-circle"> <c:choose>
+            data-bs-toggle="dropdown" aria-expanded="false">  <c:choose>
                   <c:when test="${member.level1 eq 1}">
+                  <img
+               src="/resources/profileImg/${profile.uploadPath }/${profile.uuid}" alt="Profile"
+               class="rounded-circle">
                      <span class="d-none d-md-block dropdown-toggle ps-2">${member.business_name }관리자님
                         안녕하세요</span>
                   </c:when>
                   <c:when test="${member.level1 eq 2}">
+                  <img
+               src="/resources/profileImg/${profile.uploadPath }/${profile.uuid}" alt="Profile"
+               class="rounded-circle">
                      <span class="d-none d-md-block dropdown-toggle ps-2">${member.business_name }가맹점님
                         안녕하세요</span>
                   </c:when>
@@ -68,7 +72,7 @@
                </li>
 
                <li><a class="dropdown-item d-flex align-items-center"
-                  href="users-profile.html"> <i class="bi bi-person"></i> <span>내
+                  href="mypage.do?id=${member.id }"> <i class="bi bi-person"></i> <span>내
                         정보</span>
                </a></li>
                <li>
@@ -86,7 +90,7 @@
          </li>
 
          <li><a class="dropdown-item d-flex align-items-center"
-            href="mypage.do"> <i class="bi bi-person"></i> <span>내
+            href="mypage.do?id=${member.id }"> <i class="bi bi-person"></i> <span>내
                   정보</span>
          </a></li>
          <li>

@@ -1,6 +1,6 @@
 <%@page import="java.util.List"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="com.catchbug.biz.vo.MemberVO"%>
@@ -74,7 +74,7 @@
 
 
 	<!-- ======= Sidebar ======= -->
-	
+
 	<jsp:include page="../mainInclude/sidebar.jsp"></jsp:include>
 
 	<!-- End Sidebar -->
@@ -99,7 +99,7 @@
 				<div class="card">
 					<div
 						class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-						<img src="assets/img/mapleStory.jpg" alt="Profile"
+						<img src="/resources/profileImg/${img.uploadPath }/${img.uuid}" alt="Profile"
 							class="rounded-circle">
 						<h2>메이플스토리</h2>
 						<h3>10년째 메인모델</h3>
@@ -141,30 +141,30 @@
 							<div class="tab-pane fade show active profile-overview"
 								id="profile-overview" role="tabpanel">
 								<!-- 자기소개 이미지 파일 변경 -->
-								<form action="mypage.do/1" method="post"
-									enctype="multipart/form-data">
+								<form  method="post" id="form_img_control">
 									<div class="row mb-3">
 										<label for="profileImage"
 											class="col-md-4 col-lg-3 col-form-label">Profile
 											Image</label>
 
-
 										<div class="col-md-8 col-lg-9">
-											<img id="profileImg" src="assets/img/mapleStory.jpg"
-												alt="Profile"> <input type="file" name="uploadImgFile"
-												accept=".jpg" />
+											<div id="div-preview">
+												<img id="image" src="/resources/profileImg/${img.uploadPath }/${img.uuid}" style="width:100px; heigth:100px;" />
+												<input type="hidden" name="id" value="${member.id }">
+												<input type="hidden" name="oldUuid" value="${member.uuid }">
+											</div>
+											<input type="file" name="multipartFile" />
 											<div class="pt-2">
 
 												<button type="reset" class="btn btn-danger btn-sm"
 													title="Remove my profile image">
 													<i class="bi bi-trash"></i>
 												</button>
-												<button type="submit" class="btn btn-primary">저장</button>
+												<button type="button" class="btn btn-primary" onclick="onImgSubmit()">저장</button>
 											</div>
 
 											<!-- <button type="submit" class="class="btn btn-primary btn-sm"" title="Upload new profile image" <i	class="bi bi-upload"></i>></button>
 													 -->
-											<div id="div-preview"></div>
 										</div>
 									</div>
 								</form>
@@ -204,24 +204,9 @@
 
 							<div class="tab-pane fade profile-edit pt-3" id="profile-edit"
 								role="tabpanel">
-								<!-- 마이페이지 자기소개 변경 폼 시작 -->
+								<!-- 마이페이지 개인정보 변경 폼 시작 -->
 
-								<form action="mypage.do/2" method="post">
-									<!-- <div class="row mb-3">
-										<label for="profileImage"
-											class="col-md-4 col-lg-3 col-form-label">Profile
-											Image</label>
-										<div class="col-md-8 col-lg-9">
-											<img src="assets/img/mapleStory.jpg" alt="Profile">
-											<div class="pt-2">
-												<a href="#" class="btn btn-primary btn-sm"
-													title="Upload new profile image"><i
-													class="bi bi-upload"></i></a> <a href="#"
-													class="btn btn-danger btn-sm"
-													title="Remove my profile image"><i class="bi bi-trash"></i></a>
-											</div>
-										</div>
-									</div> -->
+								<form id="updateForm" action="/myPageUpdate.do" method="post">
 
 									<div class="row mb-3">
 										<div class="col-md-8 col-lg-9">
@@ -230,13 +215,14 @@
 										</div>
 									</div>
 									<div class="row mb-3">
+										<label for="about" class="col-md-4 col-lg-3 col-form-label">
+											비밀번호 확인 </label>
 										<div class="col-md-8 col-lg-9">
-											<input name="pass" type="hidden" class="form-control"
-												id="pass" value="${member.pass}">
+											<input name="pass" type="password" class="form-control"
+												id="pass">
+
 										</div>
 									</div>
-
-
 
 									<div class="row mb-3">
 										<label for="about" class="col-md-4 col-lg-3 col-form-label">사업자
@@ -256,7 +242,7 @@
 									<div class="row mb-3">
 										<label for="Job" class="col-md-4 col-lg-3 col-form-label">대표자</label>
 										<div class="col-md-8 col-lg-9">
-											<input name="ceo" type="text" class="form-control" id="Job"
+											<input name="ceo" type="text" class="form-control" id="ceo"
 												value="${member.ceo}">
 										</div>
 									</div>
@@ -264,14 +250,14 @@
 										<label for="Country" class="col-md-4 col-lg-3 col-form-label">연락처</label>
 										<div class="col-md-8 col-lg-9">
 											<input name="contact" type="text" class="form-control"
-												id="Country" value="${member.contact}">
+												id="contact" value="${member.contact}">
 										</div>
 									</div>
 									<div class="row mb-3">
 										<label for="Address" class="col-md-4 col-lg-3 col-form-label">Email</label>
 										<div class="col-md-8 col-lg-9">
 											<input name="email" type="text" class="form-control"
-												id="Address" value="${member.email}">
+												id="email" value="${member.email}">
 										</div>
 									</div>
 									<div class="row mb-3">
@@ -279,108 +265,22 @@
 											주소지</label>
 										<div class="col-md-8 col-lg-9">
 											<input name="business_address" type="text"
-												class="form-control" id="Phone"
+												class="form-control" id="business_address"
 												value="${member.business_address}">
 										</div>
 									</div>
 
-									<div class="text-center">
-										<button type="submit" class="btn btn-primary">Save
-											Changes</button>
-									</div>
 								</form>
+								<div class="text-center">
+									<button type="button" class="btn btn-primary" id="submit">Save
+										Changes</button>
+								</div>
 							</div>
-							<!-- 마이페이지 자기소개 변경 폼 끝 -->
 
-							<!-- <div class="row mb-3">
-										<label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
-										<div class="col-md-8 col-lg-9">
-											<input name="email" type="email" class="form-control"
-												id="Email" value="k.anderson@example.com">
-										</div>
-									</div>
-									<div class="row mb-3">
-										<label for="Twitter" class="col-md-4 col-lg-3 col-form-label">Twitter
-											Profile</label>
-										<div class="col-md-8 col-lg-9">
-											<input name="twitter" type="text" class="form-control"
-												id="Twitter" value="https://twitter.com/#">
-										</div>
-									</div>
-									<div class="row mb-3">
-										<label for="Facebook" class="col-md-4 col-lg-3 col-form-label">Facebook
-											Profile</label>
-										<div class="col-md-8 col-lg-9">
-											<input name="facebook" type="text" class="form-control"
-												id="Facebook" value="https://facebook.com/#">
-										</div>
-									</div>
-									<div class="row mb-3">
-										<label for="Instagram"
-											class="col-md-4 col-lg-3 col-form-label">Instagram
-											Profile</label>
-										<div class="col-md-8 col-lg-9">
-											<input name="instagram" type="text" class="form-control"
-												id="Instagram" value="https://instagram.com/#">
-										</div>
-									</div>
-									<div class="row mb-3">
-										<label for="Linkedin" class="col-md-4 col-lg-3 col-form-label">Linkedin
-											Profile</label>
-										<div class="col-md-8 col-lg-9">
-											<input name="linkedin" type="text" class="form-control"
-												id="Linkedin" value="https://linkedin.com/#">
-										</div>
-									</div>
-									-->
-
-
-
-							<!-- <div class="tab-pane fade pt-3" id="profile-settings"
-								role="tabpanel">
-								마이페이지 셋팅 폼 시작
-								<form>
-									<div class="row mb-3">
-										<label for="fullName" class="col-md-4 col-lg-3 col-form-label">Email
-											Notifications</label>
-										<div class="col-md-8 col-lg-9">
-											<div class="form-check">
-												<input class="form-check-input" type="checkbox"
-													id="changesMade" checked=""> <label
-													class="form-check-label" for="changesMade"> Changes
-													made to your account </label>
-											</div>
-											<div class="form-check">
-												<input class="form-check-input" type="checkbox"
-													id="newProducts" checked=""> <label
-													class="form-check-label" for="newProducts">
-													Information on new products and services </label>
-											</div>
-											<div class="form-check">
-												<input class="form-check-input" type="checkbox"
-													id="proOffers"> <label class="form-check-label"
-													for="proOffers"> Marketing and promo offers </label>
-											</div>
-											<div class="form-check">
-												<input class="form-check-input" type="checkbox"
-													id="securityNotify" checked="" disabled=""> <label
-													class="form-check-label" for="securityNotify">
-													Security alerts </label>
-											</div>
-										</div>
-									</div>
-									<div class="text-center">
-										<button type="submit" class="btn btn-primary">Save
-											Changes</button>
-									</div>
-								</form>
-								마이페이지 셋팅 폼 끝
-								
-							</div> -->
 							<div class="tab-pane fade pt-3" id="profile-change-password"
 								role="tabpanel">
 								<!-- 비밀번호 변경 폼 시작 -->
-								<form action="mypage.do/3" method="post">
+								<form action="updatePass.do" method="post">
 									<div class="row mb-3">
 										<label for="currentPassword"
 											class="col-md-4 col-lg-3 col-form-label">현재 비밀번호 </label>
@@ -393,8 +293,8 @@
 										<label for="newPassword"
 											class="col-md-4 col-lg-3 col-form-label">새 비밀번호</label>
 										<div class="col-md-8 col-lg-9">
-											<input name="newpassword" type="password"
-												class="form-control" id="newPassword">
+											<input name="newpass" type="password" class="form-control"
+												id="newPassword">
 										</div>
 									</div>
 									<div class="row mb-3">
@@ -425,6 +325,9 @@
 	<!-- ======= Footer ======= -->
 
 	<jsp:include page="../mainInclude/footer.jsp"></jsp:include>
+	
+	
+
 
 	<!-- End Footer -->
 
@@ -449,52 +352,194 @@
 	<script>
 		document.getElementById('inputSearchDate').valueAsDate = new Date();
 	</script>
-
-	<!-- 이미지 미리보기 기능 -->
+	
 	<script type="text/javascript">
-		let fileTag = document.querySelector("input[name=uploadImgFile]");
-		let divPreview = document.querySelector("#div-preview");
-		fileTag.onchange = function() {
+	function onImgSubmit(){
+		const $form = $("#form_img_control");
+		alert($("#form_img_control").find("input[name='fileName']").val())
+		let data = {
+			"fileName": $form.find("input[name='fileName']").val(),
+			"uuid": $form.find("input[name='uuid']").val(),
+			"uploadPath": $form.find("input[name='uploadPath']").val(),
+			"id" : $form.find("input[name='id']").val()
+		}
+	
+		// ajax 통신
+        $.ajax({
+            type : "POST",            
+            url : "/profileUpdate",     
+            data : data,
+            dataType : "text",
+            success : function(res){ 
+                console.log(res+"성공");
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown){
+                alert("통신 실패.")
+            }
+        });
+		/* str += "<input type='hidden' name='fileName' value='" + obj.fileName + "'>";
+		str += "<input type='hidden' name='uuid' value='" + obj.uuid +"_" +obj.fileName + "'>";
+		str += "<input type='hidden' name='uploadPath' value='" + obj.uploadPath + "'>"; */
+	}
+	</script>
 
-			//파일 올렸을 때 : fileTag.files.length > 0
-			if (fileTag.files.length > 0) {
-				//이미지 src에 들어갈 데이터 구하기
-				for (let i = 0; i < fileTag.files.length; i++) {
-					let reader = new FileReader();
-					reader.onload = function(data) {
-						let src = data.target.result;
-						//이미지 태그를 만들어서 넣어줄거임
-						//1. 이미지 태그 만들기
-						let imgTag = document.createElement('img');
+	<!-- 이미지 관련 -->
+	<script type="text/javascript">
+		/* 이미지 업로드 메서드 */
+		$("input[type='file']").on("change", function(e) {
+			/*이미지 미리보기 소스*/
+			var reader = new FileReader();
 
-						//2. 이미지 태그 속성들 세팅하기
-						imgTag.setAttribute('src', src);
-						imgTag.setAttribute('width', '100');
-						imgTag.setAttribute('height', '100');
+			reader.onload = function(e) {
+				// get loaded data and render thumbnail.
+				document.getElementById("image").src = e.target.result;
+				document.getElementById("image").style.width = "100px";
+				document.getElementById("image").style.heigth = "100px";
+			};
 
-						//3. 이미지 태그 div안에 넣기
-						divPreview.appendChild(imgTag);
-					}
-					reader.readAsDataURL(fileTag.files[i]);
+			// read the image file as a data URL.
+			reader.readAsDataURL(this.files[0]);
 
-				}//for end
+			let formData = new FormData();
+			console.log(formData)
 
-			} else {
-				//취소 버튼을 눌렀을 때
-				//div 안에 싹 다 비우기
-				divPreview.innerHTML = "";
+			let fileInput = $('input[name="multipartFile"]');
+			let fileList = fileInput[0].files;
+			let fileObj = fileList[0];
+
+			if (!fileCheck(fileObj.name, fileObj.size)) {
+				return false;
 			}
+
+			formData.append("multipartFile", fileObj);
+
+			$.ajax({
+				url : '/myProfileUpload',
+				processData : false,
+				contentType : false,
+				enctype : 'multipart/form-data',
+				data : formData,
+				type : 'POST',
+				dataType : 'json',
+				success : function(result) {
+					showUploadImage(result);
+				},
+				error : function(result) {
+					alert("통신실패");
+				}
+			});
+		});
+
+		let regex = new RegExp("(.*?)\.(jpg|png)$");
+		let maxSize = 10485760; //10MB
+		/*이미지 파일 검증 메서드 */
+		function fileCheck(fileName, fileSize) {
+
+			if (fileSize >= maxSize) {
+				alert("파일 사이즈 초과");
+				return false;
+			}
+
+			if (!regex.test(fileName)) {
+				alert("해당 종류의 파일은 업로드할 수 없습니다.");
+				return false;
+			}
+
+			return true;
+
+		}
+		/* 이미지 출력 */
+		function showUploadImage(obj) {
+
+			/* 전달받은 데이터 검증 */
+			/* if (uploadResultArr || uploadResultArr.length == 0) {
+				return 
+			} */
+
+			let uploadResult = $("#div-preview");
+
+			let str = "";
+
+			let fileCallPath = encodeURIComponent(obj.uploadPath.replace(/\\/g,
+					'/')
+					+ "/s_" + obj.uuid + "_" + obj.fileName);
+			str += "<input type='hidden' name='fileName' value='" + obj.fileName + "'>";
+			str += "<input type='hidden' name='uuid' value='" + obj.uuid +"_" +obj.fileName + "'>";
+			str += "<input type='hidden' name='uploadPath' value='" + obj.uploadPath + "'>";
+			str += "</div>";
+			uploadResult.append(str);
+
 		}
 	</script>
-		<script>
-	$(document).ready(function(){
 
-        const username = '${member.ceo}';
-        const level = '${member.level1}';
-       	if(level == 3){
-       		alert(username + "님 안녕하세요 아직 승인이 완료되지 않았습니다.");
-       	}
-	});
+	<script>
+		$(document).ready(function() {
+
+			const username = '${member.ceo}';
+			const level = '${member.level1}';
+			if (level == 3) {
+				alert(username + "님 안녕하세요 아직 승인이 완료되지 않았습니다.");
+			}
+		});
+	</script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#submit").on("click", function() {
+				if ($("#business_no").val() == "") {
+					alert("비밀번호를 입력해주세요.");
+					$("#business_no").focus();
+					return false;
+				}
+				if ($("#business_name").val() == "") {
+					alert("성명을 입력해주세요.");
+					$("#business_name").focus();
+					return false;
+				}
+				if ($("#ceo").val() == "") {
+					alert("대표자를 입력해주세요.");
+					$("#ceo").focus();
+					return false;
+				}
+				if ($("#contact").val() == "") {
+					alert("연락처를 입력해주세요.");
+					$("#contact").focus();
+					return false;
+				}
+				if ($("#email").val() == "") {
+					alert("이메일을 입력해주세요.");
+					$("#email").focus();
+					return false;
+				}
+				if ($("#business_address").val() == "") {
+					alert("사업장 주소지를 입력해주세요.");
+					$("#business_address").focus();
+					return false;
+				}
+				$.ajax({
+					url : "/passChk.do",
+					type : "POST",
+					dateType : "json",
+					data : $("#updateForm").serializeArray(),
+					success : function(data) {
+						if (data == true) {
+							if (confirm("회원수정하시겠습니까?")) {
+								$("#updateForm").submit();
+							}
+						} else {
+							alert("패스워드가 틀렸습니다.");
+							return;
+
+						}
+					}
+				})
+			})
+			// 취소
+			/* $(".cencle").on("click", function(){
+				
+				location.href = "/";
+						    
+			}) */
+		});
 	</script>
 </body>
 

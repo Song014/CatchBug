@@ -22,6 +22,7 @@
 		<typeAlias alias="criteria" type="com.catchbug.biz.vo.Criteria"/>
 		<typeAlias alias="pageMaker" type="com.catchbug.biz.vo.PageMaker"/>
 		<typeAlias alias="search" type="com.catchbug.biz.vo.SearchVO"/>
+		<typeAlias alias="img" type="com.catchbug.biz.vo.ImgVO"/>
 		
 
 
@@ -36,6 +37,8 @@
 		<mapper resource="mybatis/mappings/boardMapper.xml"/>
 		<mapper resource="mybatis/mappings/orderMapper.xml"/>
 		<mapper resource="mybatis/mappings/qnaMapper.xml"/>
+		<mapper resource="mybatis/mappings/imgMapper.xml"/>
+		
 		
 		
 	</mappers>

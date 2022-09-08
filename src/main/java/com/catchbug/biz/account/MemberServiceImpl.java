@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.catchbug.biz.vo.ImgVO;
 import com.catchbug.biz.vo.MemberVO;
 
 @Service("MemberService")
@@ -43,8 +44,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void updateImg(MemberVO vo) {
-		MemberDAO.updateImg(vo);
+	public void updateUuid(MemberVO vo) {
+		MemberDAO.updateUuid(vo);
 
 	}
 
@@ -52,7 +53,28 @@ public class MemberServiceImpl implements MemberService {
 	public int getTotalMember(MemberVO vo) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public void updatePass(MemberVO vo) {
+		MemberDAO.updatePass(vo);
+	}
+
+	@Override
+	public int idcheck(MemberVO vo) {
+		return MemberDAO.idcheck(vo);
 
 	}
 
+	@Override
+	public ImgVO getProfileImg(MemberVO vo) {
+		
+		return MemberDAO.getProfileImg(vo);
+	}
+
+	@Override
+	public void insertMemberImg(ImgVO vo) {
+		
+		MemberDAO.insertMemberImg(vo);
+	}
 }
