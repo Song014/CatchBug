@@ -104,7 +104,9 @@ public class MemberController {
 		System.out.println("account/login_page //로그인 페이지에서  post방식 ");
 		session.getAttribute("member");
 		MemberVO login = memberService.getMember(vo);
+		System.out.println(login+"로긴");
 		boolean pwdMatch = pwdEncoder.matches(vo.getPass(), login.getPass());
+		System.out.println(pwdMatch);
 
 		if (login != null && pwdMatch == true) {
 			session.setAttribute("member", login);
@@ -212,10 +214,12 @@ public class MemberController {
 	@PostMapping(value = "profileUpdate")
 	public String MypageProfileUpdate(ImgVO ivo,MemberVO mvo,HttpSession session) {
 		System.out.println("이미지 업데이트"+ivo+"  : 사용자"+mvo);
+		// 이미지 관련 세션데이터 삭제
 		session.removeAttribute("profile");
-		// 이미지 테이블에 이미지 정보 올리고
-		imgService.insertImg(ivo);	
+		// 프론트에서 받아온 이미지 관련 데이터 재설정
 		session.setAttribute("profile", ivo);
+		
+		imgService.insertImg(ivo);	
 		// 회원 테이블 uuid 값 업데이트
 		memberService.updateUuid(mvo); 
 		

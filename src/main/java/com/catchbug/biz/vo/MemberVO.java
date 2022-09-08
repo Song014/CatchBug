@@ -30,7 +30,6 @@ public class MemberVO {
 	private int level1; // 등급
 	private int startPage,endPage;
 	private String uuid;
-	private String uploadpath;
 	private MultipartFile uploadImgFile;
 
 
