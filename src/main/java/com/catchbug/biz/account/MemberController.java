@@ -28,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.catchbug.biz.img.ImgService;
 import com.catchbug.biz.product.ProductService;
 import com.catchbug.biz.vo.ImgVO;
 import com.catchbug.biz.vo.MemberVO;
@@ -43,6 +44,9 @@ public class MemberController {
 	
 	@Autowired
 	ProductService productService;
+	
+	@Autowired
+	ImgService imgService;
 
 	// 회원가입 페이지이동
 	@RequestMapping(value = "/sign_up.do", method = RequestMethod.GET)
@@ -104,8 +108,9 @@ public class MemberController {
 
 		if (login != null && pwdMatch == true) {
 			session.setAttribute("member", login);
+			session.setAttribute("profile", memberService.getProfileImg(vo));
 			System.out.println("값 잘 들어감");
-			return "account/mypage";
+			return "redirect:mypage.do?id="+login.getId();
 		} else {
 			session.setAttribute("member", null);
 			System.out.println("세션 null");
@@ -205,11 +210,12 @@ public class MemberController {
 	
 	@ResponseBody
 	@PostMapping(value = "profileUpdate")
-	public String MypageProfileUpdate(ImgVO ivo,MemberVO mvo) {
+	public String MypageProfileUpdate(ImgVO ivo,MemberVO mvo,HttpSession session) {
 		System.out.println("이미지 업데이트"+ivo+"  : 사용자"+mvo);
-		
+		session.removeAttribute("profile");
 		// 이미지 테이블에 이미지 정보 올리고
-		memberService.updateImg(ivo);			
+		imgService.insertImg(ivo);	
+		session.setAttribute("profile", ivo);
 		// 회원 테이블 uuid 값 업데이트
 		memberService.updateUuid(mvo); 
 		

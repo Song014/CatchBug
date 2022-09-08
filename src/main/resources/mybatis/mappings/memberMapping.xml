@@ -26,7 +26,7 @@
 
 	<select id="getMember" resultType="member"
 		parameterType="member">
-		select * from member where id=#{id} <!-- and pass=#{pass} -->
+		select m.*,i.uploadpath from member m inner join img i on m.uuid=i.uuid where id=#{id} <!-- and pass=#{pass} -->
 	</select>
 
 	<update id="updateMypage">
@@ -44,11 +44,6 @@
 		update member set uuid=#{uuid}
 		where id=#{id}
 	</update>
-	<!-- 이미지 업데이트 -->
-	<update id="updateImg">
-		update img set filename = #{fileName}, uploadPath =#{uploadPath},uuid=#{uuid}
-		where uuid = (select uuid from member where id=#{id}) 
-	</update>
 	
 	<select id="getProfileImg" resultType="img">
 		select i.* from img i inner join member m on i.uuid = m.uuid  where m.id=#{id}  
@@ -60,10 +55,5 @@
 		select id,business_no,business_name,ceo from member
 		where id=#{id}
 	</select>
-	
-	<!-- 프로필 사진 없데이트 -->
-	<update id="updateProfile">
-		update member set uuid=#{uuid} where id=#{id}
-	</update>
 
 </mapper>

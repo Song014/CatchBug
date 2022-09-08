@@ -65,8 +65,8 @@ public class MemberDAOmybaits {
 		return memberMybatis.selectOne("MemberDAO.getProfileImg",vo);
 	}
 
-	public void updateImg(ImgVO vo) {
-		memberMybatis.update("MemberDAO.updateImg",vo);
+	public void insertMemberImg(ImgVO vo) {
+		memberMybatis.insert("MemberDAO.insertMemberImg",vo);
 	}
 
 }

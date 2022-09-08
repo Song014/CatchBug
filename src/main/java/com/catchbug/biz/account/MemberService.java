@@ -21,8 +21,8 @@ public interface MemberService {
 	void updateMypage(MemberVO vo);
 
 	// 마이페이지 이미지 수정
-	void updateImg(ImgVO ivo);
 
+	void insertMemberImg(ImgVO ivo);
 
 	public int getTotalMember(MemberVO vo);
 
@@ -36,5 +36,6 @@ public interface MemberService {
 	ImgVO getProfileImg(MemberVO vo);
 
 	void updateUuid(MemberVO mvo);
+
 
 }

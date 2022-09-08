@@ -73,8 +73,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void updateImg(ImgVO vo) {
+	public void insertMemberImg(ImgVO vo) {
 		
-		MemberDAO.updateImg(vo);
+		MemberDAO.insertMemberImg(vo);
 	}
 }

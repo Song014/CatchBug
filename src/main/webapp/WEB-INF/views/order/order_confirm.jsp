@@ -240,6 +240,7 @@
 	</main>
 
 	<script type="text/javascript">
+					// 배송지
 					$(".radio_adrress_input").on("change",function(e){
 						e.preventDefault();
 						console.log(e.target.value)
@@ -278,7 +279,9 @@
 						}
 						 	$(".order_form table").html(str); 
 					})
-					$('input[name=cart_check]:checked').change(
+					
+					// 체크박스
+					$('input[type="checkbox"]').change(
 						function () {
 							let total_price = 0;
 
@@ -293,7 +296,6 @@
 								})
 							$("#product_info").html(
 								"총 구매 금액 : " + total_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')  + " 원")
-
 						});
 
 					$("#bucket").on("click", ".delBucket", function (e) {
@@ -309,6 +311,7 @@
 							success: function (result) {
 								if (result == "true") {
 									$tr.remove();
+									cartVaild();
 								} else if(result == "false"){
 									alert("다시시도해주세요");
 								} else{
@@ -325,14 +328,11 @@
 
 					/* 체크박스 전체 선택 */
 					$(".all_check_input").on("click", function () {
-
 						/* 체크박스 체크/해제 */
-						if ($(".all_check_input").prop("checked")) {
-							$(".cart_checkbox").attr("checked", true);
-						} else {
-							$(".cart_checkbox").attr("checked", false);
-						}
-
+						if ($(".all_check_input").is(":checked"))
+							$("input[name='cart_check']").prop("checked", true); 
+						 else
+							$("input[name='cart_check']").prop("checked", false); 
 					});
 
 					/* $(".order_btn").on("click", function() {
@@ -470,6 +470,13 @@
 										console.log(rsp);
 									}
 								});
+					}
+					
+					function cartVaild(){
+						if($.trim($("#bucket tbody").html())==''){
+							alert("상품 추가페이지로 돌아갑니다.");
+							location.href="productForOrder.do";
+						}
 					}
 				</script>
 

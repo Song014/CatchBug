@@ -229,7 +229,7 @@
 
 
 						<div class="d-grid gap-2 mt-3">
-							<input class="btn btn-primary" type="button"
+							<input class="btn btn-primary" id="orderBtn" type="button"
 								onclick="location.href='orderPage.do'" value="주문 확인"></input>
 						</div>
 					</div>
@@ -285,7 +285,7 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-bs-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-danger" id="addCart">상품담기</button>
+					<button type="button" class="btn btn-danger"  id="addCart">상품담기</button>
 				</div>
 			</div>
 		</div>
@@ -293,6 +293,9 @@
 	<!-- 해당상품 모달 끝 -->
 
 	<script type="text/javascript">
+		// 장바구니 검증 비어있는지
+		cartVaild();
+	
 		// 검색버튼을 클릭시 테이블 비동기처리
 		$("#searchButton").on("click",function(e){
 			e.preventDefault();
@@ -361,12 +364,12 @@
 						$("#modal-product-name").append(title);
 						$("#productModalImg").append(imgStr);
 						$("#productModal tbody").append(str);
+						
 					})
 				}
 			})
 		})
-		</script>
-	<script type="text/javascript">
+	
 		// 하위 카테고리 클릭시 해당하는 품목 비동기 처리
 		$(".getCategory").on("click", function (e) {
 			e.preventDefault();
@@ -439,6 +442,7 @@
 					if (result == "ok") {
 						console.log(result);
 						$("#bucket tbody").append(str);
+						cartVaild();
 					} else if (result == "false") {
 						// db에 
 						alert("이미 추가된 상품입니다.")
@@ -493,6 +497,7 @@
 					console.log("delete"+result)
 					if (result == "true") {
 						$tr.remove();
+						cartVaild();
 					} else {
 						alert("다시시도해주세요");
 					}
@@ -506,7 +511,14 @@
 		});
 		
 		
-		
+		/* 검증코드 */
+		function cartVaild(){
+			if($.trim($("#bucket tbody").html())==''){
+				$("#orderBtn").attr("disabled","disabled");
+			} else{
+				$("#orderBtn").removeAttr("disabled");
+			}
+		}
 		
 	</script>
 	<!-- 		<script>
