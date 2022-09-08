@@ -108,8 +108,8 @@ public class MemberController {
 	@Transactional
 	@PostMapping("/findPW.do")
 	public String findePW(MemberVO vo) throws MessagingException, UnsupportedEncodingException {
-		String pass = new TempKey().getKey(10, false); // 성임시 비밀번호 생
-		vo.setPass(pass);
+		String pass = new TempKey().getKey(10, false); // 성임시 비밀번호 생성
+		vo.setPass(pwdEncoder.encode(pass));
 		memberService.changeRandomPW(vo);
 
 		// 임시비밀번호 생성후 메일전송
@@ -145,8 +145,6 @@ public class MemberController {
 	// 로그인 페이지이동
 	@RequestMapping(value = "/login_page.do", method = RequestMethod.GET)
 	public ModelAndView MemeberLoginReady() {
-		System.out.println("account/login_page //로그인 페이지에서  get방식  ");
-
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("account/login_page");
 		return mav;
@@ -164,6 +162,7 @@ public class MemberController {
 			throws Exception {
 		MemberVO login = memberService.getMember(vo);
 		boolean pwdMatch = pwdEncoder.matches(vo.getPass(), login.getPass());
+		System.out.println(pwdMatch);
 
 		if (login != null && pwdMatch == true) {
 			session.setAttribute("member", login);
@@ -177,13 +176,8 @@ public class MemberController {
 		if (login.getLevel1() == 4) {
 			return "account/loginFail";
 		}
-
-		if (login != null) {
-			session.setAttribute("member", login);
-			return "account/mypage";
-		}
 		session.setAttribute("member", null);
-		return "member/login_page";
+		return "account/login_id_Fail";
 
 
 	}
@@ -196,10 +190,10 @@ public class MemberController {
 		return "account/mypage";
 	}
 
+	//마이페이지 수정
 	@RequestMapping(value = "/mypage.do/{page}", method = RequestMethod.POST)
 	public ModelAndView MypageOverview(@PathVariable("page") String page, MemberVO vo, MemberDAOmybaits memberDAO,
 			ModelAndView mav, HttpSession session) throws IllegalStateException, IOException {
-		System.out.println("mypage / 마이페이지 수정 ");
 		memberService.updateMypage(vo);
 		MemberVO member = memberService.getMember(vo);
 
@@ -232,7 +226,6 @@ public class MemberController {
 	@RequestMapping(value = "/updateMypage.do", method = RequestMethod.POST)
 	public String MypageChange(MemberVO vo, Model model, HttpSession session)
 			throws IllegalStateException, IOException {
-		System.out.println("mypage / 개인정보 수정 ");
 		memberService.updateMypage(vo);
 		MemberVO member = memberService.getMember(vo);
 
@@ -241,5 +234,8 @@ public class MemberController {
 
 		return "account/mypage";
 	}
+
+	@RequestMapping("/updatePwd.do")
+	public String UpdatePwd(String)
 	
 }

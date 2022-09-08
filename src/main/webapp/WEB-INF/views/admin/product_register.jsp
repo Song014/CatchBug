@@ -104,8 +104,8 @@
             <div class = "row mb-3">
                 <label for = "product_no" class = "col-md-4 col-lg-3 col-form-label">상품 번호</label>
                 <div class = "col-md-8 col-lg-9">
-                    <input name = "product_no" type = "text" class = "form-control" id = "product_no" value = ""
-                           placeholder = "상품번호" maxlength = "8">
+                    <input name = "product_no" type = "number" class = "form-control" id = "product_no" value = ""
+                           placeholder = "상품번호(숫자만 입력가능)" maxlength = "10" oninput = "numberMaxLength(this);" />
                 </div>
             </div>
 
@@ -114,14 +114,15 @@
                                                                                 / 제조사</label>
                 <div class = "col-md-8 col-lg-9">
                     <input name = "brand" type = "text" class = "form-control" id = "brand" value = ""
-                           placeholder = "브랜드 / 제조사">
+                           placeholder = "브랜드 / 제조사" maxlength = "20">
                 </div>
             </div>
 
             <div class = "row mb-3">
                 <label for = "product_name" class = "col-md-4 col-lg-3 col-form-label">상품명</label>
                 <div class = "col-md-8 col-lg-9">
-                    <input name = "product_name" type = "text" class = "form-control" value = "" placeholder = "상품명">
+                    <input name = "product_name" type = "text" class = "form-control" value = "" placeholder = "상품명"
+                           maxlength = "50">
                 </div>
             </div>
 
@@ -129,7 +130,8 @@
                 <label for = "price" class = "col-md-4 col-lg-3 col-form-label">개당
                                                                                 가격</label>
                 <div class = "col-md-8 col-lg-9">
-                    <input name = "price" type = "text" class = "form-control" value = "" placeholder = "개당 가격 (원)">
+                    <input name = "price" type = "number" class = "form-control" value = "" placeholder = "개당 가격 (원)"
+                           maxlength = "10" oninput = "numberMaxLength(this);" />
                 </div>
             </div>
 
@@ -166,10 +168,14 @@
 <!-- Template Main JS File -->
 <script src = "assets/js/main.js"></script>
 
-<!-- 날짜 검색시 오늘로 셋팅해주는 스크립트-->
-<!-- 	<script>
-    document.getElementById('inputSearchDate').valueAsDate = new Date();
-</script> -->
+<script>
+    //input 입력값 길이 제한메소드
+    function numberMaxLength(e) {
+        if (e.value.length > e.maxLength) {
+            e.value = e.value.slice(0, e.maxLength);
+        }
+    }
+</script>
 
 <%--상품 등록시 기존상품과 코드가 일치하는지 여부를 체크--%>
 <script>
@@ -177,8 +183,8 @@
         var product_no = $('input[name=product_no]').val();
         var productList = JSON.parse('${productList}');
         var category_no = $('select[name=sub_category]').val();
-        for (var list in productList) {
-            if (productList[list].product_no == product_no) {
+        for (var i = 0; i < productList.length; i++) {
+            if (productList[i].product_no == product_no) {
                 alert("상품번호가 이미 존재합니다.");
                 return false;
             } else if (category_no == '0') {
@@ -193,11 +199,9 @@
             } else if ($('input[name=product_name]').val() == '') {
                 alert("상품명을 입력해주세요.");
                 return false;
-            } else {
-                alert("새로운 상품이 등록되었습니다.");
-                return false;
             }
         }
+        return true;
     })
 
 </script>

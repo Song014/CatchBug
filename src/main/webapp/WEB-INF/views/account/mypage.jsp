@@ -161,9 +161,6 @@
                                                 </button>
                                                 <button type="submit" class="btn btn-primary">저장</button>
                                             </div>
-
-                                            <!-- <button type="submit" class="class="btn btn-primary btn-sm"" title="Upload new profile image" <i	class="bi bi-upload"></i>></button>
-                                                     -->
                                             <div id="div-preview"></div>
                                         </div>
                                     </div>
@@ -207,21 +204,7 @@
                                 <!-- 마이페이지 자기소개 변경 폼 시작 -->
 
                                 <form action="mypage.do/2" method="post">
-                                    <!-- <div class="row mb-3">
-                                        <label for="profileImage"
-                                            class="col-md-4 col-lg-3 col-form-label">Profile
-                                            Image</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <img src="assets/img/mapleStory.jpg" alt="Profile">
-                                            <div class="pt-2">
-                                                <a href="#" class="btn btn-primary btn-sm"
-                                                    title="Upload new profile image"><i
-                                                    class="bi bi-upload"></i></a> <a href="#"
-                                                    class="btn btn-danger btn-sm"
-                                                    title="Remove my profile image"><i class="bi bi-trash"></i></a>
-                                            </div>
-                                        </div>
-                                    </div> -->
+
 
                                     <div class="row mb-3">
                                         <div class="col-md-8 col-lg-9">
@@ -290,93 +273,6 @@
                                     </div>
                                 </form>
                             </div>
-                            <!-- 마이페이지 자기소개 변경 폼 끝 -->
-
-                            <!-- <div class="row mb-3">
-                                        <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <input name="email" type="email" class="form-control"
-                                                id="Email" value="k.anderson@example.com">
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <label for="Twitter" class="col-md-4 col-lg-3 col-form-label">Twitter
-                                            Profile</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <input name="twitter" type="text" class="form-control"
-                                                id="Twitter" value="https://twitter.com/#">
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <label for="Facebook" class="col-md-4 col-lg-3 col-form-label">Facebook
-                                            Profile</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <input name="facebook" type="text" class="form-control"
-                                                id="Facebook" value="https://facebook.com/#">
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <label for="Instagram"
-                                            class="col-md-4 col-lg-3 col-form-label">Instagram
-                                            Profile</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <input name="instagram" type="text" class="form-control"
-                                                id="Instagram" value="https://instagram.com/#">
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <label for="Linkedin" class="col-md-4 col-lg-3 col-form-label">Linkedin
-                                            Profile</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <input name="linkedin" type="text" class="form-control"
-                                                id="Linkedin" value="https://linkedin.com/#">
-                                        </div>
-                                    </div>
-                                    -->
-
-
-
-                            <!-- <div class="tab-pane fade pt-3" id="profile-settings"
-                                role="tabpanel">
-                                마이페이지 셋팅 폼 시작
-                                <form>
-                                    <div class="row mb-3">
-                                        <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Email
-                                            Notifications</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox"
-                                                    id="changesMade" checked=""> <label
-                                                    class="form-check-label" for="changesMade"> Changes
-                                                    made to your account </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox"
-                                                    id="newProducts" checked=""> <label
-                                                    class="form-check-label" for="newProducts">
-                                                    Information on new products and services </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox"
-                                                    id="proOffers"> <label class="form-check-label"
-                                                    for="proOffers"> Marketing and promo offers </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox"
-                                                    id="securityNotify" checked="" disabled=""> <label
-                                                    class="form-check-label" for="securityNotify">
-                                                    Security alerts </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="text-center">
-                                        <button type="submit" class="btn btn-primary">Save
-                                            Changes</button>
-                                    </div>
-                                </form>
-                                마이페이지 셋팅 폼 끝
-
-                            </div> -->
                             <div class="tab-pane fade pt-3" id="profile-change-password"
                                  role="tabpanel">
                                 <!-- 비밀번호 변경 폼 시작 -->

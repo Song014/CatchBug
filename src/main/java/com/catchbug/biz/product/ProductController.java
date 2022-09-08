@@ -175,7 +175,7 @@ public class ProductController {
 	public ResponseEntity<byte[]> getImage(String fileName) {
 		System.out.println("이미지 출력작동");
 		/* 이미지 경로 */
-		File file = new File("C:/work/spring-space/CatchBug/src/main/webapp/resources/" + fileName);
+		File file = new File("/Users/hyeon1339/CatchBugProject/src/main/webapp/resources/productImg" + fileName);
 
 		ResponseEntity<byte[]> result = null;
 
