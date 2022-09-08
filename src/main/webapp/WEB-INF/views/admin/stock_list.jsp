@@ -149,7 +149,7 @@
                                         <td><a class = "primary product_modal" data-bs-toggle = "modal"
                                                data-bs-target = "#modalProduct"
                                                id = "${list.product_no}">${list.product_name }</a></td>
-                                        <td>${list.price }</td>
+                                        <td><fmt:formatNumber value="${list.price }" groupingUsed="true"/></td>
                                         <td>${list.product_quantily }</td>
                                         <td><fmt:formatDate value = "${list.add_day }" pattern = "yyyy-MM-dd" /></td>
                                         <td>
@@ -280,7 +280,7 @@
             success : function (result) {
                 $("#category tbody tr").remove();
                 result.forEach(function (result) {
-                    console.log(result)
+                    const price = (result.price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
                     const str = `
 						<tr>
 							<td>1</td>
@@ -293,7 +293,7 @@
 							<td>` + result.product_no + `</td>
 							<td><a class="primary product_modal" data-bs-toggle="modal"
 								data-bs-target="#modalProduct" id="` + result.product_no + `">` + result.product_name + `</a></td>
-							<td>` + result.price + `</td>
+							<td>` + price + `</td>
 							<td>` + result.product_quantily + `</td>
 							<td>` + result.add_day + `</td>
                             <td><button type="button" id="productEdit" class="btn btn-primary btn-sm" onclick="location.href='product_edit?product_no=` + result.product_no + `'">상품수정</button></td>
@@ -325,6 +325,7 @@
             success : function (result) {
                 $("#category tbody tr").remove(); // 기존 존재하는 테이블 삭제
                 result.forEach(function (result) {
+                    const price = (result.price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
                     const str = `
 						<tr>
 							<td>1</td>
@@ -336,7 +337,7 @@
 							<td>` + result.product_no + `</td>
 							<td><a class="primary product_modal" data-bs-toggle="modal"
 								data-bs-target="#modalProduct" id="` + result.product_no + `">` + result.product_name + `</a></td>
-							<td>` + result.price + `</td>
+							<td>` + price + `</td>
 							<td>` + result.product_quantily + `</td>
 							<td>` + result.add_day + `</td>
 							<td><button type="button" id="productEdit" class="btn btn-primary btn-sm" onclick="location.href='product_edit?product_no=` + result.product_no + `'">상품수정</button></td>
@@ -374,12 +375,12 @@
                 $("#productModalImg img").remove();
                 $("#modal-product-name h5").remove();
                 result.forEach(function (result) {
-                    console.log(result);
+                    const price = (result.price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
                     const str = `
 						<tr id="select-modal">
 							<th scope="row" id="cartNo">` + result.product_no + `</th>
 							<td>` + result.product_name + `</td>
-							<td>` + result.price + `</td>
+							<td>` + price + `</td>
 							<td>` + result.add_day + `</td>
 						</tr>
 					`;
