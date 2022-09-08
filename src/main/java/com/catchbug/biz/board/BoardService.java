@@ -31,9 +31,7 @@ public interface BoardService {
 	public void UpdateBoardReply(BoardReplyVO vo);
 
 	public int getTotalBoard();
-	public List<NotiVO> SearchNoti(NotiVO vo);
-	public int listSearchCount(NotiVO vo);
-	public int listCount();
+	public int listCount(Criteria cri);
 		
 
 }
