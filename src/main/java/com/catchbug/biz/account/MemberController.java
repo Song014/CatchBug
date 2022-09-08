@@ -235,7 +235,4 @@ public class MemberController {
 		return "account/mypage";
 	}
 
-	@RequestMapping("/updatePwd.do")
-	public String UpdatePwd(String)
-	
 }
