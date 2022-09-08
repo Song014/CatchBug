@@ -16,7 +16,9 @@ public class OrderVO {
 
 	// 프론트에서 받을 값
 	private String id;
+	private String postcode;
 	private String shipping_address;
+	private String detailAddress;
 	private String ceo;
 	// db
 	private int order_status;

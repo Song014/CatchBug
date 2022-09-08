@@ -5,7 +5,7 @@
 <mapper namespace="OrderMapper">
 
 <insert id="insertOrder">
-	insert into orders(order_no,id,shipping_address,note,total_price,order_status) values(#{order_no},#{id},#{shipping_address},#{note, jdbcType=VARCHAR},#{total_price},#{order_status})
+	insert into orders(order_no,id,postcode,shipping_address,detailaddress,note,total_price,order_status) values(#{order_no},#{id},#{postcode},#{shipping_address},#{detailAddress},#{note, jdbcType=VARCHAR},#{total_price},#{order_status})
 </insert>
 <insert id="insertItemList">
 	insert into order_detail values((SELECT NVL(MAX(detail_no),0) + 1 FROM order_detail),#{order_no},#{product_no},#{purchase_amount})

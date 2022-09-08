@@ -120,14 +120,13 @@ public class OrderController {
 	@RequestMapping(value = "/submitOrder.do")
 	@Transactional(rollbackFor = Exception.class)
 	public String submitOrder(OrderVO ov,HttpSession session) {
+		System.out.println(ov+"제발 들어가라");
 		try {
-			System.out.println(ov);
 			MemberVO mvo = new MemberVO();
 			MemberVO memberpass=(MemberVO) session.getAttribute("member");
 			mvo.setId(ov.getId());
 			mvo.setPass(memberpass.getPass());
 			MemberVO member = ms.getMember(mvo);
-			System.out.println(member+"메메메메메메멤");
 			List<OrderItemVO> list = new ArrayList<OrderItemVO>();
 			// 선택한 상품에 대한 정보 초기화
 			// TODO 관리자 발주 성공시 입고 취소 출고 가맹점 발주성공시 출고 취소 입고 관리자 가맹자 어떻게? 멤버 등급으로 
