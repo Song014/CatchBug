@@ -2,6 +2,12 @@
 
 ## 프로젝트를 위한 라이브러리 추가
 
+암호화(스프링 시큐리티)
+
+- spring-security-config
+- spring-security-web
+- spring-security-core
+
 파일 업로드
 
 - https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
