@@ -4,7 +4,7 @@ import com.catchbug.biz.vo.PageVO;
 
 public class Paging {
 
-	private int totalPage;
+	private int totalPage=0;
 	//총갯수가 300개고 페이지가 10페이지라면
 	private int pageCount; //한페이지에 표시할 글 갯수
 	private int startPage;
@@ -13,12 +13,14 @@ public class Paging {
 	private int endPageNum;
 	private PageVO result;
 	
+	
 	// 9 * 20 + 1 181번부터 200번까지 표시
 	
 	public Paging(int pageCount,int totalPage) {
 		result = new PageVO();
 		this.pageCount = pageCount;
 		this.totalPage = totalPage;
+		System.out.println(this.totalPage+"객체생성");
 	}
 
 	
@@ -34,8 +36,10 @@ public class Paging {
 		if((totalPage/pageCount) < endPageNum) { //최대 표시할페이지가 갯수보타 넘치게 될경우 방지.
 			if((totalPage%pageCount) == 0) { //나머지가 없을경우
 				endPageNum = totalPage/pageCount;
+				System.out.println("나머지 0");
 			}else {
 				endPageNum = totalPage/pageCount + 1; //나머지가 있을경우
+				System.out.println("나머지 1");
 			}
 			
 		}
@@ -44,12 +48,12 @@ public class Paging {
 			page = 1;
 		}
 		
-		if(totalPage%pageCount == 0) {
-			totalPage = totalPage/pageCount;
-		}else {
-			totalPage = totalPage/pageCount + 1;
-		}
-		
+//		if(totalPage%pageCount == 0) {
+//			totalPage = totalPage/pageCount;
+//		}else {
+//			totalPage = totalPage/pageCount + 1;
+//		}
+//		
 		result.setTotalPage(totalPage);
 		result.setPageCount(pageCount);
 		result.setPage(page);
@@ -57,7 +61,6 @@ public class Paging {
 		result.setEndPage(endPage);
 		result.setStartPageNum(startPageNum);
 		result.setEndPageNum(endPageNum);
-		
 		
 		return result;
 	}

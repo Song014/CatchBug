@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.catchbug.biz.vo.ImgVO;
 import com.catchbug.biz.vo.MemberVO;
 
 @Repository("memberDAO")
@@ -35,6 +36,12 @@ public class MemberDAOmybaits {
 
 	}
 
+	// 마이페이지 uuid수정
+	public void updateUuid(MemberVO vo) {
+		System.out.println("==> mybatis로 updateImg실행");
+		memberMybatis.update("MemberDAO.updateUuid", vo);
+	}
+
 	// 마이페이지 비밀번호 변경
 	public void updatePass(MemberVO vo) {
 		System.out.println("updatePass 실행");
@@ -47,16 +54,20 @@ public class MemberDAOmybaits {
 		return memberMybatis.selectOne("MemberDAO.idChk", vo);
 	}
 
+
 	// 전체 회원 조회
 	public List<MemberVO> getMemberList(MemberVO vo) {
 		System.out.println("====> mybatis로 getMemberList 실행");
 		return memberMybatis.selectList("MemberDAO.getMemberList", vo);
 	}
 
-	// 마이페이지 이미지수정
-	public void updateImg(MemberVO vo) {
-		System.out.println("==> mybatis로 updateImg실행");
-		memberMybatis.update("MemberDAO.updateImg", vo);
+	public ImgVO getProfileImg(MemberVO vo) {
+
+		return memberMybatis.selectOne("MemberDAO.getProfileImg",vo);
+	}
+
+	public void insertMemberImg(ImgVO vo) {
+		memberMybatis.insert("MemberDAO.insertMemberImg",vo);
 	}
 
 }

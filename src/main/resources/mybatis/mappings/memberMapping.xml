@@ -26,7 +26,7 @@
 
 	<select id="getMember" resultType="member"
 		parameterType="member">
-		select * from member where id=#{id} <!-- and pass=#{pass} -->
+		select * from member  where id=#{id} <!-- and pass=#{pass} -->
 	</select>
 
 	<update id="updateMypage">
@@ -39,11 +39,16 @@
 		update member set pass=#{pass} where id=#{id}
 	</update>
 
-
-	<update id="insertImg">
-		update member set uploadImgFile=#{updateImgFile}
+	<!-- uuid 업데이트 -->
+	<update id="updateUuid">
+		update member set uuid=#{uuid}
 		where id=#{id}
 	</update>
+	
+	<select id="getProfileImg" resultType="img">
+		select i.* from img i inner join member m on i.uuid = m.uuid  where m.id=#{id}  
+	</select>
+	
 	<!-- 발주내역에서 id검색하면 id정보 조회 -->
 	<select id="getMemberid" resultType="member"
 		parameterType="member">

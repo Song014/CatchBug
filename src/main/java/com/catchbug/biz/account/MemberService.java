@@ -2,6 +2,7 @@ package com.catchbug.biz.account;
 
 import java.util.List;
 
+import com.catchbug.biz.vo.ImgVO;
 import com.catchbug.biz.vo.MemberVO;
 
 public interface MemberService {
@@ -20,8 +21,8 @@ public interface MemberService {
 	void updateMypage(MemberVO vo);
 
 	// 마이페이지 이미지 수정
-	void updateImg(MemberVO vo);
 
+	void insertMemberImg(ImgVO ivo);
 
 	public int getTotalMember(MemberVO vo);
 
@@ -31,5 +32,10 @@ public interface MemberService {
 
 	// id 중복확인
 	int idcheck(MemberVO vo);
+
+	ImgVO getProfileImg(MemberVO vo);
+
+	void updateUuid(MemberVO mvo);
+
 
 }

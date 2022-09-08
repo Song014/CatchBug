@@ -89,13 +89,13 @@
 				<div class="row">
 					<!-- 카테고리  -->
 					<div class="col-lg-2" style="padding-top: 46px">
-						<c:forEach var="m" items="${mainCategory }" varStatus="status">
-							<div class="accordion" id="accordionExample">
+						<div class="accordion" id="accordionExample">
+							<c:forEach var="m" items="${mainCategory }" varStatus="status">
 								<!-- ToDo 대분류 1,2,3, 일때 해당하는 카테고리 이름 -->
 
 								<div class="accordion-item">
-									<h2 class="accordion-header" id="headingOne">
-										<button class="accordion-button" type="button"
+									<h2 class="accordion-header" id="heading${status.count }">
+										<button class="accordion-button collapsed" type="button"
 											data-bs-toggle="collapse"
 											data-bs-target="#collapse${status.count }"
 											aria-expanded="false"
@@ -103,8 +103,8 @@
 											${m.main_name}</button>
 									</h2>
 									<div id="collapse${status.count }"
-										class="accordion-collapse collapse show"
-										aria-labelledby="headingOne"
+										class="accordion-collapse collapse"
+										aria-labelledby="heading${status.count }"
 										data-bs-parent="#accordionExample">
 										<!-- ToDo 대분류 1 , 2 , 3 에 해당하는 서브카테고리 이름 -->
 										<div class="accordion-body" style="padding: 1px">
@@ -122,8 +122,8 @@
 										</div>
 									</div>
 								</div>
-							</div>
-						</c:forEach>
+							</c:forEach>
+						</div>
 					</div>
 					<div class="col-lg-10">
 						<!-- 카테고리 선택창 -->
@@ -174,7 +174,7 @@
 													<td style="width: 5%;">${list.product_quantily }</td>
 													<td style="width: 5%;"><input type="hidden"
 														class="hidden_price" value=${list.price }>
-														${list.price }</td>
+														<fmt:formatNumber value="${list.price }" groupingUsed="true"/></td>
 													<td style="width: 5%;">
 														<button type="button"
 															class="btn btn-primary btn-sm addBucket">추가</button>
@@ -207,16 +207,17 @@
 										<c:forEach var="list" items="${cartList }">
 											<tr style="text-align: center;">
 												<td style="width: 9%;">${list.product_no }</td>
-												<td style="width: 41%;"><a class="primary product_modal"
-													data-bs-toggle="modal" data-bs-target="#modalProduct" id=${list.product_no }>${list.product_name
+												<td style="width: 41%;"><a
+													class="primary product_modal" data-bs-toggle="modal"
+													data-bs-target="#modalProduct" id=${list.product_no }>${list.product_name
 														}</a></td>
 												<td style="width: 11.7%;"><input type="number"
 													name="purchase_amount" value=${list.purchase_amount }
-													min="1"  style="width: 50px;">
-												<button type="button" class="updateBtn"
+													min="1" style="width: 50px;">
+													<button type="button" class="updateBtn"
 														value="${list.total }">변경</button></td>
 												<td style="width: 10%;"><input type="hidden"
-													class="hidden_price" value=${list.price }>${list.total }</td>
+													class="hidden_price" value=${list.price }><fmt:formatNumber value="${list.total }" groupingUsed="true"/></td>
 												<td style="width: 5%;"><button type="button"
 														class="btn btn-primary btn-sm delBucket">삭제</button></td>
 											</tr>
@@ -228,7 +229,7 @@
 
 
 						<div class="d-grid gap-2 mt-3">
-							<input class="btn btn-primary" type="button"
+							<input class="btn btn-primary" id="orderBtn" type="button"
 								onclick="location.href='orderPage.do'" value="주문 확인"></input>
 						</div>
 					</div>
@@ -284,14 +285,17 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-bs-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-danger" id="addCart">상품담기</button>
+					<button type="button" class="btn btn-danger"  id="addCart">상품담기</button>
 				</div>
 			</div>
 		</div>
 	</div>
 	<!-- 해당상품 모달 끝 -->
+
+	<script type="text/javascript">
+		// 장바구니 검증 비어있는지
+		cartVaild();
 	
-		<script type="text/javascript">
 		// 검색버튼을 클릭시 테이블 비동기처리
 		$("#searchButton").on("click",function(e){
 			e.preventDefault();
@@ -305,7 +309,7 @@
 					let str="";
 					result.forEach(function(result, index){
 						console.log(result)
-						
+						const price = (result.price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 						
 						str +=`
 							<tr style="text-align:center;">
@@ -317,7 +321,7 @@
 								data-bs-target="#modalProduct" id="`+result.product_no+`">`+ result.product_name + `</a></td>
 							<td style="width: 10%;">`+ result.add_day + `</td>
 							<td style="width: 5%;">10</td>
-							<td style="width: 5%;">`+ result.price + `</td>
+							<td style="width: 5%;"><input type="hidden" class="hidden_price" value=`+ result.price + `>`+ price + `</td>
 							<td style="width: 5%;"><button type="button"
 									class="btn btn-primary btn-sm addBucket">추가</button></td>
 						</tr>
@@ -360,12 +364,12 @@
 						$("#modal-product-name").append(title);
 						$("#productModalImg").append(imgStr);
 						$("#productModal tbody").append(str);
+						
 					})
 				}
 			})
 		})
-		</script>
-	<script type="text/javascript">
+	
 		// 하위 카테고리 클릭시 해당하는 품목 비동기 처리
 		$(".getCategory").on("click", function (e) {
 			e.preventDefault();
@@ -380,7 +384,7 @@
 					// 서브카테고리에 해당하는 상품 목록 get
 					console.log(result)
 					result.forEach(function (result, index) {
-						
+						const price = (result.price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 						str += ` 
 							<tr style="text-align:center;">
 							<td style="width: 5%;">`+(index+1)+`</td>
@@ -391,7 +395,7 @@
 								data-bs-target="#modalProduct" id="`+result.product_no+`">`+ result.product_name + `</a></td>
 							<td style="width: 10%;">`+ result.add_day + `</td>
 							<td style="width: 5%;">`+result.product_quantily+`</td>
-							<td style="width: 5%;">`+ result.price + `</td>
+							<td style="width: 5%;"><input type="hidden" class="hidden_price" value=`+ result.price + `>`+ price + `</td>
 							<td style="width: 5%;"><button type="button"
 									class="btn btn-primary btn-sm addBucket">추가</button></td>
 						</tr>
@@ -416,6 +420,7 @@
 			const name = $td.eq(3).text();
 			const quantity = $td.eq(5).text();
 			const price = $tr.find(".hidden_price").val();
+			const priceStr = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); 
 			/* const total = price * Number(quantity); */
 
 			const str = `
@@ -423,7 +428,7 @@
 				<td style="width: 9%;"><input type="hidden" name="product_no" value=`+ no + ` >` + no + `</td>
 				<td style="width: 41%;"><input type="hidden" value=`+ name + `><a class="primary product_modal" data-bs-toggle="modal" data-bs-target="#modalProduct" id="`+no+`">` + name + `</a></td>
 				<td style="width: 11.7%;"><input type="number" name="purchase_amount" value="1" min="1"  style="width:50px;"><button type="button" class="updateBtn">변경</button></td>
-				<td style="width: 10%;"><input type="hidden" class="hidden_price" value=`+ price + `>`+price+`</td>
+				<td style="width: 10%;"><input type="hidden" class="hidden_price" value=`+ price + `>`+priceStr+`</td>
 				<td style="width: 5%;"><button type="button" class="btn btn-primary btn-sm delBucket">삭제</button></td>
 			</tr>
 			`;
@@ -437,6 +442,7 @@
 					if (result == "ok") {
 						console.log(result);
 						$("#bucket tbody").append(str);
+						cartVaild();
 					} else if (result == "false") {
 						// db에 
 						alert("이미 추가된 상품입니다.")
@@ -491,6 +497,7 @@
 					console.log("delete"+result)
 					if (result == "true") {
 						$tr.remove();
+						cartVaild();
 					} else {
 						alert("다시시도해주세요");
 					}
@@ -504,10 +511,17 @@
 		});
 		
 		
-		
+		/* 검증코드 */
+		function cartVaild(){
+			if($.trim($("#bucket tbody").html())==''){
+				$("#orderBtn").attr("disabled","disabled");
+			} else{
+				$("#orderBtn").removeAttr("disabled");
+			}
+		}
 		
 	</script>
-<!-- 		<script>
+	<!-- 		<script>
 	$(document).ready(function(){
 
         const username = '${member.ceo}';

@@ -138,16 +138,16 @@
 						<tr>
 							<th colspan="6">
 								<ul class="pagination justify-content-center">
-									<c:forEach begin="${page.startPageNum }" end="${page.endPageNum }" items="${qna_list }"
+									<c:forEach begin="${page.startPageNum }" end="${page.endPageNum }" var="i"
 										varStatus="status">
 										<c:choose>
 											<c:when test="${page.page == status.count }">
 												<li class="paginate_button previous active"><a
-													class="page-link" href="QnABoard.do?page=${status.count }">${status.count }</a></li>
+													class="page-link" href="QnABoard.do?page=${i }&searchTap=${search.searchTap }&searchWord=${search.searchWord }">${i }</a></li>
 											</c:when>
 											<c:otherwise>
 												<li class="paginate_button previous "><a
-													class="page-link" href="QnABoard.do?page=${status.count }">${status.count }</a></li>
+													class="page-link" href="QnABoard.do?page=${i }&searchTap=${search.searchTap }&searchWord=${search.searchWord }">${i }</a></li>
 											</c:otherwise>
 										</c:choose>
 									</c:forEach>

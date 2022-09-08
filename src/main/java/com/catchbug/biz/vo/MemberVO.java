@@ -29,7 +29,7 @@ public class MemberVO {
 	private Date regdate; // 가입일 
 	private int level1; // 등급
 	private int startPage,endPage;
-
+	private String uuid;
 	private MultipartFile uploadImgFile;
 
 

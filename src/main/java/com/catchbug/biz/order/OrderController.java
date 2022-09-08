@@ -120,71 +120,75 @@ public class OrderController {
 	@RequestMapping(value = "/submitOrder.do")
 	@Transactional(rollbackFor = Exception.class)
 	public String submitOrder(OrderVO ov,HttpSession session) {
-		System.out.println(ov);
-		MemberVO mvo = new MemberVO();
-		MemberVO memberpass=(MemberVO) session.getAttribute("member");
-		mvo.setId(ov.getId());
-		mvo.setPass(memberpass.getPass());
-		MemberVO member = ms.getMember(mvo);
-		System.out.println(member+"메메메메메메멤");
-		List<OrderItemVO> list = new ArrayList<OrderItemVO>();
-		// 선택한 상품에 대한 정보 초기화
-		// TODO 관리자 발주 성공시 입고 취소 출고 가맹점 발주성공시 출고 취소 입고 관리자 가맹자 어떻게? 멤버 등급으로 
-		for (OrderItemVO oiv : ov.getOrders()) {
-			OrderItemVO orderItem = ps.getProductItem(oiv.getProduct_no());
-			oiv.setProduct_name(orderItem.getProduct_name());
-			oiv.setProduct_no(orderItem.getProduct_no());
-			oiv.setPrice(orderItem.getPrice());
-			oiv.initTotal();
-			list.add(oiv);
-		}
-		ov.setOrders(list);
-
-		/*
-		 * // 주문번호 생성 아이디_날짜초까지 Date date = new Date(); SimpleDateFormat format = new
-		 * SimpleDateFormat("_yyyyMMddmmss"); String orderId = ov.getId() +
-		 * format.format(date);
-		 */
-		System.out.println(ov.getOrder_no());
-		ov.setOrder_no(ov.getOrder_no());
-		ov.initTotal();
-		// 기본 주문 상태가 0이고  0이면 본사발주기 때문에 바로 더미테이블에 재고 뽑아오기
-		int order_status = 0;
-		if(member.getLevel1() == 2) {
-			order_status = 1;
-		}
-		ov.setOrder_status(order_status);
-		System.out.println(ov);
-
-		// 주문서 생성
-		os.insertOrder(ov);
-		// 주문한 상품리스트 생성
-		if(member.getLevel1() == 1) {
+		try {
+			System.out.println(ov);
+			MemberVO mvo = new MemberVO();
+			MemberVO memberpass=(MemberVO) session.getAttribute("member");
+			mvo.setId(ov.getId());
+			mvo.setPass(memberpass.getPass());
+			MemberVO member = ms.getMember(mvo);
+			System.out.println(member+"메메메메메메멤");
+			List<OrderItemVO> list = new ArrayList<OrderItemVO>();
+			// 선택한 상품에 대한 정보 초기화
+			// TODO 관리자 발주 성공시 입고 취소 출고 가맹점 발주성공시 출고 취소 입고 관리자 가맹자 어떻게? 멤버 등급으로 
 			for (OrderItemVO oiv : ov.getOrders()) {
-				oiv.setOrder_no(ov.getOrder_no());
-				ps.updateStock(oiv);
-				os.insertOrderItemList(oiv);
-				System.out.println(oiv);
-				
+				OrderItemVO orderItem = ps.getProductItem(oiv.getProduct_no());
+				oiv.setProduct_name(orderItem.getProduct_name());
+				oiv.setProduct_no(orderItem.getProduct_no());
+				oiv.setPrice(orderItem.getPrice());
+				oiv.initTotal();
+				list.add(oiv);
 			}
-		} else {
+			ov.setOrders(list);
+
+			/*
+			 * // 주문번호 생성 아이디_날짜초까지 Date date = new Date(); SimpleDateFormat format = new
+			 * SimpleDateFormat("_yyyyMMddmmss"); String orderId = ov.getId() +
+			 * format.format(date);
+			 */
+			System.out.println(ov.getOrder_no());
+			ov.setOrder_no(ov.getOrder_no());
+			ov.initTotal();
+			// 기본 주문 상태가 0이고  0이면 본사발주기 때문에 바로 더미테이블에 재고 뽑아오기
+			int order_status = 0;
+			if(member.getLevel1() == 2) {
+				order_status = 1;
+			}
+			ov.setOrder_status(order_status);
+			System.out.println(ov);
+
+			// 주문서 생성
+			os.insertOrder(ov);
+			// 주문한 상품리스트 생성
+			if(member.getLevel1() == 1) {
+				for (OrderItemVO oiv : ov.getOrders()) {
+					oiv.setOrder_no(ov.getOrder_no());
+					ps.updateStock(oiv);
+					os.insertOrderItemList(oiv);
+					System.out.println(oiv);
+					
+				}
+			} else {
+				for (OrderItemVO oiv : ov.getOrders()) {
+					oiv.setOrder_no(ov.getOrder_no());
+					os.insertOrderItemList(oiv);
+					System.out.println(oiv);
+				}
+			}
+			
+
+			// 장바구니 삭제
 			for (OrderItemVO oiv : ov.getOrders()) {
-				oiv.setOrder_no(ov.getOrder_no());
-				os.insertOrderItemList(oiv);
-				System.out.println(oiv);
+				CartVO vo = new CartVO();
+				vo.setId(ov.getId());
+				vo.setProduct_no(oiv.getProduct_no());
+
+				cs.deleteCart(vo);
 			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		
-
-		// 장바구니 삭제
-		for (OrderItemVO oiv : ov.getOrders()) {
-			CartVO vo = new CartVO();
-			vo.setId(ov.getId());
-			vo.setProduct_no(oiv.getProduct_no());
-
-			cs.deleteCart(vo);
-		}
-
 		return "redirect:factory_Order_History.do";
 	}
 
