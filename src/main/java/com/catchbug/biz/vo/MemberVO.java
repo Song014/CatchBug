@@ -25,7 +25,8 @@ public class MemberVO {
     private int mail_auth; //메일인증코드
     private String mail_key; //메일 키
     private int startPage, endPage;
-    private MultipartFile uploadImgFile;
+	private String uuid;
+	private MultipartFile uploadImgFile;
 
 
 }

@@ -1,37 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-config.dtd">
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
-	
-	<typeAliases>
-		<typeAlias alias="product" type="com.catchbug.biz.vo.ProductVO"/>
-		<typeAlias alias="member" type="com.catchbug.biz.vo.MemberVO"/>    	
-		<typeAlias alias="category" type="com.catchbug.biz.vo.CategoryVO"/>
-		<typeAlias alias="cart" type="com.catchbug.biz.vo.CartVO"/>
-		<typeAlias alias="board" type="com.catchbug.biz.vo.BoardVO"/>
-		<typeAlias alias="noti" type="com.catchbug.biz.vo.NotiVO"/>
-		<typeAlias alias="orderItem" type="com.catchbug.biz.vo.OrderItemVO"/>
-		<typeAlias alias="order" type="com.catchbug.biz.vo.OrderVO"/>
 
-		<typeAlias alias="boardReply" type="com.catchbug.biz.vo.BoardReplyVO"/>
-		<typeAlias alias="qnaReply" type="com.catchbug.biz.vo.QnaReplyVO"/>
-		<typeAlias alias="qna" type="com.catchbug.biz.vo.QnaVO"/>
-		<typeAlias alias="page" type="com.catchbug.biz.vo.PageVO"/>
-    
-		<typeAlias alias="criteria" type="com.catchbug.biz.vo.Criteria"/>
-		<typeAlias alias="pageMaker" type="com.catchbug.biz.vo.PageMaker"/>
-		<typeAlias alias="search" type="com.catchbug.biz.vo.SearchVO"/>
+    <typeAliases>
+        <typeAlias alias="product" type="com.catchbug.biz.vo.ProductVO"/>
+        <typeAlias alias="member" type="com.catchbug.biz.vo.MemberVO"/>
+        <typeAlias alias="category" type="com.catchbug.biz.vo.CategoryVO"/>
+        <typeAlias alias="cart" type="com.catchbug.biz.vo.CartVO"/>
+        <typeAlias alias="board" type="com.catchbug.biz.vo.BoardVO"/>
+        <typeAlias alias="noti" type="com.catchbug.biz.vo.NotiVO"/>
+        <typeAlias alias="orderItem" type="com.catchbug.biz.vo.OrderItemVO"/>
+        <typeAlias alias="order" type="com.catchbug.biz.vo.OrderVO"/>
+
+        <typeAlias alias="boardReply" type="com.catchbug.biz.vo.BoardReplyVO"/>
+        <typeAlias alias="qnaReply" type="com.catchbug.biz.vo.QnaReplyVO"/>
+        <typeAlias alias="qna" type="com.catchbug.biz.vo.QnaVO"/>
+        <typeAlias alias="page" type="com.catchbug.biz.vo.PageVO"/>
+
+        <typeAlias alias="criteria" type="com.catchbug.biz.vo.Criteria"/>
+        <typeAlias alias="pageMaker" type="com.catchbug.biz.vo.PageMaker"/>
+        <typeAlias alias="search" type="com.catchbug.biz.vo.SearchVO"/>
+        <typeAlias alias="img" type="com.catchbug.biz.vo.ImgVO"/>
     </typeAliases>
-	<mappers>
-		<mapper resource="mybatis/mappings/stockMapper.xml"/>
-		<mapper resource="mybatis/mappings/categoryMapper.xml"/>
-		<mapper resource="mybatis/mappings/adminMapper.xml"/>
-		<mapper resource="mybatis/mappings/memberMapping.xml"/>
-		<mapper resource="mybatis/mappings/productMapping.xml"/>
-		<mapper resource="mybatis/mappings/cartMapper.xml"/>
-		<mapper resource="mybatis/mappings/boardMapper.xml"/>
-		<mapper resource="mybatis/mappings/orderMapper.xml"/>
-		<mapper resource="mybatis/mappings/qnaMapper.xml"/>
-	</mappers>
+    <mappers>
+        <mapper resource="mybatis/mappings/stockMapper.xml"/>
+        <mapper resource="mybatis/mappings/categoryMapper.xml"/>
+        <mapper resource="mybatis/mappings/adminMapper.xml"/>
+        <mapper resource="mybatis/mappings/memberMapping.xml"/>
+        <mapper resource="mybatis/mappings/productMapping.xml"/>
+        <mapper resource="mybatis/mappings/cartMapper.xml"/>
+        <mapper resource="mybatis/mappings/boardMapper.xml"/>
+        <mapper resource="mybatis/mappings/orderMapper.xml"/>
+        <mapper resource="mybatis/mappings/qnaMapper.xml"/>
+        <mapper resource="mybatis/mappings/imgMapper.xml"/>
+    </mappers>
 </configuration>

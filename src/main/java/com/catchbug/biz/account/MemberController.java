@@ -1,38 +1,38 @@
 
 package com.catchbug.biz.account;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-
-import javax.mail.MessagingException;
-import javax.servlet.http.HttpSession;
-
+import com.catchbug.biz.account.mail.MailHandler;
+import com.catchbug.biz.account.mail.TempKey;
+import com.catchbug.biz.img.ImgService;
+import com.catchbug.biz.product.ProductService;
+import com.catchbug.biz.vo.ImgVO;
+import com.catchbug.biz.vo.MemberVO;
+import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
-import javax.inject.Inject;
-import javax.servlet.http.HttpSession;
-
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.catchbug.biz.account.mail.MailHandler;
-import com.catchbug.biz.account.mail.TempKey;
-import com.catchbug.biz.vo.MemberVO;
-
-import net.sf.json.JSONArray;
+import javax.imageio.ImageIO;
+import javax.inject.Inject;
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpSession;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.UUID;
 
 @Controller
 public class MemberController {
@@ -42,6 +42,12 @@ public class MemberController {
 
 	@Autowired
 	MemberService memberService;
+	
+	@Autowired
+	ProductService productService;
+	
+	@Autowired
+	ImgService imgService;
 
 	// 메일전송을 위한 의존주입
 	@Autowired
@@ -126,7 +132,7 @@ public class MemberController {
 	}
 
 	@GetMapping("/find_pw.do")
-	public String findPw(Model model, MemberVO vo) {
+	public String findPw(Model model) {
 		model.addAttribute("find", JSONArray.fromObject(memberService.FindMemberPW()));
 		return "account/find_pw";
 	}
@@ -151,23 +157,24 @@ public class MemberController {
 	}
 	//로그아웃 코드
 	@RequestMapping(value = "/logout.do", method = RequestMethod.GET)
-	public String logout(HttpSession session, ModelAndView mav) {
+	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:login_page.do";
 	}
 
 	//로그인페이지
 	@RequestMapping(value = "/login_page.do", method = RequestMethod.POST)
-	public String MemberLogin(MemberVO vo, MemberDAOmybaits memberDAO, ModelAndView mav, HttpSession session)
+	public String MemberLogin(MemberVO vo, HttpSession session)
 			throws Exception {
 		MemberVO login = memberService.getMember(vo);
 		boolean pwdMatch = pwdEncoder.matches(vo.getPass(), login.getPass());
-		System.out.println(pwdMatch);
 
-		if (login != null && pwdMatch == true) {
+		if (login.getId() != null && pwdMatch) {
 			session.setAttribute("member", login);
-			return "account/mypage";
-		} 
+			session.setAttribute("profile", memberService.getProfileImg(vo));
+			System.out.println("값 잘 들어감");
+			return "redirect:mypage.do?id="+login.getId();
+		}
 
 		if (memberService.emailAuthFail(vo.getId()) != 1) { // 이메일 인증 검증
 			return "account/emailAuthFail";
@@ -185,43 +192,120 @@ public class MemberController {
 
 	// 마이페이지
 	@RequestMapping(value = "/mypage.do", method = RequestMethod.GET)
-	public String Mypage(MemberVO vo,Model model) {
-		System.out.println("account/mypage //마이 페이지에서  get방식  ");
+	public String Mypage(MemberVO vo,  Model model) {
+		System.out.println("account/mypage //마이 페이지에서  get방식  "+vo);
+		// 이미지 불러와야됨 멤버가 가지고있는 uuid와 img 테이블의 uuid 비교후 
+		
+		model.addAttribute("img",memberService.getProfileImg(vo));
+		
+		return "account/mypage";
+	}
+	
+	@PostMapping(value = "myProfileUpload", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<ImgVO> MypageProfile(MultipartFile multipartFile, ImgVO vo) {
+		System.out.println("이미지 업로드 에이작스 작동");
+		System.out.println(multipartFile);
+		File checkFile = new File(multipartFile.getOriginalFilename());
+		String type = null;
+		
+		try {
+			type = Files.probeContentType(checkFile.toPath());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		String uploadFolder = "C:/work/spring-space/CatchBug/src/main/webapp/resources/profileImg";
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Date date = new Date();
+		
+		String str = sdf.format(date);
+		
+		/* 폴더 생성 */
+		File uploadPath = new File(uploadFolder, str);
+		
+		if(!uploadPath.exists()) {
+			uploadPath.mkdirs();
+		}
+		
+		String uploadFileName = multipartFile.getOriginalFilename();
+		
+		vo.setFileName(uploadFileName);
+		vo.setUploadPath(str);
+		String uuid = null;
+		/* uuid 적용 파일 이름 파일이름 중복 방지 */
+		uuid = UUID.randomUUID().toString();
+		
+		vo.setUuid(uuid);
+		uploadFileName = uuid + "_" + uploadFileName;
+		
+		/* 파일 위치, 파일 이름을 합친 File 객체 */
+		File saveFile = new File(uploadPath, uploadFileName);
+
+		/* 파일 저장 */
+		try {
+			multipartFile.transferTo(saveFile);
+
+			BufferedImage bo_image = ImageIO.read(saveFile);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println(vo);
+		ResponseEntity<ImgVO> result = new ResponseEntity<ImgVO>(vo, HttpStatus.OK);
+		return result;
+	}
+
+	// mypage / 개인정보 수정
+	@RequestMapping(value = "/myPageUpdate.do", method = RequestMethod.POST)
+	public String MypageChange(MemberVO vo,HttpSession session) throws IllegalStateException, IOException {
+		System.out.println("mypage / 개인정보 수정 ");
+//		MemberVO login = memberService.getMember(vo);
+//
+//		boolean pwdMatch = pwdEncoder.matches(vo.getPass(), login.getPass());
+//		if (pwdMatch) {
+//			System.out.println("pwdMatch 성공");
+//			memberService.updateMypage(vo);
+//			session.setAttribute("member", login);
+//			System.out.println("개인정보 수정완료");
+//		} else {
+//			System.out.println("pwdMatch 실패");
+//		}
+
+		
+		memberService.updateMypage(vo);
+		session.invalidate();
+		return "account/login_page";
+	}
+	
+	@ResponseBody
+	@PostMapping(value = "profileUpdate")
+	public String MypageProfileUpdate(ImgVO ivo,MemberVO mvo,HttpSession session) {
+		System.out.println("이미지 업데이트"+ivo+"  : 사용자"+mvo);
+		// 이미지 관련 세션데이터 삭제
+		session.removeAttribute("profile");
+		// 프론트에서 받아온 이미지 관련 데이터 재설정
+		session.setAttribute("profile", ivo);
+		
+		imgService.insertImg(ivo);	
+		// 회원 테이블 uuid 값 업데이트
+		memberService.updateUuid(mvo); 
+		
+		return "성공";
+	}
+	// 마이페이지
+	@RequestMapping(value = "/mypage.do", method = RequestMethod.GET)
+	public String Mypage(MemberVO vo,ImgVO ivo,Model model) {
+		System.out.println("account/mypage //마이 페이지에서  get방식  "+vo);
+		// 이미지 불러와야됨 멤버가 가지고있는 uuid와 img 테이블의 uuid 비교후
+
+		model.addAttribute("img",memberService.getProfileImg(vo));
+
 		return "account/mypage";
 	}
 
-	//마이페이지 수정
-	@RequestMapping(value = "/mypage.do/{page}", method = RequestMethod.POST)
-	public ModelAndView MypageOverview(@PathVariable("page") String page, MemberVO vo, MemberDAOmybaits memberDAO,
-			ModelAndView mav, HttpSession session) throws IllegalStateException, IOException {
-		memberService.updateMypage(vo);
-		MemberVO member = memberService.getMember(vo);
-
-		if (member != null) {
-			System.out.println("환영합니다" + member.getId() + "님 어서오세요. 등급은 " + member.getLevel1() + "입니다");
-			session.setAttribute("member", member); // 세션 재할당?
-		}
-
-		MultipartFile uploadImgFile = vo.getUploadImgFile();
-
-		if (page == "1") {
-			memberService.updateImg(vo);
-			if (!uploadImgFile.isEmpty()) {
-				String fileName = uploadImgFile.getOriginalFilename();
-				uploadImgFile.transferTo(
-						new File("/Users/hyeon1339/CatchBugProject/src/main/webapp/resources/productImg/profile"
-								+ fileName));
-
-				mav.setViewName("account/mypage");
-			} else if (page == "2") {
-				mav.setViewName("account/mypage");
-			} else if (page == "3") {
-				mav.setViewName("account/mypage");
-			}
-
-		}
-		return mav;
-	}// mypage / 개인정보 수정
+	// mypage / 개인정보 수정
 
 	@RequestMapping(value = "/updateMypage.do", method = RequestMethod.POST)
 	public String MypageChange(MemberVO vo, Model model, HttpSession session)

@@ -13,7 +13,8 @@
     </insert>
     <!-- 아이디 중복 체크 -->
     <select id="idChk" resultType="int">
-        SELECT COUNT(*) FROM member
+        SELECT COUNT(*)
+        FROM member
         WHERE id = #{id}
     </select>
     <!-- 패스워드 체크 -->
@@ -40,7 +41,6 @@
             business_address= #{business_address}
         where id = #{id}
     </update>
-
 
     <update id="insertImg">
         update member
@@ -101,6 +101,28 @@
         FROM member
         WHERE business_no = #{business_no}
           AND ceo = #{ceo}
+    </select>
+
+    <!-- uuid 업데이트 -->
+    <update id="updateUuid">
+        update member
+        set uuid=#{uuid}
+        where id = #{id}
+    </update>
+
+    <select id="getProfileImg" resultType="img">
+        select i.*
+        from img i
+                 inner join member m on i.uuid = m.uuid
+        where m.id = #{id}
+    </select>
+
+    <!-- 발주내역에서 id검색하면 id정보 조회 -->
+    <select id="getMemberid" resultType="member"
+            parameterType="member">
+        select id, business_no, business_name, ceo
+        from member
+        where id = #{id}
     </select>
 
 </mapper>
