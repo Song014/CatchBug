@@ -128,7 +128,7 @@
 									<td><a class="primary" data-bs-toggle="modal"
 										data-bs-target="#modalProduct">${list.product_name }</a></td>
 									<td>${list.purchase_amount }개</td>
-									<td>${list.total }</td>
+									<td><fmt:formatNumber value="${list.total }" groupingUsed="true"/></td>
 									<td><button type="button"
 											class="btn btn-primary btn-sm delBucket"
 											value="${member.id }">삭제</button></td>
@@ -140,7 +140,7 @@
 
 
 					<div align="center">
-						<h3>총 주문금액 :${total }</h3>
+						<h3 id="product_info">총 주문금액 :<fmt:formatNumber value="${total }" groupingUsed="true"/></h3>
 						<!-- 이전페이지로 돌아가기 -->
 						<input class="btn btn-primary" type="submit"
 							onclick="location.href='productForOrder.do'" value="상품 추가"></input>
@@ -291,8 +291,8 @@
 											".individual_total_input").val());
 									}
 								})
-							$("#product_info").children().eq(0).html(
-								"총 구매 금액 : " + total_price + " 원")
+							$("#product_info").html(
+								"총 구매 금액 : " + total_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')  + " 원")
 
 						});
 
