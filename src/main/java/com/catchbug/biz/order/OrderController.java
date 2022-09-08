@@ -74,10 +74,14 @@ public class OrderController {
 
 	// 본사 발주서 작성
 	@RequestMapping("/productForOrder.do")
-	public String factoryOrder(Model model, CategoryVO vo, HttpSession session) {
-
+	public String factoryOrder(Model model,CategoryVO vo, HttpSession session) {
+		MemberVO member=null;
 		// 처음 들어갔을때 카테고리 불러오기
-		MemberVO member = (MemberVO) session.getAttribute("member");
+		if(session.getAttribute("member")!=null) {
+			member = (MemberVO) session.getAttribute("member");
+		} else {
+			return "redirect:login_page.do";
+		}
 		List<CartVO> cartList = new ArrayList<CartVO>();
 		if (cs.getCart(member) != null) {
 			for (CartVO cartVO : cs.getCart(member)) {
@@ -102,10 +106,13 @@ public class OrderController {
 	// 주문하기 눌렀을때
 	@RequestMapping(value = "/orderPage.do")
 	public String orderPage(CartVO vo, HttpSession session, Model model) {
-
+		MemberVO member=null;
 		// 처음 보여줄 장바구니에 담긴 데이터
-		
-		MemberVO member = (MemberVO) session.getAttribute("member");
+		if(session.getAttribute("member")!=null) {
+			member = (MemberVO) session.getAttribute("member");
+		} else {
+			return "redirect:login_page.do";
+		}
 		List<CartVO> cartList = new ArrayList<CartVO>();
 		for (CartVO cartVO : cs.getCart(member)) {
 			cartVO.initTotal();
