@@ -305,11 +305,12 @@ public class MemberController {
 
     //mypage 비밀번호 변경
     @PostMapping("/updatePass.do")
-    public String MypagePassChange(String newPassword, MemberVO vo){
+    public String MypagePassChange(String newPassword, MemberVO vo, HttpSession session){
         String pass = pwdEncoder.encode(newPassword);
         vo.setPass(pass);
         memberService.updatePass(vo);
-        return "account/mypage";
+        session.invalidate();
+        return "account/login_page";
     }
 
 

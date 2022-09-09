@@ -519,7 +519,7 @@
                     console.log(data);
                     if (data == true) {
                         if (confirm("회원수정하시겠습니까?")) {
-                            // $("#updateForm").submit();
+                            $("#updateForm").submit();
                             return;
                         }
                     } else {
@@ -530,12 +530,6 @@
                 }
             })
         })
-        // 취소
-        /* $(".cencle").on("click", function(){
-
-         location.href = "/";
-
-         }) */
     });
 </script>
 
