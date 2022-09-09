@@ -280,8 +280,9 @@
                             <div class="tab-pane fade pt-3" id="profile-change-password"
                                  role="tabpanel">
                                 <!-- 비밀번호 변경 폼 시작 -->
-                                <form action="updatePass.do" method="post">
+                                <form id="passUpdateForm" action="updatePass.do" method="post">
                                     <div class="row mb-3">
+                                        <input name="id" type="hidden" class="form-control" value="${member.id}">
                                         <label for="currentPassword"
                                                class="col-md-4 col-lg-3 col-form-label">현재 비밀번호 </label>
                                         <div class="col-md-8 col-lg-9">
@@ -293,7 +294,7 @@
                                         <label for="newPassword"
                                                class="col-md-4 col-lg-3 col-form-label">새 비밀번호</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="newpass" type="password" class="form-control"
+                                            <input name="newPassword" type="password" class="form-control"
                                                    id="newPassword">
                                         </div>
                                     </div>
@@ -306,8 +307,7 @@
                                         </div>
                                     </div>
                                     <div class="text-center">
-                                        <button type="submit" class="btn btn-primary">Change
-                                                                                      Password</button>
+                                        <button type="button" class="btn btn-primary" id="passUpdateBtn">비밀번호 변경</button>
                                     </div>
                                 </form>
                                 <!-- 비밀번호 변경 폼 끝 -->
@@ -516,9 +516,11 @@
                 dateType : "json",
                 data : $("#updateForm").serializeArray(),
                 success : function(data) {
+                    console.log(data);
                     if (data == true) {
                         if (confirm("회원수정하시겠습니까?")) {
-                            $("#updateForm").submit();
+                            // $("#updateForm").submit();
+                            return;
                         }
                     } else {
                         alert("패스워드가 틀렸습니다.");
@@ -534,6 +536,53 @@
          location.href = "/";
 
          }) */
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#passUpdateBtn").on("click", function() {
+            if ($("#currentPassword").val() == "") {
+                alert("비밀번호를 입력해주세요.");
+                $("#currentPassword").focus();
+                return false;
+            }
+            if ($("#newPassword").val() == "") {
+                alert("새 비밀번호를 입력해주세요.");
+                $("#newPassword").focus();
+                return false;
+            }
+            if ($("#renewPassword").val() == "") {
+                alert("새 비밀번호 확인을 입력해주세요.");
+                $("#renewPassword").focus();
+                return false;
+            }
+            if ($("#renewPassword").val() != $("#newPassword").val()) {
+                alert("새비밀번호를 다르게 입력하였습니다.");
+                $("#newPassword").val('');
+                $("#renewPassword").val('');
+                $("#renewPassword").focus();
+                return false;
+            }
+
+            $.ajax({
+                url : "/passChk.do",
+                type : "POST",
+                dateType : "json",
+                data : $("#passUpdateForm").serialize(),
+                success : function(data) {
+                    if (data == true) {
+                        if (confirm("비밀번호를 변경하시겠습니까?")) {
+                            $("#passUpdateForm").submit();
+                        }
+                    } else {
+                        alert("패스워드가 틀렸습니다.");
+                        return;
+
+                    }
+                }
+            })
+        })
     });
 </script>
 </body>

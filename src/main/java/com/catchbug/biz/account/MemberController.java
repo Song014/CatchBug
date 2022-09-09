@@ -60,7 +60,6 @@ public class MemberController {
     // 회원가입 시작
     @RequestMapping(value = "/sign_up.do", method = RequestMethod.GET)
     public ModelAndView MemeberSignUp() {
-        System.out.println("account/sign_up //회원가입 페이지에서  get방식  ");
         ModelAndView mav = new ModelAndView();
         mav.setViewName("account/sign_up");
         return mav;
@@ -72,7 +71,6 @@ public class MemberController {
     public boolean MypagePassChange(MemberVO vo, HttpSession session) throws Exception {
         MemberVO login = memberService.getMember(vo);
         boolean pwdcChk = pwdEncoder.matches(vo.getPass(), login.getPass());
-        System.out.println(pwdcChk);
         return pwdcChk;
 
     }
@@ -184,15 +182,12 @@ public class MemberController {
     public String MemberLogin(MemberVO vo, HttpSession session)
             throws Exception {
         MemberVO login = memberService.getMember(vo);
-        System.out.println(login + "로긴");
         boolean pwdMatch = pwdEncoder.matches(vo.getPass(), login.getPass());
-        System.out.println(pwdMatch);
 
 
         if (login.getId() != null && pwdMatch) {
             session.setAttribute("member", login);
             session.setAttribute("profile", memberService.getProfileImg(vo));
-            System.out.println("값 잘 들어감");
             return "redirect:mypage.do?id=" + login.getId();
         }
 
@@ -213,7 +208,6 @@ public class MemberController {
     // 마이페이지
     @RequestMapping(value = "/mypage.do", method = RequestMethod.GET)
     public String Mypage(MemberVO vo, Model model) {
-        System.out.println("account/mypage //마이 페이지에서  get방식  " + vo);
         // 이미지 불러와야됨 멤버가 가지고있는 uuid와 img 테이블의 uuid 비교후
 
         model.addAttribute("img", memberService.getProfileImg(vo));
@@ -223,8 +217,6 @@ public class MemberController {
 
     @PostMapping(value = "myProfileUpload", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<ImgVO> MypageProfile(MultipartFile multipartFile, ImgVO vo) {
-        System.out.println("이미지 업로드 에이작스 작동");
-        System.out.println(multipartFile);
         File checkFile = new File(multipartFile.getOriginalFilename());
         String type = null;
 
@@ -269,8 +261,6 @@ public class MemberController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        System.out.println(vo);
         ResponseEntity<ImgVO> result = new ResponseEntity<ImgVO>(vo, HttpStatus.OK);
         return result;
     }
@@ -278,7 +268,6 @@ public class MemberController {
     // mypage / 개인정보 수정
     @RequestMapping(value = "/myPageUpdate.do", method = RequestMethod.POST)
     public String MypageChange(MemberVO vo, HttpSession session) throws IllegalStateException, IOException {
-        System.out.println("mypage / 개인정보 수정 ");
         memberService.updateMypage(vo);
         session.invalidate();
         return "account/login_page";
@@ -287,7 +276,6 @@ public class MemberController {
     @ResponseBody
     @PostMapping(value = "profileUpdate")
     public String MypageProfileUpdate(ImgVO ivo, MemberVO mvo, HttpSession session) {
-        System.out.println("이미지 업데이트" + ivo + "  : 사용자" + mvo);
         // 이미지 관련 세션데이터 삭제
         session.removeAttribute("profile");
         // 프론트에서 받아온 이미지 관련 데이터 재설정
@@ -312,6 +300,15 @@ public class MemberController {
         model.addAttribute("member", member);
         session.setAttribute("member", member);
 
+        return "account/mypage";
+    }
+
+    //mypage 비밀번호 변경
+    @PostMapping("/updatePass.do")
+    public String MypagePassChange(String newPassword, MemberVO vo){
+        String pass = pwdEncoder.encode(newPassword);
+        vo.setPass(pass);
+        memberService.updatePass(vo);
         return "account/mypage";
     }
 

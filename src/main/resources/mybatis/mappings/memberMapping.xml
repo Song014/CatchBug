@@ -37,16 +37,15 @@
             business_address= #{business_address}
         where id = #{id}
     </update>
+    <update id="updatePass">
+        UPDATE member
+        SET pass = #{pass}
+        WHERE id = #{id}
+    </update>
 
     <update id="insertImg">
         update member
         set uploadImgFile=#{updateImgFile}
-        where id = #{id}
-    </update>
-
-    <update id="updateMypagePass">
-        update member
-        set pass=#{pass}
         where id = #{id}
     </update>
 
@@ -121,7 +120,7 @@
 
     <select id="getMember" resultType="member"
             parameterType="member">
-        select * from member  where id=#{id} <!-- and pass=#{pass} -->
+        select * from member where id=#{id} <!-- and pass=#{pass} -->
     </select>
 
 </mapper>
