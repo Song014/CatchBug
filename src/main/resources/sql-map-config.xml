@@ -17,18 +17,6 @@
 		<typeAlias alias="qnaReply" type="com.catchbug.biz.vo.QnaReplyVO"/>
 		<typeAlias alias="qna" type="com.catchbug.biz.vo.QnaVO"/>
 		<typeAlias alias="page" type="com.catchbug.biz.vo.PageVO"/>
-    
-		<typeAlias alias="criteria" type="com.catchbug.biz.vo.Criteria"/>
-		<typeAlias alias="pageMaker" type="com.catchbug.biz.vo.PageMaker"/>
-		<typeAlias alias="search" type="com.catchbug.biz.vo.SearchVO"/>
-		<typeAlias alias="img" type="com.catchbug.biz.vo.ImgVO"/>
-		
-
-        <typeAlias alias="boardReply" type="com.catchbug.biz.vo.BoardReplyVO"/>
-        <typeAlias alias="qnaReply" type="com.catchbug.biz.vo.QnaReplyVO"/>
-        <typeAlias alias="qna" type="com.catchbug.biz.vo.QnaVO"/>
-        <typeAlias alias="page" type="com.catchbug.biz.vo.PageVO"/>
-
         <typeAlias alias="criteria" type="com.catchbug.biz.vo.Criteria"/>
         <typeAlias alias="pageMaker" type="com.catchbug.biz.vo.PageMaker"/>
         <typeAlias alias="search" type="com.catchbug.biz.vo.SearchVO"/>
@@ -46,8 +34,5 @@
 		<mapper resource="mybatis/mappings/orderMapper.xml"/>
 		<mapper resource="mybatis/mappings/qnaMapper.xml"/>
 		<mapper resource="mybatis/mappings/imgMapper.xml"/>
-		
-
-
 	</mappers>
 </configuration>

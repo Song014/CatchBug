@@ -147,7 +147,7 @@
                                         <td><a class = "primary product_modal" data-bs-toggle = "modal"
                                                data-bs-target = "#modalProduct"
                                                id = "${list.product_no}">${list.product_name }</a></td>
-                                        <td>${list.price }</td>
+                                        <td><fmt:formatNumber value="${list.price }" groupingUsed="true"/></td>
                                         <td>${list.product_quantily }</td>
                                         <td><fmt:formatDate value = "${list.add_day }" pattern = "yyyy-MM-dd" /></td>
                                     </tr>
@@ -272,8 +272,9 @@
             success : function (result) {
                 $("#category tbody tr").remove();
                 result.forEach(function (result) {
-                    console.log(result)
+                    const price = (result.price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
                     const str = `
+
 						<tr>
 							<td>1</td>
 							<th scope="row"><a href="#"><img src="/resources/productImg/` + result.add_day + `/` + result.uuid + `"
@@ -281,7 +282,7 @@
 							<td>` + result.product_no + `</td>
 							<td><a class="primary product_modal" data-bs-toggle="modal"
 								data-bs-target="#modalProduct" id="` + result.product_no + `">` + result.product_name + `</a></td>
-							<td>` + result.price + `</td>
+							<td>` + price + `</td>
 							<td>` + result.product_quantily + `</td>
 							<td>` + result.add_day + `</td>
 						</tr>
@@ -312,6 +313,7 @@
             success : function (result) {
                 $("#category tbody tr").remove(); // 기존 존재하는 테이블 삭제
                 result.forEach(function (result) {
+                    const price = (result.price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
                     const str = `
 						<tr>
 							<td>1</td>
@@ -320,7 +322,7 @@
 							<td>` + result.product_no + `</td>
 							<td><a class="primary product_modal" data-bs-toggle="modal"
 								data-bs-target="#modalProduct" id="` + result.product_no + `">` + result.product_name + `</a></td>
-							<td>` + result.price + `</td>
+							<td>` + price + `</td>
 							<td>` + result.product_quantily + `</td>
 							<td>` + result.add_day + `</td>
 						</tr>
