@@ -120,16 +120,10 @@
                     </c:otherwise>
                     </c:choose>
 
-
-
                 </ul>
             </li>
-
         </ul>
-
-
     </nav>
     <!-- info drop down end -->
-
 
 </header>

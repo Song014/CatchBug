@@ -169,11 +169,10 @@
 
 	</main>
 	<script type="text/javascript">
-		/* function paging(e){
-			onclick="javascript:paging(${status.count });
-			const sel = $(".dataTable-selector  option:selected").val();
-			location.href="QnABoard.do?page="+e+"&pageCount="+sel;
-		} */
+	if(${member eq null}){
+		alert("로그인후 사용 가능합니다")
+		location.href="login_page.do"
+	}
 	</script>
 
 	<!-- End #main -->

@@ -566,7 +566,6 @@
    <!-- 날짜 검색시 오늘로 셋팅해주는 스크립트-->
    <script>document.getElementById('inputSearchDate').valueAsDate = new Date();</script>
 
-
 </body>
 
 </html>
