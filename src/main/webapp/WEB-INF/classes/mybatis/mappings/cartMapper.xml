@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="CartMapper">
+
+	<select id="selectListCart" parameterType="member" resultType="cart">
+		select c.product_no,p.product_name,c.purchase_amount,p.price from cart c LEFT OUTER JOIN product p on c.product_no=p.product_no where id=#{id}
+	</select>
+
+	<insert id="insertCart" >
+		insert into cart (cart_no,id,product_no) VALUES((SELECT NVL(MAX(cart_no),0) + 1 FROM cart),#{id},#{product_no})
+	</insert>
+	
+	<update id="updateCart" parameterType="cart">
+		update cart set purchase_amount=#{purchase_amount}  where id=#{id}  and product_no=#{product_no}
+	</update>
+	
+	<delete id="deleteCart" >
+		delete from cart where product_no=#{product_no} and id=#{id}
+	</delete>
+</mapper>
