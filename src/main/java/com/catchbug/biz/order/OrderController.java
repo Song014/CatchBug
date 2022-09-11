@@ -55,6 +55,14 @@ public class OrderController {
 		return client.paymentByImpUid(imp_uid);
 	}
 
+	// 결제 완료후 결제 내역
+	@ResponseBody
+	@RequestMapping(value = "/payments/status/{status}")
+	public IamportResponse<PagedDataList<Payment>> paymentByImpStatus(Model model, Locale locale, HttpSession session,
+			@PathVariable(value = "status") String status) throws IamportResponseException, IOException {
+		return client.paymentsByStatus(status);
+	}
+
 	// 본사 발주서 작성
 	@RequestMapping("/productForOrder.do")
 	public String factoryOrder(Model model, CategoryVO vo, HttpSession session) {
@@ -73,15 +81,16 @@ public class OrderController {
 			}
 			model.addAttribute("cartList", cartList);
 		}
-		return "order/factory_order";
-	}
+		
+		// 카테고리
+        model.addAttribute("mainCategory", ps.getMainCategory());
+        model.addAttribute("subCategory", ps.getSubCategory());
+        // 첫 요청 상품 데이터 최근 등록순
+        vo.setSub_category(0);
 
-	// 결제 완료후 결제 내역
-	@ResponseBody
-	@RequestMapping(value = "/payments/status/{status}")
-	public IamportResponse<PagedDataList<Payment>> paymentByImpStatus(Model model, Locale locale, HttpSession session,
-			@PathVariable(value = "status") String status) throws IamportResponseException, IOException {
-		return client.paymentsByStatus(status);
+        List<ProductVO> productList = ps.getProductList(vo);
+        model.addAttribute("product", productList);
+		return "order/factory_order";
 	}
 
 	// 주문하기 눌렀을때
@@ -236,8 +245,6 @@ public class OrderController {
 
 		return mav;
 	}
-
-	
 
 	// 장바구니 번호 클릭시 해당 id가 주문한 내역 조회 (모달)
 	@ResponseBody
