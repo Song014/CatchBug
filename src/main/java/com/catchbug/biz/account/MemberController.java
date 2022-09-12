@@ -184,13 +184,6 @@ public class MemberController {
         MemberVO login = memberService.getMember(vo);
         boolean pwdMatch = pwdEncoder.matches(vo.getPass(), login.getPass());
 
-
-        if (login.getId() != null && pwdMatch) {
-            session.setAttribute("member", login);
-            session.setAttribute("profile", memberService.getProfileImg(vo));
-            return "redirect:mypage.do?id=" + login.getId();
-        }
-
         if (memberService.emailAuthFail(vo.getId()) != 1) { // 이메일 인증 검증
             return "account/emailAuthFail";
         }
@@ -198,6 +191,16 @@ public class MemberController {
         if (login.getLevel1() == 4) {
             return "account/loginFail";
         }
+
+        if (login.getId() != null && pwdMatch) {
+            session.setAttribute("member", login);
+            session.setAttribute("profile", memberService.getProfileImg(vo));
+            return "redirect:mypage.do?id=" + login.getId();
+        }
+
+
+
+
         session.setAttribute("member", null);
         return "account/login_id_Fail";
 

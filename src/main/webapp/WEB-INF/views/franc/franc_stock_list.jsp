@@ -362,7 +362,7 @@
                     console.log(result);
                     const str = `
 						<tr id="select-modal">
-							<th scope="row">` + result.product_no + `</th>
+							<th scope="row" id="cartNo">` + result.product_no + `</th>
 							<td>` + result.product_name + `</td>
 							<td>` + result.price + `</td>
 							<td>` + result.add_day + `</td>

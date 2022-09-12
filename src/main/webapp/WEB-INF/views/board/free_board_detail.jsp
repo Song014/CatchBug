@@ -119,7 +119,7 @@
 						<div class="card-body">
 							<form action="writeFreeBoardReply.do?board_no=${board.board_no}"
 								method="post">
-								<label for="reply" style="background-color: lightGray;"><strong>${member.ceo }</strong></label>
+								<label for="reply_text" style="background-color: lightGray;"><strong>${member.ceo }</strong></label>
 								<input class="dataTable-input" placeholder="댓글내용을 입력해 주세요."
 									style="width: 90%" type="text" name="reply_text"> <input
 									type="text" hidden="hidden" value="${board.board_no }"
@@ -201,6 +201,10 @@
 			if (id == "${member.id}") {
 				if(confirm("정말 삭제하시겠습니까?")){
 					location.href="/deleteFreeBoard.do?board_no=" + board_no;	
+				}
+			}else if('${member.level1}' == '1'){
+				if(confirm("관리자 권한으로 삭제하시겠습니까?")){
+					location.href="/deleteFreeBoard.do?board_no=" + board_no;
 				}
 			} else {
 				alert("본인만 삭제할 수 있습니다.");

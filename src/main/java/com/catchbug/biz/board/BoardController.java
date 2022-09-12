@@ -1,7 +1,6 @@
 package com.catchbug.biz.board;
 
-import java.util.List;
-
+import com.catchbug.biz.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,12 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.catchbug.biz.vo.BoardReplyVO;
-import com.catchbug.biz.vo.BoardVO;
-import com.catchbug.biz.vo.Criteria;
-import com.catchbug.biz.vo.NotiVO;
-import com.catchbug.biz.vo.PageMaker;
-import com.catchbug.biz.vo.SearchVO;
+import java.util.List;
 
 @Controller
 public class BoardController {
@@ -136,7 +130,6 @@ public class BoardController {
 	// 자유게시판 수정 진행
 	@PostMapping("updateFreeBoard.do")
 	public String FreeBoardUpdate(BoardVO vo) {
-		System.out.println(vo);
 		boardService.UpdateFreeBoard(vo);
 		return "redirect:freeBoard.do?page=1";
 	}
@@ -160,7 +153,6 @@ public class BoardController {
 	public String DeleteFreeBoardReply(int reply_no, String board_no) {
 		BoardReplyVO vo = new BoardReplyVO();
 		vo.setReply_no(reply_no);
-		System.out.println(vo);
 		boardService.DeleteBoardReply(vo);
 		return "redirect:freeBoardDetail.do?board_no=" + board_no;
 	}
@@ -185,16 +177,12 @@ public class BoardController {
 	public String notice_Board_list(@ModelAttribute("cri") Criteria cri, Model model, NotiVO vo) {
 		
 		List<NotiVO> list = boardService.get_Noti_list(cri);
-		System.out.println(cri.getSearchName() + " ---- 제목");
-		System.out.println(cri.getSearchType() + " ---- 검색어");
 		
 		
 		PageMaker pageMaker = new PageMaker();
 		
 		pageMaker.setCriteria(cri);
 		pageMaker.setTotalCount(boardService.listCount(cri));
-		
-		System.out.println(boardService.listCount(cri) + "페이지 카운트");
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pageMaker", pageMaker);
@@ -208,8 +196,6 @@ public class BoardController {
 	// 공지 쓰기
 	@RequestMapping("insertNoti.do")
 	public String insert_noti(NotiVO vo) {
-		System.out.println("공지 컨트롤러");
-		System.out.println(vo.toString());
 		boardService.insert_noti(vo);
 		return "redirect:notice_Board.do";
 	}
@@ -217,13 +203,11 @@ public class BoardController {
 	// 공지 상세보기 + 조회수 증가
 	@RequestMapping("noti_detail.do")
 	public String noti_detail(NotiVO vo, Model model) {
-		System.out.println("Noti_detail 컨트롤러");
 
 		// 조회수
 		boardService.noti_cnt_Count(vo);
 		// 상세보기
 		NotiVO noti = boardService.detail_noti(vo);
-		System.out.println(noti.toString());
 		model.addAttribute("notiInfo", noti);
 		return "board/notice_board_detail";
 	}
@@ -239,7 +223,6 @@ public class BoardController {
 	// 공지사항 업데이트
 	@RequestMapping("updateNoti.do")
 	public String noti_update(NotiVO vo) {
-		System.out.println("Noti_update 컨트롤러");
 		boardService.update_noti(vo);
 
 		return "redirect:notice_Board.do";
@@ -248,7 +231,6 @@ public class BoardController {
 	// 공지사항 삭제
 	@RequestMapping("delete_noti.do")
 	public String noti_delete(NotiVO vo) {
-		System.out.println("공지사항 삭제");
 		boardService.noti_delete(vo);
 
 		return "redirect:notice_Board.do";

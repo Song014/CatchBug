@@ -40,7 +40,6 @@ public class ChatController {
     //채팅방 생성
     @GetMapping("/createRoom.do")
     public String createRoom(RoomVO vo){
-        System.out.println(vo);
         roomList.add(vo);
         return "redirect:chatRoom.do";
     }
