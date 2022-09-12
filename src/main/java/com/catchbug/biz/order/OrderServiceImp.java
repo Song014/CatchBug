@@ -1,13 +1,12 @@
 package com.catchbug.biz.order;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.catchbug.biz.vo.MemberVO;
 import com.catchbug.biz.vo.OrderItemVO;
 import com.catchbug.biz.vo.OrderVO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class OrderServiceImp implements OrderService {
@@ -49,8 +48,8 @@ public class OrderServiceImp implements OrderService {
 		return dao.getMember(mvo);
 	}
 	@Override
-	public OrderVO getOrderListid(OrderVO ovo) {
-		System.out.println("getOrderListid ServiceImpl");
+	public List<OrderVO> getOrderListid(OrderVO ovo) {
+		System.out.println(dao.getOrderListid(ovo));
 		return dao.getOrderListid(ovo);
 	}
 

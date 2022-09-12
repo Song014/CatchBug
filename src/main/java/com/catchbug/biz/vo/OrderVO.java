@@ -1,15 +1,11 @@
 package com.catchbug.biz.vo;
 
-import java.sql.Date;
-import java.util.List;
-
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-import lombok.Data;
+import java.sql.Date;
+import java.util.List;
 
 @Data
 public class OrderVO {
@@ -30,6 +26,11 @@ public class OrderVO {
 
 	private int total_price;
 
+	@JsonProperty(access=JsonProperty.Access.WRITE_ONLY)
+	private String searchCondition;
+	@JsonProperty(access=JsonProperty.Access.WRITE_ONLY)
+	private String searchKeyword;
+
 
 
 	// bj
@@ -46,6 +47,7 @@ public class OrderVO {
 	private int detail_no; // 장바구니 번호
 	private int product_no; // 상품번호
 	private int purchase_amount; // 구입수량
+	private int price; //상품 개별 가격
 
 	public void initTotal() {
 		for (OrderItemVO orderItemVO : orders) {
@@ -55,12 +57,3 @@ public class OrderVO {
 
 
 }
-
-	
-	@JsonProperty(access=JsonProperty.Access.WRITE_ONLY)
-	private String searchCondition;
-	@JsonProperty(access=JsonProperty.Access.WRITE_ONLY)
-	private String searchKeyword;
-	
-}
-

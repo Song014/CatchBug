@@ -1,10 +1,10 @@
 package com.catchbug.biz.order;
 
-import java.util.List;
-
 import com.catchbug.biz.vo.MemberVO;
 import com.catchbug.biz.vo.OrderItemVO;
 import com.catchbug.biz.vo.OrderVO;
+
+import java.util.List;
 
 public interface OrderService {
 
@@ -19,8 +19,8 @@ public interface OrderService {
 	List<OrderVO> getOrderDetailList(OrderVO dvo);
 	
 	MemberVO getMember(MemberVO mvo);
-	
-	OrderVO getOrderListid(OrderVO ovo);
+
+	List<OrderVO> getOrderListid(OrderVO ovo);
 	
 	List<OrderVO> getOrderno(OrderVO ovo);
 	

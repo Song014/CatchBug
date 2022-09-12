@@ -341,7 +341,6 @@
 <script type="text/javascript">
     function onImgSubmit(){
         const $form = $("#form_img_control");
-        alert($("#form_img_control").find("input[name='fileName']").val())
         let data = {
             "fileName": $form.find("input[name='fileName']").val(),
             "uuid": $form.find("input[name='uuid']").val(),
@@ -357,6 +356,7 @@
             dataType : "text",
             success : function(res){
                 console.log(res+"성공");
+                location.href="/logout.do";
             },
             error : function(XMLHttpRequest, textStatus, errorThrown){
                 alert("통신 실패.")

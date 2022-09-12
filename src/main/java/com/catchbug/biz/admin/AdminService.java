@@ -1,13 +1,9 @@
 package com.catchbug.biz.admin;
 
+import com.catchbug.biz.vo.*;
+
 import java.util.HashMap;
 import java.util.List;
-
-import com.catchbug.biz.vo.Criteria;
-import com.catchbug.biz.vo.MemberVO;
-import com.catchbug.biz.vo.OrderItemVO;
-import com.catchbug.biz.vo.OrderVO;
-import com.catchbug.biz.vo.SearchVO;
 
 public interface AdminService {
 
@@ -35,4 +31,5 @@ public interface AdminService {
 	public void update_order_refuse(OrderVO vo);
 
 	public int count(Criteria cri);
+
 }

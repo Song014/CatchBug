@@ -9,8 +9,8 @@
 
     <!-- 회원가입 암호화 -->
     <insert id="insertMember">
-        insert into member(id, pass, business_no, business_name, ceo, contact, email, business_address,mail_key)
-        values (#{id}, #{pass}, #{business_no}, #{business_name}, #{ceo}, #{contact}, #{email}, #{business_address},#{mail_key})
+        insert into member(id, pass, business_no, business_name, ceo, contact, email, business_address,mail_key,postcode,detailAddress)
+        values (#{id}, #{pass}, #{business_no}, #{business_name}, #{ceo}, #{contact}, #{email}, #{business_address},#{mail_key},#{postcode},#{detailAddress})
     </insert>
     <!-- 패스워드 체크 -->
     <select id="passChk" resultType="int">
