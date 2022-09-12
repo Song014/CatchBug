@@ -5,12 +5,6 @@
          pageEncoding="UTF-8"%>
 <%@page import="com.catchbug.biz.vo.MemberVO"%>
 <%@page import="java.util.List"%>
-
-<%--  <%
-
- List<MemberVO> member = (List)session.getAttribute("member");
- List<MemberVO> member1 = (List)session.getAttribute("memberLevel1");
- %> --%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -74,11 +68,7 @@
 
 
 <!-- ======= Sidebar ======= -->
-
 <jsp:include page="../mainInclude/sidebar.jsp"></jsp:include>
-
-<!-- End Sidebar -->
-<!-- End Header -->
 <!-- End Sidebar -->
 <!-- main start -->
 
@@ -88,8 +78,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-
-                <li class="breadcrumb-item active">MyPage</li>
+                <li class="breadcrumb-item active">마이페이지</li>
             </ol>
         </nav>
     </div>
@@ -101,8 +90,8 @@
                             class="card-body profile-card pt-4 d-flex flex-column align-items-center">
                         <img src="/resources/profileImg/${img.uploadPath }/${img.uuid}" alt="Profile"
                              class="rounded-circle">
-                        <h2>메이플스토리</h2>
-                        <h3>10년째 메인모델</h3>
+                        <h2>${member.business_name}</h2>
+                        <h3>${member.email}</h3>
                         <div class="social-links mt-2">
                             <a href="#" class="twitter"><i class="bi bi-twitter"></i></a> <a
                                 href="#" class="facebook"><i class="bi bi-facebook"></i></a> <a

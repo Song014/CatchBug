@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
->>>>>>> branch 'lbh' of https://github.com/Song014/CatchBug.git
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -132,13 +128,6 @@
 
 
 
-					<script type="text/javascript">
-						
-					<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-						//오늘 날짜
-						document.getElementById('currentDate').value = new Date()
-								.toISOString().slice(0, 10);
-					</script>
 
 				</div>
 			</div>
@@ -221,11 +210,6 @@
 
 	<!-- Template Main JS File -->
 	<script src="assets/js/main.js"></script>
-
-	<!-- 날짜 검색시 오늘로 셋팅해주는 스크립트-->
-	<script>
-		document.getElementById('inputSearchDate').valueAsDate = new Date();
-	</script>
 
 
 </body>
