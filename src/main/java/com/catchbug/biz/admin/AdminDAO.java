@@ -65,6 +65,7 @@ public class AdminDAO {
 	public List<MemberVO> franc_SearchList(SearchVO vo) {
 		return mybatis.selectList("AdminMapper.SearchList", vo);
 	}
+
 	
 	// 상품코드 / 주문수 리스트
 	public List<OrderItemVO> getOrder_detail(OrderVO vo){
@@ -100,4 +101,10 @@ public class AdminDAO {
 	}
 	
 	
+
+	public List<OrderVO> franc_SearchList2(SearchVO vo) {
+		return mybatis.selectList("AdminMapper.SearchList2", vo);
+	}
+	
+
 }

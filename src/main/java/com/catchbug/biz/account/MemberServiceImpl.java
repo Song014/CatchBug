@@ -1,8 +1,14 @@
 package com.catchbug.biz.account;
 
+
 import com.catchbug.biz.vo.ImgVO;
 import com.catchbug.biz.vo.MemberVO;
+
+
+
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,6 +42,7 @@ public class MemberServiceImpl implements MemberService {
     public List<MemberVO> getMemberList(MemberVO vo) {
         return (List<MemberVO>) MemberDAO.getMemberList(vo);
     }
+
 
     @Override
     public void updateMypage(MemberVO vo) {
@@ -96,6 +103,7 @@ public class MemberServiceImpl implements MemberService {
         MemberDAO.updatePass(vo);
     }
 
+
     @Override
     public int idcheck(MemberVO vo) {
         return MemberDAO.idcheck(vo);
@@ -114,4 +122,5 @@ public class MemberServiceImpl implements MemberService {
         MemberDAO.insertMemberImg(vo);
 
     }
+
 }

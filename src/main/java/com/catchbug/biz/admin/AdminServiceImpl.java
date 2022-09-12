@@ -75,7 +75,7 @@ public class AdminServiceImpl implements AdminService {
 		System.out.println("미출고 검색 리스트 서비스");
 		return adminDAO.franc_SearchList(vo);
 	}
-	
+
 	// 상품코드 / 주문수 리스트
 	@Override
 	public List<OrderItemVO> getOrder_detail(OrderVO vo) {
@@ -111,5 +111,12 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public int count(Criteria cri) {
 		return adminDAO.count(cri);
+
+
+	// 가맹점 발주내역 검색기능 
+	@Override
+	public List<OrderVO> franc_SearchList2(SearchVO vo) {
+		return adminDAO.franc_SearchList2(vo);
+
 	}
 }

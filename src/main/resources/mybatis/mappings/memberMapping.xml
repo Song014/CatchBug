@@ -6,6 +6,7 @@
     <!-- <resultMap type="board" id="boardResult"> <id property="seq" column="SEQ"></id>
         <result property="title" column="TITLE"/> </resultMap> -->
 
+
     <!-- 회원가입 암호화 -->
     <insert id="insertMember">
         insert into member(id, pass, business_no, business_name, ceo, contact, email, business_address,mail_key)
@@ -122,5 +123,30 @@
             parameterType="member">
         select * from member where id=#{id} <!-- and pass=#{pass} -->
     </select>
+\
+
+	//eun
+	<!-- 비밀번호 변경 -->
+	<select id="pwCheck" resultType="String">
+		select pass from member where id = #{id}
+	</select>
+//eun
+	<update id="pwUpdate">
+		update member set pass = #{pass} where id = #{id}
+	</update>
+
+//eun
+	<update id="updateMypage1">
+		update member set business_no=#{business_no},
+		business_name=#{business_name}, ceo=#{ceo}, contact=#{contact},
+		email=#{email}, business_address= #{business_address} where id=#{id}
+	</update>
+//eun
+	<update id="updateMypagePass">
+		update member set pass=#{pass} where id=#{id}
+	</update>
+
+
+
 
 </mapper>

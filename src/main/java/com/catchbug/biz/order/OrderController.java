@@ -19,11 +19,30 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import com.catchbug.biz.account.MemberService;
+import com.catchbug.biz.admin.AdminService;
+import com.catchbug.biz.cart.CartService;
+import com.catchbug.biz.product.ProductService;
+import com.catchbug.biz.vo.CartVO;
+import com.catchbug.biz.vo.CategoryVO;
+import com.catchbug.biz.vo.MemberVO;
+import com.catchbug.biz.vo.OrderItemVO;
+import com.catchbug.biz.vo.OrderVO;
+import com.catchbug.biz.vo.ProductVO;
+import com.catchbug.biz.vo.SearchVO;
+import com.siot.IamportRestClient.IamportClient;
+import com.siot.IamportRestClient.exception.IamportResponseException;
+import com.siot.IamportRestClient.response.IamportResponse;
+import com.siot.IamportRestClient.response.PagedDataList;
+import com.siot.IamportRestClient.response.Payment;
+
 
 @Controller
 public class OrderController {
@@ -39,6 +58,9 @@ public class OrderController {
 
 	@Autowired
 	private MemberService ms;
+	
+	@Autowired
+	private AdminService as;
 
 	private IamportClient client;
 
@@ -233,6 +255,7 @@ public class OrderController {
 		return result;
 	}
 
+
 	// 가맹점 발주내역 페이지
 	@ResponseBody
 	@RequestMapping(value = "/orderHistory.do", method = RequestMethod.GET)
@@ -298,5 +321,75 @@ public class OrderController {
 		System.out.println(orderfId);
 		return orderfId;
 	}
+
+  
+            // 가맹점 발주내역 페이지 + 검색
+            @RequestMapping(value ="/orderHistory.do" , method=RequestMethod.GET)
+            public String orderHistorypage(SearchVO sw,OrderVO ovo,Model model) {
+               
+                System.out.println(sw);
+        		if (sw.getSearchWord() == null) {
+        			System.out.println("orderHistorypage");
+                	List<OrderVO> orderno_list=os.getOrderList(ovo);
+                    model.addAttribute("olist", orderno_list);
+        		}else {
+        			System.out.println("검색");
+        			List<OrderVO> orderno_list = as.franc_SearchList2(sw);
+        			model.addAttribute("olist", orderno_list);
+        		}
+               return "admin/order_history";
+            }
+            // 장바구니 번호 클릭시 해당 id가 주문한 내역 조회 (모달)
+            @ResponseBody
+            @RequestMapping(value="/orderDetailid.do",method=RequestMethod.GET)
+            public List<OrderVO> orderDetailid(OrderVO dvo,Model model){
+               System.out.println("orderDetail 실행");
+               List<OrderVO> orderDetail=os.getOrderDetailList(dvo);
+               model.addAttribute("orderDetail",orderDetail);
+               System.out.println(orderDetail);
+               return orderDetail;
+            }
+            
+            // id 클릭시 회원정보 조회(모달)
+            @ResponseBody
+            @RequestMapping(value="/orderId.do",method=RequestMethod.GET)
+            public MemberVO orderid(MemberVO mvo,Model model){
+               System.out.println("orderceo 실행");
+               MemberVO orderId = os.getMember(mvo);
+               System.out.println(orderId);
+               return orderId;
+            }
+         // 가맹점 본인 발주 내역 리스트
+        	@RequestMapping(value="/francOrderHistory.do")
+        	public ModelAndView FancOrderHistory(OrderVO ovo,Model model,ModelAndView mav) {
+        		System.out.println("francOrderHistory.do");
+            	List<OrderVO> order_list=os.getOrderList(ovo);
+                mav.addObject("olist", order_list);
+                mav.setViewName("franc/franc_order_history");
+                return mav;
+        		
+        	}
+        	
+        	 // 가맹점 주문서 클릭시 해당 주문서 상세내역 내역 조회 (모달)
+            @ResponseBody
+            @RequestMapping(value="/orderFDetail.do",method=RequestMethod.GET)
+            public List<OrderVO> orderFDetail(OrderVO dvo,Model model){
+               System.out.println("orderFDetail 실행");
+               List<OrderVO> orderFDetail= os.getOrderno(dvo);
+               model.addAttribute("orderFDetail",orderFDetail);
+               System.out.println(orderFDetail);
+               return orderFDetail;
+            }
+            
+        	   // id 클릭시 회원정보 조회(모달)
+            @ResponseBody
+            @RequestMapping(value="/orderfId.do",method=RequestMethod.GET)
+            public MemberVO orderfid(MemberVO mvo,Model model){
+               System.out.println("orderceo 실행");
+               MemberVO orderfId = os.getMember(mvo);
+               System.out.println(orderfId);
+               return orderfId;
+            }
+
 
 }
