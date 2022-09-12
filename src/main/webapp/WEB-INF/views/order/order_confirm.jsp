@@ -526,7 +526,7 @@
 													// 가맹점 서버 결제 API 성공시 로직
 													console.log(data);
 													if (rsp.paid_amount == data.response.amount) {
-														alert("결제 및 결제검증완료");
+														console.log("결제 및 결제검증완료");
 
 														$(".order_form")
 															.append(

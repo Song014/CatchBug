@@ -135,9 +135,7 @@
 	<script>
 	function qnaSubmit() {
 		var content = $(".ql-editor").html();
-		alert(content);
 		$('input[name=content]').attr('value', content);
-
 	}
 	</script>
 
