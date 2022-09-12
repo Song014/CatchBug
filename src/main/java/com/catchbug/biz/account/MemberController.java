@@ -85,7 +85,7 @@ public class MemberController {
 		MemberVO login = memberService.getMember(vo);
 		if(login == null) {
 			System.out.println("이런 회원 안키웁니다");
-			ra.addFlashAttribute("msg", "로그인에 실패하였습니다.");
+			ra.addFlashAttribute("msg", "로그인에 실패하였습니다");
 			return "account/login_page";
 		}
 		boolean pwdMatch = pwdEncoder.matches(vo.getPass(), login.getPass());

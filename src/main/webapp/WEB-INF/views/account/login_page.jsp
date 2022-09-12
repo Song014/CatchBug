@@ -196,7 +196,13 @@ var isMessage = true;
 	</script>
 	
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-
+<script>
+$(document).ready(function(){
+	var msg = "${msg}";
+	if(msg != null){
+		alert(msg);
+	}
+</script>
 
 </body>
 
