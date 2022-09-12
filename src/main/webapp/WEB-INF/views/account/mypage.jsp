@@ -5,12 +5,6 @@
          pageEncoding="UTF-8"%>
 <%@page import="com.catchbug.biz.vo.MemberVO"%>
 <%@page import="java.util.List"%>
-
-<%--  <%
-
- List<MemberVO> member = (List)session.getAttribute("member");
- List<MemberVO> member1 = (List)session.getAttribute("memberLevel1");
- %> --%>
 <!DOCTYPE html>
 <html lang="en">
 

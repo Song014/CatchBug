@@ -1,5 +1,6 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@ page language = "java" contentType = "text/html; charset=UTF-8" pageEncoding = "UTF-8" %>
+<%@page import = "com.catchbug.biz.vo.MemberVO" %>
 
 <!DOCTYPE html>
 <html lang = "en">
@@ -68,7 +69,7 @@
     <div class = "card">
         <div class = "card-header">일대일 상담 채팅</div>
         <div class = "card-body">
-            <h5 class = "card-title" style="text-align: center;">${member.ceo}님 방생성 버튼을 눌러주세요.</h5>
+            <h5 class = "card-title" style = "text-align: center;">${member.ceo}님 방생성 버튼을 눌러주세요.</h5>
             <div class = "mb-3">
                 <div class = "inbox_msg">
                     <div class = "inbox_people">
@@ -78,7 +79,7 @@
                             </div>
                             <div class = "srch_bar">
                                 <div class = "stylish-input-group">
-                                    <input type="text" id="roomName" placeholder="방제목을 입력해주세요."/>
+                                    <input type = "text" id = "roomName" placeholder = "방제목을 입력해주세요." />
                                     <button class = "btn btn-primary" type = "button" id = "createRoom">방생성
                                     </button>
                                 </div>
@@ -88,15 +89,17 @@
                             <c:forEach var = "room" items = "${roomList}">
                                 <div class = "chat_list">
                                     <div class = "chat_people">
-                                        <div class = "chat_img"><img
-                                                src = "https://ptetutorials.com/images/user-profile.png" alt = "sunil">
+                                        <div class = "chat_img">
+                                            <img src = "/resources/profileImg/${room.uploadPath }/${room.uuid}"
+                                                 alt = "Profile" class = "rounded-circle">
                                         </div>
                                         <div class = "chat_ib" id = "roomIn">
                                             <h5>${room.member_ceo}
                                                 <span class = "chat_date">${room.nowDate}</span>
                                             </h5>
                                             <h4>${room.roomName}</h4>
-                                            <input type = "hidden" value = "${room.member_id}" id="${room.member_id}"/>
+                                            <input type = "hidden" value = "${room.member_id}"
+                                                   id = "${room.member_id}" />
                                         </div>
                                         <div class = "chat_button">
                                             <button class = "btn btn-danger" type = "button" id = "deleteRoom"
@@ -145,14 +148,31 @@
 
         const nowDate = year + '-' + month + '-' + day;
         $(document).on("click", "#createRoom", function () {
-            if($("#roomName").val() == ""){
+            if ($("#roomName").val() == "") {
                 alert("채팅방 제목을 입력해주세요.");
-            }else{
-                if($('#${member.id}').length){
+            } else {
+                if ($('#${member.id}').length) {
                     alert("이미 존재합니다.");
-                }else{
+                } else {
+                    var uploadPath = null;
                     var roomName = $("#roomName").val();
-                    location.href = "/createRoom.do?member_id=${member.id}&member_ceo=${member.ceo}&nowDate=" + nowDate + "&roomName="+ roomName;
+                    var uuid = '${member.uuid}';
+                    $.ajax({
+                        type    : "POST",
+                        url     : "getUploadPath.do",
+                        data    : {
+                            "id"  : '${member.id}',
+                            "uuid": uuid
+                        },
+                        dataType: "text",
+                        success : function (result) {
+                            uploadPath = result;
+                            location.href = "/createRoom.do?member_id=${member.id}&member_ceo=${member.ceo}&nowDate=" + nowDate + "&roomName=" + roomName + "&uuid=" + uuid + "&uploadPath=" + uploadPath;
+                        },
+                        error   : function (a, b, c) {
+                            alert("에러", a, b, c)
+                        }
+                    });
                 }
             }
         }).on("click", "#deleteRoom", function () {
@@ -169,17 +189,17 @@
             }
 
         }).on("click", "#roomIn", function () {
-                var roomNo = $(this).find('input').val();
-                var level = "${member.level1}";
-                if (level == "") {
-                    level = 4;
-                }
-                if (roomNo == "${member.id}" || level == "1") {
-                    location.href = "/ViewChat.do?room=" + roomNo;
-                } else {
-                    alert("본인의 채팅방에만 접속할 수 있습니다.");
-                }
-            })
+            var roomNo = $(this).find('input').val();
+            var level = "${member.level1}";
+            if (level == "") {
+                level = 4;
+            }
+            if (roomNo == "${member.id}" || level == "1") {
+                location.href = "/ViewChat.do?room=" + roomNo;
+            } else {
+                alert("본인의 채팅방에만 접속할 수 있습니다.");
+            }
+        })
 
     })
 </script>

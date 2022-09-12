@@ -6,5 +6,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RoomVO {
-    private String member_id,member_ceo,nowDate,roomName;
+    private String member_id,member_ceo,nowDate,roomName,uuid,uploadPath;
 }
