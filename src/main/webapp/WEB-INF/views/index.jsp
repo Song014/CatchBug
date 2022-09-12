@@ -1,7 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
 
 <!DOCTYPE html>
 
@@ -36,7 +35,7 @@
 <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
 <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
 <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
-
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
 <!-- Template Main CSS File -->
 <link href="assets/css/style.css" rel="stylesheet">
 
@@ -75,15 +74,118 @@
 	<!-- main start -->
 	<main id="main" class="main">
 	<div class="pagetitle">
-		<h1>Frequently Asked Questions</h1>
-		<main>
-		<div>
-			<h1>
-				내용 들어갈곳 <a href="admin">관리자페이지</a>
-			</h1>
-		</div>
-		</main>
+		<h1>Dashboard</h1>
+		<nav>
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="/">Home</a></li>
+				<li class="breadcrumb-item active">Dashboard</li>
+			</ol>
+		</nav>
 	</div>
+	<section class="section dashboard">
+		<div class="row">
+			<div class="col-lg-8">
+				<div class="row">
+					<div class="col-12">
+						<div class="card top-selling overflow-auto">
+							<div class="card-body pb-0">
+								<h5 class="card-title">
+									Top 5 주문 <span>|</span>
+								</h5>
+								<table class="table table-borderless">
+									<thead>
+										<tr>
+											<th scope="col">Preview</th>
+											<th scope="col">Product</th>
+											<th scope="col">Price</th>
+											<th scope="col">Amount</th>
+											<th scope="col">Total</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach begin="0" end="4" var="list" items="${topOrder }">
+										<tr> 
+											<th scope="row"><a href="#"><img
+													src="/resources/<fmt:formatDate value="${list.add_day }" pattern="yyyy-MM-dd"/>/${list.uuid}" alt=""></a></th>
+											<td><a href="#" class="text-primary fw-bold">${list.product_name }</a></td>
+											<td>&#8361;<fmt:formatNumber groupingUsed="true">${list.price }</fmt:formatNumber></td>
+											<td class="fw-bold">${list.purchase_amount }</td>
+											<td>&#8361;<fmt:formatNumber groupingUsed="true">${list.total }</fmt:formatNumber></td>
+										</tr>
+										</c:forEach>								
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 hover">
+				<div class="col-12">
+					<div class="card info-card sales-card">
+						<div class="card-body">
+							<h5 class="card-title">
+								미 승인 주문 현황 <span>|</span>
+							</h5>
+							<div class="d-flex align-items-center">
+								<div
+									class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+									<i class="bi bi-cart"></i>
+								</div>
+								<div class="ps-3">
+									<c:choose>
+									<c:when test="${member.level1 eq 1}">
+									<h6><a href="#"  onclick="location.href='unOrderHistory.do'" style="color:#012970;">${count } 건</a></h6>
+									</c:when>
+									<c:otherwise>
+									<h6><a href="#"  onclick="location.href='francOrderHistory.do'" style="color:#012970;">${count } 건</a></h6>
+									</c:otherwise>
+									</c:choose>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-12">
+					<div class="card info-card revenue-card">
+						<div class="card-body">
+							<h5 class="card-title">
+								사용 금액 <span>|</span>
+							</h5>
+							<div class="d-flex align-items-center">
+								<div
+									class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+									<i class='fa fa-krw'></i>
+								</div>
+								<div class="ps-3">
+									<h6> <fmt:formatNumber groupingUsed="true">${total }</fmt:formatNumber></h6>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-12">
+					<div class="card info-card customers-card">
+						<div class="card-body">
+							<h5 class="card-title">
+								질문 내역 <span>|</span>
+							</h5>
+							<div class="d-flex align-items-center">
+								<div
+									class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+									<i class="bi bi-people"></i>
+								</div>
+								<div class="ps-3">
+									<h6>1 건</h6>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+	</div>
+	</section>
 	</main>
 	<!-- End Main -->
 
@@ -101,8 +203,8 @@
 	<a href="#"
 		class="back-to-top d-flex align-items-center justify-content-center"><i
 		class="bi bi-arrow-up-short"></i></a>
-	
-		
+
+
 
 	<!-- Vendor JS Files -->
 	<script src="assets/vendor/apexcharts/apexcharts.min.js"></script>

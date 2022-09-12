@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.catchbug.biz.vo.MemberVO;
 import com.catchbug.biz.vo.OrderItemVO;
 import com.catchbug.biz.vo.OrderVO;
+import com.catchbug.biz.vo.TopOrderVO;
 
 @Service
 public class OrderServiceImp implements OrderService {
@@ -58,5 +59,20 @@ public class OrderServiceImp implements OrderService {
 	public List<OrderVO> getOrderno(OrderVO ovo) {
 		System.out.println("getOrderno ServiceImpl");
 		return dao.getOrderno(ovo);
+	}
+
+	@Override
+	public List<TopOrderVO> getTopOrderFactory() {
+		return dao.getTopOrderFactory();
+	}
+
+	@Override
+	public List<TopOrderVO> getTopOrderFranc(String id) {
+		return dao.getTopOrderFranc(id);
+	}
+
+	@Override
+	public int getUnOrderCount(String id) {
+		return dao.getUnOrderCount(id);
 	}
 }
