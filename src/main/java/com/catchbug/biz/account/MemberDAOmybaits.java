@@ -1,12 +1,13 @@
 package com.catchbug.biz.account;
 
-import com.catchbug.biz.vo.ImgVO;
-import com.catchbug.biz.vo.MemberVO;
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import com.catchbug.biz.vo.ImgVO;
+import com.catchbug.biz.vo.MemberVO;
 
 
 @Repository("memberDAO")
@@ -58,7 +59,7 @@ public class MemberDAOmybaits {
     // 마이페이지 수정
     public void updateMypage(MemberVO vo) {
         System.out.println("===> mybatis로  updateMypage실행");
-        memberMybatis.update("MemberDAO.updateMypage", vo);
+        memberMybatis.update("MemberDAO.updateMypage1", vo);
 
     }
 

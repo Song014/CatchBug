@@ -3,16 +3,21 @@ package com.catchbug.biz.account;
 
 
 
-import com.catchbug.biz.account.mail.MailHandler;
-import com.catchbug.biz.account.mail.TempKey;
-import com.catchbug.biz.img.ImgService;
-import com.catchbug.biz.product.ProductService;
-import com.catchbug.biz.vo.ImgVO;
-import com.catchbug.biz.vo.MemberVO;
-import net.sf.json.JSONArray;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.UUID;
+
+import javax.imageio.ImageIO;
+import javax.inject.Inject;
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpSession;
 
 import org.apache.catalina.authenticator.SpnegoAuthenticator.AuthenticateAction;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,22 +27,23 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.imageio.ImageIO;
-import javax.inject.Inject;
-import javax.mail.MessagingException;
-import javax.servlet.http.HttpSession;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.nio.file.Files;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.UUID;
+import com.catchbug.biz.account.mail.MailHandler;
+import com.catchbug.biz.account.mail.TempKey;
+import com.catchbug.biz.img.ImgService;
+import com.catchbug.biz.product.ProductService;
+import com.catchbug.biz.vo.ImgVO;
+import com.catchbug.biz.vo.MemberVO;
+
+import net.sf.json.JSONArray;
 
 
 @Controller
@@ -60,14 +66,6 @@ public class MemberController {
     // 메일전송을 위한 의존주입
     @Autowired
     JavaMailSender mailSender;
-
-    // 회원가입 시작
-    @RequestMapping(value = "/sign_up.do", method = RequestMethod.GET)
-    public ModelAndView MemeberSignUp() {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("account/sign_up");
-        return mav;
-    }
 
     // 비밀번호 체크
     @ResponseBody
@@ -164,15 +162,6 @@ public class MemberController {
         return mav;
     }
     // 회원가입 끝
-
-
-    // 로그인 페이지이동
-    @RequestMapping(value = "/login_page.do", method = RequestMethod.GET)
-    public ModelAndView MemeberLoginReady() {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("account/login_page");
-        return mav;
-    }
 
     //로그아웃 코드
     @RequestMapping(value = "/logout.do", method = RequestMethod.GET)
@@ -321,13 +310,6 @@ public class MemberController {
     }
 
 
-
-	@Inject
-	BCryptPasswordEncoder pwdEncoder;
-
-	@Autowired
-	MemberService memberService;
-
 	// 회원가입 페이지이동
 	@RequestMapping(value = "/sign_up.do", method = RequestMethod.GET)
 	public ModelAndView MemeberSignUp() {
@@ -339,7 +321,7 @@ public class MemberController {
 
 	// 회원가입(암호화)
 	@RequestMapping(value = "/sign_up.do", method = RequestMethod.POST)
-	public String InsertMember(MemberVO vo) {
+	public String InsertMember1(MemberVO vo) {
 		System.out.println("account/sign_up //회원가입 폼에서 post방식 ");
 
 		int result = memberService.idcheck(vo);
@@ -401,12 +383,6 @@ public class MemberController {
 	}
 
 	// 로그인끝
-	// 마이페이지
-	@RequestMapping(value = "/mypage.do", method = RequestMethod.GET)
-	public String Mypage(MemberVO vo,Model model) {
-		System.out.println("account/mypage //마이 페이지에서  get방식  ");
-		return "account/mypage";
-	}
 
 	// mypage / 개인정보 수정
 	@RequestMapping(value = "/myPageUpdate.do", method = RequestMethod.POST)
