@@ -9,6 +9,7 @@ import com.catchbug.biz.vo.BoardReplyVO;
 import com.catchbug.biz.vo.BoardVO;
 import com.catchbug.biz.vo.Criteria;
 import com.catchbug.biz.vo.NotiVO;
+import com.catchbug.biz.vo.TapVO;
 
 @Service("boardService")
 public class BoardServiceImpl implements BoardService {
@@ -129,31 +130,26 @@ public class BoardServiceImpl implements BoardService {
 		boardDAO.UpdateBoardReply(vo);
 		
 	}
-	//공지 검색
-	@Override
-	public List<NotiVO> SearchNoti(NotiVO vo) {
-		System.out.println("공지사항 검색 서비스");
-		return boardDAO.SearchNoti(vo);
-	}
 	
 	// 공지 리스트 카운트
 	@Override
-	public int listCount() {
-		int count = boardDAO.listCount();
+	public int listCount(Criteria cri) {
+		int count = boardDAO.listCount(cri);
 		return count;
 	}
 
-	// 공지 검색시 리스트 카운트
-	@Override
-	public int listSearchCount(NotiVO vo) {
-		int count = boardDAO.listSearchCount(vo);
-		return count;
-	}
 
 	@Override
 	public int getTotalBoard() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	
+	//게시판 탭정보 불러오기
+	@Override
+	public List<TapVO> getFreeBoardTap() {
+		return boardDAO.GetFreeBoardTap();
 	}
 	
 	

@@ -102,7 +102,7 @@
 						<li><a href="FAQBoard.do"> <i class="bi bi-circle"></i><span>자주
 									묻는 질문</span>
 						</a></li>
-						<li><a href="ViewChat.do"> <i class="bi bi-circle"></i><span>채팅
+						<li><a href="chatRoom.do"> <i class="bi bi-circle"></i><span>채팅
 									상담문의</span>
 						</a></li>
 					</ul></li>
@@ -185,7 +185,7 @@
 						<li><a href="FAQBoard.do"> <i class="bi bi-circle"></i><span>자주
 									묻는 질문</span>
 						</a></li>
-						<li><a href="ViewChat.do"> <i class="bi bi-circle"></i><span>자유
+						<li><a href="chatRoom.do"> <i class="bi bi-circle"></i><span>자유
 									채팅</span>
 						</a></li>
 					</ul></li>

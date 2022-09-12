@@ -125,7 +125,7 @@
 							type="hidden" value="${qna.qna_no }" id="no" />
 						<button type="button" class="btn btn-primary" onclick="change();">수정하기</button>
 						<button type="button" class="btn btn-secondary"
-							onclick="location.href='QnABoard.do?page=1'">뒤로가기</button>
+							onclick="history.go(-1)">뒤로가기</button>
 						<button type="button" class="btn btn-sm btn-danger"
 							onclick="deleted();">삭제</button>
 					</div>

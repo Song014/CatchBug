@@ -41,7 +41,7 @@ public class QnaDAO {
 	}
 
 	public int getTotal(PageVO vo) {
-
+		System.out.println("토탈페이지");
 		return mybatis.selectOne("QnaMapper.getTotal",vo);
 	}
 

@@ -128,7 +128,8 @@
 									<td><a class="primary" data-bs-toggle="modal"
 										data-bs-target="#modalProduct">${list.product_name }</a></td>
 									<td>${list.purchase_amount }개</td>
-									<td>${list.total }</td>
+									<td><fmt:formatNumber value="${list.total }"
+											groupingUsed="true" /></td>
 									<td><button type="button"
 											class="btn btn-primary btn-sm delBucket"
 											value="${member.id }">삭제</button></td>
@@ -140,7 +141,10 @@
 
 
 					<div align="center">
-						<h3>총 주문금액 :${total }</h3>
+						<h3 id="product_info">
+							총 주문금액 :
+							<fmt:formatNumber value="${total }" groupingUsed="true" />
+						</h3>
 						<!-- 이전페이지로 돌아가기 -->
 						<input class="btn btn-primary" type="submit"
 							onclick="location.href='productForOrder.do'" value="상품 추가"></input>
@@ -155,16 +159,15 @@
 					<div class="col-lg-8"
 						style="border: 1px solid black; padding: 20px;">
 						<article>
-								<label></label>
+							<label></label>
 							<div>
 								<!-- 결제모듈 선택-->
-								<strong>결제 수단: </strong>
-								<input type="button" class="btn btn-primary order_btn"
-									onclick="requestPay('kcp')"  value="신용카드 결제">
-									
-									<a href="#" onclick="requestPay('kakaopay.TC0ONETIME')" >
-									<img alt="카카오페이 이미지" src="/assets/img/kakao.png">
-									</a>
+								<strong>결제 수단: </strong> <input type="button"
+									class="btn btn-primary order_btn" onclick="requestPay('kcp')"
+									value="신용카드 결제"> <a href="#"
+									onclick="requestPay('kakaopay.TC0ONETIME')"> <img
+									alt="카카오페이 이미지" src="/assets/img/kakao.png">
+								</a>
 								<!-- 	<input type="button" class="btn btn-primary order_btn"
 									onclick="requestPay('kakaopay')"  value="kakaopay 결제"> -->
 							</div>
@@ -199,9 +202,19 @@
 											value="${member.contact }">${member.contact }</td>
 									</tr>
 									<tr>
+										<th>우편번호:</th>
+										<td><input type="hidden" name="shipping_address"
+											value="${member.postcode }">${member.postcode }</td>
+									</tr>
+									<tr>
 										<th>주소:</th>
 										<td><input type="hidden" name="shipping_address"
 											value="${member.business_address }">${member.business_address }</td>
+									</tr>
+									<tr>
+										<th>상세주소:</th>
+										<td><input type="hidden" name="shipping_address"
+											value="${member.detailAddress }">${member.detailAddress }</td>
 									</tr>
 								</table>
 							</form>
@@ -238,47 +251,84 @@
 	</section>
 
 	</main>
+	<script
+		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script>
+    function execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+                var extraAddr = ''; // 참고항목 변수
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('postcode').value = data.zonecode;
+                document.getElementById("shipping_address").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("detailAddress").focus();
+            }
+        }).open();
+    }
+</script>
 
 	<script type="text/javascript">
+					// 배송지
 					$(".radio_adrress_input").on("change",function(e){
 						e.preventDefault();
 						console.log(e.target.value)
 						let str ="";
 						if(e.target.value=="optionAddress"){
 							str = `
-						 		<tr>
-						 			<th>이름 :</th>
-						 			<td><input type="text" name="ceo" value=""></td>
-						 		</tr>
-						 		<tr>
-						 			<th>번호 :</th>
-						 			<td><input type="text" name="contact" value=""></td>
-					 			</tr>
-					 			<tr>
-						 			<th>주소 :</th>
-						 			<td><input type="text" name="shipping_address" value=""></td>
-					 			</tr>
-						 	
+								<input type="text" id="ceo" name="ceo" placeholder="이름" > <br>
+								<input type="text" id="contact" name="contact" placeholder="연락처" > <br>
+								<input type="text" id="postcode" name="postcode" placeholder="우편번호" >
+								<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기" ><br>
+								<input type="text" id="shipping_address" name="shipping_address" placeholder="주소" ><br>
+								<input type="text" id="detailAddress" name="detailAddress" placeholder="상세주소" >
 						 	`;
 						} else if(e.target.value=="defaultAddress"){
 							str = `
 								<tr>
 									<th>이름:</th>
-									<td><input type="hidden" name="ceo" value="${member.ceo }">${member.ceo }</td>
+									<td><input type="hidden" id="ceo" name="ceo" value="${member.ceo }">${member.ceo }</td>
 								</tr>
 								<tr>
 									<th>번호:</th>
-									<td><input type="hidden" name="contact" value="${member.contact }">${member.contact }</td>
+									<td><input type="hidden" id="contact" name="contact" value="${member.contact }">${member.contact }</td>
+								</tr>
+								<tr>
+								<th>우편번호:</th>
+								<td><input type="hidden" name="shipping_address"
+									value="${member.postcode }">${member.postcode }</td>
 								</tr>
 								<tr>
 									<th>주소:</th>
-									<td><input type="hidden" name="shipping_address" value="${member.business_address }">${member.business_address }</td>
+									<td><input type="hidden" name="shipping_address"
+										value="${member.business_address }">${member.business_address }</td>
+								</tr>
+								<tr>
+									<th>상세주소:</th>
+									<td><input type="hidden" name="shipping_address"
+										value="${member.detailAddress }">${member.detailAddress }</td>
 								</tr>
 							`
 						}
 						 	$(".order_form table").html(str); 
 					})
-					$('input[name=cart_check]:checked').change(
+					
+					// 체크박스
+					$('input[type="checkbox"]').change(
 						function () {
 							let total_price = 0;
 
@@ -291,9 +341,8 @@
 											".individual_total_input").val());
 									}
 								})
-							$("#product_info").children().eq(0).html(
-								"총 구매 금액 : " + total_price + " 원")
-
+							$("#product_info").html(
+								"총 구매 금액 : " + total_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')  + " 원")
 						});
 
 					$("#bucket").on("click", ".delBucket", function (e) {
@@ -309,6 +358,7 @@
 							success: function (result) {
 								if (result == "true") {
 									$tr.remove();
+									cartVaild();
 								} else if(result == "false"){
 									alert("다시시도해주세요");
 								} else{
@@ -325,14 +375,11 @@
 
 					/* 체크박스 전체 선택 */
 					$(".all_check_input").on("click", function () {
-
 						/* 체크박스 체크/해제 */
-						if ($(".all_check_input").prop("checked")) {
-							$(".cart_checkbox").attr("checked", true);
-						} else {
-							$(".cart_checkbox").attr("checked", false);
-						}
-
+						if ($(".all_check_input").is(":checked"))
+							$("input[name='cart_check']").prop("checked", true); 
+						 else
+							$("input[name='cart_check']").prop("checked", false); 
 					});
 
 					/* $(".order_btn").on("click", function() {
@@ -351,17 +398,34 @@
 
 					// 결제 버튼 눌렀을때 실행함수
 					function requestPay(e) {
-						
-						
 						// 기본으로 들어가는 데이터 
 						const pgs = e; 
-						console.log(pgs)
 						const id = '${member.id }';
-						const member_name = $(".order_form").find("input[name=ceo]").val();
+						const member_name = $(".order_form").find("input[id=ceo]").val();
 						const member_email = '${member.email }';
-						const member_tel = $(".order_form").find("input[name=contact]").val();
-						const member_addr = $(".order_form").find("input[name=shipping_address]").val();
-						const member_postcode = '03499';
+						const member_tel = $(".order_form").find("input[id=contact]").val();
+						const member_postcode = $(".order_form").find("input[id=postcode]").val();
+						const member_addr = $(".order_form").find("input[id=shipping_address]").val();
+						const member_detail_addr = $(".order_form").find("input[id=detailAddress]").val();
+						
+						//ceo contact postcode shipping_address detailAddress
+						if(member_name==""){
+							alert("이름을 입력해주세요")
+							return false;
+						} else if(member_tel==""){
+							alert("전화번호를 입력해주세요")
+							return false;
+						} else if(member_postcode==""){
+							alert("우편본호를 입력해주세요")
+							return false;
+						} else if(member_addr==""){
+							alert("주소를 입력해주세요")
+							return false;
+						} else if(member_detail_addr==""){
+							alert("상세주소를 입력해주세요")
+							return false;
+						 }
+						
 
 						// 주문번호 생성
 						const now = new Date();
@@ -424,8 +488,8 @@
 									buyer_email: member_email,
 									buyer_name: member_name,
 									buyer_tel: member_tel,
-									buyer_addr: member_addr,
-									buyer_postcode: '123-456'
+									buyer_addr: member_addr+" "+member_detail_addr,
+									buyer_postcode: member_postcode
 								},
 								function (rsp) { // callback
 									if (rsp.success) {
@@ -470,6 +534,13 @@
 										console.log(rsp);
 									}
 								});
+					}
+					
+					function cartVaild(){
+						if($.trim($("#bucket tbody").html())==''){
+							alert("상품 추가페이지로 돌아갑니다.");
+							location.href="productForOrder.do";
+						}
 					}
 				</script>
 

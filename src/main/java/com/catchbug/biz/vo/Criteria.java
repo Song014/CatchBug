@@ -7,10 +7,13 @@ public class Criteria {
 
     private int page;
     private int perPageNum;
+    
+    private String searchType; // 검색타입
+    private String searchName; // 검색이름
 
     public Criteria() {
         page = 1;
-        perPageNum = 15;
+        perPageNum = 2;
     }
 
     public int getPage() {
@@ -34,7 +37,7 @@ public class Criteria {
 
     public void setPerPageNum(int perPageNum) {
         if(perPageNum <= 0 || perPageNum > 150) {
-            perPageNum = 15;
+            perPageNum = 2;
         }else {
         	this.perPageNum = perPageNum;
         }

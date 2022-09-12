@@ -6,6 +6,7 @@ import com.catchbug.biz.vo.BoardReplyVO;
 import com.catchbug.biz.vo.BoardVO;
 import com.catchbug.biz.vo.Criteria;
 import com.catchbug.biz.vo.NotiVO;
+import com.catchbug.biz.vo.TapVO;
 
 public interface BoardService {
 
@@ -17,6 +18,7 @@ public interface BoardService {
 	public void noti_delete(NotiVO vo);
 	public void freeBoardWrite(BoardVO vo);
 	public List<BoardVO> getFreeBoard(BoardVO vo);
+	public List<TapVO> getFreeBoardTap();
 
 	public int getTotalBoard(BoardVO vo);
 	public BoardVO GetFreeBoardDetail(BoardVO vo);
@@ -29,9 +31,7 @@ public interface BoardService {
 	public void UpdateBoardReply(BoardReplyVO vo);
 
 	public int getTotalBoard();
-	public List<NotiVO> SearchNoti(NotiVO vo);
-	public int listSearchCount(NotiVO vo);
-	public int listCount();
+	public int listCount(Criteria cri);
 		
 
 }

@@ -2,6 +2,12 @@
 
 ## 프로젝트를 위한 라이브러리 추가
 
+암호화(스프링 시큐리티)
+
+- spring-security-config
+- spring-security-web
+- spring-security-core
+
 파일 업로드
 
 - https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
@@ -21,6 +27,14 @@ Getter,Setter메소드 사용
 일대일 상담 채팅창 구현을 위한 소켓
 
 - spring-websocket
+
+결제모듈 사용을 위한 API
+
+- jitpack
+
+로그인 이메일인증 디펜던시
+
+- java mail
 
 ## 각자 만들어온 프론트 내용 추가 하는 방법
 

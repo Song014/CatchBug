@@ -63,7 +63,8 @@ public class ProductServiceImpl implements ProductService {
 	public void deleteProduct(ProductVO vo) {
 		pDao.deleteProduct(vo);
 	}
-	
+
+
 	@Override
 	public List<ProductVO> getProductList(CategoryVO vo) {
 
@@ -80,6 +81,11 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void updateStock(OrderItemVO oiv) {
 		pDao.updateStock(oiv);
+	}
+
+	@Override
+	public List<ProductVO> getList() {
+		return pDao.getList();
 	}
 
 
