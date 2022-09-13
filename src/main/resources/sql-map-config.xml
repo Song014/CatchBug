@@ -21,6 +21,7 @@
         <typeAlias alias="pageMaker" type="com.catchbug.biz.vo.PageMaker"/>
         <typeAlias alias="search" type="com.catchbug.biz.vo.SearchVO"/>
         <typeAlias alias="img" type="com.catchbug.biz.vo.ImgVO"/>
+        <typeAlias alias="topOrder" type="com.catchbug.biz.vo.TopOrderVO"/>
     </typeAliases>
 
 	<mappers>

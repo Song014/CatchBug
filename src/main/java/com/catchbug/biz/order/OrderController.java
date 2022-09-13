@@ -246,16 +246,16 @@ public class OrderController {
         System.out.println(orderDetail);
         return orderDetail;
     }
+	// 가맹점 본인 발주 내역 리스트
+	@RequestMapping(value = "/francOrderHistory.do")
+	public ModelAndView FancOrderHistory(OrderVO ovo, Model model, ModelAndView mav,HttpSession session) {
+        System.out.println("francOrderHistory.do");
 
-    // 가맹점 본인 발주 내역 리스트
-    @RequestMapping(value = "/francOrderHistory.do")
-    public ModelAndView FancOrderHistory(OrderVO ovo, ModelAndView mav) {
-        List<OrderVO> order_list = os.getOrderListid(ovo);
+        MemberVO member = (MemberVO) session.getAttribute("member");
+        List<OrderVO> order_list = os.getOrderListid(member.getId());
         mav.addObject("olist", order_list);
         mav.setViewName("franc/franc_order_history");
-
         return mav;
-
     }
 
     // 가맹점 주문서 클릭시 해당 주문서 상세내역 내역 조회 (모달)

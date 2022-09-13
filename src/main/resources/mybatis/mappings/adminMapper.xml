@@ -171,6 +171,8 @@
         </choose>
 
     </select>
+    
+    
 
     <select id="SearchList" resultType="member" parameterType="search">
         SELECT *
