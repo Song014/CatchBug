@@ -42,7 +42,7 @@
 	</select>
 
 	<!-- 가맹점 본인 발주내역 리스트 -->
-	<select id="getOrderListid" resultType="order">
+	<select id="getOrderListid" parameterType="String" resultType="order">
 		select
 		order_no,m.id,m.ceo,total_price,order_status,shipping_address,processing_day,note
 		from orders o

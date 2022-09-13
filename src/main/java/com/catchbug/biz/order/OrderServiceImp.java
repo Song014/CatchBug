@@ -50,9 +50,9 @@ public class OrderServiceImp implements OrderService {
 		return dao.getMember(mvo);
 	}
 	@Override
-	public OrderVO getOrderListid(OrderVO ovo) {
+	public List<OrderVO> getOrderListid(String id) {
 		System.out.println("getOrderListid ServiceImpl");
-		return dao.getOrderListid(ovo);
+		return dao.getOrderListid(id);
 	}
 
 	@Override

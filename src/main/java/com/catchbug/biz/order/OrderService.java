@@ -21,7 +21,7 @@ public interface OrderService {
 	
 	MemberVO getMember(MemberVO mvo);
 	
-	OrderVO getOrderListid(OrderVO ovo);
+	List<OrderVO> getOrderListid(String id);
 	
 	List<OrderVO> getOrderno(OrderVO ovo);
 

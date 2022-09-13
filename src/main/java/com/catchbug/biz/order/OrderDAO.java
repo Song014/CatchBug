@@ -37,7 +37,7 @@ public class OrderDAO {
 	}
 // 가맹점 발주내역 리스트
 	public List<OrderVO> getOrderList(OrderVO ovo) {
-		return mybatis.selectList("OrderMapper.getOrderList", ovo);
+		return mybatis.selectList("OrderMapper.getOrderListid", ovo);
 	}
 
 	// 해당 가맹점 id의 주문서 상세 리스트(모달)
@@ -49,8 +49,8 @@ public class OrderDAO {
 		return mybatis.selectOne("MemberDAO.getMemberid", mvo);
 	}
 	//가맹점 본인 반주내역 리스트
-	public OrderVO getOrderListid(OrderVO ovo){
-		return mybatis.selectOne("OrderMapper.getOrderListid", ovo);
+	public List<OrderVO> getOrderListid(String id){
+		return mybatis.selectList("OrderMapper.getOrderListid", id);
 	}
 	//가맹점 주문서 상세 조회(모달)
 	public List<OrderVO> getOrderno(OrderVO ovo) {
