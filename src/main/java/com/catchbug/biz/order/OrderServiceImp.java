@@ -16,29 +16,25 @@ public class OrderServiceImp implements OrderService {
 
 	@Autowired
 	private OrderDAO dao;
-	
-	@Override
-	public void getOrder() {
-		// TODO 주문내역 불러오기
-
-	}
 
 	@Override
 	public void insertOrder(OrderVO oi) {
-		System.out.println(oi+"서비스");
+		System.out.println(oi + "서비스");
 		dao.insertOrder(oi);
 	}
 
 	@Override
 	public void insertOrderItemList(OrderItemVO oiv) {
-		
+
 		dao.insertOrderItemList(oiv);
 	}
+
 	@Override
-	public List<OrderVO> getOrderList(OrderVO ovo) {
+	public List<OrderVO> getOrderList() {
 		System.out.println("getOrderList ServiceImpl");
-		return dao.getOrderList(ovo);
+		return dao.getOrderList();
 	}
+
 	@Override
 	public List<OrderVO> getOrderDetailList(OrderVO dvo) {
 		System.out.println("getOrderDetailList ServiceImpl");
@@ -50,6 +46,18 @@ public class OrderServiceImp implements OrderService {
 		System.out.println("getMember ServiceImpl");
 		return dao.getMember(mvo);
 	}
+
+	@Override
+	public int getUnOrderCount(String id) {
+		return dao.getUnOrderCount(id);
+	}
+
+	@Override
+	public List<OrderVO> getOrderSearch(Criteria cri) {
+		return dao.getOrderSearch(cri);
+
+	}
+
 	@Override
 	public List<OrderVO> getOrderListid(String id) {
 		System.out.println("getOrderListid ServiceImpl");
@@ -70,15 +78,5 @@ public class OrderServiceImp implements OrderService {
 	@Override
 	public List<TopOrderVO> getTopOrderFranc(String id) {
 		return dao.getTopOrderFranc(id);
-	}
-
-	@Override
-	public int getUnOrderCount(String id) {
-		return dao.getUnOrderCount(id);
-	}
-  @Override
-	public List<OrderVO> getOrderSearch(Criteria cri) {
-		return dao.getOrderSearch(cri);
-
 	}
 }

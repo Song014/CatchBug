@@ -36,6 +36,7 @@
             <!-- login info -->
 
 
+
             <li class="nav-item dropdown pe-3"><a
                     class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
                     data-bs-toggle="dropdown" aria-expanded="false">  <c:choose>
@@ -51,6 +52,7 @@
                             src="/resources/profileImg/${profile.uploadPath }/${profile.uuid}" alt="Profile"
                             class="rounded-circle">
                     <span class="d-none d-md-block dropdown-toggle ps-2">${member.business_name }가맹점님
+
                         안녕하세요</span>
                 </c:when>
                 <c:otherwise>

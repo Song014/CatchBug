@@ -99,7 +99,9 @@ var isMessage = true;
 							<div class="pt-4 pb-2">
 								<h5 class="card-title text-center pb-0 fs-4">Catch Bug
 									Login</h5>
+									<h3>${msg}</h3>
 								<br>
+								
 								<!-- <div class="checkbox" style="text-align: right;">
                       <label>
                         <input type="radio" name="mode" value="admin"> 관리자
@@ -192,7 +194,15 @@ var isMessage = true;
 	<script>
 		document.getElementById('inputSearchDate').valueAsDate = new Date();
 	</script>
-
+	
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script>
+$(document).ready(function(){
+	var msg = "${msg}";
+	if(msg != null){
+		alert(msg);
+	}
+</script>
 
 </body>
 

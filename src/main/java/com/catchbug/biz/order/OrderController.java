@@ -1,6 +1,7 @@
 package com.catchbug.biz.order;
 
 import com.catchbug.biz.account.MemberService;
+import com.catchbug.biz.admin.AdminService;
 import com.catchbug.biz.cart.CartService;
 import com.catchbug.biz.product.ProductService;
 import com.catchbug.biz.vo.*;
@@ -39,6 +40,9 @@ public class OrderController {
 
 	@Autowired
 	private MemberService ms;
+
+	@Autowired
+	private AdminService as;
 
 	private IamportClient client;
 
@@ -81,15 +85,15 @@ public class OrderController {
 			}
 			model.addAttribute("cartList", cartList);
 		}
-		
-		// 카테고리
-        model.addAttribute("mainCategory", ps.getMainCategory());
-        model.addAttribute("subCategory", ps.getSubCategory());
-        // 첫 요청 상품 데이터 최근 등록순
-        vo.setSub_category(0);
 
-        List<ProductVO> productList = ps.getProductList(vo);
-        model.addAttribute("product", productList);
+		// 카테고리
+		model.addAttribute("mainCategory", ps.getMainCategory());
+		model.addAttribute("subCategory", ps.getSubCategory());
+		// 첫 요청 상품 데이터 최근 등록순
+		vo.setSub_category(0);
+
+		List<ProductVO> productList = ps.getProductList(vo);
+		model.addAttribute("product", productList);
 		return "order/factory_order";
 	}
 
@@ -233,19 +237,6 @@ public class OrderController {
 		return result;
 	}
 
-	// 가맹점 발주내역 페이지
-	@ResponseBody
-	@RequestMapping(value = "/orderHistory.do", method = RequestMethod.GET)
-	public ModelAndView orderHistorypage(MemberVO mvo, OrderVO ovo, Model model, HttpSession session,
-			ModelAndView mav) {
-		System.out.println("orderHistorypage");
-		List<OrderVO> order_list = os.getOrderList(ovo);
-		model.addAttribute("olist", order_list);
-		mav.setViewName("admin/order_history");
-
-		return mav;
-	}
-
 	// 장바구니 번호 클릭시 해당 id가 주문한 내역 조회 (모달)
 	@ResponseBody
 	@RequestMapping(value = "/orderDetailid.do", method = RequestMethod.GET)
@@ -257,38 +248,41 @@ public class OrderController {
 		return orderDetail;
 	}
 
-	// id 클릭시 회원정보 조회(모달)
-	@ResponseBody
-	@RequestMapping(value = "/orderId.do", method = RequestMethod.GET)
-	public MemberVO orderid(MemberVO mvo, Model model) {
-		System.out.println("orderceo 실행");
-		MemberVO orderId = os.getMember(mvo);
-		System.out.println(orderId);
-		return orderId;
-	}
-
 	// 가맹점 본인 발주 내역 리스트
 	@RequestMapping(value = "/francOrderHistory.do")
-	public ModelAndView FancOrderHistory(OrderVO ovo, Model model, ModelAndView mav,HttpSession session) {
+	public ModelAndView FancOrderHistory(OrderVO ovo, Model model, ModelAndView mav, HttpSession session) {
 		System.out.println("francOrderHistory.do");
-		
+
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		List<OrderVO> order_list = os.getOrderListid(member.getId());
 		mav.addObject("olist", order_list);
 		mav.setViewName("franc/franc_order_history");
 		return mav;
-
 	}
 
 	// 가맹점 주문서 클릭시 해당 주문서 상세내역 내역 조회 (모달)
 	@ResponseBody
 	@RequestMapping(value = "/orderFDetail.do", method = RequestMethod.GET)
 	public List<OrderVO> orderFDetail(OrderVO dvo, Model model) {
-		System.out.println("orderFDetail 실행");
 		List<OrderVO> orderFDetail = os.getOrderno(dvo);
 		model.addAttribute("orderFDetail", orderFDetail);
 		System.out.println(orderFDetail);
 		return orderFDetail;
+	}
+
+	// 내 발주내역 검색 리스트
+	@RequestMapping("/order_search")
+	public String orderSearch(Criteria cri, Model model) {
+		System.out.println(cri.getSearchType());
+		System.out.println(cri.getSearchName()+"asd");
+		
+		if(cri.getSearchName().equals("")) {
+			return "redirect:francOrderHistory.do";
+		}
+		List<OrderVO> olist = os.getOrderSearch(cri);
+		model.addAttribute("olist", olist);
+
+		return "franc/franc_order_history";
 	}
 
 	// id 클릭시 회원정보 조회(모달)
@@ -300,17 +294,33 @@ public class OrderController {
 		System.out.println(orderfId);
 		return orderfId;
 	}
-	// 내 발주내역 검색 리스트
-	@RequestMapping("/order_search")
-	public String orderSearch(Criteria cri, Model model){
-		System.out.println(cri.getSearchType());
-		System.out.println(cri.getSearchName());
-		
-		List<OrderVO> olist = os.getOrderSearch(cri);
-		
-		model.addAttribute("olist", olist);
-		
-		return "franc/franc_order_history";
+
+	// 가맹점 발주내역 페이지 + 검색
+	@RequestMapping(value = "/orderHistory.do", method = RequestMethod.GET)
+	public String orderHistorypage(SearchVO sw, OrderVO ovo, Model model) {
+
+		System.out.println(sw);
+
+		if (sw.getSearchWord() == null) {
+			System.out.println("orderHistorypage");
+			List<OrderVO> orderno_list = os.getOrderList();
+			model.addAttribute("olist", orderno_list);
+		} else {
+			System.out.println("검색");
+			List<OrderVO> orderno_list = as.franc_SearchList2(sw);
+			model.addAttribute("olist", orderno_list);
+		}
+		return "admin/order_history";
+	} // 장바구니 번호 클릭시 해당 id가 주문한 내역 조회 (모달)
+
+	// id 클릭시 회원정보 조회(모달)
+	@ResponseBody
+	@RequestMapping(value = "/orderId.do", method = RequestMethod.GET)
+	public MemberVO orderid(MemberVO mvo, Model model) {
+		System.out.println("orderceo 실행");
+		MemberVO orderId = os.getMember(mvo);
+		System.out.println(orderId);
+		return orderId;
 	}
 
 }

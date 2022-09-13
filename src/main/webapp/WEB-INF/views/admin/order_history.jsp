@@ -78,7 +78,7 @@
         <nav>
             <ol class = "breadcrumb">
                 <li class = "breadcrumb-item"><a href = "/">Home</a></li>
-                <li class = "breadcrumb-item active">가맹점 발주 내역</li>
+                <li class = "breadcrumb-item active">전체 가맹점 발주 내역</li>
             </ol>
         </nav>
     </div>
@@ -91,12 +91,14 @@
                     <div align = "right" class = "dataTable-top">
 
                         <div>
-                            <form>
-                                <select name = "searchOption">
-                                    <option value = "orderid" selected = "selected">id</option>
-                                    <option value = "content">내용</option>
-                                </select> <input type = "text" name = "input" placeholder = "검색하세요">
-                                <button>검색</button>
+                            <form action = "orderHistory.do">
+                                <select name = "searchTap">
+                                    <option value = "1" selected = "selected">장바구니번호</option>
+                                    <option value = "2">id</option>
+                                </select>
+                                <input class = "dataTable-input" type = "text" name = "searchWord"
+                                       placeholder = "검색어를 입력해 주세요.">
+                                <button class = "btn btn-primary" type = "submit">검색</button>
                             </form>
                         </div>
                     </div>
@@ -109,6 +111,9 @@
                                     </th>
                                     <th scope = "col" data-sortable = ""><a href = "#"
                                                                             class = "dataTable-sorter">장바구니 번호</a></th>
+                                    <th scope = "col" data-sortable = ""><a href = "#"
+                                                                            class = "dataTable-sorter">법인명</a>
+                                    </th>
                                     <th scope = "col" data-sortable = ""><a href = "#" class = "dataTable-sorter">ID</a>
                                     </th>
                                     <th scope = "col" data-sortable = ""><a href = "#"
@@ -126,14 +131,27 @@
                                         <td><a class = "primary order_detail_modal" data-bs = "${olist.id}"
                                                data-bs-toggle = "modal"
                                                data-bs-target = "#modal-biz"> ${olist.order_no}</a></td>
-
+                                        <td>${olist.ceo}</td>
                                         <td><a class = "primary order_id_modal" data-bs = "${olist.id}"
                                                data-bs-toggle = "modal"
                                                data-bs-target = "#modalDialogScrollable"> ${olist.id}</a></td>
                                         <td><fmt:formatNumber value = "${olist.total_price}" groupingUsed = "true" />원
                                         </td>
                                         <td>${olist.shipping_address}</td>
-                                        <td>${olist.order_status}</td>
+                                        <td>
+                                            <c:if test = "${olist.order_status eq 0}">
+                                                본사 결제건
+                                            </c:if>
+                                            <c:if test = "${olist.order_status eq 1}">
+                                                관리자 승인전
+                                            </c:if>
+                                            <c:if test = "${olist.order_status eq 2}">
+                                                가맹점 결제 완료(관리자 승인)
+                                            </c:if>
+                                            <c:if test = "${olist.order_status eq 3}">
+                                                가맹점 결제 취소
+                                            </c:if>
+                                        </td>
                                     </tr>
                                 </c:forEach>
                             </table>
@@ -141,12 +159,6 @@
                     </div>
                 </div>
             </div>
-            <script>
-                // 오늘 날짜
-                document.getElementById('currnetDate').value = new Date()
-                    .toISOString().slice(0, 10);
-            </script>
-
         </div>
     </section>
 

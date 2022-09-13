@@ -57,14 +57,6 @@ public class MemberController {
     @Autowired
     JavaMailSender mailSender;
 
-    // 회원가입 시작
-    @RequestMapping(value = "/sign_up.do", method = RequestMethod.GET)
-    public ModelAndView MemeberSignUp() {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("account/sign_up");
-        return mav;
-    }
-
     // 비밀번호 체크
     @ResponseBody
     @RequestMapping(value = "/passChk.do", method = RequestMethod.POST)
@@ -73,16 +65,6 @@ public class MemberController {
         boolean pwdcChk = pwdEncoder.matches(vo.getPass(), login.getPass());
         return pwdcChk;
 
-    }
-
-
-    //아이디 중복찾기 메소드
-    @PostMapping("/idChk.do")
-    @ResponseBody
-    public int IdCheck(MemberVO vo) {
-        int result = memberService.idcheck(vo);
-
-        return result;
     }
 
     //회원가입 메소드
@@ -161,15 +143,6 @@ public class MemberController {
     }
     // 회원가입 끝
 
-
-    // 로그인 페이지이동
-    @RequestMapping(value = "/login_page.do", method = RequestMethod.GET)
-    public ModelAndView MemeberLoginReady() {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("account/login_page");
-        return mav;
-    }
-
     //로그아웃 코드
     @RequestMapping(value = "/logout.do", method = RequestMethod.GET)
     public String logout(HttpSession session) {
@@ -197,8 +170,6 @@ public class MemberController {
             session.setAttribute("profile", memberService.getProfileImg(vo));
             return "redirect:mypage.do?id=" + login.getId();
         }
-
-
 
 
         session.setAttribute("member", null);
@@ -308,7 +279,7 @@ public class MemberController {
 
     //mypage 비밀번호 변경
     @PostMapping("/updatePass.do")
-    public String MypagePassChange(String newPassword, MemberVO vo, HttpSession session){
+    public String MypagePassChange(String newPassword, MemberVO vo, HttpSession session) {
         String pass = pwdEncoder.encode(newPassword);
         vo.setPass(pass);
         memberService.updatePass(vo);
@@ -317,4 +288,33 @@ public class MemberController {
     }
 
 
+    // 회원가입 페이지이동
+    @RequestMapping(value = "/sign_up.do", method = RequestMethod.GET)
+    public ModelAndView MemeberSignUp() {
+        System.out.println("account/sign_up //회원가입 페이지에서  get방식  ");
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("account/sign_up");
+        return mav;
+    }
+
+    // 로그인 페이지이동
+    @RequestMapping(value = "/login_page.do", method = RequestMethod.GET)
+    public ModelAndView MemeberLoginReady() {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("account/login_page");
+        return mav;
+    }
+
+
+    // 아이디 중복 체크
+    @ResponseBody
+    @RequestMapping(value = "/idChk.do", method = RequestMethod.POST)
+    public int idChk(MemberVO vo) throws Exception {
+        int result = memberService.idcheck(vo);
+        return result;
+    }
+
+
 }
+	
+

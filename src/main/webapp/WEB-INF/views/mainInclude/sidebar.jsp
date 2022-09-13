@@ -47,7 +47,7 @@
 						<li><a href="member_List.do"> <i class="bi bi-circle"></i><span>전체
 									가맹점 리스트</span>
 						</a></li>
-						<li><a href="orderHistory.do"> <i class="bi bi-circle"></i><span>가맹점
+						<li><a href="orderHistory.do"> <i class="bi bi-circle"></i><span>전체 가맹점
 									주문내역</span>
 						</a></li>
 						<li><a href="factory_franc_wait_list.do"> <i
@@ -159,8 +159,8 @@
 						<li><a href="productForOrder.do"> <i class="bi bi-circle"></i>
 								<span>발주서 작성</span>
 						</a></li>
-						<li><a href="francOrderHistory.do"> <i
-								class="bi bi-circle"></i><span>발주 내역</span>
+						<li><a href="francOrderHistory.do?id=${member.id}"> <i
+								class="bi bi-circle"></i><span>개인 발주 내역</span>
 						</a></li>
 					</ul></li>
 				<!-- ======= 가맹점 관리 끝 ======= -->

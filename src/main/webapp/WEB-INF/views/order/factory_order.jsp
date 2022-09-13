@@ -522,7 +522,7 @@
       }
       
    </script>
-	<!--       <script>
+   <script>
    $(document).ready(function(){
 
         const username = '${member.ceo}';
@@ -537,7 +537,7 @@
            }
         }
    });
-   </script> -->
+   </script>
 
 	<!-- End #main -->
 
