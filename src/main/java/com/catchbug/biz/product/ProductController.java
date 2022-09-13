@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.text.Normalizer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -142,8 +143,9 @@ public class ProductController {
 			ImgVO vo = new ImgVO(); // 이미지 정보 객체 생성
 
 			/* 파일 이름 */
-			String uploadFileName = multipartFile.getOriginalFilename();
-
+			String uploadFileName = multipartFile.getOriginalFilename().replace("\\s", "_");
+			uploadFileName = Normalizer.normalize(uploadFileName, Normalizer.Form.NFC);
+			
 			vo.setFileName(uploadFileName);
 			vo.setUploadPath(str);
 

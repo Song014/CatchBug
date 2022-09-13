@@ -1,5 +1,7 @@
 package com.catchbug.biz.admin.stock;
 
+import java.text.Normalizer;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +38,14 @@ public class StockController {
 		model.addAttribute("subCategory", category);
 		// 첫 요청 상품 데이터 최근 등록순
 		vo.setSub_category(0);
-		model.addAttribute("product", ps.getProductList(vo));
+		List<ProductVO> pvo =  new ArrayList<ProductVO>();
+		for (ProductVO productVO : ps.getProductList(vo)) {
+			  String uuid = Normalizer.normalize(productVO.getUuid(), Normalizer.Form.NFC);
+			  productVO.setUuid(uuid);
+			  pvo.add(productVO);
+		}
+		
+		model.addAttribute("product",pvo);
 		return "admin/stock_list";
 	}
 
