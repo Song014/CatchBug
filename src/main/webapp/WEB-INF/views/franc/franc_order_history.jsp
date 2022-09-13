@@ -82,11 +82,10 @@
                     <div align = "right" class = "dataTable-top">
 
                         <div>
-                            <form>
-                                <select name = "searchOption">
-                                    <option value = "order_no" selected = "selected">주문서 번호</option>
-                                    <option value = "product_name">상품명</option>
-                                </select> <input type = "text" name = "input" placeholder = "검색하세요">
+                            <form action="/order_search">
+                                <select name="searchType">
+                                    <option value="order_no" selected="selected">검색어</option>
+                                </select> <input type="text" name="searchName" placeholder="검색하세요">
                                 <button>검색</button>
                             </form>
                         </div>
@@ -154,8 +153,8 @@
     <div class = "modal-dialog modal-lg modal-dialog-scrollable">
         <div class = "modal-content">
             <div class = "modal-header">
-                <h3 class = "modal-title" style="color: black;">
-                    주문서 번호 : <span id = "orderModal42" > <!--주문자 id 들어가는곳-->
+                <h3 class = "modal-title" style = "color: black;">
+                    주문서 번호 : <span id = "orderModal42"> <!--주문자 id 들어가는곳-->
 						</span>
                 </h3>
                 <button type = "button" class = "btn-close" data-bs-dismiss = "modal" aria-label = "Close"></button>
@@ -166,7 +165,7 @@
                         <form>
                             <table class = "table">
                                 <thead>
-                                <tr style="text-align: center;">
+                                <tr style = "text-align: center;">
                                     <th scope = "col" style = "width: 10%;">No</th>
                                     <th scope = "col" style = "width: 18%;">상품번호</th>
                                     <th scope = "col" style = "width: 45%;">상품명</th>
@@ -267,7 +266,7 @@
                     const price = (result[b].price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
                     stx += `
                            <tr style="text-align: center;">
-                              <td>` + (b+1) + `</td>
+                              <td>` + (b + 1) + `</td>
                               <td>` + result[b].product_no + `</td>
                               <td>` + result[b].product_name + `</td>
                               <td>` + result[b].purchase_amount + `</td>
@@ -326,20 +325,20 @@
 
 </script>
 <script>
-    /* 	 $(document).ready(function(){
+    $(document).ready(function () {
 
-     const username = '${member.ceo}';
-     const level = '${member.level1}';
-     if(username == ""){
-     alert("로그인한 유저만 이용가능합니다.");
-     location.href="login_page.do";
-     }else{
-     if(level != 2){
-     alert("가맹점만 이용가능합니다.");
-     location.href="login_page.do";
-     }
-     }
-     });  */
+        const username = '${member.ceo}';
+        const level = '${member.level1}';
+        if (username == "") {
+            alert("로그인한 유저만 이용가능합니다.");
+            location.href = "login_page.do";
+        } else {
+            if (level != 2) {
+                alert("가맹점만 이용가능합니다.");
+                location.href = "login_page.do";
+            }
+        }
+    });
 </script>
 
 </body>

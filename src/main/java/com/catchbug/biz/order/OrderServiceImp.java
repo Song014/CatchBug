@@ -1,9 +1,6 @@
 package com.catchbug.biz.order;
 
-import com.catchbug.biz.vo.MemberVO;
-import com.catchbug.biz.vo.OrderItemVO;
-import com.catchbug.biz.vo.OrderVO;
-import com.catchbug.biz.vo.TopOrderVO;
+import com.catchbug.biz.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -72,4 +69,9 @@ public class OrderServiceImp implements OrderService {
     public int getUnOrderCount(String id) {
         return dao.getUnOrderCount(id);
     }
+  @Override
+	public List<OrderVO> getOrderSearch(Criteria cri) {
+		return dao.getOrderSearch(cri);
+
+	}
 }

@@ -1,9 +1,6 @@
 package com.catchbug.biz.order;
 
-import com.catchbug.biz.vo.MemberVO;
-import com.catchbug.biz.vo.OrderItemVO;
-import com.catchbug.biz.vo.OrderVO;
-import com.catchbug.biz.vo.TopOrderVO;
+import com.catchbug.biz.vo.*;
 
 import java.util.List;
 
@@ -29,5 +26,7 @@ public interface OrderService {
     List<TopOrderVO> getTopOrderFranc(String id);
 
     int getUnOrderCount(String id);
+
+	List<OrderVO> getOrderSearch(Criteria cri);
 
 }

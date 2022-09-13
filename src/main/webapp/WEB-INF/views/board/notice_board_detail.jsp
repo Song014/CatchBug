@@ -98,6 +98,8 @@
 				
 				<div class="card-body">
 					<div>
+						<br>
+						<br>
 						${notiInfo.noti_content }
 					</div>
 					<br>

@@ -133,4 +133,17 @@
         </if>
     </select>
 
+    <select id="getOrderSearch" resultType="order">
+        SELECT *
+        FROM orders o
+                 INNER JOIN member m
+                            ON o.id = m.id
+        WHERE o.order_no like '%' || #{searchName} || '%'
+           OR o.total_price like '%' || #{searchName} || '%'
+           OR o.shipping_address like '%' || #{searchName} || '%'
+           OR o.note like '%' || #{searchName} || '%'
+        ORDER BY o.order_no DESC
+    </select>
+
+
 </mapper>

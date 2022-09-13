@@ -33,8 +33,8 @@ import net.sf.json.JSONArray;
 
 @Controller
 public class ProductController {
-//	private String uploadFolder = "C:/work/spring-space/CatchBug/src/main/webapp/resources";
-	private String uploadFolder = "/Users/hyeon1339/CatchBugProject/src/main/webapp/resources/productImg";
+	private String uploadFolder = "C:/work/spring-space/CatchBug/src/main/webapp/resources";
+//	private String uploadFolder = "/Users/hyeon1339/CatchBugProject/src/main/webapp/resources/productImg";
 
 	@Autowired
 	private ServletContext servletContext;

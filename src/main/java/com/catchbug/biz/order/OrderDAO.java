@@ -1,14 +1,12 @@
 package com.catchbug.biz.order;
 
-import com.catchbug.biz.vo.MemberVO;
-import com.catchbug.biz.vo.OrderItemVO;
-import com.catchbug.biz.vo.OrderVO;
-import com.catchbug.biz.vo.TopOrderVO;
+import com.catchbug.biz.vo.*;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
 
 @Repository
 public class OrderDAO {
@@ -28,10 +26,6 @@ public class OrderDAO {
     }
 
 
-    //가맹점 본인 반주내역 리스트
-    public List<OrderVO> getOrderListid(OrderVO ovo) {
-        return mybatis.selectList("OrderMapper.getOrderListid", ovo);
-    }
 
     // 가맹점 발주내역 리스트
     public List<OrderVO> getOrderList(OrderVO ovo) {
@@ -48,11 +42,12 @@ public class OrderDAO {
         return mybatis.selectOne("MemberDAO.getMemberid", mvo);
     }
 
+
+
     //가맹점 본인 반주내역 리스트
     public List<OrderVO> getOrderListid(String id) {
         return mybatis.selectList("OrderMapper.getOrderListid", id);
     }
-
     //가맹점 주문서 상세 조회(모달)
     public List<OrderVO> getOrderno(OrderVO ovo) {
         System.out.println("getOrderno 실행");
@@ -70,5 +65,9 @@ public class OrderDAO {
     public int getUnOrderCount(String id) {
         return mybatis.selectOne("OrderMapper.getUnOrderCount", id);
     }
+	public List<OrderVO> getOrderSearch(Criteria cri) {
+		System.out.println("getOrderSearch 디에이오");
+		return mybatis.selectList("OrderMapper.getOrderSearch", cri);
+	}
 
 }

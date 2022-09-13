@@ -266,17 +266,6 @@ public class OrderController {
         return orderFDetail;
     }
 
-    // id 클릭시 회원정보 조회(모달)
-    @ResponseBody
-    @RequestMapping(value = "/orderfId.do", method = RequestMethod.GET)
-    public MemberVO orderfid(MemberVO mvo, Model model) {
-        System.out.println("orderceo 실행");
-        MemberVO orderfId = os.getMember(mvo);
-        System.out.println(orderfId);
-        return orderfId;
-    }
-
-
     // 가맹점 발주내역 페이지 + 검색
     @RequestMapping(value = "/orderHistory.do", method = RequestMethod.GET)
     public String orderHistorypage(SearchVO sw, OrderVO ovo, Model model) {
@@ -305,5 +294,23 @@ public class OrderController {
         return orderId;
     }
 
+	// id 클릭시 회원정보 조회(모달)
+	@ResponseBody
+	@RequestMapping(value = "/orderfId.do", method = RequestMethod.GET)
+	public MemberVO orderfid(MemberVO mvo, Model model) {
+		MemberVO orderfId = os.getMember(mvo);
+		System.out.println(orderfId);
+		return orderfId;
+	}
+	// 내 발주내역 검색 리스트
+	@RequestMapping("/order_search")
+	public String orderSearch(Criteria cri, Model model){
+
+		List<OrderVO> olist = os.getOrderSearch(cri);
+		
+		model.addAttribute("olist", olist);
+		
+		return "franc/franc_order_history";
+	}
 
 }

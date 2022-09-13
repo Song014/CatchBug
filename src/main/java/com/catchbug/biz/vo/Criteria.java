@@ -7,13 +7,15 @@ public class Criteria {
 
     private int page;
     private int perPageNum;
+
+    private String id;
     
     private String searchType; // 검색타입
     private String searchName; // 검색이름
 
     public Criteria() {
         page = 1;
-        perPageNum = 2;
+        perPageNum = 10;
     }
 
     public int getPage() {
@@ -36,27 +38,24 @@ public class Criteria {
     }
 
     public void setPerPageNum(int perPageNum) {
-        if(perPageNum <= 0 || perPageNum > 150) {
-            perPageNum = 2;
+        if(perPageNum <= 0 || perPageNum > 100) {
+            perPageNum = 10;
         }else {
         	this.perPageNum = perPageNum;
         }
         
     }
+    
+    
 
 	@Override
 	public String toString() {
-		return "Criteria [page=" + page + ", perPageNum=" + perPageNum + ", getPage()=" + getPage()
-				+ ", getPerPageNum()=" + getPerPageNum() + ", getPageStart()=" + getPageStart() + "]";
+		return "Criteria [page=" + page + ", perPageNum=" + perPageNum + ", searchType=" + searchType + ", searchName="
+				+ searchName + ", getPage()=" + getPage() + ", getPerPageNum()=" + getPerPageNum() + ", getPageStart()="
+				+ getPageStart() + ", getSearchType()=" + getSearchType() + ", getSearchName()=" + getSearchName()
+				+ ", hashCode()=" + hashCode() + ", getClass()=" + getClass() + ", toString()=" + super.toString()
+				+ "]";
 	}
-
-//    @Override
-//    public String toString() {
-//        return "Criteria{" +
-//                "page=" + page +
-//                ", perPageNum=" + perPageNum +
-//                '}';
-//    }
     
     
 }
