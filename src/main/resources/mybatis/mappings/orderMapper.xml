@@ -68,7 +68,8 @@
                p.product_no,
                d.purchase_amount,
                p.product_name,
-               o.total_price
+               o.total_price,
+               p.price
         from order_detail d
                  inner join product p
                             on d.product_no = p.product_no
@@ -129,19 +130,19 @@
             and id = #{id}
         </if>
 
-	</select>
-	
-	<select id="getOrderSearch" resultType="order">
-	SELECT *
-	FROM orders o
-	INNER JOIN member m
-    ON o.id = m.id
-	WHERE o.order_no like '%'||#{searchName}||'%'
-	OR o.total_price like '%'||#{searchName}||'%'
-	OR o.shipping_address like '%'||#{searchName}||'%'
-	OR o.note like '%'||#{searchName}||'%'
-	ORDER BY o.order_no DESC
-	</select>
-	
+    </select>
+
+    <select id="getOrderSearch" resultType="order">
+        SELECT *
+        FROM orders o
+                 INNER JOIN member m
+                            ON o.id = m.id
+        WHERE o.order_no like '%' || #{searchName} || '%'
+           OR o.total_price like '%' || #{searchName} || '%'
+           OR o.shipping_address like '%' || #{searchName} || '%'
+           OR o.note like '%' || #{searchName} || '%'
+        ORDER BY o.order_no DESC
+    </select>
+
 
 </mapper>

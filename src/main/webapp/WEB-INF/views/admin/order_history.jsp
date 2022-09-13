@@ -179,23 +179,19 @@
                 <div class = "card">
                     <div class = "card-body">
                         <div class = "card-title">
-                            <div style = "text-align: right;">
-                                <i class = "bx bx-won">
-                                    총 가격 : <span id = "orderModal3"></span>
+                            <div style = "text-align: right;"  id = "orderModal3">
                                     <!-- 가격 들어갈 곳 -->
-                                </i>
                             </div>
                         </div>
                         <form>
                             <table class = "table">
                                 <thead>
-                                <tr>
-                                    <th scope = "col" style = "width: 15%;">id</th>
-                                    <th scope = "col" style = "width: 15%;">주문 상세 번호</th>
-                                    <th scope = "col" style = "width: 20%;">상품 이름</th>
-                                    <th scope = "col" style = "width: 20%;">상품번호</th>
+                                <tr style="text-align: center">
+                                    <th scope = "col" style = "width: 10%;">No</th>
+                                    <th scope = "col" style = "width: 15%;">상품번호</th>
+                                    <th scope = "col" style = "width: 50%;">상품 이름</th>
                                     <th scope = "col" style = "width: 15%;">구입수량</th>
-                                    <th scope = "col" style = "width: 15%;">가격</th>
+                                    <th scope = "col" style = "width: 10%;">가격</th>
                                 </tr>
                                 </thead>
                                 <tbody id = "orderModal1">
@@ -279,7 +275,6 @@
     /* order_detail 모달창 */
     $(document).on("click", ".order_detail_modal", function (e) {
         var orderId = $(this).data("bs");
-        console.log("모달 비동기처리 작동  : " + orderId);
         e.preventDefault();
         let str = "";
         $.ajax({
@@ -294,13 +289,12 @@
                 let tprice = 0;
                 for (var j = 0; j < result.length; j++) {
                     tprice += result[j].total_price;
-                    const price = (result[j].total_price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                    const price = (result[j].price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
                     str += `
-                           <tr>
-                              <td>` + result[j].id + `</td>
-                              <td>` + result[j].detail_no + `</td>
-                              <td>` + result[j].product_name + `</td>
+                           <tr style="text-align: center">
+                              <td>` + (j+1) + `</td>
                               <td>` + result[j].product_no + `</td>
+                              <td>` + result[j].product_name + `</td>
                               <td>` + result[j].purchase_amount + `</td>
                               <td id=orderModal2>` + price + `</td>
                            </tr>
@@ -308,12 +302,10 @@
                               `;
                 }
 
-                console.log(tprice);
                 sta = tprice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-                ;
                 stb = orderId;
                 $("#orderModal1").html(str);
-                $("#orderModal3").html(sta);
+                $("#orderModal3").html("<h3> 총 가격 : <i class = 'bx bx-won'>" + sta + "</i></h3>");
                 $("#orderModal4").html(stb);
 
                 console.log("ajax 성공");
