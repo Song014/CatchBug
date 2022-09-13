@@ -1,13 +1,14 @@
 package com.catchbug.biz.order;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.catchbug.biz.vo.MemberVO;
 import com.catchbug.biz.vo.OrderItemVO;
 import com.catchbug.biz.vo.OrderVO;
 import com.catchbug.biz.vo.TopOrderVO;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class OrderServiceImp implements OrderService {
@@ -15,11 +16,6 @@ public class OrderServiceImp implements OrderService {
     @Autowired
     private OrderDAO dao;
 
-    @Override
-    public void getOrder() {
-        // TODO 주문내역 불러오기
-
-    }
 
     @Override
     public void insertOrder(OrderVO oi) {
@@ -34,9 +30,9 @@ public class OrderServiceImp implements OrderService {
     }
 
     @Override
-    public List<OrderVO> getOrderList(OrderVO ovo) {
+    public List<OrderVO> getOrderList() {
         System.out.println("getOrderList ServiceImpl");
-        return dao.getOrderList(ovo);
+        return dao.getOrderList();
     }
 
     @Override

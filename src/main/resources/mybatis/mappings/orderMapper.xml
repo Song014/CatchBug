@@ -20,25 +20,6 @@
         where m.level1 = 2
     </select>
 
-    <!-- 발주 내역 / 장바구니 번호 클릭시 해당 id가 주문한 내역들  (모달)-->
-    <select id="getOrderDetail" resultType="order">
-        select m.id,
-               d.detail_no,
-               d.order_no,
-               p.product_no,
-               d.purchase_amount,
-               p.product_name,
-               o.total_price,
-               p.brand
-        from order_detail d
-                 inner join product p
-                            on d.product_no = p.product_no
-                 inner join orders o
-                            on d.order_no = o.order_no
-                 inner join member m
-                            on o.id = m.id
-        where o.id = #{id}
-    </select>
 
     <!-- 가맹점 본인 발주내역 리스트 -->
     <select id="getOrderListid" resultType="order">
@@ -99,21 +80,6 @@
         where o.id = #{id}
     </select>
 
-
-    <!-- 가맹점 주문서 상세 조회(모달) -->
-    <select id="getOrderno" resultType="order">
-        select d.detail_no,
-               d.order_no,
-               p.product_no,
-               p.product_name,
-               d.purchase_amount
-        from order_detail d
-                 inner join product p
-                            on d.product_no = p.product_no
-                 inner join orders o
-                            on d.order_no = o.order_no
-        where o.order_no = #{order_no}
-    </select>
 
     <select id="getTopOrderFactory" resultType="topOrder">
         SELECT p.uuid,

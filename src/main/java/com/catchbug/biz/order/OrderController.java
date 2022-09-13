@@ -284,9 +284,10 @@ public class OrderController {
     public String orderHistorypage(SearchVO sw, OrderVO ovo, Model model) {
 
         System.out.println(sw);
+        
         if (sw.getSearchWord() == null) {
             System.out.println("orderHistorypage");
-            List<OrderVO> orderno_list = os.getOrderList(ovo);
+            List<OrderVO> orderno_list = os.getOrderList();
             model.addAttribute("olist", orderno_list);
         } else {
             System.out.println("검색");

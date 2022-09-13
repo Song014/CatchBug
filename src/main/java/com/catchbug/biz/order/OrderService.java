@@ -14,7 +14,7 @@ public interface OrderService {
 
     void insertOrderItemList(OrderItemVO oiv);
 
-    List<OrderVO> getOrderList(OrderVO ovo);
+    List<OrderVO> getOrderList();
 
     List<OrderVO> getOrderDetailList(OrderVO dvo);
 
