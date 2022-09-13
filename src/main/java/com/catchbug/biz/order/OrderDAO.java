@@ -71,7 +71,7 @@ public class OrderDAO {
 
 	public int getUnOrderCount(String id) {
 		return mybatis.selectOne("OrderMapper.getUnOrderCount",id);
-
+	}
 	public List<OrderVO> getOrderSearch(Criteria cri) {
 		System.out.println("getOrderSearch 디에이오");
 		return mybatis.selectList("OrderMapper.getOrderSearch", cri);
