@@ -89,11 +89,11 @@
 						<div class="mb-3">
 							<select class="form-select" id="floatingSelect" name="tap"
 								required="required">
-								<option value="1">주문</option>
-								<option value="2">상품</option>
-								<option value="3">배송</option>
-								<option value="4">회원</option>
-								<option value="5">사이트</option>
+								<option value="6">주문</option>
+								<option value="5">상품</option>
+								<option value="2">배송</option>
+								<option value="7">회원</option>
+								<option value="4">사이트</option>
 							</select>
 						</div>
 					</div>
@@ -135,9 +135,7 @@
 	<script>
 	function qnaSubmit() {
 		var content = $(".ql-editor").html();
-		alert(content);
 		$('input[name=content]').attr('value', content);
-
 	}
 	</script>
 

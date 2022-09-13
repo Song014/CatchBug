@@ -65,4 +65,9 @@ public class StockController {
 	public String FactoryOrderHistory() {
 		return "admin/factory_order_history";
 	}
+	
+	
+	
+	
+	
 }
