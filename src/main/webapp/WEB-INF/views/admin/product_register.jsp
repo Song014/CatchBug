@@ -75,7 +75,7 @@
     <div class = "tab-pane fade profile-edit pt-3 active show" id = "profile-edit" role = "tabpanel">
         <form action = "insertProduct.do" method = "post">
             <div class = "row mb-3">
-                <label for = "product_img" class = "col-md-4 col-lg-3 col-form-label">상품
+                <label for = "formFile" class = "col-md-4 col-lg-3 col-form-label">상품
                                                                                       이미지</label>
                 <div class = "col-md-4 col-lg-9">
                     <input class = "form-control" type = "file" id = "formFile" name = "product_img">
@@ -121,7 +121,7 @@
             <div class = "row mb-3">
                 <label for = "product_name" class = "col-md-4 col-lg-3 col-form-label">상품명</label>
                 <div class = "col-md-8 col-lg-9">
-                    <input name = "product_name" type = "text" class = "form-control" value = "" placeholder = "상품명"
+                    <input name = "product_name" id ="product_name" type = "text" class = "form-control" value = "" placeholder = "상품명"
                            maxlength = "50">
                 </div>
             </div>
@@ -130,7 +130,7 @@
                 <label for = "price" class = "col-md-4 col-lg-3 col-form-label">개당
                                                                                 가격</label>
                 <div class = "col-md-8 col-lg-9">
-                    <input name = "price" type = "number" class = "form-control" value = "" placeholder = "개당 가격 (원)"
+                    <input name = "price" id = "price" type = "number" class = "form-control" value = "" placeholder = "개당 가격 (원)"
                            maxlength = "10" oninput = "numberMaxLength(this);" />
                 </div>
             </div>

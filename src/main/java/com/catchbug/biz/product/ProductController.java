@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -59,9 +60,10 @@ public class ProductController {
 	}
 	
 	@PostMapping("/updateProduct.do")
+	@Transactional
 	public String UpdateProduct(ProductVO vo, ImgVO ivo) {
+		productService.insertImg(ivo);
 		productService.updateProduct(vo);
-		productService.updateImg(ivo);
 		
 		return "redirect:stockList.do";
 	}
