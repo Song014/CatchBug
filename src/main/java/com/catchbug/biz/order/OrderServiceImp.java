@@ -30,6 +30,12 @@ public class OrderServiceImp implements OrderService {
 	}
 
 	@Override
+	public List<OrderVO> factoryOrderList(OrderVO vo) {
+		// TODO Auto-generated method stub
+		return dao.factoryOrderList(vo);
+	}
+
+	@Override
 	public List<OrderVO> getOrderList() {
 		System.out.println("getOrderList ServiceImpl");
 		return dao.getOrderList();

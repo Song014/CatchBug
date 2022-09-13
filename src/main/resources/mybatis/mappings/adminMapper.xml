@@ -9,7 +9,6 @@
     <select id="getMemberList" resultType="member">
         SELECT *
         FROM member
-        WHERE level1 = 2
     </select>
 
     <!-- 가입승인 대기 리스트 -->

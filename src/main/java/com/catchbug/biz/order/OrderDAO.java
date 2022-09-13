@@ -32,6 +32,11 @@ public class OrderDAO {
 		mybatis.insert("OrderMapper.insertItemList", oiv);
 	}
 
+	// 본사 발주내역 리스트
+	public List<OrderVO> factoryOrderList(OrderVO ovo) {
+		return mybatis.selectList("OrderMapper.factoryOrderList", ovo);
+	}
+
 	// 가맹점 발주내역 리스트
 	public List<OrderVO> getOrderList() {
 		return mybatis.selectList("OrderMapper.getOrderList");
