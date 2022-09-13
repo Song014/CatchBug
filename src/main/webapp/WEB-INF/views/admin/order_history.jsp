@@ -275,7 +275,6 @@
     /* order_detail 모달창 */
     $(document).on("click", ".order_detail_modal", function (e) {
         var orderId = $(this).data("bs");
-        console.log("모달 비동기처리 작동  : " + orderId);
         e.preventDefault();
         let str = "";
         $.ajax({
