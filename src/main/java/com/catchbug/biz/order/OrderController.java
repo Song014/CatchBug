@@ -246,6 +246,17 @@ public class OrderController {
 		return orderDetail;
 	}
 
+	// 본사 발주 내역
+	@RequestMapping("factory_Order_History.do")
+	public String factoryOrderList(Model model, OrderVO vo) {
+
+		List<OrderVO> factory_order_List = os.factoryOrderList(vo);
+
+		model.addAttribute("list", factory_order_List);
+
+		return "admin/factory_order_history";
+	}
+
 	// 가맹점 본인 발주 내역 리스트
 	@RequestMapping(value = "/francOrderHistory.do")
 	public ModelAndView FancOrderHistory(OrderVO ovo, Model model, ModelAndView mav, HttpSession session) {
@@ -271,8 +282,6 @@ public class OrderController {
 	// 내 발주내역 검색 리스트
 	@RequestMapping("/order_search")
 	public String orderSearch(Criteria cri, Model model) {
-		System.out.println(cri.getSearchType());
-		System.out.println(cri.getSearchName()+"asd");
 
 		if(cri.getSearchName().equals("")) {
 			return "redirect:francOrderHistory.do";
@@ -304,7 +313,25 @@ public class OrderController {
 			model.addAttribute("olist", orderno_list);
 		}
 		return "admin/order_history";
-	} // 장바구니 번호 클릭시 해당 id가 주문한 내역 조회 (모달)
+	} 
+	
+	
+	//본사 발주내역 페이지  + 검색
+	@RequestMapping(value="/factoryOrderHistory.do", method = RequestMethod.GET)
+	public String factoryOrderHistory(SearchVO sv, OrderVO vo, Model model) {
+		System.out.println(sv);
+
+		if (sv.getSearchWord() == null) {
+			System.out.println("factoryOrderHistorypage");
+			List<OrderVO> orderno_list = os.getOrderList();
+			model.addAttribute("olist", orderno_list);
+		} else {
+			System.out.println("검색");
+			List<OrderVO> orderno_list = as.franc_SearchList2(sv);
+			model.addAttribute("olist", orderno_list);
+		}
+		return "admin/factory_order_history";
+	}
 
 	// id 클릭시 회원정보 조회(모달)
 	@ResponseBody

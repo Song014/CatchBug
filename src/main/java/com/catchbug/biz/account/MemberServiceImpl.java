@@ -37,13 +37,7 @@ public class MemberServiceImpl implements MemberService {
         return MemberDAO.getMember(vo);
 
     }
-
-    @Override
-    public List<MemberVO> getMemberList(MemberVO vo) {
-        return (List<MemberVO>) MemberDAO.getMemberList(vo);
-    }
-
-
+    
     @Override
     public void updateMypage(MemberVO vo) {
         MemberDAO.updateMypage(vo);
