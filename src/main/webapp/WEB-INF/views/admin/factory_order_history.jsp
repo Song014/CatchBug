@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <!DOCTYPE html>
 
 <head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>Dashboard - NiceAdmin Bootstrap Template</title>
+<title>본사 발주 내역</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 <!-- jQuery -->
@@ -74,7 +74,7 @@
 	<main id="main" class="main">
 
 	<div class="pagetitle">
-		<h1>본사 발주 내역 조회</h1>
+		<h1>본사 발주 내역</h1>
 		<nav>
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a href="/">재고 관리</a></li>
@@ -88,108 +88,106 @@
 		<div class="row">
 			<div class="card">
 				<div class="card-body">
-
 					<div align="right" class="dataTable-top">
-						<div class="dataTable-dropdown">
-							<label><select class="dataTable-selector"><option
-										value="5">5</option>
-									<option value="10" selected="">10</option>
-									<option value="15">15</option>
-									<option value="20">20</option>
-									<option value="25">25</option></select> entries per page</label>
-						</div>
-						<div class="dataTable-search">
-							<form>
-								<input type="date" name="beforeDate"> <input type="date"
-									name="afterDate" id='currnetDate'> <select
-									name="searchOption">
-									<option value="orderNumber" selected="selected">주문번호</option>
-									<option value="content">내용</option>
-									<option value="remarks">비고</option>
-								</select> <input type="text" name="input" placeholder="검색어를 입력해 주세요.">
-								<!-- <input type="button" name="inputBtn" value="검색"> -->
-								<button>검색</button>
+						<div>
+							<form action="factoryOrderHistory.do">
+								<select name="searchTap">
+									<option value="1" selected="selected">장바구니번호</option>
+									<option value="2">id</option>
+								</select> <input class="dataTable-input" type="text" name="searchWord"
+									placeholder="검색어를 입력해 주세요.">
+								<button class="btn btn-primary" type="submit">검색</button>
 							</form>
 						</div>
 					</div>
+
+
 					<div class="dataTable-container">
 						<table class="table datatable dataTable-table">
 							<tr>
 								<th scope="col" data-sortable=""><a href="#"
 									class="dataTable-sorter">#</a></th>
 								<th scope="col" data-sortable=""><a href="#"
-									class="dataTable-sorter">주문번호</a></th>
+									class="dataTable-sorter">주문서 번호</a></th>
+								<th scope="col" data-sortable=""><a href="#"
+									class="dataTable-sorter">주문자</a></th>
+								<th scope="col" data-sortable=""><a href="#"
+									class="dataTable-sorter">주문금액</a></th>
 								<th scope="col" data-sortable=""><a href="#"
 									class="dataTable-sorter">주문일자</a></th>
 								<th scope="col" data-sortable=""><a href="#"
-									class="dataTable-sorter">내용</a></th>
+									class="dataTable-sorter">배송지</a></th>
+								<th scope="col" data-sortable=""><a href="#"
+									class="dataTable-sorter">처리 상태</a></th>
 								<th scope="col" data-sortable=""><a href="#"
 									class="dataTable-sorter">비고</a></th>
-								<th scope="col" data-sortable=""><a href="#"
-									class="dataTable-sorter">상태</a></th>
-								<th scope="col">결제</th>
+
 							</tr>
-							<tr>
-								<td>1</td>
-								<td>주문번호넣어주세요</td>
-								<td>22.08.12</td>
-								<td><a class="primary" data-bs-toggle="modal"
-									data-bs-target="#modalDialogScrollable"> 주문 상세보기 모달띄우기 </a></td>
-								<td></td>
-								<td>대기</td>
-								<td><input type="button" name="no" value="취소"></td>
-							</tr>
+							<c:forEach var="orderList" items="${list}" varStatus="status">
+								<tr>
+									<th scope="row">${status.count}</th>
+
+
+
+									<td><a class="primary order_detail_modal2"
+										data-bs="${orderList.order_no}" data-bs-toggle="modal"
+										data-bs-target="#modal-biz2"> ${orderList.order_no}</a></td>
+
+									<td><a class="primary order_id_modal"
+										data-bs="${orderList.id}" data-bs-toggle="modal"
+										data-bs-target="#modalIdDetail"> ${orderList.id}님</a></td>
+
+									<td>${orderList.total_price}원</td>
+									<td><fmt:formatDate value="${orderList.processing_day}"
+											pattern="yyyy-MM-dd" timeZone="Asia/Seoul" /></td>
+									<td>${orderList.shipping_address}</td>
+									<td>${orderList.order_status}</td>
+									<td>${orderList.note}</td>
+
+								</tr>
+							</c:forEach>
 						</table>
 					</div>
 				</div>
 			</div>
-			<script>
-				// 오늘 날짜
-				document.getElementById('currnetDate').value = new Date()
-						.toISOString().slice(0, 10);
-			</script>
-
 		</div>
 	</section>
 
 	</main>
 	<!-- End #main -->
-
-
 	<!-- 모달1 -->
-	<div class="modal fade" id="modal-biz" tabindex="-1">
-		<div class="modal-dialog modal-dialog-scrollable">
+	<div class="modal fade" id="modal-biz2" tabindex="-1">
+		<div class="modal-dialog modal-lg modal-dialog-scrollable">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title">사업자 상세보기</h5>
+					<h5 class="modal-title">
+						주문서 번호 : <span id="orderModal42"> <!--주문자 id 들어가는곳-->
+						</span>
+					</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
 					<div class="card">
 						<div class="card-body">
-							<table class="table">
-								<tr>
-									<th>사업자명</th>
-									<td>늑대와여우</td>
-								</tr>
-								<tr>
-									<th>대표자</th>
-									<td>홍길동</td>
-								</tr>
-								<tr>
-									<th>가입일</th>
-									<td>2022.01.01</td>
-								</tr>
-								<tr>
-									<th>사업자등록번호</th>
-									<td>110-123-45678</td>
-								</tr>
-								<tr>
-									<th>사업장주소지</th>
-									<td>영등포</td>
-								</tr>
-							</table>
+							<form>
+								<table class="table">
+									<thead>
+										<tr>
+											<th scope="col">주문서 상세</th>
+											<th scope="col">주문번호</th>
+											<th scope="col">상품 번호</th>
+											<th scope="col">상품명</th>
+											<th scope="col">구입수량</th>
+										</tr>
+									</thead>
+									<tbody id="orderModal11">
+
+
+									</tbody>
+
+								</table>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -201,56 +199,48 @@
 		</div>
 	</div>
 
-	<!-- 모달2 -->
-	<div class="modal fade" id="modalDialogScrollable" tabindex="-1">
-		<div class="modal-dialog modal-dialog-scrollable">
+	<!-- 모달1 끝-->
+
+	<!-- 모달2-->
+	<div class="modal fade" id="modalIdDetail" tabindex="-1">
+		<div class="modal-dialog modal-md modal-dialog-scrollable">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title">주문번호 : 123456789</h5>
+					<h5 class="modal-title">주문자 상세보기</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
 					<div class="card">
-						<div class="card-body">
-							<div class="card-title">
-								<h5 style="text-align: right;">총 주문금액</h5>
-								<div style="text-align: right;">
-									<i class="bx bx-won">가격 적어주세요</i>
-
-								</div>
-
-							</div>
-
-							<table class="table" tex>
-								<thead>
-									<tr>
-										<th scope=" col" style="width: 20%;">상품코드</th>
-										<th scope="col" style="width: 52%;">품목명</th>
-										<th scope="col" style="width: 13%;">수량</th>
-										<th scope="col" style="width: 15%;">가격</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<th scope="row">00001</th>
-										<td>무선 마우스 GB110</td>
-										<td>5</td>
-										<td>10000123123</td>
-									</tr>
-
-								</tbody>
-							</table>
-						</div>
+						<!-- <div class="card-body">
+                     <div class="card-title">
+                        <h5 style="text-align: right;">총 주문금액</h5>
+                        <div style="text-align: right;">
+                           <i class="bx bx-won">가격 적어주세요</i>
+                        </div>
+                     </div> -->
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col">ID</th>
+									<th scope="col">대표자</th>
+									<th scope="col">법인명</th>
+									<th scope="col">사업자 등록 번호</th>
+								</tr>
+							</thead>
+							<tbody id="orderModal62">
+							</tbody>
+						</table>
 					</div>
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-bs-dismiss="modal">Close</button>
-				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary"
+					data-bs-dismiss="modal">Close</button>
 			</div>
 		</div>
 	</div>
+
 	<!-- 모달 끝-->
 	<!-- End Main -->
 
@@ -272,7 +262,7 @@
 			},
 			success : function(result) {
 				console.log(result)
-				
+
 			},
 			error : function(e) {
 				//통신 실패시 발생하는 함수(콜백)
@@ -297,6 +287,83 @@
 
 	<!-- Template Main JS File -->
 	<script src="assets/js/main.js"></script>
+
+	<script>
+	   /* order_detail 모달창 */
+	   $(document).on("click",".order_detail_modal2", function (e) {
+	         var orderno =$(this).data("bs");
+	         console.log("모달 비동기처리 작동  : "+orderno);
+	         e.preventDefault();
+	         let stx ="";
+	         $.ajax({
+	                  type : "GET", //요청 메소드 방식
+	                  url : "orderFDetail.do?order_no=" + orderno,
+	                  success : function(result) {
+	                     $("#orderModal11").empty();
+	                     $("#orderModal42").empty();
+
+	                       for(var b=0;b<result.length;b++){
+	                        stx += `
+	                           <tr>
+	                              <td>`+result[b].detail_no+`</td>
+	                              <td>`+result[b].order_no+`</td>
+	                              <td>`+result[b].product_no+`</td>
+	                              <td>`+result[b].product_name+`</td>
+	                              <td>`+result[b].purchase_amount+`</td>
+	                           </tr>
+	                              `;
+	                       }
+	                       console.log(stx)
+	                   
+	                  			 stb= orderno; 
+	                           $("#orderModal11").html(stx);
+	                           $("#orderModal42").html(stb); 
+	                           
+	                     console.log("ajax 성공");
+	                       
+	                  }, 
+	                  error : function(a, b, c) {
+	                     //통신 실패시 발생하는 함수(콜백)
+	                     console.log("실패" + a, b, c);
+	                  }
+	         })
+	         }); 
+	   /* order_detail 모달창 끝 */
+   
+   /* order_id 모달창 시작 */ 
+    
+     $(document).on("click", ".order_id_modal", function (e) {
+         e.preventDefault();
+       var orderId =$(this).data("bs");
+         console.log("모달 비동기처리 작동  : "+orderId);
+         $.ajax({
+                  type : "GET", //요청 메소드 방식
+                  url : "orderfId.do?id=" + orderId,
+                  success : function(orderId) {
+                     $("#orderModal62").empty();
+                       console.log(orderId);
+                        stz = `
+                           <tr>
+                              <td>`+orderId.id+`</td>
+                              <td>`+orderId.ceo+`</td>
+                              <td>`+orderId.business_name+`</td>
+                              <td>`+orderId.business_no+`</td>
+                           </tr>
+                              `;
+                              
+                     console.log("ajax 성공");
+                           $("#orderModal62").html(stz);
+                  }, 
+                  error : function(a, b, c) {
+                     //통신 실패시 발생하는 함수(콜백)
+                     console.log("실패" + a, b, c);
+                  }
+         }) 
+     });
+   
+     /* order_id 모달창 끝 */ 
+         
+</script>
 
 </body>
 

@@ -1,19 +1,8 @@
 package com.catchbug.biz.product;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.text.Normalizer;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
-
-import javax.imageio.ImageIO;
-import javax.servlet.ServletContext;
-
+import com.catchbug.biz.vo.ImgVO;
+import com.catchbug.biz.vo.ProductVO;
+import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -27,15 +16,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.catchbug.biz.vo.ImgVO;
-import com.catchbug.biz.vo.ProductVO;
-
-import net.sf.json.JSONArray;
+import javax.imageio.ImageIO;
+import javax.servlet.ServletContext;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.text.Normalizer;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class ProductController {
-	private String uploadFolder = "C:/work/spring-space/CatchBug/src/main/webapp/resources/productImg";
-//	private String uploadFolder = "/Users/hyeon1339/CatchBugProject/src/main/webapp/resources/productImg";
+//	private String uploadFolder = "C:/work/spring-space/CatchBug/src/main/webapp/resources/productImg";
+	private String uploadFolder = "/Users/hyeon1339/CatchBugProject/src/main/webapp/resources/productImg";
 
 	@Autowired
 	private ServletContext servletContext;

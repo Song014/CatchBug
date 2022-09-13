@@ -68,15 +68,4 @@ public class StockController {
 	public String FactoryStockList() {
 		return "admin/factory_stock_list";
 	}
-
-	// 본사 발주 내역
-	@RequestMapping("/factory_Order_History.do")
-	public String FactoryOrderHistory() {
-		return "admin/factory_order_history";
-	}
-	
-	
-	
-	
-	
 }

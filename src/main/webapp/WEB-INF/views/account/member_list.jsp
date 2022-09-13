@@ -1,6 +1,8 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -80,21 +82,21 @@
 		</nav>
 	</div>
 	<!-- End Page Title -->
-
 	<section class="section dashboard">
 		<div class="row">
 			<div class="card">
 				<div class="card-body">
-					<h5 class="card-title">| 전체 가맹점 리스트</h5>
-					<div class="search" align="right">
-						<form>
-							<select name="searchOption">
-								<option value="content" selected="selected">대표자</option>
-								<option value="remarks">법인명</option>
-							</select> <input type="text" name="input" placeholder="검색어를 입력해 주세요.">
-							<!-- <input type="button" name="inputBtn" value="검색"> -->
-							<button>검색</button>
-						</form>
+					<div align="right" class="dataTable-top">
+						<div>
+							<form action="memberSearchList.do">
+								<select name="searchTap">
+									<option value="1" selected="selected">법인명</option>
+									<option value="2">id</option>
+								</select> <input class="dataTable-input" type="text" name="searchWord"
+									placeholder="검색어를 입력해 주세요.">
+								<button class="btn btn-primary" type="submit">검색</button>
+							</form>
+						</div>
 					</div>
 
 					<!-- Table with hoverable rows -->
@@ -102,32 +104,45 @@
 						<thead>
 							<tr>
 								<th scope="col">#</th>
-								<th scope="col">법인명</th>
+								<th scope="col">ID</th>
 								<th scope="col">대표자</th>
-								<th scope="col">사업자 등록 번호</th>
 								<th scope="col">연락처</th>
+								<th scope="col">이메일</th>
+								<th scope="col">법인명</th>
+								<th scope="col">사업자 등록 번호</th>
 								<th scope="col">사업장 주소지</th>
+								<th scope="col">회원 가입일</th>
+								<!-- <th scope="col">회원관리</th> -->
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="member" items="${list}" varStatus="status">
 								<tr>
 									<th scope="row">${status.count}</th>
-									<td><a class="primary" data-bs-toggle="modal"
-										data-bs-target="#modal-biz"> ${member.business_name} </a></td>
+									<td>${member.id}</td>
 									<td>${member.ceo}</td>
-									<td>${member.business_no}</td>
 									<td>${member.contact}</td>
+									<td>${member.email}</td>
+									<td>${member.business_name}</td>
+									<td>${member.business_no}</td>
 									<td>${member.business_address}</td>
+									<td><fmt:formatDate value="${member.regdate}"
+											pattern="yyyy-MM-dd" timeZone="Asia/Seoul" /></td>
 								</tr>
 							</c:forEach>
-
 						</tbody>
 					</table>
 					<!-- End Table with hoverable rows -->
 
 
 
+					<script type="text/javascript">
+						
+					<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+						//오늘 날짜
+						document.getElementById('currentDate').value = new Date()
+								.toISOString().slice(0, 10);
+					</script>
 
 				</div>
 			</div>
@@ -136,59 +151,6 @@
 	</main>
 	<!-- End Main -->
 
-
-	<!-- 모달부 -->
-	<div class="modal fade" id="modal-biz" tabindex="-1">
-		<div class="modal-dialog modal-dialog-scrollable">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">사업자 상세보기</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"
-						aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<div class="card">
-						<div class="card-body">
-							<table class="table">
-								<tr>
-									<th>사업자명</th>
-									<td>늑대와여우</td>
-								</tr>
-								<tr>
-									<th>대표자</th>
-									<td>홍길동</td>
-								</tr>
-								<tr>
-									<th>가입일</th>
-									<td>2022.09.05</td>
-								</tr>
-								<tr>
-									<th>사업자등록번호</th>
-									<td>125-12-51251</td>
-								</tr>
-								<tr>
-									<th>연락처</th>
-									<td>010-2312-1231</td>
-								</tr>
-								<tr>
-									<th>사업장주소지</th>
-									<td>서울시 용산구</td>
-								</tr>
-							</table>
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-bs-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- 모달끝 -->
-
-
-	<!-- ======= Footer ======= -->
 
 	<jsp:include page="../mainInclude/footer.jsp"></jsp:include>
 
@@ -211,6 +173,10 @@
 	<!-- Template Main JS File -->
 	<script src="assets/js/main.js"></script>
 
+	<!-- 날짜 검색시 오늘로 셋팅해주는 스크립트-->
+	<script>
+		document.getElementById('inputSearchDate').valueAsDate = new Date();
+	</script>
 
 </body>
 
