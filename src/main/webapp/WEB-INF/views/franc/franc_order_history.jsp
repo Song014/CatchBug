@@ -91,11 +91,10 @@
 					<div align="right" class="dataTable-top">
 
 						<div>
-							<form>
-								<select name="searchOption">
-									<option value="order_no" selected="selected">주문서 번호</option>
-									<option value="product_name">상품명</option>
-								</select> <input type="text" name="input" placeholder="검색하세요">
+							<form action="/order_search">
+								<select name="searchType">
+									<option value="order_no" selected="selected">검색어</option>
+								</select> <input type="text" name="searchName" placeholder="검색하세요">
 								<button>검색</button>
 							</form>
 						</div>
@@ -132,7 +131,21 @@
 											data-bs="${olist.id}" data-bs-toggle="modal"
 											data-bs-target="#modalDialogScrollable2"> ${olist.id}님</a></td>
 										<td>${olist.total_price}원</td>
-										<td>${olist.order_status}번</td>
+										
+										
+										<c:choose>
+											<c:when test="${olist.order_status eq 1}">
+											<td>미승인</td>
+											</c:when>
+											<c:when test="${olist.order_status eq 2}">
+											<td>승인</td>
+											</c:when>
+											<c:when test="${olist.order_status eq 3}">
+											<td>취소</td>
+											</c:when>
+										
+										</c:choose>
+										
 										<td>${olist.shipping_address}</td>
 										<td>${olist.note}</td>
 									</tr>

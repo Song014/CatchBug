@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import com.catchbug.biz.vo.QnaReplyVO;
 import com.catchbug.biz.vo.TopOrderVO;
+import com.catchbug.biz.vo.Criteria;
 import com.catchbug.biz.vo.MemberVO;
-
 import com.catchbug.biz.vo.OrderItemVO;
 import com.catchbug.biz.vo.OrderVO;
 
@@ -60,6 +60,7 @@ public class OrderDAO {
 
 	}
 
+
 	public List<TopOrderVO> getTopOrderFactory() {
 		return mybatis.selectList("OrderMapper.getTopOrderFactory");
 	}
@@ -70,6 +71,10 @@ public class OrderDAO {
 
 	public int getUnOrderCount(String id) {
 		return mybatis.selectOne("OrderMapper.getUnOrderCount",id);
+
+	public List<OrderVO> getOrderSearch(Criteria cri) {
+		System.out.println("getOrderSearch 디에이오");
+		return mybatis.selectList("OrderMapper.getOrderSearch", cri);
 	}
 
 	
