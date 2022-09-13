@@ -4,16 +4,6 @@
 
 <mapper namespace="OrderMapper">
 
-    <insert id="insertOrder">
-        insert into orders(order_no, id, postcode, shipping_address, detailaddress, note, total_price, order_status)
-        values (#{order_no}, #{id}, #{postcode}, #{shipping_address}, #{detailAddress}, #{note, jdbcType=VARCHAR},
-                #{total_price}, #{order_status})
-    </insert>
-    <insert id="insertItemList">
-        insert into order_detail
-        values ((SELECT NVL(MAX(detail_no), 0) + 1 FROM order_detail), #{order_no}, #{product_no}, #{purchase_amount})
-    </insert>
-
     <!-- 관리자가 보는 발주내역 주문서리스트 -->
     <select id="getOrderList" resultType="order">
         select order_no,
@@ -65,10 +55,27 @@
                             on o.id = m.id
         where m.id = #{id}
     </select>
+    <!-- 검색 조회 -->
 
-    <!-- 가맹점 주문서 상세 조회(모달)   -->
+    <insert id="insertOrder">
+        insert into orders(order_no, id, postcode, shipping_address, detailaddress, note, total_price, order_status)
+        values (#{order_no}, #{id}, #{postcode}, #{shipping_address}, #{detailAddress}, #{note,
+		jdbcType=VARCHAR}, #{total_price}, #{order_status})
+    </insert>
+    <insert id="insertItemList">
+        insert into order_detail
+        values ((SELECT NVL(MAX(detail_no), 0) + 1
+                 FROM order_detail), #{order_no}, #{product_no}, #{purchase_amount})
+    </insert>
+
+    <!-- 가맹점 주문서 상세 조회(모달) -->
     <select id="getOrderno" resultType="order">
-        select d.detail_no, d.order_no, p.product_no, p.product_name, d.purchase_amount, p.price
+        select d.detail_no,
+               d.order_no,
+               p.product_no,
+               p.product_name,
+               d.purchase_amount,
+               p.price
         from order_detail d
                  inner join product p
                             on d.product_no = p.product_no
@@ -76,7 +83,54 @@
                             on d.order_no = o.order_no
         where o.order_no = #{order_no}
     </select>
-    <!-- 검색 조회 -->
 
+    <select id="getTopOrderFactory" resultType="topOrder">
+        SELECT p.uuid,
+               p.add_day,
+               p.product_name,
+               p.price,
+               od.purchase_amount,
+               od.total_price
+        FROM (SELECT od.product_no,
+                     sum(od.purchase_amount) as purchase_amount,
+                     sum(o.total_price)      as total_price
+              FROM order_detail od
+                       INNER JOIN orders o ON od.order_no = o.order_no
+              WHERE o.order_status = 1
+              GROUP by od.product_no) od
+                 INNER JOIN product p ON od.product_no = p.product_no
+        ORDER BY purchase_amount desc
+    </select>
+
+    <select id="getTopOrderFranc" parameterType="String" resultType="topOrder">
+        SELECT p.uuid,
+               p.add_day,
+               p.product_name,
+               p.price,
+               od.purchase_amount,
+               od.total_price
+        FROM (SELECT od.product_no,
+                     sum(od.purchase_amount) as purchase_amount,
+                     sum(o.total_price)      as total_price
+              FROM order_detail od
+                       INNER JOIN orders o ON od.order_no = o.order_no
+              WHERE o.order_status = 1
+                and id = #{id}
+              GROUP by od.product_no) od
+                 INNER JOIN product p ON od.product_no = p.product_no
+        ORDER BY purchase_amount desc
+    </select>
+
+    <select id="getUnOrderCount" parameterType="String" resultType="int">
+        SELECT
+        COUNT(order_no) as count
+        FROM
+        orders
+        where
+        order_status = 1
+        <if test="value neq null">
+            and id = #{id}
+        </if>
+    </select>
 
 </mapper>

@@ -15,11 +15,6 @@ public class OrderServiceImp implements OrderService {
     @Autowired
     private OrderDAO dao;
 
-    @Override
-    public void getOrder() {
-        // TODO 주문내역 불러오기
-
-    }
 
     @Override
     public void insertOrder(OrderVO oi) {

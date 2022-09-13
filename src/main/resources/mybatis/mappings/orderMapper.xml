@@ -55,17 +55,6 @@
                             on o.id = m.id
         where m.id = #{id}
     </select>
-
-    <!-- 가맹점 주문서 상세 조회(모달)   -->
-    <select id="getOrderno" resultType="order">
-        select d.detail_no, d.order_no, p.product_no, p.product_name, d.purchase_amount, p.price
-        from order_detail d
-                 inner join product p
-                            on d.product_no = p.product_no
-                 inner join orders o
-                            on d.order_no = o.order_no
-        where o.order_no = #{order_no}
-    </select>
     <!-- 검색 조회 -->
 
     <insert id="insertOrder">
@@ -79,34 +68,14 @@
                  FROM order_detail), #{order_no}, #{product_no}, #{purchase_amount})
     </insert>
 
-    <!-- 발주 내역 / 장바구니 번호 클릭시 해당 id가 주문한 내역들 (모달) -->
-    <select id="getOrderDetail" resultType="order">
-        select m.id,
-               d.detail_no,
-               d.order_no,
-               p.product_no,
-               d.purchase_amount,
-               p.product_name,
-               o.total_price
-        from order_detail d
-                 inner join product p
-                            on d.product_no = p.product_no
-                 inner join orders o
-                            on d.order_no = o.order_no
-                 inner join member m
-                            on
-                                o.id = m.id
-        where o.id = #{id}
-    </select>
-
-
     <!-- 가맹점 주문서 상세 조회(모달) -->
     <select id="getOrderno" resultType="order">
         select d.detail_no,
                d.order_no,
                p.product_no,
                p.product_name,
-               d.purchase_amount
+               d.purchase_amount,
+               p.price
         from order_detail d
                  inner join product p
                             on d.product_no = p.product_no
