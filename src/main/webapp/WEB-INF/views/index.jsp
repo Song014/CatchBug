@@ -106,7 +106,7 @@
 										<c:forEach begin="0" end="4" var="list" items="${topOrder }">
 										<tr> 
 											<th scope="row"><a href="#"><img
-													src="/resources/<fmt:formatDate value="${list.add_day }" pattern="yyyy-MM-dd"/>/${list.uuid}" alt=""></a></th>
+													src="/resources/productImg/<fmt:formatDate value="${list.add_day }" pattern="yyyy-MM-dd"/>/${list.uuid}" alt=""></a></th>
 											<td><a href="#" class="text-primary fw-bold">${list.product_name }</a></td>
 											<td>&#8361;<fmt:formatNumber groupingUsed="true">${list.price }</fmt:formatNumber></td>
 											<td class="fw-bold">${list.purchase_amount }</td>
