@@ -8,7 +8,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>Dashboard - NiceAdmin Bootstrap Template</title>
+<title>대쉬보드</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -45,6 +45,17 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+  
+  <style type="text/css">
+  	.cards:hover{
+  		background: #808080 ;
+  		opacity: 0.5;
+  		
+  	}
+  	a{
+  		color:#012970;
+  	}
+  </style>
 </head>
 
 <body>
@@ -74,11 +85,11 @@
 	<!-- main start -->
 	<main id="main" class="main">
 	<div class="pagetitle">
-		<h1>Dashboard</h1>
+		<h1>대쉬보드</h1>
 		<nav>
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a href="/">Home</a></li>
-				<li class="breadcrumb-item active">Dashboard</li>
+				<li class="breadcrumb-item active">대쉬보드</li>
 			</ol>
 		</nav>
 	</div>
@@ -135,10 +146,10 @@
 								<div class="ps-3">
 									<c:choose>
 									<c:when test="${member.level1 eq 1}">
-									<h6><a href="#"  onclick="location.href='unOrderHistory.do'" style="color:#012970;">${count } 건</a></h6>
+									<h6><a href="unOrderHistory.do">${count } 건</a></h6>
 									</c:when>
 									<c:otherwise>
-									<h6><a href="#"  onclick="location.href='francOrderHistory.do'" style="color:#012970;">${count } 건</a></h6>
+									<h6><a href="francOrderHistory.do">${count } 건</a></h6>
 									</c:otherwise>
 									</c:choose>
 								</div>
@@ -168,7 +179,7 @@
 					<div class="card info-card customers-card">
 						<div class="card-body">
 							<h5 class="card-title">
-								질문 내역 <span>|</span>
+								1대1 채팅상담 <span>|</span>
 							</h5>
 							<div class="d-flex align-items-center">
 								<div
@@ -176,7 +187,7 @@
 									<i class="bi bi-people"></i>
 								</div>
 								<div class="ps-3">
-									<h6>1 건</h6>
+									<h6><a href="chatRoom.do">상담 바로가기</a></h6>
 								</div>
 							</div>
 						</div>
@@ -188,7 +199,6 @@
 	</section>
 	</main>
 	<!-- End Main -->
-
 
 
 
