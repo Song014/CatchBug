@@ -38,8 +38,8 @@ import java.util.UUID;
 
 @Controller
 public class MemberController {
-    //	private String uploadFolder = "C:/work/spring-space/CatchBug/src/main/webapp/resources";
-    private String uploadFolder = "/Users/hyeon1339/CatchBugProject/src/main/webapp/resources/profileImg";
+    	private String uploadFolder = "C:/work/spring-space/CatchBug/src/main/webapp/resources/profileImg";
+//    private String uploadFolder = "/Users/hyeon1339/CatchBugProject/src/main/webapp/resources/profileImg";
 
     @Inject
     BCryptPasswordEncoder pwdEncoder;
@@ -168,7 +168,7 @@ public class MemberController {
         if (login.getId() != null && pwdMatch) {
             session.setAttribute("member", login);
             session.setAttribute("profile", memberService.getProfileImg(vo));
-            return "redirect:mypage.do?id=" + login.getId();
+            return "redirect:/";
         }
 
 
