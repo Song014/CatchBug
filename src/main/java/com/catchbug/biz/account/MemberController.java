@@ -168,7 +168,7 @@ public class MemberController {
         if (login.getId() != null && pwdMatch) {
             session.setAttribute("member", login);
             session.setAttribute("profile", memberService.getProfileImg(vo));
-            return "redirect:mypage.do?id=" + login.getId();
+            return "redirect:/";
         }
 
 
