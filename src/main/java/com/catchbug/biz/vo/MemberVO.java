@@ -1,7 +1,16 @@
 package com.catchbug.biz.vo;
 
 
+
 import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.sql.Date;
+
+import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -9,6 +18,7 @@ import java.sql.Date;
 
 @Data
 public class MemberVO {
+
 
     private String id; // 아이디
     private String pass; // 비밀번호
@@ -28,6 +38,8 @@ public class MemberVO {
     private String mail_key; //메일 키
     private int startPage, endPage;
 	private String uuid;
+
+
 	private MultipartFile uploadImgFile;
 
 

@@ -112,7 +112,7 @@
 
 								<div class="col-12">
 									<br> <label for="yourName" class="form-label">*
-										아이디</label> <input type="text" name="id" class="form-control"
+								아이디</label> <input type="text" name="id" class="form-control"
 										id="id" required>
 								</div>
 
@@ -121,6 +121,7 @@
 										type="text" name="email" class="form-control" id="email"
 										required>
 								</div>
+
 								<div class="col-12">
 									<button class="btn btn-primary w-100" type="submit">비밀번호
 										찾기</button>
@@ -159,6 +160,7 @@
 		class="back-to-top d-flex align-items-center justify-content-center"><i
 		class="bi bi-arrow-up-short"></i></a>
 
+
 	<script type="text/javascript">
 	
 	$(document).ready(function(){
@@ -177,6 +179,7 @@
 		})
 	});
 	</script>
+
 
 
 	<!-- Vendor JS Files -->
