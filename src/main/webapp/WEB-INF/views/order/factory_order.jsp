@@ -217,8 +217,8 @@
 													<button type="button" class="updateBtn"
 														value="${list.total }">변경</button></td>
 												<td style="width: 10%;"><input type="hidden"
-													class="hidden_price" value=${list.price }>
-												<fmt:formatNumber value="${list.total }" groupingUsed="true" /></td>
+													class="hidden_price" value=${list.price }> <fmt:formatNumber
+														value="${list.total }" groupingUsed="true" /></td>
 												<td style="width: 5%;"><button type="button"
 														class="btn btn-primary btn-sm delBucket">삭제</button></td>
 											</tr>
@@ -522,7 +522,7 @@
       }
       
    </script>
-	<!--       <script>
+   <script>
    $(document).ready(function(){
 
         const username = '${member.ceo}';
@@ -537,7 +537,7 @@
            }
         }
    });
-   </script> -->
+   </script>
 
 	<!-- End #main -->
 
