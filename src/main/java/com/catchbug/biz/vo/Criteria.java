@@ -7,6 +7,8 @@ public class Criteria {
 
     private int page;
     private int perPageNum;
+
+    private String id;
     
     private String searchType; // 검색타입
     private String searchName; // 검색이름

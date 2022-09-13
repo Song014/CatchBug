@@ -55,7 +55,7 @@ public class OrderController {
 	@ResponseBody
 	@RequestMapping(value = "/verifyIamport/{imp_uid}")
 	public IamportResponse<Payment> paymentByImpUid(Model model, Locale locale, HttpSession session,
-			@PathVariable(value = "imp_uid") String imp_uid) throws IamportResponseException, IOException {
+													@PathVariable(value = "imp_uid") String imp_uid) throws IamportResponseException, IOException {
 		return client.paymentByImpUid(imp_uid);
 	}
 
@@ -63,7 +63,7 @@ public class OrderController {
 	@ResponseBody
 	@RequestMapping(value = "/payments/status/{status}")
 	public IamportResponse<PagedDataList<Payment>> paymentByImpStatus(Model model, Locale locale, HttpSession session,
-			@PathVariable(value = "status") String status) throws IamportResponseException, IOException {
+																	  @PathVariable(value = "status") String status) throws IamportResponseException, IOException {
 		return client.paymentsByStatus(status);
 	}
 
@@ -241,10 +241,8 @@ public class OrderController {
 	@ResponseBody
 	@RequestMapping(value = "/orderDetailid.do", method = RequestMethod.GET)
 	public List<OrderVO> orderDetailid(OrderVO dvo, Model model) {
-		System.out.println("orderDetail 실행");
 		List<OrderVO> orderDetail = os.getOrderDetailList(dvo);
 		model.addAttribute("orderDetail", orderDetail);
-		System.out.println(orderDetail);
 		return orderDetail;
 	}
 
@@ -275,7 +273,7 @@ public class OrderController {
 	public String orderSearch(Criteria cri, Model model) {
 		System.out.println(cri.getSearchType());
 		System.out.println(cri.getSearchName()+"asd");
-		
+
 		if(cri.getSearchName().equals("")) {
 			return "redirect:francOrderHistory.do";
 		}
@@ -298,15 +296,10 @@ public class OrderController {
 	// 가맹점 발주내역 페이지 + 검색
 	@RequestMapping(value = "/orderHistory.do", method = RequestMethod.GET)
 	public String orderHistorypage(SearchVO sw, OrderVO ovo, Model model) {
-
-		System.out.println(sw);
-
 		if (sw.getSearchWord() == null) {
-			System.out.println("orderHistorypage");
 			List<OrderVO> orderno_list = os.getOrderList();
 			model.addAttribute("olist", orderno_list);
 		} else {
-			System.out.println("검색");
 			List<OrderVO> orderno_list = as.franc_SearchList2(sw);
 			model.addAttribute("olist", orderno_list);
 		}

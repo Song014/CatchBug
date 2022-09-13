@@ -1,16 +1,11 @@
 package com.catchbug.biz.order;
 
-import java.util.List;
-
+import com.catchbug.biz.vo.*;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.catchbug.biz.vo.Criteria;
-import com.catchbug.biz.vo.MemberVO;
-import com.catchbug.biz.vo.OrderItemVO;
-import com.catchbug.biz.vo.OrderVO;
-import com.catchbug.biz.vo.TopOrderVO;
+import java.util.List;
 
 @Repository
 public class OrderDAO {
