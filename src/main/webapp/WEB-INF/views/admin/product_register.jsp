@@ -187,16 +187,20 @@
             if (productList[i].product_no == product_no) {
                 alert("상품번호가 이미 존재합니다.");
                 return false;
-            } else if (category_no == '0') {
+            }
+            if (category_no == '0' || category_no == "") {
                 alert("카테고리를 선택하세요.");
                 return false;
-            } else if ($('input[name=brand]').val() == '') {
+            }
+            if ($('input[name=brand]').val() == '') {
                 alert("제조사나 브랜드를 입력하세요.");
                 return false;
-            } else if ($('input[name=price]').val() == '') {
+            }
+            if ($('input[name=price]').val() == '') {
                 alert("가격을 입력해주세요.");
                 return false;
-            } else if ($('input[name=product_name]').val() == '') {
+            }
+            if ($('input[name=product_name]').val() == '') {
                 alert("상품명을 입력해주세요.");
                 return false;
             }
