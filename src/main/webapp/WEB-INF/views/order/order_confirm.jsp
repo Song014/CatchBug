@@ -56,6 +56,18 @@
 .hide {
 	display: none;
 }
+
+.form-input{
+	padding: 0.375rem 0.75rem;
+	font-size: 1rem;
+	font-weight: 400;
+	line-height: 1.5;
+	color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.375rem;
+}
 </style>
 </head>
 
@@ -290,12 +302,12 @@
 						let str ="";
 						if(e.target.value=="optionAddress"){
 							str = `
-								<input type="text" id="ceo" name="ceo" placeholder="이름" > <br>
-								<input type="text" id="contact" name="contact" placeholder="연락처" > <br>
-								<input type="text" id="postcode" name="postcode" placeholder="우편번호" >
-								<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기" ><br>
-								<input type="text" id="shipping_address" name="shipping_address" placeholder="주소" ><br>
-								<input type="text" id="detailAddress" name="detailAddress" placeholder="상세주소" >
+								<input type="text" id="ceo" class="form-input" name="ceo" placeholder="이름" > <br>
+								<input type="text" id="contact" class="form-input" name="contact" placeholder="연락처" > <br>
+								<input type="text" id="postcode" class="form-input" name="postcode" placeholder="우편번호" >
+								<input type="button"  onclick="execDaumPostcode()" value="우편번호 찾기" ><br>
+								<input type="text" id="shipping_address" class="form-input" name="shipping_address" placeholder="주소" >
+								<input type="text" id="detailAddress" class="form-input" name="detailAddress" placeholder="상세주소" >
 						 	`;
 						} else if(e.target.value=="defaultAddress"){
 							str = `
@@ -514,7 +526,7 @@
 													// 가맹점 서버 결제 API 성공시 로직
 													console.log(data);
 													if (rsp.paid_amount == data.response.amount) {
-														alert("결제 및 결제검증완료");
+														console.log("결제 및 결제검증완료");
 
 														$(".order_form")
 															.append(

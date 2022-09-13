@@ -269,9 +269,11 @@ public class OrderController {
 
 	// 가맹점 본인 발주 내역 리스트
 	@RequestMapping(value = "/francOrderHistory.do")
-	public ModelAndView FancOrderHistory(OrderVO ovo, Model model, ModelAndView mav) {
+	public ModelAndView FancOrderHistory(OrderVO ovo, Model model, ModelAndView mav,HttpSession session) {
 		System.out.println("francOrderHistory.do");
-		List<OrderVO> order_list = os.getOrderList(ovo);
+		
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		List<OrderVO> order_list = os.getOrderListid(member.getId());
 		mav.addObject("olist", order_list);
 		mav.setViewName("franc/franc_order_history");
 		return mav;

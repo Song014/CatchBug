@@ -13,7 +13,8 @@
 <meta content="" name="description">
 <meta content="" name="keywords">
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <!-- Favicons -->
 <link href="assets/img/favicon.png" rel="icon">
@@ -93,11 +94,11 @@
 					<div class="col-sm-2">
 						<div class="mb-3">
 							<select class="form-select" id="floatingSelect" name="tap">
-								<option value="1">주문</option>
-								<option value="2">상품</option>
-								<option value="3">배송</option>
-								<option value="4">회원</option>
-								<option value="5">사이트</option>
+								<option value="6">주문</option>
+								<option value="5">상품</option>
+								<option value="2">배송</option>
+								<option value="7">회원</option>
+								<option value="4">사이트</option>
 							</select>
 						</div>
 					</div>
@@ -119,14 +120,14 @@
 				<div class="mb-3 text-center">
 					<button type="submit" class="btn btn-primary">글쓰기</button>
 					<button type="button" class="btn btn-secondary"
-							onclick="history.go(-1)">뒤로가기</button>
+						onclick="history.go(-1)">뒤로가기</button>
 				</div>
 			</form>
 		</div>
 	</div>
 
 	<script>
-	  $('#floatingSelect option[value=${board.tap }]').attr('selected', true);
+		$('#floatingSelect option[value=${board.tap }]').attr('selected', true);
 		function qnaSubmit() {
 			var content = $(".ql-editor").html();
 			console.log(content)
