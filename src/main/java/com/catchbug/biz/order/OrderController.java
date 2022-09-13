@@ -298,5 +298,17 @@ public class OrderController {
 		System.out.println(orderfId);
 		return orderfId;
 	}
+	// 내 발주내역 검색 리스트
+	@RequestMapping("/order_search")
+	public String orderSearch(Criteria cri, Model model){
+		System.out.println(cri.getSearchType());
+		System.out.println(cri.getSearchName());
+		
+		List<OrderVO> olist = os.getOrderSearch(cri);
+		
+		model.addAttribute("olist", olist);
+		
+		return "franc/franc_order_history";
+	}
 
 }

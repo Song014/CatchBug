@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.catchbug.biz.vo.Criteria;
 import com.catchbug.biz.vo.MemberVO;
 import com.catchbug.biz.vo.OrderItemVO;
 import com.catchbug.biz.vo.OrderVO;
@@ -58,5 +59,11 @@ public class OrderServiceImp implements OrderService {
 	public List<OrderVO> getOrderno(OrderVO ovo) {
 		System.out.println("getOrderno ServiceImpl");
 		return dao.getOrderno(ovo);
+	}
+
+	@Override
+	public List<OrderVO> getOrderSearch(Criteria cri) {
+		
+		return dao.getOrderSearch(cri);
 	}
 }

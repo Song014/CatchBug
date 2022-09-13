@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 
 import com.catchbug.biz.vo.QnaReplyVO;
+import com.catchbug.biz.vo.Criteria;
 import com.catchbug.biz.vo.MemberVO;
 
 import com.catchbug.biz.vo.OrderItemVO;
@@ -57,6 +58,11 @@ public class OrderDAO {
 		return mybatis.selectList("OrderMapper.getOrderno", ovo);
 	
 
+	}
+
+	public List<OrderVO> getOrderSearch(Criteria cri) {
+		System.out.println("getOrderSearch 디에이오");
+		return mybatis.selectList("OrderMapper.getOrderSearch", cri);
 	}
 
 	
