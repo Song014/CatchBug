@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.lang.ProcessBuilder.Redirect;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -261,11 +262,18 @@ public class OrderController {
 	@RequestMapping(value = "/francOrderHistory.do")
 	public ModelAndView FancOrderHistory(OrderVO ovo, Model model, ModelAndView mav, HttpSession session) {
 		System.out.println("francOrderHistory.do");
-
 		MemberVO member = (MemberVO) session.getAttribute("member");
-		List<OrderVO> order_list = os.getOrderListid(member.getId());
-		mav.addObject("olist", order_list);
-		mav.setViewName("franc/franc_order_history");
+		
+		if(member != null) {
+			List<OrderVO> order_list = os.getOrderListid(member.getId());
+			System.out.println(session);
+			mav.addObject("olist", order_list);
+			mav.setViewName("franc/franc_order_history");
+		}else {
+			System.out.println("널");
+			mav.setViewName("franc/franc_order_history");
+		}
+		System.out.println("널밖");
 		return mav;
 	}
 

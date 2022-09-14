@@ -223,7 +223,6 @@
 
 <script>
     $(document).ready(function () {
-
         const username = '${member.ceo}';
         const level = '${member.level1}';
         if (username == "") {
