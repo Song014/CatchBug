@@ -126,6 +126,8 @@
 
                                         <c:choose>
                                             <c:when test = "${olist.order_status eq 1}">
+                                            	<td>삭제된 게시글입니다</td>
+                                            
                                                 <td>미승인</td>
                                             </c:when>
                                             <c:when test = "${olist.order_status eq 2}">
