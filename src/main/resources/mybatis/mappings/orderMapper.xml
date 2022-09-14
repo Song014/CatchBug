@@ -125,7 +125,7 @@
                      sum(o.total_price)      as total_price
               FROM order_detail od
                        INNER JOIN orders o ON od.order_no = o.order_no
-              WHERE o.order_status = 1
+              WHERE o.order_status IN (1,2)
               GROUP by od.product_no) od
                  INNER JOIN product p ON od.product_no = p.product_no
         ORDER BY purchase_amount desc
@@ -133,7 +133,7 @@
 
     <select id="getTopOrderFranc" parameterType="String"
             resultType="topOrder">
-        SELECT p.uuid,
+       SELECT p.uuid,
                p.add_day,
                p.product_name,
                p.price,
@@ -144,8 +144,8 @@
                      sum(o.total_price)      as total_price
               FROM order_detail od
                        INNER JOIN orders o ON od.order_no = o.order_no
-              WHERE o.order_status = 1
-                and id = #{id}
+              WHERE o.id = #{id}
+                and o.order_status IN (1,2)
               GROUP by od.product_no) od
                  INNER JOIN product p ON od.product_no = p.product_no
         ORDER BY purchase_amount desc

@@ -76,7 +76,9 @@ public class OrderController {
 		if (session.getAttribute("member") != null) {
 			member = (MemberVO) session.getAttribute("member");
 		} else {
-			return "redirect:login_page.do";
+			model.addAttribute("msg","로그인한 유저만 이용가능합니다.");
+			return "order/factory_order";
+//			return "redirect:login_page.do";
 		}
 		List<CartVO> cartList = new ArrayList<CartVO>();
 		if (cs.getCart(member) != null) {
@@ -97,7 +99,7 @@ public class OrderController {
 		model.addAttribute("product", productList);
 		return "order/factory_order";
 	}
-
+	
 	// 주문하기 눌렀을때
 	@RequestMapping(value = "/orderPage.do")
 	public String orderPage(CartVO vo, HttpSession session, Model model) {
@@ -122,7 +124,6 @@ public class OrderController {
 	@RequestMapping(value = "/submitOrder.do")
 	@Transactional(rollbackFor = Exception.class)
 	public String submitOrder(OrderVO ov, HttpSession session) {
-		System.out.println(ov + "제발 들어가라");
 		try {
 			MemberVO mvo = new MemberVO();
 			MemberVO memberpass = (MemberVO) session.getAttribute("member");
