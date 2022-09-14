@@ -41,6 +41,14 @@
 
 <!-- Template Main CSS File -->
 <link href="assets/css/style.css" rel="stylesheet">
+<script>
+      const msg = '${msg}';
+      const level = '${member.level1}';
+      if(msg != ""){
+      	alert(msg);
+          location.href="login_page.do";
+      }
+ </script>
 
 <!-- =======================================================
 * Template Name: NiceAdmin - v2.3.1
@@ -522,22 +530,7 @@
       }
       
    </script>
-   <script>
-   $(document).ready(function(){
 
-        const username = '${member.ceo}';
-        const level = '${member.level1}';
-        if(username == ""){
-           alert("로그인한 유저만 이용가능합니다.");
-           location.href="login_page.do";
-        }else{
-           if(level != 1){
-              alert("승인된 유저만 이용가능합니다.");
-               location.href="company_intro.do";
-           }
-        }
-   });
-   </script>
 
 	<!-- End #main -->
 
