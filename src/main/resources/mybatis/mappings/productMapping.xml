@@ -25,7 +25,7 @@
     <insert id="insertProduct" parameterType="product">
 
         INSERT INTO product
-        values (#{product_no}, #{sub_category}, #{product_name}, #{price}, sysdate, #{product_img}, #{brand}, #{uuid})
+        values (#{product_no}, #{sub_category}, #{product_name}, #{price}, #{add_day}, #{product_img}, #{brand}, #{uuid})
     </insert>
 
     <insert id="insertImg" parameterType="com.catchbug.biz.vo.ImgVO">

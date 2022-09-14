@@ -140,7 +140,7 @@
                                     <tr>
                                         <td>${status.count }</td>
                                         <th scope = "row"><a href = "#"><img src = "https://catchbugbucket.s3.ap-northeast-2.amazonaws.com/productImg/<fmt:formatDate value="${list.add_day }"
-													pattern="yyyy-MM-dd" />/${list.uuid}"
+													pattern="yyyy-MM-dd"  />/${list.uuid}"
                                                                              onclick = "window.open(this.src)" /></a>
                                         </th>
                                         <td>${list.product_no }</td>
@@ -149,7 +149,7 @@
                                                id = "${list.product_no}">${list.product_name }</a></td>
                                         <td><fmt:formatNumber value="${list.price }" groupingUsed="true"/></td>
                                         <td>${list.product_quantily }</td>
-                                        <td><fmt:formatDate value = "${list.add_day }" pattern = "yyyy-MM-dd" /></td>
+                                        <td><fmt:formatDate value = "${list.add_day }" pattern = "yyyy-MM-dd"  /></td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>

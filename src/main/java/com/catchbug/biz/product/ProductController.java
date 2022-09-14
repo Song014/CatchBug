@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.text.Normalizer;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -89,9 +90,17 @@ public class ProductController {
 
 	@PostMapping("/insertProduct.do")
 	public String InsertProduct(ProductVO vo, ImgVO ivo) {
-
-		int a = vo.getProduct_no();
-		ivo.setProduct_no(a);
+		
+		ivo.setProduct_no(vo.getProduct_no());
+		
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); // 오라클 클라우드의 경우 시간대가 gmt로 맞추어져 있어서 사진 업로드시 생성한 폴더의 날짜를 가져옴
+		try {
+			Date date = formatter.parse(ivo.getUploadPath());
+			vo.setAdd_day(date); 
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} 
+		
 		productService.insertImg(ivo);
 		productService.insertProduct(vo);
 
@@ -163,7 +172,7 @@ public class ProductController {
 			vo.setUuid(uuid);
 		
 			uploadFileName = uuid + "_" + uploadFileName;
-			
+			System.out.println(str+" "+uploadFileName);
 			try {
 				s3Client.putObject(new PutObjectRequest(bucketName, "productImg/"+str+"/"+uploadFileName, multipartFile.getInputStream(), null));
 			} catch (IOException e1) {
@@ -176,8 +185,6 @@ public class ProductController {
 			/* 파일 저장 */
 			try {
 				multipartFile.transferTo(saveFile);
-				// aws에 넣기
-				
 				
 				BufferedImage bo_image = ImageIO.read(saveFile);
 			} catch (Exception e) {
