@@ -88,11 +88,11 @@
 				<div class="card-body">
 					<div align="right" class="dataTable-top">
 						<div>
-							<form action="memberSearchList.do">
-								<select name="searchTap">
+							<form action="member_List.do">
+								<select name="searchType">
 									<option value="1" selected="selected">법인명</option>
 									<option value="2">id</option>
-								</select> <input class="dataTable-input" type="text" name="searchWord"
+								</select> <input class="dataTable-input" type="text" name="searchName"
 									placeholder="검색어를 입력해 주세요.">
 								<button class="btn btn-primary" type="submit">검색</button>
 							</form>
@@ -132,10 +132,28 @@
 							</c:forEach>
 						</tbody>
 					</table>
+					<ul class="pagination justify-content-center">
+						<!-- 페이지 인덱스를 처리한다. -->
+						<c:if test="${pageMaker.prev}">
+							<li><a
+								href="/member_List.do${pageMaker.makeQuery(pageMaker.startPage-1)}">&laquo;</a></li>
+						</c:if>
+
+						<c:forEach begin="${pageMaker.startPage}"
+							end="${pageMaker.endPage}" var="idx">
+							<li
+								<c:out value="${pageMaker.cri.page == idx? 'class=active':''}"/>>
+								<a class="page-link"
+								href="/member_List.do${pageMaker.makeQuery(idx) }&searchType=${searchType }&searchName=${searchName } ">${idx}</a>
+							</li>
+						</c:forEach>
+
+						<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+							<li><a
+								href="/member_List.do${pageMaker.makeQuery(pageMaker.endPage+1)}">&raquo;</a></li>
+						</c:if>
+					</ul>
 					<!-- End Table with hoverable rows -->
-
-
-
 					<script type="text/javascript">
 						
 					<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>

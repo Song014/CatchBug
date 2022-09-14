@@ -1,11 +1,16 @@
 package com.catchbug.biz.order;
 
-import com.catchbug.biz.vo.*;
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import com.catchbug.biz.vo.Criteria;
+import com.catchbug.biz.vo.MemberVO;
+import com.catchbug.biz.vo.OrderItemVO;
+import com.catchbug.biz.vo.OrderVO;
+import com.catchbug.biz.vo.TopOrderVO;
 
 @Repository
 public class OrderDAO {
@@ -73,6 +78,11 @@ public class OrderDAO {
 	public List<OrderVO> getOrderSearch(Criteria cri) {
 		System.out.println("getOrderSearch 디에이오");
 		return mybatis.selectList("OrderMapper.getOrderSearch", cri);
+	}
+
+	public List<OrderVO> getfactoryOrderList() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

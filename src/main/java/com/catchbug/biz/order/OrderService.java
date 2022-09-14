@@ -10,7 +10,7 @@ public interface OrderService {
 
 	void insertOrderItemList(OrderItemVO oiv);
 
-	public List<OrderVO> factoryOrderList(OrderVO vo);
+	public List<OrderVO> factoryOrderList(Criteria cri);
 
 	List<OrderVO> getOrderList();
 
@@ -29,5 +29,10 @@ public interface OrderService {
 	List<TopOrderVO> getTopOrderFranc(String id);
 
 	int getUnOrderCount(String id);
+
+	List<OrderVO> getfactoryOrderList();
+
+	List<OrderVO> factoryOrderList(OrderVO vo);
+
 
 }

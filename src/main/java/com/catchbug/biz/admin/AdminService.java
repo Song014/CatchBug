@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface AdminService {
 
-	public List<MemberVO> getMemberList();
+	
 
 	public List<MemberVO> getMemberWaitList();
 
@@ -18,10 +18,15 @@ public interface AdminService {
 	public List<HashMap<String, Object>> getunOrderHistory(Criteria cri);
 	public MemberVO getMemberM(MemberVO vo);
 	public List<OrderVO> getOrder(OrderVO vo);
+	
+	
 	public List<MemberVO> franc_SearchList(SearchVO vo);
 
 	public List<OrderVO> franc_SearchList2(SearchVO vo);
 	
+	public List<MemberVO> factory_SearchList(SearchVO sv);
+	
+	public List<OrderVO> factory_SearchList2(SearchVO sv);
 
 
 	public List<OrderItemVO> getOrder_detail(OrderVO vo);
@@ -30,6 +35,9 @@ public interface AdminService {
 	public void update_order_status(OrderVO vo);
 	public void update_order_refuse(OrderVO vo);
 
-	public int count(Criteria cri);
+	public List<MemberVO> getMemberList(Criteria cri);
+	public int listCount(Criteria cri);
+
+	
 
 }

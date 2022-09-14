@@ -85,4 +85,16 @@ public class OrderServiceImp implements OrderService {
 	public List<TopOrderVO> getTopOrderFranc(String id) {
 		return dao.getTopOrderFranc(id);
 	}
+
+	@Override
+	public List<OrderVO> getfactoryOrderList() {
+		// TODO Auto-generated method stub
+		return dao.getfactoryOrderList();
+	}
+
+	@Override
+	public List<OrderVO> factoryOrderList(Criteria cri) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
