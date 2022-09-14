@@ -5,6 +5,15 @@
 <!DOCTYPE html>
 
 <head>
+
+<<script type="text/javascript">
+	var session = '${member.level1}';
+	
+	if(session == ""){
+		alert("로그인 후 이용 해주세요. \n"); 
+		location.href = "login_page.do";
+	}
+</script>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -44,10 +53,6 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 </head>
-
-<script type="text/javascript">
-	
-</script>
 
 <body>
 

@@ -4,11 +4,23 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 
+
+
 <head>
+
+<script type="text/javascript">
+	var session = '${member.level1}';
+	
+	if(session == ""){
+		alert("로그인 후 이용 해주세요. \n"); 
+		location.href = "login_page.do";
+	}
+</script>
+
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Dashboard - NiceAdmin Bootstrap Template</title>
+  <title>미출고 주문 현황</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 

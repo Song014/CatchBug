@@ -9,6 +9,7 @@
     <select id="getMemberList" resultType="member">
         SELECT *
         FROM member
+        WHERE level1 = 2
     </select>
 
     <!-- 가입승인 대기 리스트 -->
@@ -43,6 +44,7 @@
         on o.id = m.id
 
         <choose>
+        	<!-- 서치타입 = 검색조건  -->
             <when test="searchType == 2">
                 WHERE o.order_no like '%'||#{searchName}||'%'
                 AND order_status = 1
@@ -56,12 +58,6 @@
                 order by o.order_no asc
                 OFFSET #{pageStart} ROWS FETCH FIRST #{perPageNum} ROWS ONLY
             </when>
-
-            <!--  <when test="searchType.equals('business_name')">
-                WHERE m.business_name like concat('%', #{keyword}, '%')
-                OR WHERE order_status = 1
-                order by p.product_no asc
-            </when> -->
 
             <otherwise>
                 where o.order_status = 1
