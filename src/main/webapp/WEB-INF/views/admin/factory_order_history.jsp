@@ -89,10 +89,11 @@
 			<div class="card">
 				<div class="card-body">
 					<div align="right" class="dataTable-top">
+					
 						<div>
 							<form action="factoryOrderHistory.do">
 								<select name="searchTap">
-									<option value="1" selected="selected">장바구니번호</option>
+									<option value="1" selected="selected">주문서 번호</option>
 									<option value="2">id</option>
 								</select> <input class="dataTable-input" type="text" name="searchWord"
 									placeholder="검색어를 입력해 주세요.">
@@ -106,7 +107,7 @@
 						<table class="table datatable dataTable-table">
 							<tr>
 								<th scope="col" data-sortable=""><a href="#"
-									class="dataTable-sorter">#</a></th>
+									class="dataTable-sorter">No.</a></th>
 								<th scope="col" data-sortable=""><a href="#"
 									class="dataTable-sorter">주문서 번호</a></th>
 								<th scope="col" data-sortable=""><a href="#"
@@ -119,31 +120,25 @@
 									class="dataTable-sorter">배송지</a></th>
 								<th scope="col" data-sortable=""><a href="#"
 									class="dataTable-sorter">처리 상태</a></th>
-								<th scope="col" data-sortable=""><a href="#"
-									class="dataTable-sorter">비고</a></th>
-
 							</tr>
 							<c:forEach var="orderList" items="${list}" varStatus="status">
 								<tr>
 									<th scope="row">${status.count}</th>
 
-
-
-									<td><a class="primary order_detail_modal2"
-										data-bs="${orderList.order_no}" data-bs-toggle="modal"
-										data-bs-target="#modal-biz2"> ${orderList.order_no}</a></td>
+									<td><a class="primary order_detail_modal"
+											data-bs="${orderList.id}" data-bs-toggle="modal"
+											data-bs-target="#modal-biz"> ${orderList.order_no}</a></td>
 
 									<td><a class="primary order_id_modal"
 										data-bs="${orderList.id}" data-bs-toggle="modal"
-										data-bs-target="#modalIdDetail"> ${orderList.id}님</a></td>
+										data-bs-target="#modalDialogScrollable"> ${orderList.id}</a></td>
 
-									<td>${orderList.total_price}원</td>
+									<td><fmt:formatNumber value="${orderList.total_price}"
+											groupingUsed="true" />원</td>
 									<td><fmt:formatDate value="${orderList.processing_day}"
 											pattern="yyyy-MM-dd" timeZone="Asia/Seoul" /></td>
 									<td>${orderList.shipping_address}</td>
 									<td>${orderList.order_status}</td>
-									<td>${orderList.note}</td>
-
 								</tr>
 							</c:forEach>
 						</table>
@@ -156,12 +151,12 @@
 	</main>
 	<!-- End #main -->
 	<!-- 모달1 -->
-	<div class="modal fade" id="modal-biz2" tabindex="-1">
+	<div class="modal fade" id="modal-biz" tabindex="-1">
 		<div class="modal-dialog modal-lg modal-dialog-scrollable">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title">
-						주문서 번호 : <span id="orderModal42"> <!--주문자 id 들어가는곳-->
+						주문자 아이디 : <span id="orderModal4"> <!--주문자 id 들어가는곳-->
 						</span>
 					</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -170,18 +165,23 @@
 				<div class="modal-body">
 					<div class="card">
 						<div class="card-body">
+							<div class="card-title">
+								<div style="text-align: right;" id="orderModal3">
+									<!-- 가격 들어갈 곳 -->
+								</div>
+							</div>
 							<form>
 								<table class="table">
 									<thead>
-										<tr>
-											<th scope="col">주문서 상세</th>
-											<th scope="col">주문번호</th>
-											<th scope="col">상품 번호</th>
-											<th scope="col">상품명</th>
-											<th scope="col">구입수량</th>
+										<tr style="text-align: center">
+											<th scope="col" style="width: 10%;">No</th>
+											<th scope="col" style="width: 15%;">상품번호</th>
+											<th scope="col" style="width: 50%;">상품 이름</th>
+											<th scope="col" style="width: 15%;">구입수량</th>
+											<th scope="col" style="width: 10%;">가격</th>
 										</tr>
 									</thead>
-									<tbody id="orderModal11">
+									<tbody id="orderModal1">
 
 
 									</tbody>
@@ -199,36 +199,29 @@
 		</div>
 	</div>
 
-	<!-- 모달1 끝-->
-
-	<!-- 모달2-->
-	<div class="modal fade" id="modalIdDetail" tabindex="-1">
-		<div class="modal-dialog modal-md modal-dialog-scrollable">
+	<!-- 모달2 주문내용 전체품목-->
+	<div class="modal fade" id="modalDialogScrollable" tabindex="-1">
+		<div class="modal-dialog modal-dialog-scrollable">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title">주문자 상세보기</h5>
+					<h5 class="modal-title">ceo 상세보기</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
 					<div class="card">
-						<!-- <div class="card-body">
-                     <div class="card-title">
-                        <h5 style="text-align: right;">총 주문금액</h5>
-                        <div style="text-align: right;">
-                           <i class="bx bx-won">가격 적어주세요</i>
-                        </div>
-                     </div> -->
-						<table class="table">
+						<table class="table" tex>
 							<thead>
 								<tr>
-									<th scope="col">ID</th>
-									<th scope="col">대표자</th>
-									<th scope="col">법인명</th>
-									<th scope="col">사업자 등록 번호</th>
+									<th scope="col" style="width: 20%;">ID</th>
+									<th scope="col" style="width: 30%;">사업자 등록번호</th>
+									<th scope="col" style="width: 30%;">법인명</th>
+									<th scope="col" style="width: 20%;">ceo</th>
 								</tr>
 							</thead>
-							<tbody id="orderModal62">
+							<tbody id="orderModal6">
+
+
 							</tbody>
 						</table>
 					</div>
@@ -289,80 +282,83 @@
 	<script src="assets/js/main.js"></script>
 
 	<script>
-	   /* order_detail 모달창 */
-	   $(document).on("click",".order_detail_modal2", function (e) {
-	         var orderno =$(this).data("bs");
-	         console.log("모달 비동기처리 작동  : "+orderno);
-	         e.preventDefault();
-	         let stx ="";
-	         $.ajax({
-	                  type : "GET", //요청 메소드 방식
-	                  url : "orderFDetail.do?order_no=" + orderno,
-	                  success : function(result) {
-	                     $("#orderModal11").empty();
-	                     $("#orderModal42").empty();
+    /* order_detail 모달창 */
+    $(document).on("click", ".order_detail_modal", function (e) {
+        var orderId = $(this).data("bs");
+        e.preventDefault();
+        let str = "";
+        $.ajax({
+            type   : "GET", //요청 메소드 방식
+            url    : "orderDetailid.do?id=" + orderId,
+            success: function (result) {
+                $("#orderModal1").empty();
+                $("#orderModal3").empty();
+                $("#orderModal4").empty();
 
-	                       for(var b=0;b<result.length;b++){
-	                        stx += `
-	                           <tr>
-	                              <td>`+result[b].detail_no+`</td>
-	                              <td>`+result[b].order_no+`</td>
-	                              <td>`+result[b].product_no+`</td>
-	                              <td>`+result[b].product_name+`</td>
-	                              <td>`+result[b].purchase_amount+`</td>
-	                           </tr>
-	                              `;
-	                       }
-	                       console.log(stx)
-	                   
-	                  			 stb= orderno; 
-	                           $("#orderModal11").html(stx);
-	                           $("#orderModal42").html(stb); 
-	                           
-	                     console.log("ajax 성공");
-	                       
-	                  }, 
-	                  error : function(a, b, c) {
-	                     //통신 실패시 발생하는 함수(콜백)
-	                     console.log("실패" + a, b, c);
-	                  }
-	         })
-	         }); 
-	   /* order_detail 모달창 끝 */
-   
-   /* order_id 모달창 시작 */ 
-    
-     $(document).on("click", ".order_id_modal", function (e) {
-         e.preventDefault();
-       var orderId =$(this).data("bs");
-         console.log("모달 비동기처리 작동  : "+orderId);
-         $.ajax({
-                  type : "GET", //요청 메소드 방식
-                  url : "orderfId.do?id=" + orderId,
-                  success : function(orderId) {
-                     $("#orderModal62").empty();
-                       console.log(orderId);
-                        stz = `
+                console.log(result)
+                let tprice = 0;
+                for (var j = 0; j < result.length; j++) {
+                    tprice += result[j].total_price;
+                    const price = (result[j].price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                    str += `
+                           <tr style="text-align: center">
+                              <td>` + (j+1) + `</td>
+                              <td>` + result[j].product_no + `</td>
+                              <td>` + result[j].product_name + `</td>
+                              <td>` + result[j].purchase_amount + `</td>
+                              <td id=orderModal2>` + price + `</td>
+                           </tr>
+
+                              `;
+                }
+
+                sta = tprice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                stb = orderId;
+                $("#orderModal1").html(str);
+                $("#orderModal3").html("<h3> 총 가격 : <i class = 'bx bx-won'>" + sta + "</i></h3>");
+                $("#orderModal4").html(stb);
+
+                console.log("ajax 성공");
+            },
+            error  : function (a, b, c) {
+                //통신 실패시 발생하는 함수(콜백)
+                console.log("실패" + a, b, c);
+            }
+        })
+    });
+    /* order_detail 모달창 끝 */
+
+    /* order_id 모달창 끝 */
+
+    $(document).on("click", ".order_id_modal", function (e) {
+        e.preventDefault();
+        var orderId = $(this).data("bs");
+        console.log("모달 비동기처리 작동  : " + orderId);
+        $.ajax({
+            type   : "GET", //요청 메소드 방식
+            url    : "orderId.do?id=" + orderId,
+            success: function (orderId) {
+                $("#orderModal6").empty();
+                console.log(orderId);
+
+                sti = `
                            <tr>
-                              <td>`+orderId.id+`</td>
-                              <td>`+orderId.ceo+`</td>
-                              <td>`+orderId.business_name+`</td>
-                              <td>`+orderId.business_no+`</td>
+                              <td>` + orderId.id + `</td>
+                              <td>` + orderId.business_no + `</td>
+                              <td>` + orderId.business_name + `</td>
+                              <td>` + orderId.ceo + `</td>
                            </tr>
                               `;
-                              
-                     console.log("ajax 성공");
-                           $("#orderModal62").html(stz);
-                  }, 
-                  error : function(a, b, c) {
-                     //통신 실패시 발생하는 함수(콜백)
-                     console.log("실패" + a, b, c);
-                  }
-         }) 
-     });
-   
-     /* order_id 모달창 끝 */ 
-         
+                $("#orderModal6").html(sti);
+                console.log("ajax 성공");
+            },
+            error  : function (a, b, c) {
+                //통신 실패시 발생하는 함수(콜백)
+                console.log("실패" + a, b, c);
+            }
+        })
+    });
+
 </script>
 
 </body>

@@ -4,189 +4,243 @@
 
 <mapper namespace="AdminMapper">
 
+	<!-- 가입승인 대기 리스트 -->
+	<select id="getMemberWaitList" resultType="member">
+		SELECT *
+		FROM member
+		WHERE level1 = 3
+	</select>
 
-    <!-- 가맹점 전체 리스트 -->
-    <select id="getMemberList" resultType="member">
+	<!-- 승인 처리 -->
+	<update id="memberLevelUpdate" parameterType="member">
+		UPDATE member
+		SET
+		level1 = 2
+		WHERE id = #{id}
+	</update>
+
+	<!-- 반려 처리 -->
+	<delete id="memberrefuse">
+		<!-- DELETE FROM member where id = #{id} -->
+		UPDATE member
+		SET level1 = 4
+		WHERE id = #{id}
+	</delete>
+
+	<!-- 미출고 내역 -->
+	<select id="unOrderHistory" parameterType="criteria"
+		resultType="HashMap">
+		select o.*, m.id,m.business_name
+		from orders o
+		join member m
+		on o.id =
+		m.id
+
+		<choose>
+			<when test="searchType == 2">
+				WHERE o.order_no like '%'||#{searchName}||'%'
+				AND
+				order_status = 1
+				order by o.order_no asc
+				OFFSET #{pageStart} ROWS
+				FETCH FIRST #{perPageNum} ROWS ONLY
+			</when>
+
+			<when test="searchType == 1">
+				WHERE m.business_name like '%'||#{searchName}||'%'
+				AND order_status = 1
+				order by o.order_no asc
+				OFFSET #{pageStart} ROWS
+				FETCH FIRST #{perPageNum} ROWS ONLY
+			</when>
+
+			<!-- <when test="searchType.equals('business_name')"> WHERE m.business_name 
+				like concat('%', #{keyword}, '%') OR WHERE order_status = 1 order by p.product_no 
+				asc </when> -->
+
+			<otherwise>
+				where o.order_status = 1
+				order by o.order_no asc
+				OFFSET
+				#{pageStart} ROWS FETCH FIRST #{perPageNum} ROWS ONLY
+			</otherwise>
+		</choose>
+	</select>
+
+	<!-- 미출고 내역 회원모달 -->
+	<select id="getMemberM" parameterType="member"
+		resultType="member">
+		select *
+		from member
+		where id = #{id}
+	</select>
+
+	<!-- 미출고 내역 주문모달 -->
+	<select id="getOrderM" parameterType="order" resultType="order">
+		SELECT
+		m.id,
+		m.regdate,
+		o.order_no,
+		o.total_price,
+		o.order_status,
+		d.detail_no,
+		d.purchase_amount,
+		p.product_no,
+		p.price,
+		p.product_name,
+		ps.product_quantily
+		FROM order_detail d
+		INNER JOIN product p
+		ON
+		d.product_no = p.product_no
+		INNER JOIN orders o
+		ON d.order_no =
+		o.order_no
+		INNER JOIN member m
+		ON o.id = m.id
+		INNER JOIN product_stock ps
+		ON ps.product_no = p.product_no
+		WHERE o.order_no = #{order_no}
+		order by
+		p.product_no asc
+	</select>
+
+	<!-- 주문서 조회 -->
+	<select id="getOrderList" parameterType="order"
+		resultType="orderItem">
+
+		SELECT *
+		FROM order_detail
+		WHERE order_no = #{order_no}
+	</select>
+
+	<!-- 현재 재고수 조회 -->
+	<select id="getProductQuantily" parameterType="int"
+		resultType="int">
+		SELECT product_quantily
+		FROM product_stock
+		WHERE product_no =
+		#{product_no}
+	</select>
+
+	<!-- 승인 처리시 재고수 변경 -->
+	<update id="updateQuantily" parameterType="orderItem">
+		UPDATE PRODUCT_STOCK
+		SET PRODUCT_QUANTILY = #{purchase_amount}
+		WHERE product_no =
+		#{product_no}
+	</update>
+
+	<!-- 배송중으로 변경 -->
+	<update id="AdminMapper.update_order_status">
+		UPDATE orders
+		set ORDER_STATUS = 2
+		WHERE order_no =
+		#{order_no}
+	</update>
+
+	<!-- 미출고 취소 -->
+	<update id="update_order_refuse">
+		UPDATE orders
+		set ORDER_STATUS = 3
+		WHERE order_no =
+		#{order_no}
+	</update>
+
+	<!-- 리스트 카운트 -->
+	<select id="count" resultType="int" parameterType="hashMap">
+		SELECT count(o.order_no)
+		FROM orders o
+		INNER JOIN member m
+		ON o.id=m.id
+
+		<choose>
+			<when test="searchType == 2">
+				WHERE o.order_no like '%'||#{searchName}||'%'
+				AND
+				o.order_status = 1
+			</when>
+
+			<when test="searchType == 1">
+				WHERE m.business_name like '%'||#{searchName}||'%'
+				AND o.order_status = 1
+			</when>
+
+			<!-- <when test="searchType.equals('business_name')"> WHERE m.business_name 
+				like concat('%', #{keyword}, '%') OR WHERE order_status = 1 order by p.product_no 
+				asc </when> -->
+
+			<otherwise>
+				where o.order_status = 1
+			</otherwise>
+		</choose>
+
+	</select>
+
+	<!-- 리스트 + 페이징 + 검색 -->
+    <select id="getMemberList" parameterType="criteria" resultType="member">
         SELECT *
         FROM member
-    </select>
-
-    <!-- 가입승인 대기 리스트 -->
-    <select id="getMemberWaitList" resultType="member">
-        SELECT *
-        FROM member
-        WHERE level1 = 3
-    </select>
-
-    <!-- 승인 처리 -->
-    <update id="memberLevelUpdate" parameterType="member">
-        UPDATE member
-        SET level1 = 2
-        WHERE id = #{id}
-    </update>
-
-    <!-- 반려 처리 -->
-    <delete id="memberrefuse">
-        <!-- 	DELETE
-            FROM member
-            where id = #{id} -->
-        UPDATE member
-        SET level1 = 4
-        WHERE id = #{id}
-    </delete>
-
-    <!-- 미출고 내역 -->
-    <select id="unOrderHistory" parameterType="criteria" resultType="HashMap">
-        select o.*, m.id,m.business_name
-        from orders o
-        join member m
-        on o.id = m.id
-
         <choose>
-            <when test="searchType == 2">
-                WHERE o.order_no like '%'||#{searchName}||'%'
-                AND order_status = 1
-                order by o.order_no asc
-                OFFSET #{pageStart} ROWS FETCH FIRST #{perPageNum} ROWS ONLY
-            </when>
-
             <when test="searchType == 1">
-                WHERE m.business_name like '%'||#{searchName}||'%'
-                AND order_status = 1
-                order by o.order_no asc
+                WHERE business_name like '%'||#{searchName}||'%'
+                ORDER BY business_name DESC
                 OFFSET #{pageStart} ROWS FETCH FIRST #{perPageNum} ROWS ONLY
             </when>
-
-            <!--  <when test="searchType.equals('business_name')">
-                WHERE m.business_name like concat('%', #{keyword}, '%')
-                OR WHERE order_status = 1
-                order by p.product_no asc
-            </when> -->
-
+            <when test="searchType == 2">
+                WHERE id like '%'||#{searchName}||'%'
+                ORDER BY id
+                OFFSET #{pageStart} ROWS FETCH FIRST #{perPageNum} ROWS ONLY
+            </when>
             <otherwise>
-                where o.order_status = 1
-                order by o.order_no asc
+                ORDER BY id DESC
                 OFFSET #{pageStart} ROWS FETCH FIRST #{perPageNum} ROWS ONLY
             </otherwise>
         </choose>
     </select>
+	
+	    <!-- 공지사항 리스트 카운트 -->
+    <select id="count2" resultType="int" parameterType="HashMap">
+        SELECT count(id)
+        FROM member
 
-    <!-- 미출고 내역 회원모달 -->
-    <select id="getMemberM" parameterType="member" resultType="member">
-        select *
-        from member
-        where id = #{id}
+        <if test="searchType == 1">
+            WHERE id like '%'||#{searchName}||'%'
+        </if>
     </select>
 
-    <!-- 미출고 내역 주문모달 -->
-    <select id="getOrderM" parameterType="order" resultType="order">
-        SELECT m.id,
-               m.regdate,
-               o.order_no,
-               o.total_price,
-               o.order_status,
-               d.detail_no,
-               d.purchase_amount,
-               p.product_no,
-               p.price,
-               p.product_name,
-               ps.product_quantily
-        FROM order_detail d
-                 INNER JOIN product p
-                            ON d.product_no = p.product_no
-                 INNER JOIN orders o
-                            ON d.order_no = o.order_no
-                 INNER JOIN member m
-                            ON o.id = m.id
-                 INNER JOIN product_stock ps
-                            ON ps.product_no = p.product_no
-        WHERE o.order_no = #{order_no}
-        order by p.product_no asc
-    </select>
-    
-    <!-- 주문서 조회 -->
-    <select id="getOrderList" parameterType="order" resultType="orderItem">
 
-        SELECT *
-        FROM order_detail
-        WHERE order_no = #{order_no}
-    </select>
+	<select id="factorySearchList" resultType="member"
+		parameterType="search">
+		SELECT *
+		FROM member m
+		WHERE ceo LIKE '%' || #{searchWord}
+		|| '%'
+		or id LIKE '%' || #{searchWord} || '%'
+		or business_name LIKE '%'
+		|| #{searchWord} || '%'
+	</select>
 
-    <!-- 현재 재고수 조회 -->
-    <select id="getProductQuantily" parameterType="int" resultType="int">
-        SELECT product_quantily
-        FROM product_stock
-        WHERE product_no = #{product_no}
-    </select>
 
-    <!-- 승인 처리시 재고수 변경 -->
-    <update id="updateQuantily" parameterType="orderItem">
-        UPDATE PRODUCT_STOCK
-        SET PRODUCT_QUANTILY = #{purchase_amount}
-        WHERE product_no = #{product_no}
-    </update>
-
-    <!-- 배송중으로 변경 -->
-    <update id="AdminMapper.update_order_status">
-        UPDATE orders
-        set ORDER_STATUS = 2
-        WHERE order_no = #{order_no}
-    </update>
-
-    <!-- 미출고  취소 -->
-    <update id="update_order_refuse">
-        UPDATE orders
-        set ORDER_STATUS = 3
-        WHERE order_no = #{order_no}
-    </update>
-
-    <!-- 리스트 카운트 -->
-    <select id="count" resultType="int" parameterType="hashMap">
-        SELECT count(o.order_no)
-        FROM orders o
-        INNER JOIN member m
-        ON o.id=m.id
-
-        <choose>
-            <when test="searchType == 2">
-                WHERE o.order_no like '%'||#{searchName}||'%'
-                AND o.order_status = 1
-            </when>
-
-            <when test="searchType == 1">
-                WHERE m.business_name like '%'||#{searchName}||'%'
-                AND o.order_status = 1
-            </when>
-
-            <!--  <when test="searchType.equals('business_name')">
-                WHERE m.business_name like concat('%', #{keyword}, '%')
-                OR WHERE order_status = 1
-                order by p.product_no asc
-            </when> -->
-
-            <otherwise>
-                where o.order_status = 1
-            </otherwise>
-        </choose>
-
-    </select>
-    
-    
-
-    <select id="SearchList" resultType="member" parameterType="search">
-        SELECT *
-        FROM member m
-        WHERE ceo LIKE '%' || #{searchWord} || '%'
-           or id LIKE '%' || #{searchWord} || '%'
-           or business_name LIKE '%' || #{searchWord} || '%'
-    </select>
-    <!-- 가맹점 발주내역 검색기능 -->
-    <select id="SearchList2" resultType="order" parameterType="search">
-        SELECT *
-        FROM orders
-        WHERE id LIKE '%' || #{searchWord} || '%'
-           or order_no LIKE '%' || #{searchWord} || '%'
-    </select>
+	<select id="SearchList" resultType="member"
+		parameterType="search">
+		SELECT *
+		FROM member m
+		WHERE ceo LIKE '%' || #{searchWord}
+		|| '%'
+		or id LIKE '%' || #{searchWord} || '%'
+		or business_name LIKE '%'
+		|| #{searchWord} || '%'
+	</select>
+	<!-- 가맹점 발주내역 검색기능 -->
+	<select id="SearchList2" resultType="order"
+		parameterType="search">
+		SELECT *
+		FROM orders
+		WHERE id LIKE '%' || #{searchWord} ||
+		'%'
+		or order_no LIKE '%' || #{searchWord} || '%'
+	</select>
 
 
 </mapper>

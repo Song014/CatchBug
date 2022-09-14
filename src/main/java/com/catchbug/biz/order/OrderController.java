@@ -305,6 +305,7 @@ public class OrderController {
 	// 가맹점 발주내역 페이지 + 검색
 	@RequestMapping(value = "/orderHistory.do", method = RequestMethod.GET)
 	public String orderHistorypage(SearchVO sw, OrderVO ovo, Model model) {
+		System.out.println(sw);
 		if (sw.getSearchWord() == null) {
 			List<OrderVO> orderno_list = os.getOrderList();
 			model.addAttribute("olist", orderno_list);
@@ -323,12 +324,12 @@ public class OrderController {
 
 		if (sv.getSearchWord() == null) {
 			System.out.println("factoryOrderHistorypage");
-			List<OrderVO> orderno_list = os.getOrderList();
-			model.addAttribute("olist", orderno_list);
+			List<OrderVO> orderno_list = os.getfactoryOrderList();
+			model.addAttribute("list", orderno_list);
 		} else {
 			System.out.println("검색");
-			List<OrderVO> orderno_list = as.franc_SearchList2(sv);
-			model.addAttribute("olist", orderno_list);
+			List<OrderVO> orderno_list = as.factory_SearchList2(sv);
+			model.addAttribute("list", orderno_list);
 		}
 		return "admin/factory_order_history";
 	}
