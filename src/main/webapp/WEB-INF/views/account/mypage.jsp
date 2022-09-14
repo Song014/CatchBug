@@ -89,7 +89,7 @@
                 <div class="card">
                     <div
                             class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-                        <img src="/resources/profileImg/${img.uploadPath }/${img.uuid}" alt="Profile"
+                        <img src="https://catchbugbucket.s3.ap-northeast-2.amazonaws.com/profileImg/${img.uploadPath }/${img.uuid}" alt="Profile"
                              class="rounded-circle">
                         <h2>${member.business_name}</h2>
                         <h3>${member.email}</h3>
@@ -139,7 +139,7 @@
 
                                         <div class="col-md-8 col-lg-9">
                                             <div id="div-preview">
-                                                <img id="image" src="/resources/profileImg/${img.uploadPath }/${img.uuid}" style="width:100px; heigth:100px;" />
+                                                <img id="image" src="https://catchbugbucket.s3.ap-northeast-2.amazonaws.com/profileImg/${img.uploadPath }/${img.uuid}" style="width:100px; heigth:100px;" />
                                                 <input type="hidden" name="id" value="${member.id }">
                                                 <input type="hidden" name="oldUuid" value="${member.uuid }">
                                             </div>

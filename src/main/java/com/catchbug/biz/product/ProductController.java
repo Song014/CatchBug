@@ -1,9 +1,21 @@
 package com.catchbug.biz.product;
 
-import com.catchbug.biz.vo.ImgVO;
-import com.catchbug.biz.vo.ProductVO;
-import net.sf.json.JSONArray;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.text.Normalizer;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+
+import javax.imageio.ImageIO;
+import javax.servlet.ServletContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,18 +28,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.imageio.ImageIO;
-import javax.servlet.ServletContext;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.text.Normalizer;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.catchbug.biz.vo.ImgVO;
+import com.catchbug.biz.vo.ProductVO;
+
+import net.sf.json.JSONArray;
 
 @Controller
 public class ProductController {
@@ -39,6 +45,12 @@ public class ProductController {
 	
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private AmazonS3 s3Client;
+	
+	@Value("${aws.bucketname}")
+	private String bucketName;
 	
 	// 상품 삭제를 위한 컨트롤러
 	@RequestMapping("/deleteProduct.do")
@@ -151,18 +163,26 @@ public class ProductController {
 			vo.setUuid(uuid);
 		
 			uploadFileName = uuid + "_" + uploadFileName;
-
+			
+			try {
+				s3Client.putObject(new PutObjectRequest(bucketName, "productImg/"+str+"/"+uploadFileName, multipartFile.getInputStream(), null));
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			
 			/* 파일 위치, 파일 이름을 합친 File 객체 */
 			File saveFile = new File(uploadPath, uploadFileName);
 
 			/* 파일 저장 */
 			try {
 				multipartFile.transferTo(saveFile);
-
+				// aws에 넣기
+				
+				
 				BufferedImage bo_image = ImageIO.read(saveFile);
 			} catch (Exception e) {
 				e.printStackTrace();
-			}
+			} 
 			list.add(vo);
 		}
 

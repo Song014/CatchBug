@@ -166,7 +166,7 @@
 		</form>
 	</div>
 	<img
-		src="resources/productImg/<fmt:formatDate value="${product.add_day }" pattern="yyyy-MM-dd" />/${product.uuid }"
+		src="https://catchbugbucket.s3.ap-northeast-2.amazonaws.com/productImg/<fmt:formatDate value="${product.add_day }" pattern="yyyy-MM-dd" />/${product.uuid }"
 		alt="Profile" class="rounded-circle"> </main>
 
 	<!-- ======= Footer ======= -->
