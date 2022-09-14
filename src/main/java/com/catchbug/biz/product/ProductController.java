@@ -33,8 +33,9 @@ import java.util.UUID;
 @Controller
 public class ProductController {
 //	private String uploadFolder = "C:/work/spring-space/CatchBug/src/main/webapp/resources/productImg";
-	private String uploadFolder = "/Users/hyeon1339/CatchBugProject/src/main/webapp/resources/productImg";
-
+//	private String uploadFolder = "/Users/hyeon1339/CatchBugProject/src/main/webapp/resources/productImg";
+	private String uploadFolder = "C:\\Users\\user\\git\\CatchBug\\src\\main\\webapp\\resources\\productImg";
+	
 	@Autowired
 	private ServletContext servletContext;
 	

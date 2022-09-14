@@ -245,6 +245,23 @@
                                         <td><a class = "primary order_id_modal2" data-bs = "${olist.id}"
                                                data-bs-toggle = "modal"
                                                data-bs-target = "#modalDialogScrollable2"> ${olist.id}님</a></td>
+                                        <td>${olist.total_price}원</td>
+
+
+                                        <c:choose>
+                                            <c:when test = "${olist.order_status eq 1}">
+                                            	<td>삭제된 게시글입니다</td>
+                                            
+                                                <td>미승인</td>
+                                            </c:when>
+                                            <c:when test = "${olist.order_status eq 2}">
+                                                <td>승인</td>
+                                            </c:when>
+                                            <c:when test = "${olist.order_status eq 3}">
+                                                <td>취소</td>
+                                            </c:when>
+
+                                        </c:choose>
                                         <td><fmt:formatNumber value = "${olist.total_price}" groupingUsed = "true" />원
                                         </td>
                                         <td>

@@ -4,6 +4,15 @@
 
 <mapper namespace="AdminMapper">
 
+
+
+    <!-- 가맹점 전체 리스트 -->
+    <select id="getMemberList" resultType="member">
+        SELECT *
+        FROM member
+        WHERE level1 = 2
+    </select>
+
 	<!-- 가입승인 대기 리스트 -->
 	<select id="getMemberWaitList" resultType="member">
 		SELECT *
@@ -179,9 +188,17 @@
 
 	<!-- 리스트 + 페이징 + 검색 -->
     <select id="getMemberList" parameterType="criteria" resultType="member">
+
         SELECT *
         FROM member
         <choose>
+
+        	<!-- 서치타입 = 검색조건  -->
+            <when test="searchType == 2">
+                WHERE o.order_no like '%'||#{searchName}||'%'
+                AND order_status = 1
+                order by o.order_no asc
+
             <when test="searchType == 1">
                 WHERE business_name like '%'||#{searchName}||'%'
                 ORDER BY business_name DESC
