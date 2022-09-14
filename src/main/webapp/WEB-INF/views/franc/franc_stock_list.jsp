@@ -150,8 +150,8 @@
                                 <c:forEach var = "list" items = "${product }" varStatus = "status">
                                     <tr>
                                         <td>${status.count }</td>
-                                        <th scope = "row"><a href = "#"><img src = "/resources/productImg/<fmt:formatDate value="${list.add_day }"
-													pattern="yyyy-MM-dd" />/${list.uuid}"
+                                        <th scope = "row"><a href = "#"><img src = "https://catchbugbucket.s3.ap-northeast-2.amazonaws.com/productImg/<fmt:formatDate value="${list.add_day }"
+													pattern="yyyy-MM-dd"  />/${list.uuid}"
                                                                              onclick = "window.open(this.src)" /></a>
                                         </th>
                                         <td>${list.product_no }</td>
@@ -160,7 +160,7 @@
                                                id = "${list.product_no}">${list.product_name }</a></td>
                                         <td><fmt:formatNumber value="${list.price }" groupingUsed="true"/></td>
                                         <td>${list.product_quantily }</td>
-                                        <td><fmt:formatDate value = "${list.add_day }" pattern = "yyyy-MM-dd" /></td>
+                                        <td><fmt:formatDate value = "${list.add_day }" pattern = "yyyy-MM-dd"  /></td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>
@@ -287,7 +287,7 @@
 
 						<tr>
 							<td>1</td>
-							<th scope="row"><a href="#"><img src="/resources/productImg/` + result.add_day + `/` + result.uuid + `"
+							<th scope="row"><a href="#"><img src="https://catchbugbucket.s3.ap-northeast-2.amazonaws.com/productImg/` + result.add_day + `/` + result.uuid + `"
 								onclick="window.open(this.src)"/></a></th>
 							<td>` + result.product_no + `</td>
 							<td><a class="primary product_modal" data-bs-toggle="modal"
@@ -327,7 +327,7 @@
                     const str = `
 						<tr>
 							<td>1</td>
-							<th scope="row"><a href="#"><img src="/resources/productImg/` + result.add_day + `/` + result.uuid + `"
+							<th scope="row"><a href="#"><img src="https://catchbugbucket.s3.ap-northeast-2.amazonaws.com/productImg/` + result.add_day + `/` + result.uuid + `"
 								onclick="window.open(this.src)"/></a></th>
 							<td>` + result.product_no + `</td>
 							<td><a class="primary product_modal" data-bs-toggle="modal"
@@ -380,7 +380,7 @@
 					`;
                     const title = `<h5>` + result.product_name + `</h5>`;
                     console.log(title);
-                    const imgPath = "/resources/productImg/" + result.add_day + "/" + result.uuid;
+                    const imgPath = "https://catchbugbucket.s3.ap-northeast-2.amazonaws.com/productImg/" + result.add_day + "/" + result.uuid;
                     console.log(imgPath);
                     const imgStr = `<img src="` + imgPath + `"/>`
                     $("#modal-product-name").append(title);
