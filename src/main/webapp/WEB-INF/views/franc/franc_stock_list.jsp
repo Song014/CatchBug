@@ -322,11 +322,11 @@
             dataType: "json", //서버가 요청 URL을 통해서 응답하는 내용의 타입
             success : function (result) {
                 $("#category tbody tr").remove(); // 기존 존재하는 테이블 삭제
-                result.forEach(function (result) {
+                result.forEach(function (result,index) {
                     const price = (result.price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
                     const str = `
 						<tr>
-							<td>1</td>
+							<td>`+(index+1)+`</td>
 							<th scope="row"><a href="#"><img src="https://catchbugbucket.s3.ap-northeast-2.amazonaws.com/productImg/` + result.add_day + `/` + result.uuid + `"
 								onclick="window.open(this.src)"/></a></th>
 							<td>` + result.product_no + `</td>

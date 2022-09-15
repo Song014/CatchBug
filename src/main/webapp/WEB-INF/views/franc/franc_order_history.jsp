@@ -130,7 +130,8 @@
 										<td><a class="primary order_id_modal2"
 											data-bs="${olist.id}" data-bs-toggle="modal"
 											data-bs-target="#modalDialogScrollable2"> ${olist.id}님</a></td>
-										<td>${olist.total_price}원</td>
+										<td><fmt:formatNumber value="${olist.total_price}"
+															  groupingUsed="true" />원</td>
 										
 										
 										<c:choose>
@@ -179,12 +180,12 @@
 							<form>
 								<table class="table">
 									<thead>
-										<tr>
-											<th scope="col" style="width: 20%;">주문서 상세</th>
-											<th scope="col" style="width: 30%;">주문번호</th>
-											<th scope="col" style="width: 20%;">상품 번호</th>
-											<th scope="col" style="width: 20%;">상품명</th>
+										<tr style="text-align: center">
+											<th scope="col" style="width: 10%;">No</th>
+											<th scope="col" style="width: 15%;">상품번호</th>
+											<th scope="col" style="width: 50%;">상품 이름</th>
 											<th scope="col" style="width: 15%;">구입수량</th>
+											<th scope="col" style="width: 10%;">가격</th>
 										</tr>
 									</thead>
 									<tbody id="orderModalContent">
