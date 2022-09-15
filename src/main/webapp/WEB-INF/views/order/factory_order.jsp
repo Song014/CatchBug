@@ -177,7 +177,7 @@
 												<tr>
 													<td style="width: 5%;">${status.count }</td>
 													<th scope="row" style="width: 5%;"><a href="#"><img
-															src="/resources/productImg/<fmt:formatDate value="${list.add_day }"
+															src="https://catchbugbucket.s3.ap-northeast-2.amazonaws.com/productImg/<fmt:formatDate value="${list.add_day }"
                                        pattern="yyyy-MM-dd" />/${list.uuid}"
 															alt=""></a></th>
 													<td style="width: 7%;">${list.product_no }</td>
@@ -332,7 +332,7 @@
                   str +=`
                      <tr style="text-align:center;">
                      <td style="width: 5%;">`+(index+1)+`</td>
-                     <th scope="row" style="width: 5%;" ><a href="#"><img src="/resources/productImg/`+result.add_day+`/`+result.uuid+`"
+                     <th scope="row" style="width: 5%;" ><a href="#"><img src="https://catchbugbucket.s3.ap-northeast-2.amazonaws.com/productImg/`+result.add_day+`/`+result.uuid+`"
                      alt=""></a></th>
                      <td style="width: 7%;">`+ result.product_no + `</td>
                      <td style="width: 40%;"><a class="primary product_modal" data-bs-toggle="modal"
@@ -376,7 +376,7 @@
                   `;
                   const title = `<h5>`+result.product_name+`</h5>`;
                   console.log(title);
-                  const imgPath = "/resources/productImg/" + result.add_day + "/" + result.uuid;
+                  const imgPath = "https://catchbugbucket.s3.ap-northeast-2.amazonaws.com/productImg/" + result.add_day + "/" + result.uuid;
                   console.log(imgPath);
                   const imgStr = `<img src="`+imgPath +`"/>`
                   $("#modal-product-name").append(title);
@@ -406,7 +406,7 @@
                   str += ` 
                      <tr style="text-align:center;">
                      <td style="width: 5%;">`+(index+1)+`</td>
-                     <th scope="row" style="width: 5%;" ><a href="#"><img src="/resources/productImg/`+result.add_day+`/`+result.uuid+`"
+                     <th scope="row" style="width: 5%;" ><a href="#"><img src="https://catchbugbucket.s3.ap-northeast-2.amazonaws.com/productImg/`+result.add_day+`/`+result.uuid+`"
                      alt=""></a></th>
                      <td style="width: 7%;">`+ result.product_no + `</td>
                      <td style="width: 40%;"><a class="primary product_modal" data-bs-toggle="modal"

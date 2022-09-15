@@ -75,6 +75,5 @@ public class PageMaker {
 	                .queryParam("perPageNum", cri.getPerPageNum()).build();
 
 	        return uriComponents.toUriString();
-	        // 이새끼가 연산해준대..
 	    }
 }

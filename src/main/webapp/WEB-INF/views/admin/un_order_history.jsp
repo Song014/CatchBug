@@ -205,9 +205,6 @@
         }
     })
 
-    $(".btn1").on("click", function (e) {
-        location.href = "/order_approval.do?order_no=" + e.target.value;
-    })
 
     $(".btn2").on("click", function (e) {
         if (confirm("반려 하시겠습니까?")) {

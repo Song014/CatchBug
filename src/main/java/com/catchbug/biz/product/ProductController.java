@@ -173,6 +173,7 @@ public class ProductController {
 		
 			uploadFileName = uuid + "_" + uploadFileName;
 			System.out.println(str+" "+uploadFileName);
+			
 			try {
 				s3Client.putObject(new PutObjectRequest(bucketName, "productImg/"+str+"/"+uploadFileName, multipartFile.getInputStream(), null));
 			} catch (IOException e1) {

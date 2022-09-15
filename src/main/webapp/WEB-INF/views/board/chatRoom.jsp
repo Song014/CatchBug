@@ -90,7 +90,7 @@
                                 <div class = "chat_list">
                                     <div class = "chat_people">
                                         <div class = "chat_img">
-                                            <img src = "/resources/profileImg/${room.uploadPath }/${room.uuid}"
+                                            <img src = "https://catchbugbucket.s3.ap-northeast-2.amazonaws.com/profileImg/${room.uploadPath }/${room.uuid}"
                                                  alt = "Profile" class = "rounded-circle">
                                         </div>
                                         <div class = "chat_ib" id = "roomIn">

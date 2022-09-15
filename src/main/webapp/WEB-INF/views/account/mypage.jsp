@@ -355,7 +355,7 @@
             data : data,
             dataType : "text",
             success : function(res){
-                console.log(res+"성공");
+            	alert("다시 로그인해주세요")
                 location.href="/logout.do";
             },
             error : function(XMLHttpRequest, textStatus, errorThrown){
