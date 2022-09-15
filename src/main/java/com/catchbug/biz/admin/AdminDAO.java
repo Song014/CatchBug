@@ -115,7 +115,7 @@ public class AdminDAO {
 		data.put("searchType", cri.getSearchType());
 		data.put("searchName", cri.getSearchName());
 
-		int count = mybatis.selectOne("AdminMapper.count2", data);
+		int count = mybatis.selectOne("AdminMapper.count", data);
 		return count;
 	}
 
