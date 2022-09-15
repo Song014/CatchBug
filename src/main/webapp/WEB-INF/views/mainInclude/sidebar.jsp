@@ -159,7 +159,7 @@
 						<li><a href="productForOrder.do"> <i class="bi bi-circle"></i>
 								<span>발주서 작성</span>
 						</a></li>
-						<li><a href="francOrderHistory.do?id=${member.id}"> <i
+						<li><a href="francOrderHistory.do"> <i
 								class="bi bi-circle"></i><span>개인 발주 내역</span>
 						</a></li>
 					</ul></li>

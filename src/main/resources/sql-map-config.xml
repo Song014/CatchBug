@@ -23,6 +23,7 @@
         <typeAlias alias="img" type="com.catchbug.biz.vo.ImgVO"/>
         <typeAlias alias="topOrder" type="com.catchbug.biz.vo.TopOrderVO"/>
         <typeAlias alias="factoryOrderList" type="com.catchbug.biz.vo.OrderVO"/>
+        <typeAlias alias="getMemberList" type="com.catchbug.biz.vo.MemberVO"/>
     </typeAliases>
 
 	<mappers>

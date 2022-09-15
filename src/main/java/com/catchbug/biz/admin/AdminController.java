@@ -1,6 +1,5 @@
 package com.catchbug.biz.admin;
 
-
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
@@ -41,13 +40,33 @@ public class AdminController {
 	/* 가맹점 관리 */
 
 	// 전체 가맹리스트
-	@RequestMapping("/member_List.do")
-	public String memberList(Model model, MemberVO vo) {
+	/*
+	 * @RequestMapping("/member_List.do") public String memberList(Model model,
+	 * MemberVO vo) {
+	 * 
+	 * System.out.println("컨트롤러"); List<MemberVO> member_list =
+	 * adminService.getMemberList();
+	 * 
+	 * model.addAttribute("list", member_list);
+	 * 
+	 * return "account/member_list"; }
+	 */
 
-		System.out.println("컨트롤러");
-		List<MemberVO> member_list = adminService.getMemberList();
+	@RequestMapping("/member_List.do")
+	public String memberList(@ModelAttribute("cri") Criteria cri, Model model, MemberVO vo) {
+
+		List<MemberVO> member_list = adminService.getMemberList(cri);
+
+		PageMaker pageMaker = new PageMaker();
+
+		pageMaker.setCriteria(cri);
+		pageMaker.setTotalCount(adminService.listCount(cri));
 
 		model.addAttribute("list", member_list);
+		model.addAttribute("pageMaker", pageMaker);
+
+		model.addAttribute("searchType", cri.getSearchType());
+		model.addAttribute("searchName", cri.getSearchName());
 
 		return "account/member_list";
 	}
@@ -90,7 +109,7 @@ public class AdminController {
 		adminService.memberrefuse(vo);
 
 		return "redirect:factory_franc_wait_list.do";
-		
+
 	}
 
 	// 미출고 주문 현황
@@ -102,27 +121,26 @@ public class AdminController {
 //		model.addAttribute("list", list);
 //		return "admin/un_order_history";
 //	}
-	
-	// 미출고 리스트 +  페이징 + 검색
+
+	// 미출고 리스트 + 페이징 + 검색
 	@RequestMapping("/unOrderHistory.do")
-	public String unOrderHistory(@ModelAttribute("cri") Criteria cri,
-			Model model) throws Exception {
-			
-			List<HashMap<String, Object>> list = adminService.getunOrderHistory(cri);
-			
-			PageMaker pageMaker = new PageMaker();
-			
-			pageMaker.setCriteria(cri);
-			pageMaker.setTotalCount(adminService.count(cri));
-			
-			model.addAttribute("list", list);
-			model.addAttribute("pageMaker", pageMaker);
-			
-			model.addAttribute("searchType", cri.getSearchType());
-			model.addAttribute("searchName", cri.getSearchName());
-		
+	public String unOrderHistory(@ModelAttribute("cri") Criteria cri, Model model) throws Exception {
+
+		List<HashMap<String, Object>> list = adminService.getunOrderHistory(cri);
+
+		PageMaker pageMaker = new PageMaker();
+
+		pageMaker.setCriteria(cri);
+		pageMaker.setTotalCount(adminService.listCount(cri));
+
+		model.addAttribute("list", list);
+		model.addAttribute("pageMaker", pageMaker);
+
+		model.addAttribute("searchType", cri.getSearchType());
+		model.addAttribute("searchName", cri.getSearchName());
+
 		return "admin/un_order_history";
-		
+
 	}
 
 	// 사업장 정보 모달
@@ -161,16 +179,17 @@ public class AdminController {
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter w = response.getWriter();
 		try {
-			//주문번호로 상품코드 조회.
+			// 주문번호로 상품코드 조회.
 			List<OrderItemVO> orderList = adminService.getOrder_detail(vo);
-				//System.out.println(orderList.toString());
+			// System.out.println(orderList.toString());
 			// 상품코드 및 현재고 - 주문수 차감
-			for(OrderItemVO list : orderList) {
-				
+			for (OrderItemVO list : orderList) {
+
 				int product_no = list.getProduct_no();
-				if(list.getPurchase_amount() <= adminService.getProduct_Quantily(product_no)) {
-					System.out.println("주문수 :" + list.getPurchase_amount()+ "현 재고 :"+ adminService.getProduct_Quantily(product_no));
-					 
+				if (list.getPurchase_amount() <= adminService.getProduct_Quantily(product_no)) {
+					System.out.println("주문수 :" + list.getPurchase_amount() + "현 재고 :"
+							+ adminService.getProduct_Quantily(product_no));
+
 					int 현재고 = adminService.getProduct_Quantily(product_no);
 					int 주문수 = list.getPurchase_amount();
 					int deduction = 현재고 - 주문수;
@@ -178,20 +197,20 @@ public class AdminController {
 					list.setPurchase_amount(deduction);
 					adminService.update_Quantily(list);
 				} else {
-					 throw new Exception();
+					throw new Exception();
 				}
 			}
-	    // 승인 완료시 상태값 변경
-	       adminService.update_order_status(vo);
-		} catch (Exception e){
-	         System.out.println("예외가 발생했습니다...");
-	         w.write("<script>alert('재고가 부족으로 승인 실패');history.go(-1);</script>");
+			// 승인 완료시 상태값 변경
+			adminService.update_order_status(vo);
+		} catch (Exception e) {
+			System.out.println("예외가 발생했습니다...");
+			w.write("<script>alert('재고가 부족으로 승인 실패');history.go(-1);</script>");
 			w.flush();
 			w.close();
-	    }
+		}
 		return "redirect:unOrderHistory.do";
 	}
-	
+
 	// 미출고 주문건 반려
 	@RequestMapping("order_refuse.do")
 	public String order_refuse(OrderVO vo) {

@@ -6,6 +6,7 @@
 <html lang="en">
 
 <head>
+
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -83,13 +84,13 @@
 							<form action="/notice_Board.do">
 								<select name="searchType">
 									<option value="1" selected="selected">제목</option>
-								</select> 
-									<input type="text" name="searchName" placeholder="검색어를 입력해 주세요.">
-								<button>검색</button>
+								</select> <input type="text" name="searchName"
+									placeholder="검색어를 입력해 주세요.">
+								<button class="btn btn-primary">검색</button>
 							</form>
 						</div>
 					</div>
-					<table class="table table-bordered">
+					<table class="table table-bordered" style="text-align: center">
 						<thead>
 							<tr class="table-primary">
 								<th scope="col">#</th>
@@ -105,7 +106,8 @@
 
 									<th class="col-lg-1" scope="row">${list.noti_no }</th>
 									<td class="col-lg-2">관리자</td>
-									<td class="col-lg-6"><a href="noti_detail.do?noti_no=${list.noti_no }">${list.noti_title }</a></td>
+									<td class="col-lg-6"><a
+										href="noti_detail.do?noti_no=${list.noti_no }">${list.noti_title }</a></td>
 									<td class="col-lg-1">${list.cnt }</td>
 									<td class="col-lg-2">${list.noti_day }</td>
 								</tr>
@@ -126,15 +128,16 @@
 											end="${pageMaker.endPage}" var="idx">
 											<li
 												<c:out value="${pageMaker.cri.page == idx? 'class=active':''}"/>>
-												<a class="paginate_button previous" href="/notice_Board.do${pageMaker.makeQuery(idx) }&searchType=${searchType }&searchName=${searchName }">[${idx}]</a></li>
+												<a class="paginate_button previous"
+												href="/notice_Board.do${pageMaker.makeQuery(idx) }&searchType=${searchType }&searchName=${searchName }">[${idx}]</a>
+											</li>
 										</c:forEach>
 
 										<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 											<li><a
 												href="notice_Board.do${pageMaker.makeQuery(pageMaker.endPage+1)}">&raquo;</a></li>
 										</c:if>
-									</ul> 
-									<!-- <ul class="pagination justify-content-center">
+									</ul> <!-- <ul class="pagination justify-content-center">
 										<li class="page-item"><a class="page-link" href="#"tabindex="-1" aria-disabled="true">Previous</a></li>
 										<li class="page-item"><a class="page-link" href="#">1</a></li>
 										<li class="page-item active" aria-current="page"><a

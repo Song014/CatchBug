@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.lang.ProcessBuilder.Redirect;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -75,7 +76,9 @@ public class OrderController {
 		if (session.getAttribute("member") != null) {
 			member = (MemberVO) session.getAttribute("member");
 		} else {
-			return "redirect:login_page.do";
+			model.addAttribute("msg","로그인한 유저만 이용가능합니다.");
+			return "order/factory_order";
+//			return "redirect:login_page.do";
 		}
 		List<CartVO> cartList = new ArrayList<CartVO>();
 		if (cs.getCart(member) != null) {
@@ -96,7 +99,7 @@ public class OrderController {
 		model.addAttribute("product", productList);
 		return "order/factory_order";
 	}
-
+	
 	// 주문하기 눌렀을때
 	@RequestMapping(value = "/orderPage.do")
 	public String orderPage(CartVO vo, HttpSession session, Model model) {
@@ -121,7 +124,6 @@ public class OrderController {
 	@RequestMapping(value = "/submitOrder.do")
 	@Transactional(rollbackFor = Exception.class)
 	public String submitOrder(OrderVO ov, HttpSession session) {
-		System.out.println(ov + "제발 들어가라");
 		try {
 			MemberVO mvo = new MemberVO();
 			MemberVO memberpass = (MemberVO) session.getAttribute("member");
@@ -261,11 +263,18 @@ public class OrderController {
 	@RequestMapping(value = "/francOrderHistory.do")
 	public ModelAndView FancOrderHistory(OrderVO ovo, Model model, ModelAndView mav, HttpSession session) {
 		System.out.println("francOrderHistory.do");
-
 		MemberVO member = (MemberVO) session.getAttribute("member");
-		List<OrderVO> order_list = os.getOrderListid(member.getId());
-		mav.addObject("olist", order_list);
-		mav.setViewName("franc/franc_order_history");
+		
+		if(member != null) {
+			List<OrderVO> order_list = os.getOrderListid(member.getId());
+			System.out.println(session);
+			mav.addObject("olist", order_list);
+			mav.setViewName("franc/franc_order_history");
+		}else {
+			System.out.println("널");
+			mav.setViewName("franc/franc_order_history");
+		}
+		System.out.println("널밖");
 		return mav;
 	}
 
@@ -305,6 +314,7 @@ public class OrderController {
 	// 가맹점 발주내역 페이지 + 검색
 	@RequestMapping(value = "/orderHistory.do", method = RequestMethod.GET)
 	public String orderHistorypage(SearchVO sw, OrderVO ovo, Model model) {
+		System.out.println(sw);
 		if (sw.getSearchWord() == null) {
 			List<OrderVO> orderno_list = os.getOrderList();
 			model.addAttribute("olist", orderno_list);
@@ -323,12 +333,12 @@ public class OrderController {
 
 		if (sv.getSearchWord() == null) {
 			System.out.println("factoryOrderHistorypage");
-			List<OrderVO> orderno_list = os.getOrderList();
-			model.addAttribute("olist", orderno_list);
+			List<OrderVO> orderno_list = os.getfactoryOrderList();
+			model.addAttribute("list", orderno_list);
 		} else {
 			System.out.println("검색");
-			List<OrderVO> orderno_list = as.franc_SearchList2(sv);
-			model.addAttribute("olist", orderno_list);
+			List<OrderVO> orderno_list = as.factory_SearchList2(sv);
+			model.addAttribute("list", orderno_list);
 		}
 		return "admin/factory_order_history";
 	}

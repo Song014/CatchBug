@@ -23,6 +23,7 @@ local.properties
 .loadpath
 .recommenders
 
+
 # External tool builders
 .externalToolBuilders/
 
@@ -104,6 +105,7 @@ local.properties
 *.tar.gz
 *.rar
 
+src/main/resources/aws.properties
 src/main/resources/mybatis/*.properties
 src/main/webapp/WEB-INF/lib/*
 !src/main/webapp/WEB-INF/lib/*.jar

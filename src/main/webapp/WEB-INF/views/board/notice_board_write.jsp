@@ -96,7 +96,7 @@
 				
 						<div class="col-md-12">
 					<!-- Create the editor container -->
-					<div id="editor" style="height: 300px" name="noti_content">
+					<div id="editor" style="height: 300px">
 					</div>
 					</div>
 				
@@ -115,7 +115,8 @@
 			 $('input[name=noti_content]').attr('value',content);
 
 		}
-	</script> </main>
+	</script> 
+	</main>
 
 
 	<!-- Include the Quill library -->
