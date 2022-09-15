@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.catchbug.biz.admin.stock.StockService;
 import com.catchbug.biz.product.ProductService;
 import com.catchbug.biz.vo.CategoryVO;
+import com.catchbug.biz.vo.ProductVO;
 
 @Controller
 public class FrancController {
@@ -36,7 +37,7 @@ public class FrancController {
 
 	// 상품 리스트
 	@RequestMapping("/francStockList.do")
-	public String StockList(Model model, CategoryVO vo) {
+	public String StockList(Model model, CategoryVO vo,ProductVO pvo) {
 
 		// 처음 들어갔을때 카테고리 불러오기
 
@@ -45,9 +46,15 @@ public class FrancController {
 		// 소분류 카테고리
 		List<CategoryVO> category = ss.getSubCategory();
 		model.addAttribute("subCategory", category);
+		System.out.println(pvo);
 		// 첫 요청 상품 데이터 최근 등록순
 		vo.setSub_category(0);
-		model.addAttribute("product", ps.getProductList(vo));
+		if(pvo.getProduct_name() == "") {
+			model.addAttribute("product", ps.getProductList(vo));
+		} else {
+			model.addAttribute("product", ss.searchProductList(pvo));
+		}
 		return "franc/franc_stock_list";
 	}
+	
 }

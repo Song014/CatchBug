@@ -56,6 +56,9 @@
 a {
 	color: #012970;
 }
+a:hover {
+	color: red;
+}
 </style>
 </head>
 
@@ -120,7 +123,15 @@ a {
 												<th scope="row"><a href="#"><img
 														src="https://catchbugbucket.s3.ap-northeast-2.amazonaws.com/productImg/<fmt:formatDate value="${list.add_day }" pattern="yyyy-MM-dd"/>/${list.uuid}"
 														alt=""></a></th>
-												<td>${list.product_name }</td>
+												<td><c:choose>
+														<c:when test="${member.level1 eq 1 }">
+															<a href="StockList.do?product_name=${list.product_name}">${list.product_name }</a>
+														</c:when>
+														<c:when test="${member.level1 eq 2 }">
+															<a
+																href="francStockList.do?product_name=${list.product_name}">${list.product_name }</a>
+														</c:when>
+													</c:choose></td>
 												<td>&#8361;<fmt:formatNumber groupingUsed="true">${list.price }</fmt:formatNumber></td>
 												<td class="fw-bold">${list.purchase_amount }</td>
 												<td>&#8361;<fmt:formatNumber groupingUsed="true">${list.total }</fmt:formatNumber></td>
@@ -217,11 +228,6 @@ a {
 	<jsp:include page="mainInclude/footer.jsp"></jsp:include>
 
 	<!-- End Footer -->
-	<script type="text/javascript">
-		$(".top-selling").on('click',function(){
-			location.href="${member.level1 eq 2? 'francStockList.do':'stockList.do'}";
-		})
-	</script>
 
 
 	<a href="#"
