@@ -176,7 +176,7 @@
 								<!-- 결제모듈 선택-->
 								<strong>결제 수단: </strong> <input type="button"
 									class="btn btn-primary order_btn" onclick="requestPay('kcp')"
-									value="신용카드 결제"> <a href="#"
+									value="신용카드 결제" style="height: 46px; border-radius: 25px"> <a href="#"
 									onclick="requestPay('kakaopay.TC0ONETIME')"> <img
 									alt="카카오페이 이미지" src="/resources/assets/img/kakao.png">
 								</a>
