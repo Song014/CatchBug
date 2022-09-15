@@ -161,7 +161,7 @@
 					<div class="card info-card revenue-card">
 						<div class="card-body">
 							<h5 class="card-title">
-								사용 금액 <span>|</span>
+								${member.level1 eq 2? "사용 금액":"매출"} <span>|</span>
 							</h5>
 							<div class="d-flex align-items-center">
 								<div

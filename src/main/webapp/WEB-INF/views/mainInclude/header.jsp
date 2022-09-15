@@ -49,7 +49,7 @@
                 </c:when>
                 <c:when test="${member.level1 eq 2}">
                     <img
-                            src="/resources/profileImg/${profile.uploadPath }/${profile.uuid}" alt="Profile"
+                            src="https://catchbugbucket.s3.ap-northeast-2.amazonaws.com/profileImg/${profile.uploadPath }/${profile.uuid}" alt="Profile"
                             class="rounded-circle">
                     <span class="d-none d-md-block dropdown-toggle ps-2">${member.business_name }가맹점님
 

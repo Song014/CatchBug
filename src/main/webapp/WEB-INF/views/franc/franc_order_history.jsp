@@ -7,6 +7,15 @@
 <!DOCTYPE html>
 <html lang = "en">
 
+<script type="text/javascript">
+	var session = '${member.level1}';
+	
+	if(session == ""){
+		alert("로그인 후 이용 해주세요. \n"); 
+		location.href = "login_page.do";
+	}
+</script>
+
 <head>
     <meta charset = "utf-8">
     <meta content = "width=device-width, initial-scale=1.0" name = "viewport">
@@ -245,6 +254,23 @@
                                         <td><a class = "primary order_id_modal2" data-bs = "${olist.id}"
                                                data-bs-toggle = "modal"
                                                data-bs-target = "#modalDialogScrollable2"> ${olist.id}님</a></td>
+                                        <td>${olist.total_price}원</td>
+
+
+                                        <c:choose>
+                                            <c:when test = "${olist.order_status eq 1}">
+                                            	<td>삭제된 게시글입니다</td>
+                                            
+                                                <td>미승인</td>
+                                            </c:when>
+                                            <c:when test = "${olist.order_status eq 2}">
+                                                <td>승인</td>
+                                            </c:when>
+                                            <c:when test = "${olist.order_status eq 3}">
+                                                <td>취소</td>
+                                            </c:when>
+
+                                        </c:choose>
                                         <td><fmt:formatNumber value = "${olist.total_price}" groupingUsed = "true" />원
                                         </td>
                                         <td>
@@ -372,22 +398,6 @@
         })
     });
 
-</script>
-<script>
-    /* 	 $(document).ready(function(){
-
-     const username = '${member.ceo}';
-     const level = '${member.level1}';
-     if(username == ""){
-     alert("로그인한 유저만 이용가능합니다.");
-     location.href="login_page.do";
-     }else{
-     if(level != 2){
-     alert("가맹점만 이용가능합니다.");
-     location.href="login_page.do";
-     }
-     }
-     });  */
 </script>
 
 </body>

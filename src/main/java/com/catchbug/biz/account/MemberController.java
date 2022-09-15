@@ -1,31 +1,5 @@
-
 package com.catchbug.biz.account;
 
-
-import com.catchbug.biz.account.mail.MailHandler;
-import com.catchbug.biz.account.mail.TempKey;
-import com.catchbug.biz.img.ImgService;
-import com.catchbug.biz.product.ProductService;
-import com.catchbug.biz.vo.ImgVO;
-import com.catchbug.biz.vo.MemberVO;
-import net.sf.json.JSONArray;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.imageio.ImageIO;
-import javax.inject.Inject;
-import javax.mail.MessagingException;
-import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -35,11 +9,47 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
+import javax.imageio.ImageIO;
+import javax.inject.Inject;
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.catchbug.biz.account.mail.MailHandler;
+import com.catchbug.biz.account.mail.TempKey;
+import com.catchbug.biz.img.ImgService;
+import com.catchbug.biz.product.ProductService;
+import com.catchbug.biz.vo.ImgVO;
+import com.catchbug.biz.vo.MemberVO;
+
+import net.sf.json.JSONArray;
+
 
 @Controller
+@PropertySource("classpath:aws.properties")
 public class MemberController {
-    //	private String uploadFolder = "C:/work/spring-space/CatchBug/src/main/webapp/resources";
-    private String uploadFolder = "/Users/hyeon1339/CatchBugProject/src/main/webapp/resources/profileImg";
+    	private String uploadFolder = "C:/work/spring-space/CatchBug/src/main/webapp/resources/profileImg";
+//    private String uploadFolder = "/Users/hyeon1339/CatchBugProject/src/main/webapp/resources/profileImg";
 
     @Inject
     BCryptPasswordEncoder pwdEncoder;
@@ -56,6 +66,12 @@ public class MemberController {
     // 메일전송을 위한 의존주입
     @Autowired
     JavaMailSender mailSender;
+    
+    @Autowired
+	private AmazonS3 s3Client;
+	
+	@Value("${aws.bucketname}")
+	private String bucketName;
 
     // 비밀번호 체크
     @ResponseBody
@@ -213,6 +229,7 @@ public class MemberController {
             uploadPath.mkdirs();
         }
 
+        // 찐 파일이름
         String uploadFileName = multipartFile.getOriginalFilename();
 
         vo.setFileName(uploadFileName);
@@ -222,10 +239,19 @@ public class MemberController {
         uuid = UUID.randomUUID().toString();
 
         vo.setUuid(uuid);
+        // uuid 섞은 이름
         uploadFileName = uuid + "_" + uploadFileName;
 
         /* 파일 위치, 파일 이름을 합친 File 객체 */
+        try {
+			s3Client.putObject(new PutObjectRequest(bucketName, "profileImg/"+str+"/"+uploadFileName, multipartFile.getInputStream(), null));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
         File saveFile = new File(uploadPath, uploadFileName);
+        
+       
 
         /* 파일 저장 */
         try {

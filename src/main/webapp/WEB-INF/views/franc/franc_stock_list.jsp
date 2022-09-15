@@ -6,6 +6,8 @@
 <html lang = "en">
 
 <head>
+
+
     <meta charset = "utf-8">
     <meta content = "width=device-width, initial-scale=1.0" name = "viewport">
 
@@ -45,6 +47,15 @@
       * License: https://bootstrapmade.com/license/
       ======================================================== -->
 </head>
+
+<script type="text/javascript">
+	var session = '${member.level1}';
+	
+	if(session == ""){
+		alert("로그인 후 이용 해주세요. \n"); 
+		location.href = "login_page.do";
+	}
+</script>
 
 <body>
 
@@ -139,8 +150,8 @@
                                 <c:forEach var = "list" items = "${product }" varStatus = "status">
                                     <tr>
                                         <td>${status.count }</td>
-                                        <th scope = "row"><a href = "#"><img src = "/resources/productImg/<fmt:formatDate value="${list.add_day }"
-													pattern="yyyy-MM-dd" />/${list.uuid}"
+                                        <th scope = "row"><a href = "#"><img src = "https://catchbugbucket.s3.ap-northeast-2.amazonaws.com/productImg/<fmt:formatDate value="${list.add_day }"
+													pattern="yyyy-MM-dd"  />/${list.uuid}"
                                                                              onclick = "window.open(this.src)" /></a>
                                         </th>
                                         <td>${list.product_no }</td>
@@ -149,7 +160,7 @@
                                                id = "${list.product_no}">${list.product_name }</a></td>
                                         <td><fmt:formatNumber value="${list.price }" groupingUsed="true"/></td>
                                         <td>${list.product_quantily }</td>
-                                        <td><fmt:formatDate value = "${list.add_day }" pattern = "yyyy-MM-dd" /></td>
+                                        <td><fmt:formatDate value = "${list.add_day }" pattern = "yyyy-MM-dd"  /></td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>
@@ -214,23 +225,22 @@
 </div>
 <!-- 해당상품 모달 끝 -->
 
+<!-- <script> -->
+//     $(document).ready(function () {
+//         const username = '${member.ceo}';
+//         const level = '${member.level1}';
+//         if (username == "") {
+//             alert("로그인한 유저만 이용가능합니다.");
+//             location.href = "login_page.do";
+//         } else {
+//             if (level == 3) {
+//                 alert("승인된 회원만 이용가능합니다.");
+//                 location.href = "company_intro.do";
+//             }
+//         }
+//     });
+<!-- </script> -->
 
-<script>
-    $(document).ready(function () {
-
-        const username = '${member.ceo}';
-        const level = '${member.level1}';
-        if (username == "") {
-            alert("로그인한 유저만 이용가능합니다.");
-            location.href = "login_page.do";
-        } else {
-            if (level == 3) {
-                alert("승인된 회원만 이용가능합니다.");
-                location.href = "company_intro.do";
-            }
-        }
-    });
-</script>
 
 <script type = "text/javascript">
 
@@ -277,7 +287,7 @@
 
 						<tr>
 							<td>1</td>
-							<th scope="row"><a href="#"><img src="/resources/productImg/` + result.add_day + `/` + result.uuid + `"
+							<th scope="row"><a href="#"><img src="https://catchbugbucket.s3.ap-northeast-2.amazonaws.com/productImg/` + result.add_day + `/` + result.uuid + `"
 								onclick="window.open(this.src)"/></a></th>
 							<td>` + result.product_no + `</td>
 							<td><a class="primary product_modal" data-bs-toggle="modal"
@@ -317,7 +327,7 @@
                     const str = `
 						<tr>
 							<td>1</td>
-							<th scope="row"><a href="#"><img src="/resources/productImg/` + result.add_day + `/` + result.uuid + `"
+							<th scope="row"><a href="#"><img src="https://catchbugbucket.s3.ap-northeast-2.amazonaws.com/productImg/` + result.add_day + `/` + result.uuid + `"
 								onclick="window.open(this.src)"/></a></th>
 							<td>` + result.product_no + `</td>
 							<td><a class="primary product_modal" data-bs-toggle="modal"
@@ -370,7 +380,7 @@
 					`;
                     const title = `<h5>` + result.product_name + `</h5>`;
                     console.log(title);
-                    const imgPath = "/resources/productImg/" + result.add_day + "/" + result.uuid;
+                    const imgPath = "https://catchbugbucket.s3.ap-northeast-2.amazonaws.com/productImg/" + result.add_day + "/" + result.uuid;
                     console.log(imgPath);
                     const imgStr = `<img src="` + imgPath + `"/>`
                     $("#modal-product-name").append(title);
