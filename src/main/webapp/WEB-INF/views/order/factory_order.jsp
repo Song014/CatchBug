@@ -303,7 +303,6 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-bs-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-danger" id="addCart">상품담기</button>
 				</div>
 			</div>
 		</div>
