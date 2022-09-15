@@ -137,8 +137,7 @@
 										value="${list.purchase_amount }"> <input type="hidden"
 										class="individual_total_input" value=${list.total }></td>
 									<td>${list.product_no }</td>
-									<td><a class="primary" data-bs-toggle="modal"
-										data-bs-target="#modalProduct">${list.product_name }</a></td>
+									<td>${list.product_name }</td>
 									<td>${list.purchase_amount }개</td>
 									<td><fmt:formatNumber value="${list.total }"
 											groupingUsed="true" /></td>
