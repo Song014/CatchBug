@@ -299,7 +299,6 @@ a {
                 $("#orderModal3").empty();
                 $("#orderModal4").empty();
 
-                console.log(result)
                 let tprice = 0;
                 for (var j = 0; j < result.length; j++) {
                     tprice += result[j].total_price;
