@@ -114,7 +114,7 @@ a {
 								style="text-align: center;">
 								<tr>
 									<th scope="col" data-sortable=""><a href="#"
-										class="dataTable-sorter">no</a></th>
+										class="dataTable-sorter">No</a></th>
 									<th scope="col" data-sortable=""><a href="#"
 										class="dataTable-sorter">장바구니 번호</a></th>
 									<th scope="col" data-sortable=""><a href="#"
