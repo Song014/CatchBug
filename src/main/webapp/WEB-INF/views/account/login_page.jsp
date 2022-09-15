@@ -1,11 +1,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html lang="en">
-
+<c:if test="${member.id ne null }">
+	<script type="text/javascript">
+		alert("이미 접속중인 사용자 입니다.");
+		history.go(-1);
+	</script>
+</c:if>
 <head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
