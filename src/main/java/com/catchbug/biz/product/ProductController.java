@@ -20,9 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -183,14 +181,14 @@ public class ProductController {
 			/* 파일 위치, 파일 이름을 합친 File 객체 */
 			File saveFile = new File(uploadPath, uploadFileName);
 
-			/* 파일 저장 */
-			try {
-				multipartFile.transferTo(saveFile);
-				
-				BufferedImage bo_image = ImageIO.read(saveFile);
-			} catch (Exception e) {
-				e.printStackTrace();
-			} 
+			/* 로컬 파일 저장 */
+//			try {
+//				multipartFile.transferTo(saveFile);
+//
+//				BufferedImage bo_image = ImageIO.read(saveFile);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
 			list.add(vo);
 		}
 
