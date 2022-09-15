@@ -125,7 +125,7 @@ a:hover {
 														alt=""></a></th>
 												<td><c:choose>
 														<c:when test="${member.level1 eq 1 }">
-															<a href="StockList.do?product_name=${list.product_name}">${list.product_name }</a>
+															<a href="stockList.do?product_name=${list.product_name}">${list.product_name }</a>
 														</c:when>
 														<c:when test="${member.level1 eq 2 }">
 															<a

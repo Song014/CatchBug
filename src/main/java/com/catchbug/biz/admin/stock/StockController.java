@@ -27,7 +27,7 @@ public class StockController {
 
 	// 상품 리스트
 	@RequestMapping("/stockList.do")
-	public String StockList(Model model, CategoryVO vo, SearchVO sVo) {
+	public String StockList(Model model, CategoryVO vo, SearchVO sVo, ProductVO pvo) {
 
 		// 처음 들어갔을때 카테고리 불러오기
 
@@ -38,14 +38,18 @@ public class StockController {
 		model.addAttribute("subCategory", category);
 		// 첫 요청 상품 데이터 최근 등록순
 		vo.setSub_category(0);
-		List<ProductVO> pvo =  new ArrayList<ProductVO>();
+		List<ProductVO> lpvo =  new ArrayList<ProductVO>();
 		for (ProductVO productVO : ps.getProductList(vo)) {
 			  String uuid = Normalizer.normalize(productVO.getUuid(), Normalizer.Form.NFC);
 			  productVO.setUuid(uuid);
-			  pvo.add(productVO);
+			  lpvo.add(productVO);
 		}
 		
-		model.addAttribute("product",pvo);
+		if(pvo.getProduct_name()=="") {
+			model.addAttribute("product",lpvo);
+		} else {
+			model.addAttribute("product",ss.searchProductList(pvo));
+		}
 		return "admin/stock_list";
 	}
 

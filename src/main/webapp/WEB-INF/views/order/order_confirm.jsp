@@ -178,7 +178,7 @@
 									class="btn btn-primary order_btn" onclick="requestPay('kcp')"
 									value="신용카드 결제"> <a href="#"
 									onclick="requestPay('kakaopay.TC0ONETIME')"> <img
-									alt="카카오페이 이미지" src="/assets/img/kakao.png">
+									alt="카카오페이 이미지" src="/resources/assets/img/kakao.png">
 								</a>
 								<!-- 	<input type="button" class="btn btn-primary order_btn"
 									onclick="requestPay('kakaopay')"  value="kakaopay 결제"> -->
