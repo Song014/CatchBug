@@ -89,11 +89,11 @@ a:hover {
 	<!-- main start -->
 	<main id="main" class="main">
 	<div class="pagetitle">
-		<h1>대쉬보드</h1>
+		<h1>메인 페이지</h1>
 		<nav>
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a href="/">Home</a></li>
-				<li class="breadcrumb-item active">대쉬보드</li>
+				<li class="breadcrumb-item active">메인 페이지</li>
 			</ol>
 		</nav>
 	</div>
@@ -105,7 +105,7 @@ a:hover {
 						<div class="card top-selling overflow-auto" style="height: 536px;">
 							<div class="card-body pb-0">
 								<h5 class="card-title">
-									Top 5 주문 <span>|</span>
+									Top 5 인기상품 리스트 <span>|</span>
 								</h5>
 								<table class="table table-borderless">
 									<thead>
@@ -122,7 +122,7 @@ a:hover {
 											<tr>
 												<th scope="row"><a href="#"><img
 														src="https://catchbugbucket.s3.ap-northeast-2.amazonaws.com/productImg/<fmt:formatDate value="${list.add_day }" pattern="yyyy-MM-dd"/>/${list.uuid}"
-														alt=""></a></th>
+														alt="" onclick = "window.open(this.src)" ></a></th>
 												<td><c:choose>
 														<c:when test="${member.level1 eq 1 }">
 															<a href="stockList.do?product_name=${list.product_name}">${list.product_name }</a>
