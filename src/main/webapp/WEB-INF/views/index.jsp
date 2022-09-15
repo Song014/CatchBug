@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
@@ -35,7 +35,8 @@
 <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
 <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
 <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
-<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+<link rel='stylesheet'
+	href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
 <!-- Template Main CSS File -->
 <link href="assets/css/style.css" rel="stylesheet">
 
@@ -45,17 +46,17 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-  
-  <style type="text/css">
-  	.cards:hover{
-  		background: #808080 ;
-  		opacity: 0.5;
-  		
-  	}
-  	a{
-  		color:#012970;
-  	}
-  </style>
+
+<style type="text/css">
+.cards:hover {
+	background: #808080;
+	opacity: 0.5;
+}
+
+a {
+	color: #012970;
+}
+</style>
 </head>
 
 <body>
@@ -115,15 +116,16 @@
 									</thead>
 									<tbody>
 										<c:forEach begin="0" end="4" var="list" items="${topOrder }">
-										<tr> 
-											<th scope="row"><a href="#"><img
-													src="/resources/productImg/<fmt:formatDate value="${list.add_day }" pattern="yyyy-MM-dd"/>/${list.uuid}" alt=""></a></th>
-											<td><a href="#" class="text-primary fw-bold">${list.product_name }</a></td>
-											<td>&#8361;<fmt:formatNumber groupingUsed="true">${list.price }</fmt:formatNumber></td>
-											<td class="fw-bold">${list.purchase_amount }</td>
-											<td>&#8361;<fmt:formatNumber groupingUsed="true">${list.total }</fmt:formatNumber></td>
-										</tr>
-										</c:forEach>								
+											<tr>
+												<th scope="row"><a href="#"><img
+														src="https://catchbugbucket.s3.ap-northeast-2.amazonaws.com/productImg/<fmt:formatDate value="${list.add_day }" pattern="yyyy-MM-dd"/>/${list.uuid}"
+														alt=""></a></th>
+												<td>${list.product_name }</td>
+												<td>&#8361;<fmt:formatNumber groupingUsed="true">${list.price }</fmt:formatNumber></td>
+												<td class="fw-bold">${list.purchase_amount }</td>
+												<td>&#8361;<fmt:formatNumber groupingUsed="true">${list.total }</fmt:formatNumber></td>
+											</tr>
+										</c:forEach>
 									</tbody>
 								</table>
 							</div>
@@ -145,12 +147,16 @@
 								</div>
 								<div class="ps-3">
 									<c:choose>
-									<c:when test="${member.level1 eq 1}">
-									<h6><a href="unOrderHistory.do">${count } 건</a></h6>
-									</c:when>
-									<c:otherwise>
-									<h6><a href="francOrderHistory.do">${count } 건</a></h6>
-									</c:otherwise>
+										<c:when test="${member.level1 eq 1}">
+											<h6>
+												<a href="unOrderHistory.do">${count } 건</a>
+											</h6>
+										</c:when>
+										<c:otherwise>
+											<h6>
+												<a href="francOrderHistory.do">${count } 건</a>
+											</h6>
+										</c:otherwise>
 									</c:choose>
 								</div>
 							</div>
@@ -169,7 +175,9 @@
 									<i class='fa fa-krw'></i>
 								</div>
 								<div class="ps-3">
-									<h6> <fmt:formatNumber groupingUsed="true">${total }</fmt:formatNumber></h6>
+									<h6>
+										<fmt:formatNumber groupingUsed="true">${total }</fmt:formatNumber>
+									</h6>
 								</div>
 							</div>
 						</div>
@@ -187,7 +195,9 @@
 									<i class="bi bi-people"></i>
 								</div>
 								<div class="ps-3">
-									<h6><a href="chatRoom.do">상담 바로가기</a></h6>
+									<h6>
+										<a href="chatRoom.do">상담 바로가기</a>
+									</h6>
 								</div>
 							</div>
 						</div>
@@ -195,7 +205,7 @@
 				</div>
 
 			</div>
-	</div>
+		</div>
 	</section>
 	</main>
 	<!-- End Main -->
@@ -207,7 +217,11 @@
 	<jsp:include page="mainInclude/footer.jsp"></jsp:include>
 
 	<!-- End Footer -->
-
+	<script type="text/javascript">
+		$(".top-selling").on('click',function(){
+			location.href="${member.level1 eq 2? 'francStockList.do':'stockList.do'}";
+		})
+	</script>
 
 
 	<a href="#"

@@ -167,7 +167,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title">
-						주문서 번호 : <span id="orderModal41"> <!--주문자 id 들어가는곳-->
+						주문서 번호 : <span id="orderModalId"> <!--주문자 id 들어가는곳-->
 						</span>
 					</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -187,7 +187,7 @@
 											<th scope="col" style="width: 15%;">구입수량</th>
 										</tr>
 									</thead>
-									<tbody id="orderModal1">
+									<tbody id="orderModalContent">
 
 
 									</tbody>
@@ -205,99 +205,47 @@
 		</div>
 	</div>
 
-	<!-- 모달2 주문내용 전체품목-->
 	<div class="modal fade" id="modalDialogScrollable2" tabindex="-1">
-		<div class="modal-dialog modal-dialog-scrollable">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">ceo 상세보기</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"
-						aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<div class="card">
-						<!-- <div class="card-body">
+      <div class="modal-dialog modal-lg modal-dialog-scrollable">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title">ceo 상세보기</h5>
+               <button type="button" class="btn-close" data-bs-dismiss="modal"
+                  aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+               <div class="card">
+                  <!-- <div class="card-body">
                      <div class="card-title">
                         <h5 style="text-align: right;">총 주문금액</h5>
                         <div style="text-align: right;">
                            <i class="bx bx-won">가격 적어주세요</i>
                         </div>
-                    </div>
-
-                    <div class = "dataTable-container">
-                        <form>
-                            <table class = "table datatable dataTable-table">
-                                <tr>
-                                    <th scope = "col" data-sortable = ""><a href = "#" class = "dataTable-sorter">#</a>
-                                    </th>
-                                    <th scope = "col" data-sortable = ""><a href = "#"
-                                                                            class = "dataTable-sorter">주문서 번호</a></th>
-                                    <th scope = "col" data-sortable = ""><a href = "#" class = "dataTable-sorter">ID</a>
-                                    </th>
-                                    <th scope = "col" data-sortable = ""><a href = "#"
-                                                                            class = "dataTable-sorter">총 가격</a></th>
-                                    <th scope = "col" data-sortable = ""><a href = "#"
-                                                                            class = "dataTable-sorter">처리상태</a></th>
-                                    <th scope = "col" data-sortable = ""><a href = "#"
-                                                                            class = "dataTable-sorter">배송지</a></th>
-                                    <th scope = "col" data-sortable = ""><a href = "#" class = "dataTable-sorter">메모</a>
-                                    </th>
-
-                                </tr>
-                                <c:forEach items = "${olist}" var = "olist">
-                                    <tr>
-                                        <td>#</td>
-                                        <td><a class = "primary order_detail_modal2" data-bs = "${olist.order_no}"
-                                               data-bs-toggle = "modal"
-                                               data-bs-target = "#modal-biz2"> ${olist.order_no}</a></td>
-
-                                        <td><a class = "primary order_id_modal2" data-bs = "${olist.id}"
-                                               data-bs-toggle = "modal"
-                                               data-bs-target = "#modalDialogScrollable2"> ${olist.id}님</a></td>
-                                        <td>${olist.total_price}원</td>
+                     </div> -->
+                  <table class="table" tex>
+                     <thead>
+                        <tr>
+                           <th scope="col" style="width: 20%;">ID</th>
+                           <th scope="col" style="width: 30%;">사업자 등록번호</th>
+                           <th scope="col" style="width: 30%;">법인명</th>
+                           <th scope="col" style="width: 20%;">ceo</th>
+                        </tr>
+                     </thead>
+                     <tbody id="orderModalBContent">
 
 
-                                        <c:choose>
-                                            <c:when test = "${olist.order_status eq 1}">
-                                            	<td>삭제된 게시글입니다</td>
-                                            
-                                                <td>미승인</td>
-                                            </c:when>
-                                            <c:when test = "${olist.order_status eq 2}">
-                                                <td>승인</td>
-                                            </c:when>
-                                            <c:when test = "${olist.order_status eq 3}">
-                                                <td>취소</td>
-                                            </c:when>
-
-                                        </c:choose>
-                                        <td><fmt:formatNumber value = "${olist.total_price}" groupingUsed = "true" />원
-                                        </td>
-                                        <td>
-                                            <c:if test = "${olist.order_status eq '0'}"> 관리자 결제 완료
-                                            </c:if>
-                                            <c:if test = "${olist.order_status eq '1'}"> 가맹점 결제 대기
-                                            </c:if>
-                                            <c:if test = "${olist.order_status eq '2'}"> 가맹점 결제완료(관리자가 승인시)
-                                            </c:if>
-                                            <c:if test = "${olist.order_status eq '3'}"> 가맹점 결제 취소
-                                            </c:if>
-                                        </td>
-                                        <td>${olist.shipping_address}</td>
-                                        <td>${olist.note}</td>
-                                    </tr>
-                                </c:forEach>
-                            </table>
-                        </form>
-                    </div>
-                </div>
+                     </tbody>
+                  </table>
+               </div>
             </div>
-
-
-        </div>
-    </section>
-
-</main>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-secondary"
+               data-bs-dismiss="modal">Close</button>
+         </div>
+      </div>
+   </div>
+   <!-- 모달 끝-->
 
 <!-- End #main -->
 
@@ -334,9 +282,6 @@
             type   : "GET", //요청 메소드 방식
             url    : "orderFDetail.do?order_no=" + orderno,
             success: function (result) {
-                $("#orderModal11").empty();
-                $("#orderModal42").empty();
-
                 for (var b = 0; b < result.length; b++) {
                     const price = (result[b].price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
                     stx += `
@@ -352,8 +297,8 @@
                 console.log(stx)
 
                 stb = orderno;
-                $("#orderModal11").html(stx);
-                $("#orderModal42").html(stb);
+                $("#orderModalContent").html(stx);
+                $("#orderModalId").html(stb);
 
                 console.log("ajax 성공");
 
@@ -376,7 +321,6 @@
             type   : "GET", //요청 메소드 방식
             url    : "orderfId.do?id=" + orderId,
             success: function (orderId) {
-                $("#orderModal62").empty();
                 console.log(orderId);
 
                 stz = `
@@ -389,7 +333,7 @@
                               `;
 
                 console.log("ajax 성공");
-                $("#orderModal62").html(stz);
+                $("#orderModalBContent").html(stz);
             },
             error  : function (a, b, c) {
                 //통신 실패시 발생하는 함수(콜백)
