@@ -176,7 +176,7 @@
 
 <!-- 모달창 -->
 <div class = "modal fade" id = "modalProduct" tabindex = "-1">
-    <div class = "modal-dialog modal-dialog-scrollable">
+    <div class = "modal-dialog modal-lg modal-dialog-scrollable">
         <div class = "modal-content">
             <div class = "modal-header">
                 <h5 class = "modal-title">상품 상세정보 보기페이지</h5>
