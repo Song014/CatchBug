@@ -355,8 +355,7 @@
             data : data,
             dataType : "text",
             success : function(res){
-            	alert("이미지 변경이 완료되었습니다.\n 다시 로그인해 주세요.")
-                location.href="/logout.do";
+            	location.reload();
             },
             error : function(XMLHttpRequest, textStatus, errorThrown){
                 alert("통신 실패.")

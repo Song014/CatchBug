@@ -156,7 +156,7 @@
                 } else {
                     var uploadPath = null;
                     var roomName = $("#roomName").val();
-                    var uuid = '${member.uuid}';
+                    var uuid = '${profile.uuid}';
                     $.ajax({
                         type    : "POST",
                         url     : "getUploadPath.do",

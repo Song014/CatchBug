@@ -27,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.imageio.ImageIO;
 import javax.inject.Inject;
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -200,7 +201,7 @@ public class MemberController {
     }
 
     @PostMapping(value = "myProfileUpload", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<ImgVO> MypageProfile(MultipartFile multipartFile, ImgVO vo) {
+    public ResponseEntity<ImgVO> MypageProfile(MultipartFile multipartFile, ImgVO vo,HttpSession session) {
         File checkFile = new File(multipartFile.getOriginalFilename());
         String type = null;
 
@@ -244,18 +245,23 @@ public class MemberController {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-        File saveFile = new File(uploadPath, uploadFileName);
+//        File saveFile = new File(uploadPath, uploadFileName);
         
        
 
         /* 파일 저장 */
-        try {
-            multipartFile.transferTo(saveFile);
-
-            BufferedImage bo_image = ImageIO.read(saveFile);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            multipartFile.transferTo(saveFile);
+//
+//            BufferedImage bo_image = ImageIO.read(saveFile);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+        
+     // 이미지 관련 세션데이터 삭제
+        session.removeAttribute("profile");
+        // 프론트에서 받아온 이미지 관련 데이터 재설정
+        session.setAttribute("profile", vo);
         ResponseEntity<ImgVO> result = new ResponseEntity<ImgVO>(vo, HttpStatus.OK);
         return result;
     }
