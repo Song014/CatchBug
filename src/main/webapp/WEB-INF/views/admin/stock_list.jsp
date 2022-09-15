@@ -84,7 +84,6 @@
                     <div class = "col-lg-2" style = "margin-top: 3em;">
                         <div class = "accordion" id = "accordionExample">
                         <c:forEach var = "m" items = "${mainCategory }" varStatus = "status">
-                                <!-- ToDo 대분류 1,2,3, 일때 해당하는 카테고리 이름 -->
 
                                 <div class = "accordion-item">
                                     <h2 class = "accordion-header" id = "headingOne">
