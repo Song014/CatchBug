@@ -106,7 +106,7 @@
 
                                     <label for = "yourPassword" class = "form-label">* 비밀번호</label>
                                     <input type = "password" name = "pass" class = "form-control" id = "yourPassword"
-                                           required>
+                                           required placeholder = "비밀번호를 입력해주세요.">
                                     <div class = "invalid-feedback">Please, enter your Password!</div>
                                 </div>
 

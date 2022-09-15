@@ -1,28 +1,16 @@
 package com.catchbug.biz.admin;
 
-import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.List;
-
-import javax.servlet.http.HttpServletResponse;
-
+import com.catchbug.biz.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-import com.catchbug.biz.vo.Criteria;
-import com.catchbug.biz.vo.MemberVO;
-import com.catchbug.biz.vo.OrderItemVO;
-import com.catchbug.biz.vo.OrderVO;
-import com.catchbug.biz.vo.PageMaker;
-import com.catchbug.biz.vo.SearchVO;
+import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.List;
 
 @Controller
 public class AdminController {
@@ -155,8 +143,6 @@ public class AdminController {
 	@GetMapping("/orderDetail.do")
 	@ResponseBody
 	public List<OrderVO> getOrder(OrderVO vo) {
-		System.out.println("주문 상세보기 모달 컨트롤러");
-		System.out.println(vo.getOrder_no() + "============================");
 		return adminService.getOrder(vo);
 	}
 

@@ -1,20 +1,10 @@
 package com.catchbug.biz.product;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.text.Normalizer;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
-
-import javax.imageio.ImageIO;
-import javax.servlet.ServletContext;
-
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.catchbug.biz.vo.ImgVO;
+import com.catchbug.biz.vo.ProductVO;
+import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -30,17 +20,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.catchbug.biz.vo.ImgVO;
-import com.catchbug.biz.vo.ProductVO;
-
-import net.sf.json.JSONArray;
+import javax.imageio.ImageIO;
+import javax.servlet.ServletContext;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.text.Normalizer;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class ProductController {
 	
-	private String uploadFolder = "C:/work/spring-space/CatchBug/src/main/webapp/resources/productImg";
+	private String uploadFolder = "https://catchbugbucket.s3.ap-northeast-2.amazonaws.com/productImg";
 //	private String uploadFolder = "/Users/hyeon1339/CatchBugProject/src/main/webapp/resources/productImg";
 //	private String uploadFolder = "C:\\Users\\user\\git\\CatchBug\\src\\main\\webapp\\resources\\productImg";
 	
@@ -52,7 +49,7 @@ public class ProductController {
 	
 	@Autowired
 	private AmazonS3 s3Client;
-	
+
 	@Value("${aws.bucketname}")
 	private String bucketName;
 	
@@ -114,7 +111,6 @@ public class ProductController {
 
 	@PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<List<ImgVO>> productImgAjaxUpload(MultipartFile[] uploadFile) { // 여러개의 파일을 받을때를 대비
-		System.out.println("이미지 업로드 에이작스 작동");
 
 		/* 이미지 파일 체크 */
 		for (MultipartFile multipartFile : uploadFile) {

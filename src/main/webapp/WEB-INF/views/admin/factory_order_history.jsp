@@ -2,6 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<%@page import="com.catchbug.biz.vo.OrderVO"%>
+<%@page import="com.catchbug.biz.vo.MemberVO"%>
+<%@page import="java.util.List"%>
+
 <!DOCTYPE html>
 
 <head>
@@ -47,6 +52,12 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+<style>
+a {
+	text-align: center;
+}
+</style>
+
 </head>
 
 <body>
@@ -91,7 +102,7 @@
 			<div class="card">
 				<div class="card-body">
 					<div align="right" class="dataTable-top">
-					
+
 						<div>
 							<form action="factoryOrderHistory.do">
 								<select name="searchTap">
@@ -106,7 +117,8 @@
 
 
 					<div class="dataTable-container">
-						<table class="table datatable dataTable-table">
+						<table class="table datatable dataTable-table"
+							style="text-align: center;">
 							<tr>
 								<th scope="col" data-sortable=""><a href="#"
 									class="dataTable-sorter">No.</a></th>
@@ -128,19 +140,29 @@
 									<th scope="row">${status.count}</th>
 
 									<td><a class="primary order_detail_modal"
-											data-bs="${orderList.id}" data-bs-toggle="modal"
-											data-bs-target="#modal-biz"> ${orderList.order_no}</a></td>
-
+										data-bs="${orderList.id}" data-bs-toggle="modal"
+										data-bs-target="#modal-biz"> ${orderList.order_no}</a></td>
 									<td><a class="primary order_id_modal"
 										data-bs="${orderList.id}" data-bs-toggle="modal"
 										data-bs-target="#modalDialogScrollable"> ${orderList.id}</a></td>
-
 									<td><fmt:formatNumber value="${orderList.total_price}"
 											groupingUsed="true" />원</td>
 									<td><fmt:formatDate value="${orderList.processing_day}"
 											pattern="yyyy-MM-dd" timeZone="Asia/Seoul" /></td>
 									<td>${orderList.shipping_address}</td>
-									<td>${orderList.order_status}</td>
+									<td><c:if test="${orderList.order_status eq 0}">
+                                                본사 결제건
+                                            </c:if> <c:if
+											test="${orderList.order_status eq 1}">
+                                                관리자 승인전
+                                            </c:if> <c:if
+											test="${orderList.order_status eq 2}">
+                                                가맹점 결제 완료(관리자 승인)
+                                            </c:if> <c:if
+											test="${orderList.order_status eq 3}">
+                                                가맹점 결제 취소
+                                            </c:if></td>
+
 								</tr>
 							</c:forEach>
 						</table>
@@ -222,17 +244,16 @@
 								</tr>
 							</thead>
 							<tbody id="orderModal6">
-
-
 							</tbody>
 						</table>
 					</div>
 				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">Close</button>
+				</div>
 			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary"
-					data-bs-dismiss="modal">Close</button>
-			</div>
+
 		</div>
 	</div>
 
