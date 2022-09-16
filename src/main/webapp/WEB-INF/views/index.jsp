@@ -56,6 +56,7 @@
 a {
 	color: #012970;
 }
+
 a:hover {
 	color: red;
 }
@@ -105,7 +106,15 @@ a:hover {
 						<div class="card top-selling overflow-auto" style="height: 536px;">
 							<div class="card-body pb-0">
 								<h5 class="card-title">
-									Top 5 인기상품 리스트 <span>|</span>
+									<c:choose>
+										<c:when test="${member.level1 eq 1 }">
+											전체 가맹점 Top 5 주문상품 <span>|</span>
+										</c:when>
+										<c:when test="${member.level1 eq 2 }">
+											나의 Top 5 주문상품 <span>|</span>
+										</c:when>
+									</c:choose>
+									
 								</h5>
 								<table class="table table-borderless">
 									<thead>
@@ -122,7 +131,7 @@ a:hover {
 											<tr>
 												<th scope="row"><a href="#"><img
 														src="https://catchbugbucket.s3.ap-northeast-2.amazonaws.com/productImg/<fmt:formatDate value="${list.add_day }" pattern="yyyy-MM-dd"/>/${list.uuid}"
-														alt="" onclick = "window.open(this.src)" ></a></th>
+														alt="" onclick="window.open(this.src)"></a></th>
 												<td><c:choose>
 														<c:when test="${member.level1 eq 1 }">
 															<a href="stockList.do?product_name=${list.product_name}">${list.product_name }</a>
