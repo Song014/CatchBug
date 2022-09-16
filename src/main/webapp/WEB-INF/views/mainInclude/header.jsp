@@ -55,6 +55,18 @@
 
                         안녕하세요</span>
                 </c:when>
+                 <c:when test="${member.level1 eq 3}">
+                 	<script type="text/javascript">
+                 		alert("관리자 승인 대기중입니다");
+                 		location.href="logout.do"
+                 	</script>
+                    <img
+                            src="https://catchbugbucket.s3.ap-northeast-2.amazonaws.com/profileImg/${profile.uploadPath }/${profile.uuid}" alt="Profile"
+                            class="rounded-circle">
+                    <span class="d-none d-md-block dropdown-toggle ps-2">${member.business_name }가맹점님 
+
+                        안녕하세요</span>
+                </c:when>
                 <c:otherwise>
                      <span class="d-none d-md-block dropdown-toggle ps-2">로그인이
                         필요합니다</span>
