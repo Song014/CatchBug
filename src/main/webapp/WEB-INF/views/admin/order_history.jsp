@@ -134,7 +134,7 @@ a {
 										<td>${status.count}</td>
 										
 										<td><a class="primary order_detail_modal"
-											data-bs="${olist.id}" data-bs-toggle="modal"
+											data-bs="${olist.id}" data-order="${olist.order_no }" data-bs-toggle="modal"
 											data-bs-target="#modal-biz"> ${olist.order_no}</a></td>
 											
 										<td>${olist.ceo}</td>
@@ -288,12 +288,12 @@ a {
 	<script>
     /* order_detail 모달창 */
     $(document).on("click", ".order_detail_modal", function (e) {
-        var orderId = $(this).data("bs");
+        var order_no = $(this).data("order");
         e.preventDefault();
         let str = "";
         $.ajax({
             type   : "GET", //요청 메소드 방식
-            url    : "orderDetailid.do?id=" + orderId,
+            url    : "orderFDetail.do?order_no=" + order_no,
             success: function (result) {
                 $("#orderModal1").empty();
                 $("#orderModal3").empty();
@@ -301,7 +301,7 @@ a {
 
                 let tprice = 0;
                 for (var j = 0; j < result.length; j++) {
-                    tprice += result[j].total_price;
+                	tprice += result[j].price * result[j].purchase_amount;
                     const price = (result[j].price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
                     str += `
                            <tr style="text-align: center">
@@ -316,7 +316,7 @@ a {
                 }
 
                 sta = tprice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-                stb = orderId;
+                stb = order_no;
                 $("#orderModal1").html(str);
                 $("#orderModal3").html("<h3> 총 가격 : <i class = 'bx bx-won'>" + sta + "</i></h3>");
                 $("#orderModal4").html(stb);

@@ -56,7 +56,7 @@ public class OrderController {
 	@ResponseBody
 	@RequestMapping(value = "/verifyIamport/{imp_uid}")
 	public IamportResponse<Payment> paymentByImpUid(Model model, Locale locale, HttpSession session,
-													@PathVariable(value = "imp_uid") String imp_uid) throws IamportResponseException, IOException {
+			@PathVariable(value = "imp_uid") String imp_uid) throws IamportResponseException, IOException {
 		return client.paymentByImpUid(imp_uid);
 	}
 
@@ -64,7 +64,7 @@ public class OrderController {
 	@ResponseBody
 	@RequestMapping(value = "/payments/status/{status}")
 	public IamportResponse<PagedDataList<Payment>> paymentByImpStatus(Model model, Locale locale, HttpSession session,
-																	  @PathVariable(value = "status") String status) throws IamportResponseException, IOException {
+			@PathVariable(value = "status") String status) throws IamportResponseException, IOException {
 		return client.paymentsByStatus(status);
 	}
 
@@ -76,7 +76,7 @@ public class OrderController {
 		if (session.getAttribute("member") != null) {
 			member = (MemberVO) session.getAttribute("member");
 		} else {
-			model.addAttribute("msg","로그인한 유저만 이용가능합니다.");
+			model.addAttribute("msg", "로그인한 유저만 이용가능합니다.");
 			return "order/factory_order";
 //			return "redirect:login_page.do";
 		}
@@ -99,7 +99,7 @@ public class OrderController {
 		model.addAttribute("product", productList);
 		return "order/factory_order";
 	}
-	
+
 	// 주문하기 눌렀을때
 	@RequestMapping(value = "/orderPage.do")
 	public String orderPage(CartVO vo, HttpSession session, Model model) {
@@ -124,6 +124,7 @@ public class OrderController {
 	@RequestMapping(value = "/submitOrder.do")
 	@Transactional(rollbackFor = Exception.class)
 	public String submitOrder(OrderVO ov, HttpSession session) {
+		String url = "";
 		try {
 			MemberVO mvo = new MemberVO();
 			MemberVO memberpass = (MemberVO) session.getAttribute("member");
@@ -187,10 +188,15 @@ public class OrderController {
 				cs.deleteCart(vo);
 			}
 
+			if(member.getLevel1()==1) {
+				url= "redirect:factory_Order_History.do";
+			} else if(member.getLevel1()==2) {
+				url= "redirect:francOrderHistory.do";
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:factory_Order_History.do";
+		return url;
 	}
 
 	/* 비동기 처리 */
@@ -247,30 +253,28 @@ public class OrderController {
 		model.addAttribute("orderDetail", orderDetail);
 		return orderDetail;
 	}
-
+	
 	// 본사 발주 내역
 	@RequestMapping("factory_Order_History.do")
 	public String factoryOrderList(Model model, OrderVO vo) {
-
 		List<OrderVO> factory_order_List = os.factoryOrderList(vo);
-
 		model.addAttribute("list", factory_order_List);
-
 		return "admin/factory_order_history";
 	}
+	
 
 	// 가맹점 본인 발주 내역 리스트
 	@RequestMapping(value = "/francOrderHistory.do")
 	public ModelAndView FancOrderHistory(OrderVO ovo, Model model, ModelAndView mav, HttpSession session) {
 		System.out.println("francOrderHistory.do");
 		MemberVO member = (MemberVO) session.getAttribute("member");
-		
-		if(member != null) {
+
+		if (member != null) {
 			List<OrderVO> order_list = os.getOrderListid(member.getId());
 			System.out.println(session);
 			mav.addObject("olist", order_list);
 			mav.setViewName("franc/franc_order_history");
-		}else {
+		} else {
 			System.out.println("널");
 			mav.setViewName("franc/franc_order_history");
 		}
@@ -292,7 +296,7 @@ public class OrderController {
 	@RequestMapping("/order_search")
 	public String orderSearch(Criteria cri, Model model) {
 
-		if(cri.getSearchName().equals("")) {
+		if (cri.getSearchName().equals("")) {
 			return "redirect:francOrderHistory.do";
 		}
 		List<OrderVO> olist = os.getOrderSearch(cri);
@@ -323,11 +327,10 @@ public class OrderController {
 			model.addAttribute("olist", orderno_list);
 		}
 		return "admin/order_history";
-	} 
-	
-	
-	//본사 발주내역 페이지  + 검색
-	@RequestMapping(value="/factoryOrderHistory.do", method = RequestMethod.GET)
+	}
+
+	// 본사 발주내역 페이지 + 검색
+	@RequestMapping(value = "/factoryOrderHistory.do", method = RequestMethod.GET)
 	public String factoryOrderHistory(SearchVO sv, OrderVO vo, Model model) {
 		System.out.println(sv);
 

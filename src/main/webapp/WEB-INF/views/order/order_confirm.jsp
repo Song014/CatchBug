@@ -214,7 +214,7 @@
 									</tr>
 									<tr>
 										<th>우편번호:</th>
-										<td><input type="hidden" name="shipping_address"
+										<td><input type="hidden" name="postcode"
 											value="${member.postcode }">${member.postcode }</td>
 									</tr>
 									<tr>
@@ -224,7 +224,7 @@
 									</tr>
 									<tr>
 										<th>상세주소:</th>
-										<td><input type="hidden" name="shipping_address"
+										<td><input type="hidden" name="detailAddress"
 											value="${member.detailAddress }">${member.detailAddress }</td>
 									</tr>
 								</table>
